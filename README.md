@@ -24,13 +24,14 @@
 ------------------------------------------------
 
 ## Integrantes: :star:
-#### :star: Jorge
-#### :star: Alejandro
+#### :star: Jorge <a href="https://github.com/JorgeS86" target="_blank">GitHub Personal</a>
+#### :star: Alejandro <a href="https://github.com/Lales38" target="_blank">GitHub Personal</a>
+
 #### :star: David
 #### :star: Cristian
 #### :star: Andrés
-#### :star: Renzo
-#### :star: Priscila
+#### :star: Renzo <a href="https://github.com/RenzoBozzini" target="_blank">GitHub Personal</a>
+#### :star: Priscila <a href="https://github.com/Prixs2206" target="_blank">GitHub Personal</a>
 #### :star: Ana
 #### :star: Martín
 #### :star: Alberto
