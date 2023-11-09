@@ -32,7 +32,7 @@
 #### :star: Andrés
 #### :star: Renzo <a href="https://github.com/RenzoBozzini" target="_blank">GitHub Personal</a>
 #### :star: Priscila <a href="https://github.com/Prixs2206" target="_blank">GitHub Personal</a>
-#### :star: Ana
+#### :star: Ana <a href="https://github.com/AVEJA85" target="_blank">GitHub Personal</a>
 #### :star: Martín
 #### :star: Alberto
 
