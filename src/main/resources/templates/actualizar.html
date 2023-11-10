@@ -17,17 +17,14 @@
         <article class="main">
 
             <div>Registo</div>
-            <div> <h1> Registar Usuario </h1>
+            <div> <h1> Editar </h1>
             </div>
 
 
             <div class="container"  align="center">
-<<<<<<< HEAD
-                <form class="formulario" th:action="@{/-/-/}" method="POST">
-=======
-                <form class="formulario" th:action="@{/proveedor/registro/}" method="POST">
->>>>>>> a1274544bd81b2c2c5f8769b0e240df128de33e8
+                <form class="formulario" th:action="@{/proveedor/actualizar/__${proveedor.id}__}" method="POST">
                     <div class="form-group">
+                        <input hidden th:value="${id}" name="id">
                         <input type="text" class="form-group" name="nombre" placeholder="Nombre" th:value="${nombre}">
                         <input type="text" class="form-group" name="apellido" placeholder="Apellido" th:value="${apellido}">
                         <input type="text" size="30" class="form-group" name="correo" placeholder="Direccion de Correo Electronico" th:value="${correo}">
@@ -36,41 +33,12 @@
                     <div class="form-group">
                         <input type="text" class="form-group" name="direccion" placeholder="Domicilio" th:value="${direccion}">
                         <input type="text" size="30" class="form-group" name="telefono" placeholder="Telefono formato Ej. 0xx-1xx-xxxxxx" th:value="${telefono}">
-<<<<<<< HEAD
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <input type="password" class="form-control" name="password" placeholder="PASSWORD" th:value="${password}">
-                        <input type="password" class="form-control" name="password2" placeholder="Repetir PASSWORD" th:value="${password2}">
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <input type="file" class="form-control" name="archivo" >
-                    </div>
-                    <br>
-
-                    <div>
-                        <input type="date" id="fecha" class="form-group" name="fechalta" value="fecha()" th:value="${fechalta}">
-                        <script>
-                            function fecha() {
-                                var fecha = new Date();
-                                var year = date.getFullYear();
-                                var month = date.getMonth() + 1;
-                                var day = date.getDate();
-                                document.getElementById('fecha').innerHTML = month + "/" + day + "/" + year;
-
-                            }
-                        </script>
-                    </div>
-                    <br>
-
-                    <button type="submit" class="btn btn-primary"> Guardar </button>
-=======
                         <br>
                         <div class="form-group">
                             <input type="text" size="30" class="form-group" name="servicio" placeholder="Servicio" th:value="${servicio}">
                             <input type="number" size="30" class="form-group" name="precioXHora" placeholder="Precio por Hora" th:value="${precioXHora}">
                             <input type="text" size="30" class="form-group" name="experiencia" placeholder="Experiencia" th:value="${experiencia}">
+                            <input type="text" size="30" class="form-group" name="alta" placeholder="Alta / Baja" th:value="${alta}">
                         </div>
                         <br>
                         <div class="form-group">
@@ -99,7 +67,6 @@
                         <br>
 
                         <button type="submit" class="btn btn-primary"> Guardar </button>
->>>>>>> a1274544bd81b2c2c5f8769b0e240df128de33e8
                 </form>
 
                 <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
@@ -116,23 +83,6 @@
                 </div> 
 
 
-<<<<<<< HEAD
-            </div>
-
-            <div class="btn-holder">
-
-                <button class="button2" onclick='goBack()'>Atrás</button>
-                <script>
-                    function goBack() {
-                        history.back();
-                    }
-                </script>
-            </div>
-        </article>
-        <footer class="footer">FOOTER</footer>
-
-    </body>
-=======
             </div></div>
 
         <div class="btn-holder">
@@ -148,5 +98,4 @@
     <footer class="footer">FOOTER</footer>
 
 </body>
->>>>>>> a1274544bd81b2c2c5f8769b0e240df128de33e8
 </html>
