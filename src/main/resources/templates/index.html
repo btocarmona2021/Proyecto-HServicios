@@ -1,10 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
-    <title>JORGE</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Services</title>
+   <link href="css/one-page-wonder.min.css" rel="stylesheet">
+   <!-- comment <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" 
+          rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    -->
+  <link rel="stylesheet" href="../static/style.css"><!-- visual -->
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/car.css">
+  <link rel="icon" type="image/jpg" href="/img/logo.jpg"/> 
+  
 </head>
-<body>
-    <h1>TEST JORGE</h1>
+<body class="grid-container">
+  <header class="header">
+                   <div><a href="/">
+          <img class="img" src="/img/logo.jpg" alt="Hservice"/></a></div>
+       </header>
+  <nav class="navbar"> NAVBAR
+      
+    <a  href="/registrar">registro</a>
+    <a  href="/login">login</a>
+    <a  href="/buscador">buscar</a>
+  </nav>
+  
+  <article class="main"> 
+      <div>
+          <div id="carrusel-contenido">
+            <div id="carrusel-caja">
+                <div class="carrusel-elemento">
+                    <img class="imagenes" src="/img/caru01.jpg" >
+                </div>
+                <div class="carrusel-elemento">   
+                    <img class="imagenes" src="/img/caru02.jpg" >
+                </div>
+              <!--  <div class="carrusel-elemento">   
+                    <img class="imagenes" src="../static/img/caru03.jpg" >
+                                        
+                </div>-->
+            </div>
+        </div> 
+</div>
+         
+           <div class="container">
+                    <tbody th:each="usuarios : ${usuarios}">   
+                    <div class="card" >
+                        <div>
+                            <img src="../img/logo.jpg" alt="noti">
+                        </div>
+                        <!-- <div>
+                            <h4 th:text="${usuarios.nombre}"></h4>
+                        </div> -->
+                        <div>
+                            <p th:text="${usuarios.apellido}"></p>
+                        </div>
+                        
+                        
+                    </div>
+                    </tbody>
+                </div>
+     
+      
+      todo el contenido a mostrar 
+   * ideas crear un carousel con una imagen con una breve descripcion de la <br> de la App (ejemplo el tipo de servicio que ofrece)<br>
+    otra imagen con los pasos a seguir para contratar un servicio. ejemplo buscas/ registor/ enviar solicitud <br>
+    * mas abajo se podrian mostrar en formas de cartas diferentes proveedores de servicios y su puntuacion <br>
+    * listar categorias con iconos
+
+  </article>
+  <footer class="footer"> informacion del FOOTER</footer>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 </body>
 </html>
