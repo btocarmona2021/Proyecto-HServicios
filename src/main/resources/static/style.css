@@ -83,3 +83,8 @@ body {
       200px    auto   200px;
   }
 }
+img {
+  max-width: 100%;
+  width: 120px;  
+  
+}
