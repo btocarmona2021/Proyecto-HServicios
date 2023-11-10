@@ -1,23 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home Services</title>
    <link href="css/one-page-wonder.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" 
+   <!-- comment <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" 
           rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-   
+    -->
   <link rel="stylesheet" href="../static/style.css"><!-- visual -->
   <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/car.css">
   <link rel="icon" type="image/jpg" href="/img/logo.jpg"/> 
   
 </head>
 <body class="grid-container">
   <header class="header">
-      <div><img class="img" src="/img/logo.jpg" alt="Hservice"/></div>
+                   <div><a href="/">
+          <img class="img" src="/img/logo.jpg" alt="Hservice"/></a></div>
        </header>
   <nav class="navbar"> NAVBAR
+      
     <a  href="/registrar">registro</a>
     <a  href="/login">login</a>
     <a  href="/buscador">buscar</a>
@@ -25,36 +28,40 @@
   
   <article class="main"> 
       <div>
-          <div id="carouselExampleIndicators" class="carousel slide">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="img/caru01.jpg" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="img/caru02.jpg" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="img/caru03.jpg" class="d-block w-100" alt="...">
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
+          <div id="carrusel-contenido">
+            <div id="carrusel-caja">
+                <div class="carrusel-elemento">
+                    <img class="imagenes" src="/img/caru01.jpg" >
+                </div>
+                <div class="carrusel-elemento">   
+                    <img class="imagenes" src="/img/caru02.jpg" >
+                </div>
+              <!--  <div class="carrusel-elemento">   
+                    <img class="imagenes" src="../static/img/caru03.jpg" >
+                                        
+                </div>-->
+            </div>
+        </div> 
 </div>
-      </div>
-      <div class="category">
-          <!-- tabla con categorias -->
-      </div>
+         
+           <div class="container">
+                    <tbody th:each="usuarios : ${usuarios}">   
+                    <div class="card" >
+                        <div>
+                            <img src="../img/logo.jpg" alt="noti">
+                        </div>
+                        <!-- <div>
+                            <h4 th:text="${usuarios.nombre}"></h4>
+                        </div> -->
+                        <div>
+                            <p th:text="${usuarios.apellido}"></p>
+                        </div>
+                        
+                        
+                    </div>
+                    </tbody>
+                </div>
+     
       
       todo el contenido a mostrar 
    * ideas crear un carousel con una imagen con una breve descripcion de la <br> de la App (ejemplo el tipo de servicio que ofrece)<br>
