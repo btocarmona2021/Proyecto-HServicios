@@ -11,6 +11,7 @@ import com.equipoh.hservicios.repositorios.ProveedorRepositorio;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,10 +28,11 @@ public class ProveedorServicio {
 
     @Transactional
     public void registrarProveedor(String nombre, String apellido, String direccion,
-            String telefono, String correo, String password, String password2, String rol, String experiencia, Double precioXHora, String servicio) throws MiException {
+            String telefono, String correo, String password, String password2, String rol,
+            String experiencia, Double precioXHora, String servicio) throws MiException {
 
         validar(nombre, correo, password, password2);
-        
+
         Proveedor proveedor = new Proveedor();
 
         proveedor.setNombre(nombre);
@@ -43,20 +45,59 @@ public class ProveedorServicio {
         proveedor.setExperiencia(experiencia);
         proveedor.setPrecioXHora(precioXHora);
         //proveedor.setServicio();
+        proveedor.setServicio(servicio);
         proveedor.setFechaAlta(new Date());
         proveedor.setAlta(true);
-        
+
         proveedorRepositorio.save(proveedor);
 
     }
-    
-    public List<Proveedor> listaProveedor() {
+
+    @Transactional
+    public void actualizar(String id, String nombre, String apellido, String direccion,
+            String telefono, String correo, String password, String password2, String rol,
+            String experiencia, Double precioXHora, String servicio, String alta) throws MiException {
+
+        validar(nombre, correo, password, password2);
+
+        Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+
+            Proveedor proveedor = respuesta.get();
+            
+            proveedor.setNombre(nombre);
+            proveedor.setApellido(apellido);
+            proveedor.setDireccion(direccion);
+            proveedor.setTelefono(telefono);
+            proveedor.setCorreo(correo);
+            proveedor.setPassword(password);
+            proveedor.setRol(Rol.PROVEEDOR);
+            proveedor.setExperiencia(experiencia);
+            proveedor.setPrecioXHora(precioXHora);
+            //proveedor.setServicio();
+            proveedor.setServicio(servicio);
+            proveedor.setFechaAlta(new Date());
+            if (alta.equalsIgnoreCase("ALTA")) {
+                proveedor.setAlta(true);
+            }else{
+                proveedor.setAlta(false);
+            }
+
+            proveedorRepositorio.save(proveedor);
+        }
+    }
+
+    public Proveedor getOne(String id) {
+        return proveedorRepositorio.getOne(id);
+    }
+
+    public List<Proveedor> listaProveedores() {
         List<Proveedor> proveedores = new ArrayList();
         proveedores = proveedorRepositorio.findAll();
         return proveedores;
     }
 
-    private void validar(String nombre, String correo, String password, String password2) throws MiException{
+    private void validar(String nombre, String correo, String password, String password2) throws MiException {
         if (nombre.isEmpty() || nombre == null) {
             throw new MiException("El nombre no puede ser nulo o estar vacio");
         }

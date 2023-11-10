@@ -33,5 +33,5 @@ public class Proveedor extends Usuario {
     private Double precioXHora;
     //@OneToOne
     //private Servicio servicio;
-
+    private String servicio;
 }
