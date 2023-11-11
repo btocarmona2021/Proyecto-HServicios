@@ -23,7 +23,9 @@ public class UsuarioServicio {
     private UsuarioRepositorio usuarioRepositorio;
 
     @Transactional
-    public void registrarUsuario(String nombre, String apellido, String direccion, String telefono, String correo, Date fechaAlta, String password, String password2) throws MisExcepciones {
+    public void registrarUsuario(String nombre, String apellido, String direccion,
+            String telefono, String correo, String password, String password2) throws MisExcepciones {
+
         // Manejo de Excepciones
         validar(nombre, correo, password, password2);
 
@@ -34,14 +36,16 @@ public class UsuarioServicio {
         user.setDireccion(direccion);
         user.setTelefono(telefono);
         user.setCorreo(correo);
-        user.setFechaAlta(fechaAlta);
+        user.setFechaAlta(new Date());
 
-        /**
-         * *************************
-         * Modificar para encriptar *************************
-         */
+        /****************************
+         * Modificar para encriptar *
+         ****************************/
         user.setPassword(password);
 
+        /************************************
+         * ESPACIO RESERVADO PARA LA IMAGEN *
+         ************************************/
         user.setRol(Rol.USUARIO);
 
         user.setAlta(Boolean.TRUE);
@@ -51,48 +55,54 @@ public class UsuarioServicio {
     }
 
     @Transactional
-    public void actualizarUsuario(String id, String nombre, String apellido, String direccion, String telefono, String correo, Date fechaAlta, String password, String password2) throws MisExcepciones {
+    public void actualizarUsuario(String id, String nombre, String apellido,
+            String direccion, String telefono, String correo, String password,
+            String password2) throws MisExcepciones {
+
         // Manejo de Excepciones
         validar(nombre, correo, password, password2);
 
         Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
         if (respuesta.isPresent()) {
-            Usuario user = respuesta.get();
+            Usuario usuario = respuesta.get();
 
-            user.setNombre(nombre);
-            user.setApellido(apellido);
-            user.setDireccion(direccion);
-            user.setTelefono(telefono);
-            user.setCorreo(correo);
-            user.setFechaAlta(fechaAlta);
+            usuario.setNombre(nombre);
+            usuario.setApellido(apellido);
+            usuario.setDireccion(direccion);
+            usuario.setTelefono(telefono);
+            usuario.setCorreo(correo);
+
             /****************************
              * Modificar para encriptar *
              ****************************/
-            user.setPassword(password);
-            /**
-             * **********************************
-             * ESPACIO RESERVADO PARA LA IMAGEN *
-             * **********************************
-             */
-            /**
-             * *************************************
-             * ESPACIO RESERVADO CAMBIO DE USUARIO *
-             * *************************************
-             */
-            user.setRol(Rol.USUARIO);
+            usuario.setPassword(password);
 
-            user.setAlta(Boolean.TRUE);
+            /************************************
+             * ESPACIO RESERVADO PARA LA IMAGEN *
+             ************************************/
+            /***************************************
+             * ESPACIO RESERVADO CAMBIO DE USUARIO *
+             ***************************************/
+            usuario.setRol(Rol.USUARIO);
+            usuario.setAlta(Boolean.TRUE);
 
             // Guardar la variable
-            usuarioRepositorio.save(user);
+            usuarioRepositorio.save(usuario);
         }
-       
+
     }
 
-    /**
-     * *************************
-     * Dejar este metodo para más tarde: CREAR ACTUALIZAR y ELIMINAR ANTES
-         */
+    @Transactional
+    public void bajaUsuario(String id) throws MisExcepciones {
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            usuarioRepositorio.getById(id).setAlta(Boolean.FALSE);
+        } else {
+            // En el supuesto que no existiera el usuario...
+            throw new MisExcepciones("No se pudo dar de baja el Usuario " + usuarioRepositorio.getById(id).getNombre() + ". El usuario no fue encontrado.");
+        }
+    }
+
     public List<Usuario> listarUsuario() {
         // La lista va a recuperar a todos los usuarios para mostrar en la pagina a todos ellos
         List<Usuario> usuarios = usuarioRepositorio.findAll();
