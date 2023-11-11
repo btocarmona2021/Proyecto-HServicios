@@ -26,6 +26,7 @@ public class Usuario{
     // Clave primaria de la entidad
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
+    
     // Genera un id String "autogenerado".
     private String id;
 
