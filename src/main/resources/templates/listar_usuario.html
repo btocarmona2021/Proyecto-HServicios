@@ -8,9 +8,10 @@
   <link rel="icon" type="image/jpg" href="/img/logo.jpg"/> 
 </head>
 <body class="grid-container">
-  <header class="header">
-      <div><img class="img" src="/img/logo.jpg" alt="Hservice"/></div>
-       </header>
+   <header class="header">
+            <div><a href="/">
+                    <img class="img" src="/img/logo.jpg" alt="Hservice"/></a></div>
+        </header>
         <nav class="navbar">NAVBAR</nav>
         <article class="main">
             <div>Listamos los usuarios</div>
@@ -24,6 +25,7 @@
                         <th scope="col">Apellido</th>
                         <th scope="col">Direccion de Correo Electronico</th>
                          <th scope="col">Estado</th>
+                         <th scope="col">rol</th>
                         <th scope="col" sec:authorize="hasRole('ADMIN')" colspan="2">Acciones</th>
                     </tr>
                 </thead>
@@ -38,6 +40,13 @@
                                 <a >Activo</a>
                             </li>
                             <li><div><a  href="/active">Alta/Baja</a></div>
+                               </li>
+                        </ul></td>
+                         <td ><ul>
+                            <li>
+                                <a >usuario</a>
+                            </li>
+                            <li><div><a  href="/active">cambiar</a></div>
                                </li>
                         </ul></td>
                         <td>
