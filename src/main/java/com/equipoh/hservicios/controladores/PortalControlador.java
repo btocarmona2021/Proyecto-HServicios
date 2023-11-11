@@ -4,7 +4,7 @@ package com.equipoh.hservicios.controladores;
 
 
 import com.equipoh.hservicios.entidades.Usuario;
-import com.equipoh.hservicios.servicios.UsuarioService;
+import com.equipoh.hservicios.servicios.UsuarioServicio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,11 +18,11 @@ public class PortalControlador {
 
    
  @Autowired
-    private UsuarioService usuarioService;
+    private UsuarioServicio usuarioServicio;
    
     @GetMapping("/")
     public String index(ModelMap modelo) {
-         List<Usuario> usuarios = usuarioService.listarUsuarios();
+        List<Usuario> usuarios = usuarioServicio.listarUsuario();
         modelo.addAttribute("usuarios", usuarios);
 
      return "index.html";
@@ -42,7 +42,7 @@ public class PortalControlador {
     }
     @GetMapping("/list")
     public String listar(ModelMap modelo) {
-        List<Usuario> usuarios = usuarioService.listarUsuarios();
+        List<Usuario> usuarios = usuarioServicio.listarUsuario();
         modelo.addAttribute("usuarios", usuarios);
 
         return "listar_usuario.html";
@@ -57,7 +57,7 @@ public class PortalControlador {
     }
      @GetMapping("/buscador")
     public String buscador(ModelMap modelo) {
-        List<Usuario> usuarios = usuarioService.listarUsuarios();
+        List<Usuario> usuarios = usuarioServicio.listarUsuario();
         modelo.addAttribute("usuarios", usuarios);
         return "buscador.html";
     }

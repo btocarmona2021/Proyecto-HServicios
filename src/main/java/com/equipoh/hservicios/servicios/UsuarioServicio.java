@@ -46,7 +46,15 @@ public class UsuarioServicio {
         /************************************
          * ESPACIO RESERVADO PARA LA IMAGEN *
          ************************************/
-        user.setRol(Rol.USUARIO);
+        
+        // Las siguientes lineas buscan si hay algun usuario registrado y al primer usuario registrado le da el rol de ADMIN
+        List<Usuario> respuesta = usuarioRepositorio.findAll();
+        if (respuesta.isEmpty()) {
+            user.setRol(Rol.ADMIN);
+        } else {
+            user.setRol(Rol.USUARIO);
+        }
+        
 
         user.setAlta(Boolean.TRUE);
 
