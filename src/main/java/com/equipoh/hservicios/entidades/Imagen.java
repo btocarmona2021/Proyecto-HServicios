@@ -1,17 +1,13 @@
 
 package com.equipoh.hservicios.entidades;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 
 /**
  *
@@ -35,10 +31,4 @@ public class Imagen {
     
     @Lob @Basic(fetch =FetchType.LAZY)
     private byte[] contenido;
-    
-    
-    
-    
-    
-    
 }

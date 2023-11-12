@@ -23,7 +23,7 @@ public class UsuarioServicio {
     private UsuarioRepositorio usuarioRepositorio;
 
     @Transactional
-    public void registrarUsuario(String nombre, String apellido, String direccion, String telefono, String correo, Date fechaAlta, String password, String password2) throws {
+    public void registrarUsuario(String nombre, String apellido, String direccion, String telefono, String correo, Date fechaAlta, String password, String password2) throws MiException {
         // Manejo de Excepciones
         validar(nombre, correo, password, password2);
 
@@ -47,7 +47,7 @@ public class UsuarioServicio {
     }
 
     @Transactional
-    public void actualizarUsuarios(String id, String nombre, String apellido, String direccion, String telefono, String correo, Date fechaAlta, String password, String password2) throws MisExcepciones {
+    public void actualizarUsuario(String id, String nombre, String apellido, String direccion, String telefono, String correo, Date fechaAlta, String password, String password2) throws MisExcepciones {
         // Manejo de Excepciones
         validar(nombre, correo, password, password2);
 

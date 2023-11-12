@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
  *
  * @author Martb
  */
-
 @Repository
 public interface ImagenRepositorio extends JpaRepository<Imagen,String> {
     

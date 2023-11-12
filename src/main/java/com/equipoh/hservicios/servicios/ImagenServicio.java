@@ -3,10 +3,11 @@ package com.equipoh.hservicios.servicios;
 
 import com.equipoh.hservicios.entidades.Imagen;
 import com.equipoh.hservicios.repositorios.ImagenRepositorio;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Optional;
 
 /**
  *
@@ -15,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class ImagenServicio {
-    
     @Autowired
     private ImagenRepositorio imagenRepositorio;
     
@@ -38,9 +38,7 @@ public class ImagenServicio {
             } catch (Exception e) {
                 
                 System.err.println(e.getMessage());
-                
             }
-            
         }
         
         return null;
@@ -82,11 +80,6 @@ public class ImagenServicio {
             }
             
         }
-        
         return null;
-        
-       
-    
-    } 
-    
+    }
 }
