@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/imagen")
+
 public class ImagenControlador {
 
     @Autowired
@@ -40,6 +41,4 @@ public class ImagenControlador {
         return new ResponseEntity<>(imagen, headers,HttpStatus.OK);
 
     }
-
-
 }

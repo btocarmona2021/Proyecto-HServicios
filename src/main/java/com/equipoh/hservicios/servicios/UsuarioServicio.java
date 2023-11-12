@@ -112,7 +112,7 @@ public class UsuarioServicio {
         }
     }
 
-    public List<Usuario> listarUsuario() {
+    public List<Usuario> listarUsuarios() {
         // La lista va a recuperar a todos los usuarios para mostrar en la pagina a todos ellos
         List<Usuario> usuarios = usuarioRepositorio.findAll();
         return usuarios;
