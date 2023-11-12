@@ -25,41 +25,45 @@ public class UsuarioServicio {
     @Transactional
     public void registrarUsuario(String nombre, String apellido, String direccion,
             String telefono, String correo, String password, String password2) throws MisExcepciones {
-
-        // Manejo de Excepciones
-        validar(nombre, correo, password, password2);
-
-        Usuario user = new Usuario();
-
-        user.setNombre(nombre);
-        user.setApellido(apellido);
-        user.setDireccion(direccion);
-        user.setTelefono(telefono);
-        user.setCorreo(correo);
-        user.setFechaAlta(new Date());
-
-        /****************************
-         * Modificar para encriptar *
-         ****************************/
-        user.setPassword(password);
-
-        /************************************
-         * ESPACIO RESERVADO PARA LA IMAGEN *
-         ************************************/
-        
-        // Las siguientes lineas buscan si hay algun usuario registrado y al primer usuario registrado le da el rol de ADMIN
-        List<Usuario> respuesta = usuarioRepositorio.findAll();
-        if (respuesta.isEmpty()) {
-            user.setRol(Rol.ADMIN);
+        List<Usuario> existe = usuarioRepositorio.buscarCorreoUsuarioActivo(correo);
+        if (!existe.isEmpty()) {
+            System.out.println("Ya existe el usuario.");
+            throw new MisExcepciones("El usuario no ha podido ser registrado porque el correo ya ha sido registrado.");
         } else {
-            user.setRol(Rol.USUARIO);
+            // Manejo de Excepciones
+            validar(nombre, correo, password, password2);
+
+            Usuario user = new Usuario();
+
+            user.setNombre(nombre);
+            user.setApellido(apellido);
+            user.setDireccion(direccion);
+            user.setTelefono(telefono);
+            user.setCorreo(correo);
+            user.setFechaAlta(new Date());
+
+            /****************************
+             * Modificar para encriptar *
+             ****************************/
+            user.setPassword(password);
+
+            /************************************
+             * ESPACIO RESERVADO PARA LA IMAGEN *
+             ************************************/
+            
+            // Las siguientes lineas buscan si hay algun usuario registrado y al primer usuario registrado le da el rol de ADMIN
+            List<Usuario> respuesta = usuarioRepositorio.findAll();
+            if (respuesta.isEmpty()) {
+                user.setRol(Rol.ADMIN);
+            } else {
+                user.setRol(Rol.USUARIO);
+            }
+
+            user.setAlta(Boolean.TRUE);
+
+            // Guardar la variable
+            usuarioRepositorio.save(user);
         }
-        
-
-        user.setAlta(Boolean.TRUE);
-
-        // Guardar la variable
-        usuarioRepositorio.save(user);
     }
 
     @Transactional
@@ -80,17 +84,23 @@ public class UsuarioServicio {
             usuario.setTelefono(telefono);
             usuario.setCorreo(correo);
 
-            /****************************
+            /**
+             * **************************
              * Modificar para encriptar *
-             ****************************/
+             ***************************
+             */
             usuario.setPassword(password);
 
-            /************************************
+            /**
+             * **********************************
              * ESPACIO RESERVADO PARA LA IMAGEN *
-             ************************************/
-            /***************************************
+             ***********************************
+             */
+            /**
+             * *************************************
              * ESPACIO RESERVADO CAMBIO DE USUARIO *
-             ***************************************/
+             **************************************
+             */
             usuario.setRol(Rol.USUARIO);
             usuario.setAlta(Boolean.TRUE);
 
@@ -99,7 +109,14 @@ public class UsuarioServicio {
         }
 
     }
-
+    
+    /****************************************************
+     * RESERVADO PARA CAMBIO DE TIPO DE USUARIO         *
+     * NOTA: el método para cambio de tipo de usuario,  *
+     * crearía un usuario de tipo proveedor, y llamaría *
+     * al método bajaUsuario para setear alta a FALSE.  *
+     ****************************************************/
+    
     @Transactional
     public void bajaUsuario(String id) throws MisExcepciones {
         Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
@@ -132,5 +149,11 @@ public class UsuarioServicio {
             throw new MisExcepciones("Las contraseñas ingresadas NO son iguales.");
         }
     }
-
+    
+    
+    @Transactional
+    public Usuario buscarUsuario(String id) {
+        // Método que debería devolver el usuario por id
+        return usuarioRepositorio.buscarUsuario(id);
+    }
 }

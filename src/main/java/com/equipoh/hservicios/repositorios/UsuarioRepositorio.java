@@ -1,6 +1,7 @@
 package com.equipoh.hservicios.repositorios;
 
 import com.equipoh.hservicios.entidades.Usuario;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -26,5 +27,10 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, String> {
      * de ALTA (Alta = TRUE). Esto se haría para poder evitar que la @QUERY arroje 
      * más de un resultado.
      **************************/
-
+    @Query("SELECT u FROM Usuario u WHERE u.id = :id")
+    public Usuario buscarUsuario(@Param("id") String id);
+    
+    @Query("SELECT u FROM Usuario u WHERE u.correo = :correo AND u.alta = TRUE")
+    public List<Usuario> buscarCorreoUsuarioActivo(@Param("correo") String correo);
+    
 }
