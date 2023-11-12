@@ -13,19 +13,20 @@
                     <img class="img" src="/img/logo.jpg" alt="Hservice"/></a></div>
         </header>
   <nav class="navbar">NAVBAR</nav>
-  
-  <article class="main"> <div>login</div>
+
+   <article class="main">
+       <div th:text="#{ingresar}"></div>
         <form class="" action="#" method="POST">
  <div>
             <input type="text" class="" name="email" placeholder="email">
             <input type="text" class="" name="password" placeholder="contraseña">
-          <a  href="/panel"> <!-- <button type="submit" class="">ingresar</button>-->
-            ingresar</a>
+     <a href="/panel" th:text="#{ingresar}"> <!-- <button type="submit" class="">ingresar</button>-->
+     </a>
             
         </div>
         </form>
-       
-        <a  href="/registrar">registro</a>
+
+       <a href="/registrar" th:text="#{registro}">registro</a>
         <div class="btn-holder">
                 
             <button class="button2" onclick='goBack()'>Atrás</button>

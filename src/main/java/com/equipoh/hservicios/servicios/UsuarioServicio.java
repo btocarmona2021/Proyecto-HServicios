@@ -7,6 +7,7 @@ package com.equipoh.hservicios.servicios;
 
 import com.equipoh.hservicios.entidades.Usuario;
 import com.equipoh.hservicios.enumeracion.Rol;
+import com.equipoh.hservicios.excepciones.MiException;
 import com.equipoh.hservicios.repositorios.UsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,7 +48,7 @@ public class UsuarioServicio {
     }
 
     @Transactional
-    public void actualizarUsuario(String id, String nombre, String apellido, String direccion, String telefono, String correo, Date fechaAlta, String password, String password2) throws MisExcepciones {
+    public void actualizarUsuario(String id, String nombre, String apellido, String direccion, String telefono, String correo, Date fechaAlta, String password, String password2) throws MiException {
         // Manejo de Excepciones
         validar(nombre, correo, password, password2);
 
@@ -94,19 +95,19 @@ public class UsuarioServicio {
         return usuarios;
     }
 
-    private void validar(String nombre, String correo, String password, String password2) throws MisExcepciones {
+    private void validar(String nombre, String correo, String password, String password2) throws MiException {
         if ((nombre.isEmpty()) || (nombre == null)) {     // Si el nombre ESTÁ VACÍO o es NULO
-            throw new MisExcepciones("El nombre no puede estar vacío o ser nulo.");
+            throw new MiException("El nombre no puede estar vacío o ser nulo.");
         }
         if ((correo.isEmpty()) || (correo == null)) {     // Si el correo ESTÁ VACÍO o es NULO
-            throw new MisExcepciones("El correo electrónico no puede estar vacío o ser nulo.");
+            throw new MiException("El correo electrónico no puede estar vacío o ser nulo.");
         }
         // VER EL TAMAÑO DE LA CONTRASEÑA
         if ((password.isEmpty()) || (password == null) || (password.length() < 5)) {     // Si la contraseña ESTÁ VACÍA o es NULL
-            throw new MisExcepciones("La contraseña no puede estar vacía, y debe tener, al menos, 5 caracteres.");
+            throw new MiException("La contraseña no puede estar vacía, y debe tener, al menos, 5 caracteres.");
         }
         if (!password.equals(password2)) {     // Si las contraseñas no coinciden
-            throw new MisExcepciones("Las contraseñas ingresadas NO son iguales.");
+            throw new MiException("Las contraseñas ingresadas NO son iguales.");
         }
     }
 
