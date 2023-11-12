@@ -24,7 +24,9 @@ public class UsuarioServicio {
     private UsuarioRepositorio usuarioRepositorio;
 
     @Transactional
-    public void registrarUsuario(String nombre, String apellido, String direccion, String telefono, String correo, Date fechaAlta, String password, String password2) throws MiException {
+    public void registrarUsuario(String nombre, String apellido, String direccion,
+                                 String telefono, String correo, String password, String password2) throws MiException {
+
         // Manejo de Excepciones
         validar(nombre, correo, password, password2);
 
@@ -35,64 +37,91 @@ public class UsuarioServicio {
         user.setDireccion(direccion);
         user.setTelefono(telefono);
         user.setCorreo(correo);
-        user.setFechaAlta(fechaAlta);
-        /**
-         * *************************
-         * Modificar para encriptar *************************
-         */
+        user.setFechaAlta(new Date());
+
+        /****************************
+         * Modificar para encriptar *
+         ****************************/
         user.setPassword(password);
-        user.setRol(Rol.USUARIO);
+
+        /************************************
+         * ESPACIO RESERVADO PARA LA IMAGEN *
+         ************************************/
+
+        // Las siguientes lineas buscan si hay algun usuario registrado y al primer usuario registrado le da el rol de ADMIN
+        List<Usuario> respuesta = usuarioRepositorio.findAll();
+        if (respuesta.isEmpty()) {
+            user.setRol(Rol.ADMIN);
+        } else {
+            user.setRol(Rol.USUARIO);
+        }
+        
+
         user.setAlta(Boolean.TRUE);
+
         // Guardar la variable
         usuarioRepositorio.save(user);
     }
 
     @Transactional
-    public void actualizarUsuario(String id, String nombre, String apellido, String direccion, String telefono, String correo, Date fechaAlta, String password, String password2) throws MiException {
+    public void actualizarUsuario(String id, String nombre, String apellido,
+                                  String direccion, String telefono, String correo, String password,
+                                  String password2) throws MiException {
+
         // Manejo de Excepciones
         validar(nombre, correo, password, password2);
 
         Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
         if (respuesta.isPresent()) {
-            Usuario user = respuesta.get();
-            user.setNombre(nombre);
-            user.setApellido(apellido);
-            user.setDireccion(direccion);
-            user.setTelefono(telefono);
-            user.setCorreo(correo);
-            user.setFechaAlta(fechaAlta);
+            Usuario usuario = respuesta.get();
+
+            usuario.setNombre(nombre);
+            usuario.setApellido(apellido);
+            usuario.setDireccion(direccion);
+            usuario.setTelefono(telefono);
+            usuario.setCorreo(correo);
+
             /****************************
              * Modificar para encriptar *
              ****************************/
-            user.setPassword(password);
-            /**
-             * **********************************
-             * ESPACIO RESERVADO PARA LA IMAGEN *
-             * **********************************
-             */
-            /**
-             * *************************************
-             * ESPACIO RESERVADO CAMBIO DE USUARIO *
-             * *************************************
-             */
-            user.setRol(Rol.USUARIO);
+            usuario.setPassword(password);
 
-            user.setAlta(Boolean.TRUE);
+            /************************************
+             * ESPACIO RESERVADO PARA LA IMAGEN *
+             ************************************/
+            /***************************************
+             * ESPACIO RESERVADO CAMBIO DE USUARIO *
+             ***************************************/
+            usuario.setRol(Rol.USUARIO);
+            usuario.setAlta(Boolean.TRUE);
 
             // Guardar la variable
-            usuarioRepositorio.save(user);
+            usuarioRepositorio.save(usuario);
         }
 
     }
 
-    /**
-     * *************************
-     * Dejar este metodo para más tarde: CREAR ACTUALIZAR y ELIMINAR ANTES
-     */
-    public List<Usuario> listarUsuarios() {
+    @Transactional
+    public void bajaUsuario(String id) throws MiException {
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            usuarioRepositorio.getById(id).setAlta(Boolean.FALSE);
+        } else {
+            // En el supuesto que no existiera el usuario...
+            throw new MiException("No se pudo dar de baja el Usuario " + usuarioRepositorio.getById(id).getNombre() + ". El usuario no fue encontrado.");
+        }
+    }
+
+    public List<Usuario> listarUsuario() {
         // La lista va a recuperar a todos los usuarios para mostrar en la pagina a todos ellos
         List<Usuario> usuarios = usuarioRepositorio.findAll();
         return usuarios;
+    }
+
+    //OBTENGO UN USUARIO POR ID
+    public Usuario obetenerUsuario(String id) {
+        Usuario usuario = usuarioRepositorio.getOne(id);
+        return usuario;
     }
 
     private void validar(String nombre, String correo, String password, String password2) throws MiException {

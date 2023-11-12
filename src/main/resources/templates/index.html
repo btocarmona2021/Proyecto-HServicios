@@ -18,10 +18,10 @@
         </header>
         <nav class="navbar"> NAVBAR
 
-            <a href="/proveedor/registrar" th:text="#{menu.proveedor}"></a>
-            <a href="/registrar" th:text="#{menu.usuario}"></a>
-            <a href="/login" th:text="#{menu.login}"></a>
-            <a href="/buscador" th:text="#{menu.buscar}"></a>
+            <a href="/proveedor/registrar">registro proveedor</a>
+            <a href="/registrar">registro user</a>
+            <a href="/login">login</a>
+            <a href="/buscador">buscar</a>
         </nav>
 
         <article class="main"> 
@@ -63,10 +63,6 @@
 
 
         </article>
-        <footer class="footer" th:text="#{information}"></footer>
-        <div>
-            <a th:href="@{/ (lang=es)}">Español</a>
-            <a th:href="@{/ (lang=en)}">Ingles</a>
-        </div>
+        <footer class="footer"> informacion del FOOTER</footer>
     </body>
 </html>
