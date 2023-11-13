@@ -29,11 +29,6 @@ public class PortalControlador {
         return "index.html";
     }
 
-    @GetMapping("/registrar")
-    public String registrar() {
-        return "registrar.html";
-    }
-
     @GetMapping("/login")
     public String login() {
         return "login.html";
@@ -44,23 +39,13 @@ public class PortalControlador {
         return "panel.html";
     }
 
-    @GetMapping("/list")
-    public String listar(ModelMap modelo) {
-        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
-        modelo.addAttribute("usuarios", usuarios);
 
-        return "listar_usuario.html";
-    }
 
     @GetMapping("/active")
     public String active() {
         return "active.html";
     }
 
-    @GetMapping("/modificar")
-    public String modificar() {
-        return "modificar_usuario.html";
-    }
 
     @GetMapping("/buscador")
     public String buscador(ModelMap modelo) {

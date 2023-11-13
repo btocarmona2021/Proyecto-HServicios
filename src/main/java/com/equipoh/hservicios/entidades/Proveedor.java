@@ -13,7 +13,6 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 
 /**
@@ -32,7 +31,8 @@ public class Proveedor extends Usuario {
     private String id;
     private String experiencia;
     private Double precioXHora;
-    @OneToOne
-    private Servicio servicio;
+    //@OneToOne
+    //private Servicio servicio;
+    private String servicio;
             
 }
