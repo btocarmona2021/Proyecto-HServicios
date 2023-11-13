@@ -3,12 +3,15 @@
 package com.equipoh.hservicios.controladores;
 
 
+import com.equipoh.hservicios.entidades.Proveedor;
 import com.equipoh.hservicios.entidades.Usuario;
+import com.equipoh.hservicios.repositorios.ProveedorRepositorio;
 import com.equipoh.hservicios.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -20,6 +23,8 @@ public class PortalControlador {
 
     @Autowired
     private UsuarioServicio usuarioServicio;
+    @Autowired
+    private ProveedorRepositorio proveedorRepositorio;
 
     @GetMapping("/")
     public String index(ModelMap modelo) {
@@ -40,7 +45,6 @@ public class PortalControlador {
     }
 
 
-
     @GetMapping("/active")
     public String active() {
         return "active.html";
@@ -48,10 +52,15 @@ public class PortalControlador {
 
 
     @GetMapping("/buscador")
-    public String buscador(ModelMap modelo) {
-        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
-        modelo.addAttribute("usuarios", usuarios);
+    public String buscador() {
         return "buscador.html";
+    }
+
+    @PostMapping("/encontrados")
+    public String buscador(String buscar, ModelMap model) {
+        List<Proveedor> listado = proveedorRepositorio.buscaProveedor(buscar);
+        model.addAttribute("proveedores", listado);
+        return "listar_proveedor";
     }
 
     @GetMapping("/contrato")
