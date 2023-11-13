@@ -17,15 +17,19 @@
     <div>Listamos los usuarios</div>
     <div class="container m-5">
 
-        <table border="1">
+        <table id="customers">
+
             <thead>
             <h1> Datos de los usuarios </h1>
             <tr>
                 <th scope="col">Nombre</th>
                 <th scope="col">Apellido</th>
-                <th scope="col">Direccion de Correo Electronico</th>
+                <th scope="col">Dirección</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Correo</th>
                 <th scope="col">Estado</th>
-                <th scope="col">rol</th>
+                <th scope="col">Rol</th>
+                <th scope="col">Accciones</th>
                 <!--  verificar esta linea hasrole       <th scope="col" sec:authorize="hasRole('ADMIN')" colspan="2">Acciones</th>-->
             </tr>
             </thead>
@@ -34,27 +38,12 @@
                 <th scope="row" th:text="${usuarios.id}" hidden="hidden"></th>
                 <td th:text="${usuarios.nombre}"></td>
                 <td th:text="${usuarios.apellido}"></td>
+                <td th:text="${usuarios.direccion}"></td>
+                <td th:text="${usuarios.telefono}"></td>
                 <td th:text="${usuarios.correo}"></td>
-                <td>
-                    <ul>
-                        <li>
-                            <a>Activo</a>
-                        </li>
-                        <li>
-                            <div><a href="/active">Alta/Baja</a></div>
-                        </li>
-                    </ul>
-                </td>
-                <td>
-                    <ul>
-                        <li>
-                            <a>usuario</a>
-                        </li>
-                        <li>
-                            <div><a href="/active">cambiar</a></div>
-                        </li>
-                    </ul>
-                </td>
+                <td th:text="${usuarios.alta == true ? 'ALTA':'BAJA'}"></td>
+                <td th:text="${usuarios.rol}"></td>
+
                 <td>
                     <div><a th:href="@{/usuario/modificar/__${usuarios.id}__}">Editar</a></div>
                 </td>
