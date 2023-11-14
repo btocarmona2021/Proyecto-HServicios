@@ -20,14 +20,15 @@ import org.hibernate.annotations.GenericGenerator;
 @Setter
 @ToString
 @NoArgsConstructor
-public class Servicio{
+public class Servicio extends Usuario {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     
     private String id;
-    private String rubro;
-    private Boolean estado;
-
+    private String experiencia;
+    private Double precioXHora;
+    @OneToOne
+    private Servicio servicio;
     
 }
