@@ -50,7 +50,7 @@ public class UsuarioControlador {
             modelo.put("exito", "El usuario ha sido cargado con éxito");
         } catch (MisExcepciones ex) {
             modelo.put("error", ex.getMessage());
-            return "index.html";
+            return "registrar.html";
         }
         return "inicio.html";
     }
@@ -75,11 +75,22 @@ public class UsuarioControlador {
     public String actualizar(@PathVariable String id, String nombre, String apellido, String direccion, String telefono, String correo, String password, String password2, ModelMap modelo) {
         try {
             usuarioServicio.actualizarUsuario(id,  nombre, apellido, direccion, telefono, correo, password, password2);
-            return "redirect:../lista";
+            return "redirect:../listar";
         } catch (MisExcepciones ex) {
             modelo.put("error", ex.getMessage());
             return "modificar_usuario.html";
         }
 
     }
+    /*
+    @GetMapping("/buscador")       // localhost:8080/usuario/buscador 
+    public String listar(@PathVariable String dato,  ModelMap modelo) {
+
+        List<Usuario> usuarios = usuarioServicio.buscarDato(dato);
+
+        modelo.addAttribute("dato", usuarios);
+
+        return "listar_usuario.html";
+    }
+    */  
 }

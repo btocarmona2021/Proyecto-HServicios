@@ -26,12 +26,17 @@ public class UsuarioServicio {
     public void registrarUsuario(String nombre, String apellido, String direccion,
             String telefono, String correo, String password, String password2) throws MisExcepciones {
         List<Usuario> existe = usuarioRepositorio.buscarCorreoUsuarioActivo(correo);
-        if (!existe.isEmpty()) {
+        /*
+        quiero que la siguiente linea llame al usuarioRepositorio.buscarCorreoUsuarioActivo(correo) que se fija si el correo no aparece en
+        la lista de proveedores, y reemplazar el if actual por 
+        if ((existe.size()==2) || (!existe.isEmpty())) {
+        */
+        if ((!existe.isEmpty())) {
             System.out.println("Ya existe el usuario.");
             throw new MisExcepciones("El usuario no ha podido ser registrado porque el correo ya ha sido registrado.");
         } else {
             // Manejo de Excepciones
-            validar(nombre, correo, password, password2);
+            validar(nombre, apellido, direccion, telefono, correo, password, password2);
 
             Usuario user = new Usuario();
 
@@ -72,7 +77,7 @@ public class UsuarioServicio {
             String password2) throws MisExcepciones {
 
         // Manejo de Excepciones
-        validar(nombre, correo, password, password2);
+        validar(nombre, apellido, direccion, telefono, correo, password, password2);
 
         Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
         if (respuesta.isPresent()) {
@@ -101,10 +106,18 @@ public class UsuarioServicio {
              * ESPACIO RESERVADO CAMBIO DE USUARIO *
              **************************************
              */
-            usuario.setRol(Rol.USUARIO);
+            
+            /*****************************
+             * La siguiente linea sirve SOLO si se quiere CONSERVAR el rol. 
+             * Caso contrario, ver de que el no se altere el ADMIN al intercambiar
+             * entre USUARIO y PROVEEDOR y viceversa
+             * ***************************
+            */
+            usuario.setRol(usuario.getRol());
+
             usuario.setAlta(Boolean.TRUE);
 
-            // Guardar la variable
+            // Guardar el objeto
             usuarioRepositorio.save(usuario);
         }
 
@@ -118,10 +131,12 @@ public class UsuarioServicio {
      ****************************************************/
     
     @Transactional
-    public void bajaUsuario(String id) throws MisExcepciones {
+    public void bajaUsuario (String id) throws MisExcepciones {
         Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
         if (respuesta.isPresent()) {
-            usuarioRepositorio.getById(id).setAlta(Boolean.FALSE);
+            Usuario usuario = respuesta.get();
+            usuario.setAlta(Boolean.FALSE);
+            usuarioRepositorio.save(usuario);
         } else {
             // En el supuesto que no existiera el usuario...
             throw new MisExcepciones("No se pudo dar de baja el Usuario " + usuarioRepositorio.getById(id).getNombre() + ". El usuario no fue encontrado.");
@@ -134,8 +149,14 @@ public class UsuarioServicio {
         return usuarios;
     }
 
-    private void validar(String nombre, String correo, String password, String password2) throws MisExcepciones {
+    private void validar(String nombre, String apellido, String direccion, String telefono, String correo, String password, String password2) throws MisExcepciones {
         if ((nombre.isEmpty()) || (nombre == null)) {     // Si el nombre ESTÁ VACÍO o es NULO
+            throw new MisExcepciones("El nombre no puede estar vacío o ser nulo.");
+        }
+        if ((apellido.isEmpty()) || (apellido == null)) {     // Si el apellido ESTÁ VACÍO o es NULO
+            throw new MisExcepciones("El nombre no puede estar vacío o ser nulo.");
+        }
+        if ((direccion.isEmpty()) || (direccion == null)) {     // Si direccion ESTÁ VACÍA o es NULA
             throw new MisExcepciones("El nombre no puede estar vacío o ser nulo.");
         }
         if ((correo.isEmpty()) || (correo == null)) {     // Si el correo ESTÁ VACÍO o es NULO
@@ -155,5 +176,10 @@ public class UsuarioServicio {
     public Usuario buscarUsuario(String id) {
         // Método que debería devolver el usuario por id
         return usuarioRepositorio.buscarUsuario(id);
+    }
+    
+    public List<Usuario> buscarDato(String dato) {
+        // Método que debería devolver el usuario por id
+        return usuarioRepositorio.buscarDato(dato);
     }
 }
