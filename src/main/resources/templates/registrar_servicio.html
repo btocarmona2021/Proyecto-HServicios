@@ -15,7 +15,7 @@
         <nav class="navbar">NAVBAR</nav>
 
         <article class="main">
-            
+
             <div>
                 <h1> Registar Servicio </h1>
             </div>
@@ -25,6 +25,10 @@
                     <div class="form-group">
                         <input type="text" class="form-group" name="rubro" placeholder="Ingrese el rubro" th:value="${rubro}">                        
                     </div> 
+                    <br>
+                    <div class="form-group">
+                        <input type="file" class="form-control" name="archivo" >
+                    </div>
                     <button type="submit" class="btn btn-primary"> Guardar </button>
             </div>
         </form>
