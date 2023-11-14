@@ -1,7 +1,7 @@
 package com.equipoh.hservicios.enumeracion;
 
 public enum Rol {
-    USUARIO, 
+    USUARIO,
     PROVEEDOR, 
     ADMIN
 }

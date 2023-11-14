@@ -8,13 +8,14 @@ import com.equipoh.hservicios.entidades.Proveedor;
 import com.equipoh.hservicios.enumeracion.Rol;
 import com.equipoh.hservicios.excepciones.MiException;
 import com.equipoh.hservicios.repositorios.ProveedorRepositorio;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import javax.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  *
@@ -28,8 +29,8 @@ public class ProveedorServicio {
 
     @Transactional
     public void registrarProveedor(String nombre, String apellido, String direccion,
-            String telefono, String correo, String password, String password2, String rol,
-            String experiencia, Double precioXHora, String servicio) throws MiException {
+                                   String telefono, String correo, String password, String password2, String rol,
+                                   String experiencia, Double precioXHora, String servicio) throws MiException {
 
         validar(nombre, correo, password, password2);
 
@@ -55,8 +56,8 @@ public class ProveedorServicio {
 
     @Transactional
     public void actualizar(String id, String nombre, String apellido, String direccion,
-            String telefono, String correo, String password, String password2, String rol,
-            String experiencia, Double precioXHora, String servicio, String alta) throws MiException {
+                           String telefono, String correo, String password, String password2, String rol,
+                           String experiencia, Double precioXHora, String servicio, String alta) throws MiException {
 
         validar(nombre, correo, password, password2);
 
@@ -64,7 +65,7 @@ public class ProveedorServicio {
         if (respuesta.isPresent()) {
 
             Proveedor proveedor = respuesta.get();
-            
+
             proveedor.setNombre(nombre);
             proveedor.setApellido(apellido);
             proveedor.setDireccion(direccion);
@@ -79,7 +80,7 @@ public class ProveedorServicio {
             proveedor.setFechaAlta(new Date());
             if (alta.equalsIgnoreCase("ALTA")) {
                 proveedor.setAlta(true);
-            }else{
+            } else {
                 proveedor.setAlta(false);
             }
 
@@ -93,12 +94,14 @@ public class ProveedorServicio {
 
     public List<Proveedor> listaProveedores() {
         List<Proveedor> proveedores = new ArrayList();
-        proveedores = proveedorRepositorio.findAll();
+        proveedores = proveedorRepositorio.buscarProveedores();
+//        proveedores = proveedorRepositorio.findAll();
         return proveedores;
     }
 
+
     private void validar(String nombre, String correo, String password, String password2) throws MiException {
-        if (nombre.isEmpty() || nombre == null) {
+        if (nombre == null || nombre.isEmpty()) {
             throw new MiException("El nombre no puede ser nulo o estar vacio");
         }
 
@@ -107,7 +110,7 @@ public class ProveedorServicio {
         }
 
         if (password.isEmpty() || password == null || password.length() <= 5) {
-            throw new MiException("El email no puede ser nulo o estar vacio y debe tener más de 5 dígitos");
+            throw new MiException("El password no puede ser nulo o estar vacio y debe tener más de 5 dígitos");
         }
 
         if (!password.equals(password2)) {
