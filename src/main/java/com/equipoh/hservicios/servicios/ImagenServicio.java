@@ -19,8 +19,8 @@ public class ImagenServicio {
 
     @Autowired
     private ImagenRepositorio imagenRepositorio;
-    
-    public Imagen guardar(MultipartFile archivo){
+
+    public Imagen guardarImagen(MultipartFile archivo) {
         
         if (archivo != null) {
             
@@ -48,7 +48,7 @@ public class ImagenServicio {
     
     }
     
-    public Imagen actualizar(MultipartFile archivo, String idImagen) { //throws MiException cargar excepcion 
+    public Imagen actualizarImagen(MultipartFile archivo, String idImagen) { //throws MiException cargar excepcion
         
         if (archivo != null) {
             

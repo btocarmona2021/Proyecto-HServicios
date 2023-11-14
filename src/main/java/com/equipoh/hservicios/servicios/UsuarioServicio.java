@@ -59,7 +59,6 @@ public class UsuarioServicio {
 
         user.setAlta(Boolean.TRUE);
 
-        // Guardar la variable
         usuarioRepositorio.save(user);
     }
 

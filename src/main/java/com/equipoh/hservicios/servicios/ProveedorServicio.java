@@ -5,9 +5,11 @@
 package com.equipoh.hservicios.servicios;
 
 import com.equipoh.hservicios.entidades.Proveedor;
+import com.equipoh.hservicios.entidades.Servicio;
 import com.equipoh.hservicios.enumeracion.Rol;
 import com.equipoh.hservicios.excepciones.MiException;
 import com.equipoh.hservicios.repositorios.ProveedorRepositorio;
+import com.equipoh.hservicios.repositorios.ServicioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,11 +28,17 @@ public class ProveedorServicio {
 
     @Autowired
     private ProveedorRepositorio proveedorRepositorio;
-
+    @Autowired
+    private ServicioRepositorio servicioRepositorio;
     @Transactional
     public void registrarProveedor(String nombre, String apellido, String direccion,
                                    String telefono, String correo, String password, String password2, String rol,
-                                   String experiencia, Double precioXHora, String servicio) throws MiException {
+                                   String experiencia, Double precioXHora, String idServicio) throws MiException {
+        Servicio servicio = new Servicio();
+        Optional<Servicio> respuesta = servicioRepositorio.findById(idServicio);
+        if (respuesta.isPresent()) {
+            servicio = respuesta.get();
+        }
 
         validar(nombre, correo, password, password2);
 
@@ -57,7 +65,7 @@ public class ProveedorServicio {
     @Transactional
     public void actualizar(String id, String nombre, String apellido, String direccion,
                            String telefono, String correo, String password, String password2, String rol,
-                           String experiencia, Double precioXHora, String servicio, String alta) throws MiException {
+                           String experiencia, Double precioXHora, Servicio servicio, String alta) throws MiException {
 
         validar(nombre, correo, password, password2);
 
