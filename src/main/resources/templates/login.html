@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="/frangments/header :: head"></head>
+ <body class="grid-container">
+   <header class="header">
+            <div><a href="/">
+                    <img class="img" src="/img/logo.jpg" alt="Hservice"/></a></div>
+        </header>
+  <nav th:replace="/frangments/navbar :: nav"></nav>
+
+   <article class="main">
+       <div>login</div>
+        <form class="" action="#" method="POST">
+ <div>
+            <input type="text" class="" name="email" placeholder="email">
+            <input type="text" class="" name="password" placeholder="contraseña">
+     <a href="/panel"> <!-- <button type="submit" class="">ingresar</button>-->
+         ingresar</a>
+            
+        </div>
+        </form>
+
+       <a href="/registrar">registro</a>
+        <div class="btn-holder">
+                
+            <button class="button2" onclick='goBack()'>Atrás</button>
+            <script>
+                function goBack() {
+                    history.back();
+                }
+            </script>
+        
+        </div>  
+    </article>
+    <footer th:replace="frangments/footer:: footer"> </footer>
+ 
+  </body>
+  </html>

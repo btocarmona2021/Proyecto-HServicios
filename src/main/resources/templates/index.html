@@ -1,10 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Hola Soy Ale</h1>
-</body>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="/frangments/header :: head"></head>
+    <body class="grid-container">
+
+        <header class="header">
+            <div><a href="/">
+                    <img class="img" src="/img/logo.jpg" alt="Hservice"/></a></div>
+        </header>
+
+        <nav th:replace="/frangments/navbar :: nav"></nav>
+
+        <article class="main"> 
+            <div>
+                <div id="carrusel-contenido">
+                    <div id="carrusel-caja">
+                        <div class="carrusel-elemento">
+                            <img class="imagenes" src="/img/caru01.jpg" >
+                        </div>
+                        <div class="carrusel-elemento">   
+                            <img class="imagenes" src="/img/caru02.jpg" >
+                        </div>
+                        <!--  <div class="carrusel-elemento">   
+                              <img class="imagenes" src="../static/img/caru03.jpg" >
+                                                  
+                          </div>-->
+                    </div>
+                </div> 
+            </div>
+
+            <div class="container">
+                <tbody th:each="usuarios : ${usuarios}">   
+                <div class="card" >
+                    <div> <a  href="/buscador">
+                            <img src="../img/logo.jpg" alt="noti"  ></a>
+                    </div>
+                    <!-- <div>
+                        <h4 th:text="${usuarios.nombre}"></h4>
+                    </div> -->
+                    <div>
+                        <p th:text="${usuarios.apellido}"></p>
+                    </div>
+                </div>
+                </tbody>
+            </div>
+        </article>
+        <footer th:replace="frangments/footer:: footer"> </footer>
+    </body>
 </html>

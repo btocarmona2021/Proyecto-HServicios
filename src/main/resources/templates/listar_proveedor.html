@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="/frangments/header :: head"></head>
+   <body class="grid-container">
+<header class="header">
+    <div><a href="/">
+        <img class="img" src="/img/logo.jpg" alt="Hservice"/></a></div>
+</header>
+ <nav th:replace="/frangments/navbar :: nav"></nav>
+
+<article class="main">
+    <!-- LISTA -->
+
+    <h1>Seleccione un Proveedor editar</h1>
+
+    <div class="container m-5">
+
+        <table id="customers">
+
+            <tr>
+
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Direccion</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Correo</th>
+                <!--                        <th scope="col">Password</th>-->
+                <th scope="col">Rol</th>
+                <th scope="col">Experiencia</th>
+                <th scope="col">Precio por Hora</th>
+                <th scope="col">Servicio</th>
+                <th scope="col">Alta / Baja</th>
+                <th scope="col">Acciones</th>
+
+            </tr>
+
+            <tbody th:each="proveedor : ${proveedores}">
+            <tr>
+
+                <td th:text="${proveedor.nombre}"></td>
+                <td th:text="${proveedor.apellido}"></td>
+                <td th:text="${proveedor.direccion}"></td>
+                <td th:text="${proveedor.telefono}"></td>
+                <td th:text="${proveedor.correo}"></td>
+                <!--                        <td th:text="${proveedor.password}"></td>-->
+                <td th:text="${proveedor.rol}"></td>
+                <td th:text="${proveedor.experiencia}"></td>
+                <td th:text="${proveedor.precioXHora}"></td>
+                <td th:text="${proveedor.servicio}"></td>
+                <td th:text="${proveedor.alta == true ? 'ALTA':'BAJA'}"></td>
+                <td>
+                    <a th:href="@{/proveedor/actualizar/__${proveedor.id}__}"><i class="fas fa-feather-alt"></i>
+                        Modificar</a>
+
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+        <div class="btn-holder">
+
+            <button class="button2" onclick='goBack()'>Atrás</button>
+            <script>
+                function goBack() {
+                    history.back();
+                }
+            </script>
+        </div>
+    </div>
+</article>
+ <footer th:replace="frangments/footer:: footer"> </footer>
+
+</body>
+</html>

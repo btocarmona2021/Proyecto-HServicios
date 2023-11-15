@@ -1,0 +1,57 @@
+.titulos{
+    color: aqua;
+    font-style: oblique;
+    font-family: Verdana;
+    font-weight: 700;
+    font-size: 250%;
+    text-shadow: 0 4px 0 black;
+}
+.imagen{
+    display: contents;
+    height: 30% ;
+    width: 100%;
+
+}
+.atajo{
+    font-style: unset;
+    font-family:  Tahoma;
+    font-weight: 400;
+    font-size: larger;
+    margin: 3%;
+    text-shadow: 0 2px 0 black;
+}
+
+
+
+
+.navBar{
+
+    height: 40%;
+    text-align: center;
+}
+a:link {
+    color: transparent;
+
+    -webkit-background-clip: text;
+    background-image: linear-gradient(to right, blue, orange, green);
+}
+
+/* mouse sobre el link*/
+a:hover {
+    color: blue;
+
+}
+
+
+ul.horizontal li{
+    display: inline;
+    background-color: transparent;
+}
+.navBarImg{
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    width: 100%;
+   height: unset;
+
+}

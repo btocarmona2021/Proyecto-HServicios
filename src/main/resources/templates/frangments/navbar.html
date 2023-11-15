@@ -1,0 +1,41 @@
+ <nav class="navbar"> NAVBAR
+     <link href="/css/styleNavBar.css" rel="stylesheet" type="text/css"/>
+     <!--th:if ="${session.usuarioSession!=null}"-->
+     <!-- verificar "usuarioSession"-->
+
+            <a href="/proveedor/registrar" th:if ="${session.usuarioSesion ==null}"  >registro proveedor </a>
+            <a href="/usuario/registrar" th:if ="${session.usuarioSesion ==null}" >registro usuario </a>
+            <a href="/login" th:if ="${session.usuarioSesion ==null}" >Ingresar </a>
+            <a href="/buscador">buscar </a>
+            <a href="/buscador"  th:if ="${session.usuarioSesion !=null}" >logout </a>
+        </nav>
+
+
+<!--<nav class="navBar" >
+    <link href="/css/styleNavBar.css" rel="stylesheet" type="text/css"/>
+
+    <div class="navBar img" style="background-image: url(/img/navbar2.jpg);"  >
+        
+        <a class="titulos" href="#">Home Services</a>
+
+        <div class="horizontal">
+            <ul class="horizontal">
+
+
+                <li class="">
+                    <a class="atajo" href="/registrar">Registrar</a>
+                </li>
+                <li class="">
+                    <a class="atajo" href="/login">Login</a>
+                </li>
+
+                <li class="">
+                    <a class="atajo" href="/logout">Logout</a>
+                </li>
+                <li class="">
+                    <a class="atajo" href="/buscador">Buscar</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>-->
