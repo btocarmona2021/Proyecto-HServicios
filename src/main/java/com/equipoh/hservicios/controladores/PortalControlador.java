@@ -45,26 +45,15 @@ public class PortalControlador {
         return "panel.html";
     }
 
-    @GetMapping("/list")
-    public String listar(ModelMap modelo) {
-        List<Usuario> usuarios = usuarioServicio.listarUsuario();
-        modelo.addAttribute("usuarios", usuarios);
-        return "listar_usuario.html";
-    }
 
     @GetMapping("/active")
     public String active() {
         return "active.html";
     }
 
-    @GetMapping("/modificar")
-    public String modificar() {
-        return "modificar_usuario.html";
-    }
-     @GetMapping("/buscador")
-    public String buscador(ModelMap modelo) {
-        List<Usuario> usuarios = usuarioServicio.listarUsuario();
-        modelo.addAttribute("usuarios", usuarios);
+
+    @GetMapping("/buscador")
+    public String buscador() {
         return "buscador.html";
     }
 

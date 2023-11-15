@@ -6,16 +6,20 @@
 package com.equipoh.hservicios.repositorios;
 
 import com.equipoh.hservicios.entidades.Proveedor;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- *
- * @author manie
+ * @author jorge
  */
-public class ProveedorRepositorio {
+@Repository
+public interface ProveedorRepositorio extends JpaRepository<Proveedor, String> {
+    @Query("SELECT p FROM Proveedor p WHERE p.rol = 'PROVEEDOR'")
+    public List<Proveedor> buscarProveedores();
 
-    public List<Proveedor> buscaProveedor(String buscar) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+    @Query("SELECT p FROM Proveedor p WHERE p.servicio like %:buscar% or p.nombre like %:buscar% or p.apellido like %:buscar%")
+    public List<Proveedor> buscaProveedor(@Param("buscar") String buscar);
 }

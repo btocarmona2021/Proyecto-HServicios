@@ -15,25 +15,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-
-/**
- *
- * @author manie
- */
 @Entity
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class Proveedor extends Usuario {
+public class Servicio {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private String id;
-    private String experiencia;
-    private Double precioXHora;
 
-    //    @OneToOne
-    private String servicio;
-            
+    private String id;
+    private String rubro;
+    private Boolean estado;
+
+    
 }

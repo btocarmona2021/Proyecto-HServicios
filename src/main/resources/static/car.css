@@ -11,7 +11,7 @@
     transition: all 0.75s ease;
 
     height: 500px;
-    width: 200%; 
+    width: 200%;
 }
 
 #carrusel-contenido {
@@ -20,7 +20,7 @@
     text-align: left;
 }
 
-.imagenes{
+.imagenes {
     height: 500px;
     width: 100%;
 }
@@ -47,7 +47,6 @@
         margin-left: -100%;
     }
 
-    
 
     100% {
         margin-left: 0;
@@ -71,7 +70,6 @@
         margin-left: -100%;
     }
 
-  
 
     100% {
         margin-left: 0;
@@ -95,7 +93,6 @@
         margin-left: -100%;
     }
 
-   
 
     100% {
         margin-left: 0;

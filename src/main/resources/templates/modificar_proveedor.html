@@ -1,99 +1,104 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Home Services</title>
-       <link rel="stylesheet" href="/style.css">
-  <link rel="icon" type="image/jpg" href="/img/logo.jpg"/> 
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Services</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="icon" type="image/jpg" href="/img/logo.jpg"/>
 </head>
 <body class="grid-container">
-   <header class="header">
-            <div><a href="/">
-                    <img class="img" src="/img/logo.jpg" alt="Hservice"/></a></div>
-        </header>
-        <nav class="navbar">NAVBAR</nav>
-        <article class="main">
-            <div>Registo</div>
-            <div> <h1> Editar </h1>
+<header class="header">
+    <div><a href="/">
+        <img class="img" src="/img/logo.jpg" alt="Hservice"/></a></div>
+</header>
+<nav class="navbar">NAVBAR</nav>
+<article class="main">
+    <div>Registo</div>
+    <div><h1> Editar </h1>
+    </div>
+
+
+    <div class="container" align="center">
+        <form class="formulario" th:action="@{/proveedor/actualizar/__${proveedor.id}__}" method="POST">
+            <div class="form-group">
+                <input hidden th:value="${proveedor.id}" name="id">
+                <input type="text" class="form-group" name="nombre" th:value="${proveedor.nombre}">
+                <input type="text" class="form-group" name="apellido" th:value="${proveedor.apellido}">
+                <input type="text" size="30" class="form-group" name="correo" th:value="${proveedor.correo}">
             </div>
 
-
-            <div class="container"  align="center">
-                <form class="formulario" th:action="@{/proveedor/actualizar/__${proveedor.id}__}" method="POST">
-                    <div class="form-group">
-                        <input hidden th:value="${id}" name="id">
-                        <input type="text" class="form-group" name="nombre"  th:value="${proveedor.nombre}">
-                        <input type="text" class="form-group" name="apellido"  th:value="${proveedor.apellido}">
-                        <input type="text" size="30" class="form-group" name="correo" th:value="${proveedor.correo}">
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <input type="text" class="form-group" name="direccion" th:value="${proveedor.direccion}">
-                        <input type="text" size="30" class="form-group" name="telefono"  th:value="${proveedor.telefono}">
-                        <br>
-                        <div class="form-group">
-                            <input type="text" size="30" class="form-group" name="servicio"  th:value="${proveedor.servicio}">
-                            <input type="number" size="30" class="form-group" name="precioXHora"  th:value="${proveedor.precioXHora}">
-                            <input type="text" size="30" class="form-group" name="experiencia"  th:value="${proveedor.experiencia}">
-                            <input type="text" size="30" class="form-group" name="alta"  th:value="${proveedor.alta}">
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <input type="password" class="form-control" name="password" placeholder="contraseña">
-                            <input type="password" class="form-control" name="password2" placeholder="repita su conraseña">
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <input type="file" class="form-control" name="archivo" >
-                        </div>
-                        <br>
-
-                        <div>
-                            <input type="date" id="fecha" class="form-group" name="fechalta" value="fecha()" th:value="${fechalta}">
-                            <script>
-                                function fecha() {
-                                    var fecha = new Date();
-                                    var year = date.getFullYear();
-                                    var month = date.getMonth() + 1;
-                                    var day = date.getDate();
-                                    document.getElementById('fecha').innerHTML = month + "/" + day + "/" + year;
-
-                                }
-                            </script>
-                        </div>
-                        <br>
-
-                        <button type="submit" class="btn btn-primary"> Guardar </button>
-                </form>
-
-                <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
-                    <div class="card-body">
-                        <h5 class="card-title">Exito!</h5>
-                        <p class="card-text" th:text="${exito}"></p>
-                    </div>
+            <div class="form-group">
+                <input type="text" class="form-group" name="direccion" th:value="${proveedor.direccion}">
+                <input type="text" size="30" class="form-group" name="telefono" th:value="${proveedor.telefono}">
+                <br>
+                <div class="form-group">
+                    <input type="text" size="30" class="form-group" name="servicio" th:value="${proveedor.servicio}">
+                    <input type="number" size="30" class="form-group" name="precioXHora"
+                           th:value="${proveedor.precioXHora}">
+                    <input type="text" size="30" class="form-group" name="experiencia"
+                           th:value="${proveedor.experiencia}">
+                    <input type="text" size="30" class="form-group" name="alta"
+                           th:value="${proveedor.alta ==true? 'ALTA':'BAJA'}">
                 </div>
-                <div th:if="${error}!=null" class="card text-white bg-danger mb-3 mensajeError" >
-                    <div class="card-body">
-                        <h5 class="card-title">Error 👎</h5>
-                        <p class="card-text" th:text="${error}"></p>
-                    </div>
-                </div> 
 
+                <div class="form-group">
+                    <input type="password" class="form-control" name="password" th:value="${proveedor.password}">
+                    <input type="password" class="form-control" name="password2" th:value="${proveedor.password}">
+                </div>
+                <br>
+                <div class="form-group">
+                    <input type="file" class="form-control" name="archivo">
+                </div>
+                <br>
 
-            </div></div>
+                <div>
+                    <input type="date" id="fecha" class="form-group" name="fechalta" value="fecha()"
+                           th:value="${fechalta}">
+                    <script>
+                        function fecha() {
+                            var fecha = new Date();
+                            var year = date.getFullYear();
+                            var month = date.getMonth() + 1;
+                            var day = date.getDate();
+                            document.getElementById('fecha').innerHTML = month + "/" + day + "/" + year;
 
-        <div class="btn-holder">
+                        }
+                    </script>
+                </div>
+                <br>
 
-            <button class="button2" onclick='goBack()'>Atrás</button>
-            <script>
-                function goBack() {
-                    history.back();
-                }
-            </script>
+                <button type="submit" class="btn btn-primary"> Guardar</button>
+            </div>
+        </form>
+
+        <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3 mensajeExito">
+            <div class="card-body">
+                <h5 class="card-title">Exito!</h5>
+                <p class="card-text" th:text="${exito}"></p>
+            </div>
         </div>
-        </article>
-        <footer class="footer">FOOTER</footer>
+        <div th:if="${error}!=null" class="card text-white bg-danger mb-3 mensajeError">
+            <div class="card-body">
+                <h5 class="card-title">Error 👎</h5>
+                <p class="card-text" th:text="${error}"></p>
+            </div>
+        </div>
 
-    </body>
+
+    </div>
+
+    <div class="btn-holder">
+
+        <button class="button2" onclick='goBack()'>Atrás</button>
+        <script>
+            function goBack() {
+                history.back();
+            }
+        </script>
+    </div>
+</article>
+<footer class="footer">FOOTER</footer>
+
+</body>
 </html>

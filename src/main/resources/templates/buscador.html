@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,21 +18,20 @@
             <div><a href="/">
                     <img class="img" src="/img/logo.jpg" alt="Hservice"/></a></div>
         </header>
-        <nav class="navbar"> NAVBAR
-
-            <a  href="/registrar">registro</a>
-            <a  href="/login">login</a>
-            <a  href="/buscador">buscar</a>
-        </nav>
+         <nav class="navbar"> NAVBAR
+             <a href="/proveedor/registrar">registro proveedor </a>
+             <a href="/usuario/registrar">registro usuario </a>
+             <a href="/login">Ingresar </a>
+             <a href="/buscador">buscar </a>
+         </nav>
 
         <article class="main"> 
             <div>
-                <form class="" action="#" method="POST">
+                <form class="" th:action="@{/encontrados}" method="POST">
                     <div>
                         <input type="text" class="" name="buscar" placeholder="Que desea buscar">
 
-                        <a  href="/buscador"> <!-- <button type="submit" class="">ingresar</button>-->
-                            buscar</a>
+                        <button type="submit" class="">buscar</button>
 
                     </div>
                 </form>

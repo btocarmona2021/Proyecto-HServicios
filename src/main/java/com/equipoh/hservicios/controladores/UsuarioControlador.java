@@ -6,7 +6,7 @@
 package com.equipoh.hservicios.controladores;
 
 import com.equipoh.hservicios.entidades.Usuario;
-import com.equipoh.hservicios.excepciones.MisExcepciones;
+import com.equipoh.hservicios.excepciones.MiException;
 import com.equipoh.hservicios.servicios.UsuarioServicio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -39,16 +40,16 @@ public class UsuarioControlador {
     public String registro(@RequestParam String nombre, @RequestParam String apellido,
             @RequestParam String direccion, @RequestParam String telefono,
             @RequestParam String correo, @RequestParam String password,
-            @RequestParam String password2, ModelMap modelo) {
+            @RequestParam String password2, @RequestParam MultipartFile archivo, ModelMap modelo) {
         /*
         **********************
         * ¿Es necesario la 'password2' durante el registro?
         **********************
         */
         try {
-            usuarioServicio.registrarUsuario(nombre, apellido, direccion, telefono, correo, password, password2);
+            usuarioServicio.registrarUsuario(archivo, nombre, apellido, direccion, telefono, correo, password, password2);
             modelo.put("exito", "El usuario ha sido cargado con éxito");
-        } catch (MisExcepciones ex) {
+        } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
             return "registrar.html";
         }
@@ -72,11 +73,11 @@ public class UsuarioControlador {
     }
     
     @PostMapping("/actualizar/{id}")
-    public String actualizar(@PathVariable String id, String nombre, String apellido, String direccion, String telefono, String correo, String password, String password2, ModelMap modelo) {
+    public String actualizar(@PathVariable String id, String nombre, String apellido, String direccion, String telefono, String correo, String password, String password2, MultipartFile archivo, ModelMap modelo) {
         try {
-            usuarioServicio.actualizarUsuario(id,  nombre, apellido, direccion, telefono, correo, password, password2);
+            usuarioServicio.actualizarUsuario(archivo, id,  nombre, apellido, direccion, telefono, correo, password, password2);
             return "redirect:../listar";
-        } catch (MisExcepciones ex) {
+        } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
             return "modificar_usuario.html";
         }

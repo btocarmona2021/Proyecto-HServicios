@@ -1,95 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Home Services</title>
-        <link rel="stylesheet" href="../static/style.css">
-        <link rel="stylesheet" href="/style.css">
-        <link rel="icon" type="image/jpg" href="/img/logo.jpg"/> 
-    </head>
-    <body class="grid-container">
-         <header class="header">
-            <div><a href="/">
-                    <img class="img" src="/img/logo.jpg" alt="Hservice"/></a></div>
-        </header>
-        <nav class="navbar">NAVBAR</nav>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Services</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="icon" type="image/jpg" href="/img/logo.jpg"/>
+</head>
+<body class="grid-container">
+<header class="header">
+    <div><a href="/">
+        <img class="img" src="/img/logo.jpg" alt="Hservice"/></a></div>
+</header>
+<nav class="navbar">NAVBAR</nav>
 
-        <article class="main">
+<article class="main">
 
-            <div>Registo</div>
-            <div> <h1> Registar Usuario </h1>
+    <div>Registro</div>
+    <div><h1> Registrar Usuario </h1>
+    </div>
+
+
+    <div class="container" align="center">
+        <form class="formulario" th:action="@{/usuario/registro}" method="POST">
+            <div class="form-group">
+                <input type="text" class="form-group" name="nombre" placeholder="Nombre" th:value="${nombre}">
+                <input type="text" class="form-group" name="apellido" placeholder="Apellido" th:value="${apellido}">
+                <input type="text" size="30" class="form-group" name="correo"
+                       placeholder="Direccion de Correo Electronico" th:value="${correo}">
             </div>
-
-
-            <div class="container"  align="center">
-                <form class="formulario" th:action="@{/usuario/registro}" method="POST">
-                    <div class="form-group">
-                        <input type="text" class="form-group" name="nombre" placeholder="Nombre" th:value="${nombre}">
-                        <input type="text" class="form-group" name="apellido" placeholder="Apellido" th:value="${apellido}">
-                        <input type="text" size="30" class="form-group" name="correo" placeholder="Direccion de Correo Electronico" th:value="${correo}">
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <input type="text" class="form-group" name="direccion" placeholder="Domicilio" th:value="${direccion}">
-                        <input type="text" size="30" class="form-group" name="telefono" placeholder="Telefono formato Ej. 0xx-1xx-xxxxxx" th:value="${telefono}">
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <input type="password" class="form-control" name="password" placeholder="PASSWORD" th:value="${password}">
-                        <input type="password" class="form-control" name="password2" placeholder="Repetir PASSWORD" th:value="${password2}">
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <input type="file" class="form-control" name="archivo" >
-                    </div>
-                    <br>
-
-                    <div>
-                        <input type="date" id="fecha" class="form-group" name="fechalta" value="fecha()" th:value="${fechalta}">
-                        <script>
-                            function fecha() {
-                                var fecha = new Date();
-                                var year = date.getFullYear();
-                                var month = date.getMonth() + 1;
-                                var day = date.getDate();
-                                document.getElementById('fecha').innerHTML = month + "/" + day + "/" + year;
-
-                            }
-                        </script>
-                    </div>
-                    <br>
-
-                    <button type="submit" class="btn btn-primary"> Guardar </button>
-                </form>
-
-                <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
-                    <div class="card-body">
-                        <h5 class="card-title">Exito!</h5>
-                        <p class="card-text" th:text="${exito}"></p>
-                    </div>
-                </div>
-                <div th:if="${error}!=null" class="card text-white bg-danger mb-3 mensajeError" >
-                    <div class="card-body">
-                        <h5 class="card-title">Error 👎</h5>
-                        <p class="card-text" th:text="${error}"></p>
-                    </div>
-                </div> 
-
-
+            <br>
+            <div class="form-group">
+                <input type="text" class="form-group" name="direccion" placeholder="Domicilio" th:value="${direccion}">
+                <input type="text" size="30" class="form-group" name="telefono"
+                       placeholder="Telefono formato Ej. 0xx-1xx-xxxxxx" th:value="${telefono}">
             </div>
+            <br>
+            <div class="form-group">
+                <input type="password" class="form-control" name="password" placeholder="PASSWORD"
+                       th:value="${password}">
+                <input type="password" class="form-control" name="password2" placeholder="Repetir PASSWORD"
+                       th:value="${password2}">
+            </div>
+            <br>
+            <div class="form-group">
+                <input type="file" class="form-control" name="archivo">
+            </div>
+            <br>
 
-            <div class="btn-holder">
-
-                <button class="button2" onclick='goBack()'>Atrás</button>
+            <div>
+                <input type="date" id="fecha" class="form-group" name="fechalta" value="fecha()" th:value="${fechalta}">
                 <script>
-                    function goBack() {
-                        history.back();
+                    function fecha() {
+                        var fecha = new Date();
+                        var year = date.getFullYear();
+                        var month = date.getMonth() + 1;
+                        var day = date.getDate();
+                        document.getElementById('fecha').innerHTML = month + "/" + day + "/" + year;
+
                     }
                 </script>
             </div>
-        </article>
-        <footer class="footer">FOOTER</footer>
+            <br>
 
-    </body>
+            <button type="submit" class="btn btn-primary"> Guardar</button>
+        </form>
+
+        <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3 mensajeExito">
+            <div class="card-body">
+                <h5 class="card-title">Exito!</h5>
+                <p class="card-text" th:text="${exito}"></p>
+            </div>
+        </div>
+        <div th:if="${error}!=null" class="card text-white bg-danger mb-3 mensajeError">
+            <div class="card-body">
+                <h5 class="card-title">Error 👎</h5>
+                <p class="card-text" th:text="${error}"></p>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="btn-holder">
+
+        <button class="button2" onclick='goBack()'>Atrás</button>
+        <script>
+            function goBack() {
+                history.back();
+            }
+        </script>
+    </div>
+</article>
+<footer class="footer">FOOTER</footer>
+
+</body>
 </html>
