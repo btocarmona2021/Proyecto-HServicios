@@ -1,10 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <h1> Proyecto servicio</h1>
-</body>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home Services</title>
+
+        <link rel="stylesheet" href="../static/style.css"><!-- visual -->
+        <link rel="stylesheet" href="/style.css">
+        <link rel="stylesheet" href="/car.css">
+        <link rel="icon" type="image/jpg" href="/img/logo.jpg"/> 
+
+    </head>
+    <body class="grid-container">
+
+        <header class="header">
+            <div><a href="/">
+                    <img class="img" src="/img/logo.jpg" alt="Hservice"/></a></div>
+        </header>
+
+        <nav class="navbar"> NAVBAR
+
+            <a href="/proveedor/registrar">registro proveedor </a>
+            <a href="/usuario/registrar">registro usuario </a>
+            <a href="/login">Ingresar </a>
+            <a href="/buscador">buscar </a>
+        </nav>
+
+        <article class="main"> 
+            <div>
+                <div id="carrusel-contenido">
+                    <div id="carrusel-caja">
+                        <div class="carrusel-elemento">
+                            <img class="imagenes" src="/img/caru01.jpg" >
+                        </div>
+                        <div class="carrusel-elemento">   
+                            <img class="imagenes" src="/img/caru02.jpg" >
+                        </div>
+                        <!--  <div class="carrusel-elemento">   
+                              <img class="imagenes" src="../static/img/caru03.jpg" >
+                                                  
+                          </div>-->
+                    </div>
+                </div> 
+            </div>
+
+            <div class="container">
+                <tbody th:each="usuarios : ${usuarios}">   
+                <div class="card" >
+                    <div> <a  href="/buscador">
+                            <img src="../img/logo.jpg" alt="noti"  ></a>
+                    </div>
+                    <!-- <div>
+                        <h4 th:text="${usuarios.nombre}"></h4>
+                    </div> -->
+                    <div>
+                        <p th:text="${usuarios.apellido}"></p>
+                    </div>
+
+
+                </div>
+                </tbody>
+            </div>
+
+
+
+        </article>
+        <footer class="footer"> informacion del FOOTER</footer>
+    </body>
 </html>

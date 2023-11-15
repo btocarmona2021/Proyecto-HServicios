@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Services</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="icon" type="image/jpg" href="/img/logo.jpg"/>
+</head>
+<body class="grid-container">
+<header class="header">
+    <div><a href="/">
+        <img class="img" src="/img/logo.jpg" alt="Hservice"/></a></div>
+</header>
+<nav class="navbar">NAVBAR</nav>
+<article class="main">
+    <div>Listamos los usuarios</div>
+    <div class="container m-5">
+
+        <table id="customers">
+
+            <thead>
+            <h1> Datos de los usuarios </h1>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Dirección</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Correo</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Rol</th>
+                <th scope="col">Accciones</th>
+                <!--  verificar esta linea hasrole       <th scope="col" sec:authorize="hasRole('ADMIN')" colspan="2">Acciones</th>-->
+            </tr>
+            </thead>
+            <tbody th:each="usuarios : ${usuarios}">
+            <tr>
+                <th scope="row" th:text="${usuarios.id}" hidden="hidden"></th>
+                <td th:text="${usuarios.nombre}"></td>
+                <td th:text="${usuarios.apellido}"></td>
+                <td th:text="${usuarios.direccion}"></td>
+                <td th:text="${usuarios.telefono}"></td>
+                <td th:text="${usuarios.correo}"></td>
+                <td th:text="${usuarios.alta == true ? 'ALTA':'BAJA'}"></td>
+                <td th:text="${usuarios.rol}"></td>
+
+                <td>
+                    <div><a th:href="@{/usuario/modificar/__${usuarios.id}__}">Editar</a></div>
+                </td>
+
+
+            </tr>
+
+            </tbody>
+        </table>
+
+        <div class="btn-holder">
+
+            <button class="button2" onclick='goBack()'>Atrás</button>
+            <script>
+                function goBack() {
+                    history.back();
+                }
+            </script>
+        </div>
+    </div>
+</article>
+<footer class="footer">FOOTER</footer>
+
+</body>
+</html>

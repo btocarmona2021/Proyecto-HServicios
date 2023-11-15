@@ -7,6 +7,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import lombok.Getter;
@@ -26,7 +27,7 @@ public class Usuario{
     // Clave primaria de la entidad
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    // Genera un valor "autogenerado".
+    // Genera un id String "autogenerado".
     private String id;
 
     private String nombre;
@@ -49,8 +50,8 @@ public class Usuario{
     @Enumerated(EnumType.STRING)
     private Rol rol;
 
-    //@OneToOne
-    //private Imagen imagen;
+    @OneToOne
+    private Imagen imagen;
 
     private Boolean alta;
     
