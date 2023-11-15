@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Actualizar Servicio</title>
+        <link rel="stylesheet" href="../static/style.css">
+        <link rel="stylesheet" href="/style.css">
+        <link rel="icon" type="image/jpg" href="/img/logo.jpg"/> 
+    </head>
+    <body class="grid-container">
+        <header class="header">
+            <div><a href="/">
+                    <img class="img" src="/img/logo.jpg" alt="Hservice"/></a></div>
+        </header>
+        <nav class="navbar">NAVBAR</nav>
+        <article class="main">
+            
+            <div>
+                <h1> Actualizar Servicio </h1>
+            </div>
+
+
+            <div class="container" align="center">
+                <form class="formulario" th:action="@{/servicio/actualizar/__${servicio.id}__}" method="POST">
+                    <div class="form-group">
+                        <input hidden th:value="${proveedor.id}" name="id">
+                        <input type="text" class="form-group" name="rubro" placeholder="Actualice el rubro" th:value="${servicio.rubro}">
+                    </div> 
+                    <br>
+                    <div class="form-group">
+                        <input type="file" class="form-control" name="archivo">
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary"> Guardar</button>
+            </div>
+        </form>
+
+        <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3 mensajeExito">
+            <div class="card-body">
+                <h5 class="card-title">Exito!</h5>
+                <p class="card-text" th:text="${exito}"></p>
+            </div>
+        </div>
+        <div th:if="${error}!=null" class="card text-white bg-danger mb-3 mensajeError">
+            <div class="card-body">
+                <h5 class="card-title">Error 👎</h5>
+                <p class="card-text" th:text="${error}"></p>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="btn-holder">
+
+        <button class="button2" onclick='goBack()'>Atrás</button>
+        <script>
+            function goBack() {
+            history.back();
+            }
+        </script>
+    </div>
+</article>
+<footer class="footer">FOOTER</footer>
+
+</body>
+</html>
+
