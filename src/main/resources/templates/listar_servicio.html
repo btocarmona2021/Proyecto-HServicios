@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Actualizar Servicio</title>
+        <link rel="stylesheet" href="../static/style.css">
+        <link rel="stylesheet" href="/style.css">
+        <link rel="icon" type="image/jpg" href="/img/logo.jpg"/> 
+    </head>
+    <body class="grid-container">
+        <header class="header">
+            <div><a href="/">
+                    <img class="img" src="/img/logo.jpg" alt="Hservice"/></a></div>
+        </header>
+        <nav class="navbar">NAVBAR</nav>
+        <article class="main">
+            <!-- LISTA -->
+
+            <h1>Seleccione un Servicio</h1>
+
+            <div class="container m-5">
+
+                <table id="customers">
+
+                    <tr>
+
+                        <th scope="col">Rubro</th>  
+                        <th scope="col">Estado</th>
+                        <th scope="col">Acción</th>
+
+                    </tr>
+
+                    <tbody th:each="servicio : ${servicios}">
+                        <tr>
+
+                            <td th:text="${servicio.rubro}"></td>  
+                            <td th:text="${servicio.estado == true ? 'ALTA':'BAJA'}"></td>
+                            <td>
+                                <a th:href="@{/servicio/actualizar/__${servicio.id}__}"><i class="fas fa-feather-alt"></i>
+                                    Modificar</a>
+
+                            </td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="btn-holder">
+
+                    <button class="button2" onclick='goBack()'>Atrás</button>
+                    <script>
+                        function goBack() {
+                        history.back();
+                        }
+                    </script>
+                </div>
+            </div>
+        </article>
+        <footer class="footer">FOOTER</footer>
+    </body>
+</html>
+
