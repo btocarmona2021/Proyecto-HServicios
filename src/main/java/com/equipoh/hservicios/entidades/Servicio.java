@@ -14,6 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 @Getter
@@ -28,6 +29,9 @@ public class Servicio {
     private String id;
     private String rubro;
     private Boolean estado;
+    
+    @OneToOne
+    private Imagen imagen;
 
     
 }
