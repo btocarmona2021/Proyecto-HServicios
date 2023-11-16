@@ -40,7 +40,7 @@ public class UsuarioControlador {
     public String registro(@RequestParam String nombre, @RequestParam String apellido,
             @RequestParam String direccion, @RequestParam String telefono,
             @RequestParam String correo, @RequestParam String password,
-            @RequestParam String password2, @RequestParam MultipartFile archivo, ModelMap modelo) {
+            @RequestParam String password2, MultipartFile archivo, ModelMap modelo) {
         /*
         **********************
         * ¿Es necesario la 'password2' durante el registro?

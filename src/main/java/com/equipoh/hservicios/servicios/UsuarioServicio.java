@@ -58,8 +58,7 @@ public class UsuarioServicio {
              ****************************/
             usuario.setPassword(password);
             
-            Imagen imagen = imagenServicio.guardarImagen(archivo);
-            usuario.setImagen(imagen);
+            usuario.setImagen(imagenServicio.guardarImagen(archivo));
             
             // Las siguientes lineas buscan si hay algun usuario registrado y al primer usuario registrado le da el rol de ADMIN
             List<Usuario> respuesta = usuarioRepositorio.findAll();
@@ -106,8 +105,8 @@ public class UsuarioServicio {
             if (usuario.getImagen() != null) {
                 idImagen = usuario.getImagen().getId();
             }
-            Imagen imagen = imagenServicio.actualizarImagen(archivo, idImagen);
-            usuario.setImagen(imagen);
+            
+            usuario.setImagen(imagenServicio.actualizarImagen(archivo, idImagen));
             // ********** FIN ACTUALIZACIÓN DE LA IMAGEN **********
             
             /**
