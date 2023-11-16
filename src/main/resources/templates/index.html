@@ -1,49 +1,26 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Home Services</title>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace= "/frangments/head :: head"</head>
 
-        <link rel="stylesheet" href="../static/style.css"><!-- visual -->
-        <link rel="stylesheet" href="/style.css">
-        <link rel="stylesheet" href="/car.css">
-        <link rel="icon" type="image/jpg" href="/img/logo.jpg"/> 
-
-    </head>
     <body class="grid-container">
-
         <header class="header">
-            <div><a href="/">
-                    <img class="img" src="/img/logo.jpg" alt="Hservice"/></a></div>
+            <nav th:replace="/frangments/navbar :: nav"</nav>
         </header>
-
-        <nav class="navbar"> NAVBAR
-
-            <a href="/proveedor/registrar">registro proveedor </a>
-            <a href="/usuario/registrar">registro usuario </a>
-            <a href="/login">Ingresar </a>
-            <a href="/buscador">buscar </a>
-        </nav>
-
         <article class="main"> 
             <div>
                 <div id="carrusel-contenido">
                     <div id="carrusel-caja">
                         <div class="carrusel-elemento">
-                            <img class="imagenes" src="/img/caru01.jpg" >
+                            <img class="imagenes" src="/img/carusel.png" >
                         </div>
                         <div class="carrusel-elemento">   
                             <img class="imagenes" src="/img/caru02.jpg" >
                         </div>
-                        <!--  <div class="carrusel-elemento">   
-                              <img class="imagenes" src="../static/img/caru03.jpg" >
-                                                  
-                          </div>-->
+
                     </div>
                 </div> 
             </div>
-
+            <!-- mostrar categorias 
             <div class="container">
                 <tbody th:each="usuarios : ${usuarios}">   
                 <div class="card" >
@@ -52,19 +29,15 @@
                     </div>
                     <!-- <div>
                         <h4 th:text="${usuarios.nombre}"></h4>
-                    </div> -->
+                    </div> 
                     <div>
                         <p th:text="${usuarios.apellido}"></p>
                     </div>
-
-
                 </div>
                 </tbody>
-            </div>
-
-
-
+            </div>-->
         </article>
-        <footer class="footer"> informacion del FOOTER</footer>
-    </body>
+        <footer th:replace="frangments/footer:: footer"></footer>
+<script src="/script.js"></script>
+</body>
 </html>

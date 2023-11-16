@@ -1,15 +1,26 @@
-<!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+<nav class="nav">
+    <a href="/" class="logo nav-link"><img class="img" src="/img/logo.jpg" alt="Hservice"/></a>
+    <button class="nav-toggle" aria-label="Abrir menú">
+        <i class="fas fa-bars"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M120-240v-80h240v80H120Zm0-200v-80h480v80H120Zm0-200v-80h720v80H120Z"/></svg></i>
+    </button>
+    <ul class="nav-menu">
+        <li class="nav-menu-item">
+            
+            <a href="/usuario/registrar" class="nav-menu-link nav-link" th:if ="${session.usuarioSesion ==null }">Registrarse</a>
+        </li>
+        <li class="nav-menu-item">
+            <a href="/login" class="nav-menu-link nav-link" th:if ="${session.usuarioSesion ==null}">Ingresar</a>
+        </li>
+        <li class="nav-menu-item">
+            <a href="/logout" class="nav-menu-link nav-link" th:if ="${session.usuarioSesion !=null}">Salir</a>
+        </li>
+        <li class="nav-menu-item">
+            <a href="buscador" class="nav-menu-link nav-link">Buscar</a>
+        </li>
+        <!-- <li class="nav-menu-item">
+           <a href="#" class="nav-menu-link nav-link nav-menu-link_active"
+             >Contacto</a
+           >
+         </li>-->
+    </ul>
+</nav> 
