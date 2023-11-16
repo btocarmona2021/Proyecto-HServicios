@@ -32,17 +32,18 @@ public class ServicioControlador {
 
     @GetMapping("/registrar")
     public String registrarServicio() {
-        return "registrarServicio.html";
+        return "registrar_servicio.html";
     }
 
     @PostMapping("/registro")
     public String registroServicio(String rubro, MultipartFile archivo, ModelMap modelo) {
+        System.out.println("imagen: "+archivo);
         try {
             servicioServicio.registrarServicio(rubro, archivo);
             modelo.put("exito", "El servicio fue registrado correctamente");
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
-            return "registrar.html";
+            return "registrar_servicio.html";
         }
 
         return "index.html";
@@ -52,7 +53,7 @@ public class ServicioControlador {
     public String listarServicios (ModelMap modelo) {
         List<Servicio> servicios = servicioServicio.listarServicios();
         modelo.addAttribute("servicios", servicios);
-        return "listar_servicios.html";
+        return "listar_servicio.html";
     }
 
 
@@ -64,14 +65,12 @@ public class ServicioControlador {
 
     @PostMapping("/actualizar/{id}")
     public String actualizar(String id,String rubro,MultipartFile archivo, Boolean estado, ModelMap modelo) {
-        Servicio servicio = servicioServicio.getOne(id);
         try {
             servicioServicio.actualizarServicio(id, rubro, estado, archivo);
             modelo.put("exito", "Servicio actualizado correctamente");
             return "redirect:/servicio/lista";
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
-            modelo.addAttribute("servicio", servicio);
             return "modificar_servicio.html";
         }
 

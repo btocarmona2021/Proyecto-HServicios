@@ -33,7 +33,7 @@
 
                     <tbody th:each="servicio : ${servicios}">
                         <tr>
-
+                            <td hidden th:value="${id}" name="id"></td>  
                             <td th:text="${servicio.rubro}"></td>  
                             <td th:text="${servicio.estado == true ? 'ALTA':'BAJA'}"></td>
                             <td>

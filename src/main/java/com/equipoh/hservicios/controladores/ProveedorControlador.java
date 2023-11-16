@@ -5,6 +5,7 @@
 package com.equipoh.hservicios.controladores;
 
 import com.equipoh.hservicios.entidades.Proveedor;
+import com.equipoh.hservicios.entidades.Servicio;
 import com.equipoh.hservicios.excepciones.MiException;
 import com.equipoh.hservicios.servicios.ProveedorServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +31,9 @@ public class ProveedorControlador {
     }
 
     @PostMapping("/registro")
-    public String registroProveedor(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String direccion,
-                                    @RequestParam String telefono, @RequestParam String correo, @RequestParam String password, String password2, String rol,
-                                    String experiencia, Double precioXHora, String servicio, ModelMap modelo) {
+    public String registroProveedor(String nombre, String apellido, String direccion,
+                                    String telefono, String correo, String password, String password2, String rol,
+                                    String experiencia, Double precioXHora, Servicio servicio, ModelMap modelo) {
         try {
             proveedorServicio.registrarProveedor(nombre, apellido, direccion, telefono, correo, password, password2, rol, experiencia, precioXHora, servicio);
             modelo.put("exito", "El Proveedor fue registrado correctamente");
@@ -61,7 +62,7 @@ public class ProveedorControlador {
     @PostMapping("/actualizar/{id}")
     public String actualizar(String id, String nombre, String apellido, String direccion,
                              String telefono, String correo, String password, String password2, String rol,
-                             String experiencia, Double precioXHora, String servicio, String alta, ModelMap modelo) {
+                             String experiencia, Double precioXHora, Servicio servicio, String alta, ModelMap modelo) {
         Proveedor proveedor = proveedorServicio.getOne(id);
         try {
             proveedorServicio.actualizar(id, nombre, apellido, direccion, telefono, correo, password, password2, rol,

@@ -21,7 +21,7 @@
             </div>
 
             <div class="container"  align="center">
-                <form class="formulario" th:action="@{/servicio/registro/}" method="POST">
+                <form class="formulario" th:action="@{/servicio/registro/}" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <input type="text" class="form-group" name="rubro" placeholder="Ingrese el rubro" th:value="${rubro}">                        
                     </div> 

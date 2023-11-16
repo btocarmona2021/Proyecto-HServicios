@@ -33,13 +33,13 @@ public class ServicioServicio {
         validar(rubro);
 
         Servicio servicio = new Servicio();
-        Imagen imagen = imagenServicio.guardarImagen(archivo);
-
+        servicio.setImagen(imagenServicio.guardarImagen(archivo));
         servicio.setRubro(rubro);
         servicio.setEstado(true);
         
 
         servicioRepositorio.save(servicio);
+        
 
 
     }
