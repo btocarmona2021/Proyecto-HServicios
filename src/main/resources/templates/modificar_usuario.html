@@ -1,20 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Home Services</title>
-        <link rel="stylesheet" href="/style.css">
-        <link rel="icon" type="image/jpg" href="/img/logo.jpg"/> 
-    </head>
-    <body class="grid-container">
-          <header class="header">
-            <div><a href="/">
-                    <img class="img" src="/img/logo.jpg" alt="Hservice"/></a></div>
-        </header>
-        <nav class="navbar">NAVBAR</nav>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace= "/frangments/head :: head"</head>
 
-        <article class="main">
+    <body class="grid-container">
+        <header class="header">
+            <nav th:replace="/frangments/navbar :: nav"</nav>
+        </header>
+        <article class="main"> 
             <div class="container"  align="center">
                 <form class="formulario" th:action="@{/usuario/modificado/__${usuario.id}__}" method="POST">
                     <div class="form-group">
@@ -73,7 +65,7 @@
             </div>
 
         </article>
-        <footer class="footer">FOOTER</footer>
-
-    </body>
+        <footer th:replace="frangments/footer:: footer"></footer>
+<script src="/script.js"></script>
+</body>
 </html>

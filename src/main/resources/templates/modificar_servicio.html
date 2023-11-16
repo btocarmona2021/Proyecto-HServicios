@@ -1,34 +1,32 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Actualizar Servicio</title>
-        <link rel="stylesheet" href="../static/style.css">
-        <link rel="stylesheet" href="/style.css">
-        <link rel="icon" type="image/jpg" href="/img/logo.jpg"/> 
-    </head>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace= "/frangments/head :: head"</head>
+
     <body class="grid-container">
         <header class="header">
-            <div><a href="/">
-                    <img class="img" src="/img/logo.jpg" alt="Hservice"/></a></div>
+            <nav th:replace="/frangments/navbar :: nav"</nav>
         </header>
-        <nav class="navbar">NAVBAR</nav>
         <article class="main">
-            
+
             <div>
                 <h1> Actualizar Servicio </h1>
             </div>
 
 
             <div class="container" align="center">
-                <form class="formulario" th:action="@{/servicio/actualizar/__${servicio.id}__}" method="POST">
+                <form class="formulario" th:action="@{/servicio/actualizar/__${servicio.id}__}" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
-                        <input hidden th:value="${proveedor.id}" name="id">
+                        <input hidden th:value="${servicio.id}" name="id">
                         <input type="text" class="form-group" name="rubro" placeholder="Actualice el rubro" th:value="${servicio.rubro}">
                         <!--Ver como poner un check si quiero seleccionar baja en ESTADO -->
                         
                     </div> 
+                     <label for="lang">Estado</label>
+      <select name="Estado" id="lang">
+        <option th:value="${servicio.estado}">alta</option>
+        <option value="BAJA">BAJA</option>
+       
+      </select>
                     <br>
                     <div class="form-group">
                         <input type="file" class="form-control" name="archivo">
@@ -59,13 +57,14 @@
         <button class="button2" onclick='goBack()'>Atrás</button>
         <script>
             function goBack() {
-            history.back();
+                history.back();
             }
         </script>
     </div>
-</article>
-<footer class="footer">FOOTER</footer>
-
+  </article>
+        <footer th:replace="frangments/footer:: footer"></footer>
+<script src="/script.js"></script>
 </body>
 </html>
+
 

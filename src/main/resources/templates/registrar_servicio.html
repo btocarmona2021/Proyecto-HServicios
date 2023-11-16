@@ -1,19 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Registrar Servicio</title>
-        <link rel="stylesheet" href="../static/style.css">
-        <link rel="stylesheet" href="/style.css">
-        <link rel="icon" type="image/jpg" href="/img/logo.jpg"/> 
-    </head>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace= "/frangments/head :: head"</head>
+
     <body class="grid-container">
         <header class="header">
-            <div><img class="img" src="/img/logo.jpg" alt="Hservice"/></div>
+            <nav th:replace="/frangments/navbar :: nav"</nav>
         </header>
-        <nav class="navbar">NAVBAR</nav>
-
         <article class="main">
 
             <div>
@@ -21,7 +13,7 @@
             </div>
 
             <div class="container"  align="center">
-                <form class="formulario" th:action="@{/servicio/registro/}" method="POST">
+                <form class="formulario" th:action="@{/servicio/registro/}" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <input type="text" class="form-group" name="rubro" placeholder="Ingrese el rubro" th:value="${rubro}">                        
                     </div> 
@@ -58,8 +50,8 @@
         }
     </script>
 </div>
-</article>
-<footer class="footer">FOOTER</footer>
-
+  </article>
+        <footer th:replace="frangments/footer:: footer"></footer>
+<script src="/script.js"></script>
 </body>
 </html>
