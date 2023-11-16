@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 public class ImagenControlador {
 
-    @Autowired
+   @Autowired
    private UsuarioServicio usuarioServicio;
 
     @GetMapping("/perfil/{id}")
