@@ -53,10 +53,10 @@ public class UsuarioControlador {
             modelo.put("error", ex.getMessage());
             return "registrar.html";
         }
-        return "inicio.html";
+        return "index.html";
     }
     
-    @GetMapping("/listar")       // localhost:8080/usuario/listar 
+    @GetMapping("/lista")       // localhost:8080/usuario/listar 
     public String listar(ModelMap modelo) {
 
         List<Usuario> usuarios = usuarioServicio.listarUsuario();
@@ -76,7 +76,7 @@ public class UsuarioControlador {
     public String actualizar(@PathVariable String id, String nombre, String apellido, String direccion, String telefono, String correo, String password, String password2, MultipartFile archivo, ModelMap modelo) {
         try {
             usuarioServicio.actualizarUsuario(archivo, id,  nombre, apellido, direccion, telefono, correo, password, password2);
-            return "redirect:../listar";
+            return "redirect:../lista";
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
             return "modificar_usuario.html";
