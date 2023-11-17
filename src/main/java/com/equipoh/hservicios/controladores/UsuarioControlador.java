@@ -68,7 +68,10 @@ public class UsuarioControlador {
         try {
             usuarioServicio.actualizarUsuario(id, nombre, apellido, direccion, telefono, correo, password, password2);
             modelo.put("exito", "El Usuario se ha modificado correctamente");
-            return "redirect:/usuario/lista";
+            System.out.println("Modificacion con exito");
+            //return "redirect:/usuario/lista";
+            return "listar_usuario";
+            
         } catch (MiException e) {
             modelo.put("usuario", usuario);
             modelo.put("error", e.getMessage());
