@@ -33,7 +33,7 @@ public class Proveedor extends Usuario {
     private String experiencia;
     private Double precioXHora;
 
-    @OneToOne
-    private Servicio servicio;
+    //@OneToOne
+    private String servicio;
             
 }

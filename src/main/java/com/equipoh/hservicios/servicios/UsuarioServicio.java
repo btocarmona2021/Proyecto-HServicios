@@ -5,6 +5,7 @@
  */
 package com.equipoh.hservicios.servicios;
 
+import com.equipoh.hservicios.entidades.Imagen;
 import com.equipoh.hservicios.entidades.Usuario;
 import com.equipoh.hservicios.enumeracion.Rol;
 import com.equipoh.hservicios.excepciones.MiException;
@@ -16,54 +17,68 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class UsuarioServicio {
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
+    
+    @Autowired
+    private ImagenServicio imagenServicio;
 
     @Transactional
-    public void registrarUsuario(String nombre, String apellido, String direccion,
+    public void registrarUsuario(MultipartFile archivo, String nombre, String apellido, String direccion,
                                  String telefono, String correo, String password, String password2) throws MiException {
 
         // Manejo de Excepciones
         validar(nombre, correo, password, password2);
 
-        Usuario user = new Usuario();
+        Usuario usuario = new Usuario();
 
-        user.setNombre(nombre);
-        user.setApellido(apellido);
-        user.setDireccion(direccion);
-        user.setTelefono(telefono);
-        user.setCorreo(correo);
-        user.setFechaAlta(new Date());
+        usuario.setNombre(nombre);
+        usuario.setApellido(apellido);
+        usuario.setDireccion(direccion);
+        usuario.setTelefono(telefono);
+        usuario.setCorreo(correo);
+        usuario.setFechaAlta(new Date());
 
         /****************************
          * Modificar para encriptar *
          ****************************/
-        user.setPassword(password);
+        usuario.setPassword(password);
 
         /************************************
          * ESPACIO RESERVADO PARA LA IMAGEN *
+        /************************************
+         * ESPACIO RESERVADO PARA LA IMAGEN *
          ************************************/
+        
+        
+        usuario.setImagen(imagenServicio.guardarImagen(archivo));
+        
+        usuarioRepositorio.save(usuario);
+
+        
+        
 
         // Las siguientes lineas buscan si hay algun usuario registrado y al primer usuario registrado le da el rol de ADMIN
         List<Usuario> respuesta = usuarioRepositorio.findAll();
         if (respuesta.isEmpty()) {
-            user.setRol(Rol.ADMIN);
+            usuario.setRol(Rol.ADMIN);
         } else {
-            user.setRol(Rol.USUARIO);
+            usuario.setRol(Rol.USUARIO);
         }
         
 
-        user.setAlta(Boolean.TRUE);
+        usuario.setAlta(Boolean.TRUE);
 
-        usuarioRepositorio.save(user);
+        usuarioRepositorio.save(usuario);
     }
 
     @Transactional
-    public void actualizarUsuario(String id, String nombre, String apellido,
+    public void actualizarUsuario(MultipartFile archivo, String id, String nombre, String apellido,
                                   String direccion, String telefono, String correo, String password,
                                   String password2) throws MiException {
 
@@ -88,10 +103,20 @@ public class UsuarioServicio {
             /************************************
              * ESPACIO RESERVADO PARA LA IMAGEN *
              ************************************/
+            
+            String idImagen =null;
+            if(usuario.getImagen()!=null){
+                idImagen=usuario.getImagen().getId();
+            
+            }
+            
+          usuario.setImagen(imagenServicio.actualizarImagen(archivo,idImagen));
+            
+            
             /***************************************
              * ESPACIO RESERVADO CAMBIO DE USUARIO *
              ***************************************/
-            usuario.setRol(Rol.USUARIO);
+            usuario.setRol(usuario.getRol());
             usuario.setAlta(Boolean.TRUE);
 
             // Guardar la variable

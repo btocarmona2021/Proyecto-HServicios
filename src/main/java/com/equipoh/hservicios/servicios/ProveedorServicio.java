@@ -54,7 +54,7 @@ public class ProveedorServicio {
         proveedor.setExperiencia(experiencia);
         proveedor.setPrecioXHora(precioXHora);
         //proveedor.setServicio();
-        proveedor.setServicio(servicio);
+        //proveedor.setServicio(servicio);
         proveedor.setFechaAlta(new Date());
         proveedor.setAlta(true);
 
@@ -65,7 +65,7 @@ public class ProveedorServicio {
     @Transactional
     public void actualizar(String id, String nombre, String apellido, String direccion,
                            String telefono, String correo, String password, String password2, String rol,
-                           String experiencia, Double precioXHora, Servicio servicio, String alta) throws MiException {
+                           String experiencia, Double precioXHora, String servicio, String alta) throws MiException {
 
         validar(nombre, correo, password, password2);
 
@@ -83,7 +83,7 @@ public class ProveedorServicio {
             proveedor.setRol(Rol.PROVEEDOR);
             proveedor.setExperiencia(experiencia);
             proveedor.setPrecioXHora(precioXHora);
-            //proveedor.setServicio();
+            
             proveedor.setServicio(servicio);
             proveedor.setFechaAlta(new Date());
             if (alta.equalsIgnoreCase("ALTA")) {

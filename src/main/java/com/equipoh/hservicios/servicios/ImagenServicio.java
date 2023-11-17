@@ -2,6 +2,7 @@
 package com.equipoh.hservicios.servicios;
 
 import com.equipoh.hservicios.entidades.Imagen;
+import com.equipoh.hservicios.excepciones.MiException;
 import com.equipoh.hservicios.repositorios.ImagenRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,7 +49,7 @@ public class ImagenServicio {
     
     }
     
-    public Imagen actualizarImagen(MultipartFile archivo, String idImagen) { //throws MiException cargar excepcion
+    public Imagen actualizarImagen(MultipartFile archivo, String idImagen) throws MiException  { //cargar excepcion
         
         if (archivo != null) {
             

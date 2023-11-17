@@ -14,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author manie
@@ -32,10 +33,10 @@ public class UsuarioControlador {
     }
 
     @PostMapping("/registro")
-    public String registro(@RequestParam String nombre, @RequestParam String apellido,
+    public String registro(MultipartFile archivo, @RequestParam String nombre, @RequestParam String apellido,
                            @RequestParam String direccion, @RequestParam String telefono,
                            @RequestParam String correo, @RequestParam String password,
-                           @RequestParam String password2, ModelMap modelo) {
+                           @RequestParam String password2, ModelMap modelo) throws MiException{
         /*
          **********************
          * ¿Es necesario la 'password2' durante el registro?
@@ -43,7 +44,7 @@ public class UsuarioControlador {
          */
 
         try {
-            usuarioServicio.registrarUsuario(nombre, apellido, direccion, telefono, correo, password, password2);
+            usuarioServicio.registrarUsuario(archivo,nombre, apellido, direccion, telefono, correo, password, password2);
             modelo.put("exito", "El usuario ha sido cargado con éxito");
             return "index";
         } catch (MiException ex) {
@@ -60,13 +61,13 @@ public class UsuarioControlador {
     }
 
     @PostMapping("/modificado/{id}")
-    public String usuarioModificado(String id, String nombre, String apellido,
+    public String usuarioModificado(MultipartFile archivo, String id, String nombre, String apellido,
                                     String direccion, String telefono,
                                     String correo, String password,
-                                    String password2, ModelMap modelo) {
+                                    String password2, ModelMap modelo) throws MiException{
         Usuario usuario = usuarioServicio.obetenerUsuario(id);
         try {
-            usuarioServicio.actualizarUsuario(id, nombre, apellido, direccion, telefono, correo, password, password2);
+            usuarioServicio.actualizarUsuario(archivo, id, nombre, apellido, direccion, telefono, correo, password, password2);
             modelo.put("exito", "El Usuario se ha modificado correctamente");
             return "redirect:/usuario/lista";
         } catch (MiException e) {
