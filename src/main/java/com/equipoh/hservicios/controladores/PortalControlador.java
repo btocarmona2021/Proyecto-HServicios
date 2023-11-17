@@ -28,7 +28,7 @@ public class PortalControlador {
 
     @GetMapping("/")
     public String index(ModelMap modelo) {
-        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
+        List<Usuario> usuarios = usuarioServicio.listarUsuario();
         modelo.addAttribute("usuarios", usuarios);
 
         return "index.html";

@@ -8,14 +8,19 @@ package com.equipoh.hservicios.controladores;
 import com.equipoh.hservicios.entidades.Usuario;
 import com.equipoh.hservicios.excepciones.MiException;
 import com.equipoh.hservicios.servicios.UsuarioServicio;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
+ *
  * @author manie
  */
 @Controller
@@ -25,63 +30,74 @@ public class UsuarioControlador {
     @Autowired
     private UsuarioServicio usuarioServicio;
 
-    @GetMapping("/registrar")
+    @GetMapping("/registrar")    // localhost:8080/usuario/registrar
     public String registrar() {
         System.out.println("IMPRIME 31");
-        return "registrar";
+        return "registrar.html";
     }
 
     @PostMapping("/registro")
-    public String registro(@RequestParam String nombre, @RequestParam String apellido,
-                           @RequestParam String direccion, @RequestParam String telefono,
-                           @RequestParam String correo, @RequestParam String password,
-                           @RequestParam String password2, ModelMap modelo) {
-        /*
-         **********************
-         * ¿Es necesario la 'password2' durante el registro?
-         **********************
-         */
-
+    public String registro(String nombre, String apellido,
+            String direccion, String telefono,
+            String correo, String password,
+            String password2, MultipartFile archivo, ModelMap modelo) {
+        
+        System.out.println("nombre: "+nombre);
+        System.out.println("apellido: "+apellido);
+        System.out.println("direccion: "+direccion);
+        System.out.println("telefono: "+telefono);
+        System.out.println("correo: "+correo);
+        System.out.println("password: "+password);
+        System.out.println("password2: "+password2);
+        System.out.println("imagen: "+archivo);
+        
+        
         try {
-            usuarioServicio.registrarUsuario(nombre, apellido, direccion, telefono, correo, password, password2);
+            usuarioServicio.registrarUsuario(archivo, nombre, apellido, direccion, telefono, correo, password, password2);
             modelo.put("exito", "El usuario ha sido cargado con éxito");
-            return "index";
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
-            return "registrar";
+            return "registrar.html";
         }
+        return "index.html";
     }
 
-    @GetMapping("/modificar/{id}")
-    public String modificar(@PathVariable String id, ModelMap modelo) {
-        Usuario usuario = usuarioServicio.obetenerUsuario(id);
-        modelo.put("usuario", usuario);
+    @GetMapping("/lista")       // localhost:8080/usuario/listar 
+    public String listar(ModelMap modelo) {
+
+        List<Usuario> usuarios = usuarioServicio.listarUsuario();
+
+        modelo.addAttribute("usuarios", usuarios);
+
+        return "listar_usuario.html";
+    }
+
+    @GetMapping("/actualizar/{id}")      // localhost:8080/usuario/actualizar/{id}
+    public String actualizar(@PathVariable String id, ModelMap modelo) {
+        modelo.put("usuario", usuarioServicio.buscarUsuario(id));
         return "modificar_usuario.html";
     }
 
-    @PostMapping("/modificado/{id}")
-    public String usuarioModificado(String id, String nombre, String apellido,
-                                    String direccion, String telefono,
-                                    String correo, String password,
-                                    String password2, ModelMap modelo) {
-        Usuario usuario = usuarioServicio.obetenerUsuario(id);
+    @PostMapping("/actualizar/{id}")
+    public String actualizar(@PathVariable String id, String nombre, String apellido, String direccion, String telefono, String correo, String password, String password2, MultipartFile archivo, ModelMap modelo) {
         try {
-            usuarioServicio.actualizarUsuario(id, nombre, apellido, direccion, telefono, correo, password, password2);
-            modelo.put("exito", "El Usuario se ha modificado correctamente");
-            return "redirect:/usuario/lista";
-        } catch (MiException e) {
-            modelo.put("usuario", usuario);
-            modelo.put("error", e.getMessage());
+            usuarioServicio.actualizarUsuario(archivo, id, nombre, apellido, direccion, telefono, correo, password, password2);
+            return "redirect:../lista";
+        } catch (MiException ex) {
+            modelo.put("error", ex.getMessage());
             return "modificar_usuario.html";
         }
+
     }
+    /*
+    @GetMapping("/buscador")       // localhost:8080/usuario/buscador 
+    public String listar(@PathVariable String dato,  ModelMap modelo) {
 
-    @GetMapping("/lista")
-    public String listar(ModelMap modelo) {
-        List<Usuario> usuarios = usuarioServicio.listarUsuarios();
-        modelo.addAttribute("usuarios", usuarios);
+        List<Usuario> usuarios = usuarioServicio.buscarDato(dato);
 
-        return "listar_usuario";
+        modelo.addAttribute("dato", usuarios);
+
+        return "listar_usuario.html";
     }
-
+     */
 }
