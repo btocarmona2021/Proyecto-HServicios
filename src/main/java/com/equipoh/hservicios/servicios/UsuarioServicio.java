@@ -10,16 +10,27 @@ import com.equipoh.hservicios.entidades.Usuario;
 import com.equipoh.hservicios.enumeracion.Rol;
 import com.equipoh.hservicios.excepciones.MiException;
 import com.equipoh.hservicios.repositorios.UsuarioRepositorio;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
-public class UsuarioServicio {
+public class UsuarioServicio implements UserDetailsService{
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
@@ -56,7 +67,7 @@ public class UsuarioServicio {
             /****************************
              * Modificar para encriptar *
              ****************************/
-            usuario.setPassword(password);
+            usuario.setPassword(new BCryptPasswordEncoder().encode(password));
             
             usuario.setImagen(imagenServicio.guardarImagen(archivo));
             
@@ -92,12 +103,7 @@ public class UsuarioServicio {
             usuario.setTelefono(telefono);
             usuario.setCorreo(correo);
 
-            /**
-             * **************************
-             * Modificar para encriptar *
-             ***************************
-             */
-            usuario.setPassword(password);
+            usuario.setPassword(new BCryptPasswordEncoder().encode(password));
             
             // ********** INICIO ACTUALIZACIÓN DE LA IMAGEN **********
             // Creo una variable que va a guardar la ID de la imagen (para qwue no me de error cuando vaya a 'guardar')
@@ -199,5 +205,28 @@ public class UsuarioServicio {
      * ****************************/
     public Usuario obtenerUsuario(String id) {
         return buscarUsuario(id);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String correo) throws UsernameNotFoundException {
+        Usuario usuario = usuarioRepositorio.buscarCorreoActivo(correo);
+         if (usuario != null) {
+
+            List<GrantedAuthority> permisos = new ArrayList();
+
+            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
+
+            permisos.add(p);
+
+            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+
+            HttpSession session = attr.getRequest().getSession(true);
+
+            session.setAttribute("usuariosession", usuario);
+
+            return new User(usuario.getCorreo(), usuario.getPassword(), permisos);
+        } else {
+            return null;
+        }
     }
 }

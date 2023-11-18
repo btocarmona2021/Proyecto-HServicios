@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -50,7 +51,7 @@ public class ProveedorServicio {
         proveedor.setDireccion(direccion);
         proveedor.setTelefono(telefono);
         proveedor.setCorreo(correo);
-        proveedor.setPassword(password);
+        proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
         proveedor.setRol(Rol.PROVEEDOR);
         proveedor.setExperiencia(experiencia);
         proveedor.setPrecioXHora(precioXHora);
@@ -80,7 +81,7 @@ public class ProveedorServicio {
             proveedor.setDireccion(direccion);
             proveedor.setTelefono(telefono);
             proveedor.setCorreo(correo);
-            proveedor.setPassword(password);
+            proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
             proveedor.setRol(Rol.PROVEEDOR);
             proveedor.setExperiencia(experiencia);
             proveedor.setPrecioXHora(precioXHora);
