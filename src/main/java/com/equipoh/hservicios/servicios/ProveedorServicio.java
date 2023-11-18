@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -30,10 +31,15 @@ public class ProveedorServicio {
     private ProveedorRepositorio proveedorRepositorio;
     @Autowired
     private ServicioRepositorio servicioRepositorio;
+    @Autowired
+    private ImagenServicio imagenServicio;
+    @Autowired
+    private ServicioServicio servicioServicio;
+
     @Transactional
-    public void registrarProveedor(String nombre, String apellido, String direccion,
-                                   String telefono, String correo, String password, String password2, String rol,
-                                   String experiencia, Double precioXHora, Servicio servicio) throws MiException {
+    public void registrarProveedor(MultipartFile archivo, String nombre, String apellido, String direccion,
+            String telefono, String correo, String password, String password2, String rol,
+            String experiencia, Double precioXHora, String idServicio) throws MiException {
 
         validar(nombre, correo, password, password2);
 
@@ -48,7 +54,8 @@ public class ProveedorServicio {
         proveedor.setRol(Rol.PROVEEDOR);
         proveedor.setExperiencia(experiencia);
         proveedor.setPrecioXHora(precioXHora);
-        proveedor.setServicio(servicio);
+        proveedor.setServicio(servicioServicio.getOne(idServicio));
+        proveedor.setImagen(imagenServicio.guardarImagen(archivo));
         proveedor.setFechaAlta(new Date());
         proveedor.setAlta(true);
 
@@ -57,9 +64,9 @@ public class ProveedorServicio {
     }
 
     @Transactional
-    public void actualizar(String id, String nombre, String apellido, String direccion,
-                           String telefono, String correo, String password, String password2, String rol,
-                           String experiencia, Double precioXHora, Servicio servicio, String alta) throws MiException {
+    public void actualizar(MultipartFile archivo, String id, String nombre, String apellido, String direccion,
+            String telefono, String correo, String password, String password2, String rol,
+            String experiencia, Double precioXHora, Servicio servicio, String alta) throws MiException {
 
         validar(nombre, correo, password, password2);
 
@@ -77,8 +84,8 @@ public class ProveedorServicio {
             proveedor.setRol(Rol.PROVEEDOR);
             proveedor.setExperiencia(experiencia);
             proveedor.setPrecioXHora(precioXHora);
-            //proveedor.setServicio();
             proveedor.setServicio(servicio);
+            proveedor.setImagen(imagenServicio.guardarImagen(archivo));
             proveedor.setFechaAlta(new Date());
             if (alta.equalsIgnoreCase("ALTA")) {
                 proveedor.setAlta(true);
@@ -100,7 +107,6 @@ public class ProveedorServicio {
 //        proveedores = proveedorRepositorio.findAll();
         return proveedores;
     }
-
 
     private void validar(String nombre, String correo, String password, String password2) throws MiException {
         if (nombre == null || nombre.isEmpty()) {

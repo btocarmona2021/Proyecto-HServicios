@@ -8,12 +8,14 @@ import com.equipoh.hservicios.entidades.Proveedor;
 import com.equipoh.hservicios.entidades.Servicio;
 import com.equipoh.hservicios.excepciones.MiException;
 import com.equipoh.hservicios.servicios.ProveedorServicio;
+import com.equipoh.hservicios.servicios.ServicioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author jorge
@@ -24,18 +26,23 @@ public class ProveedorControlador {
 
     @Autowired
     private ProveedorServicio proveedorServicio;
-
+    @Autowired
+    private ServicioServicio servicioServicio;
+    
     @GetMapping("/registrar")
-    public String registrarProveedor() {
-        return "registrarProveedor.html";
+    public String registrarProveedor(ModelMap modelo) {
+        List<Servicio> servicios = servicioServicio.listarServicios();
+        modelo.addAttribute("servicios", servicios);
+        return "registrar.html";
     }
 
     @PostMapping("/registro")
-    public String registroProveedor(String nombre, String apellido, String direccion,
+    public String registroProveedor(MultipartFile archivo, String nombre, String apellido, String direccion,
                                     String telefono, String correo, String password, String password2, String rol,
-                                    String experiencia, Double precioXHora, Servicio servicio, ModelMap modelo) {
+                                    String experiencia, Double precioXHora, String idServicio, ModelMap modelo) {
+        
         try {
-            proveedorServicio.registrarProveedor(nombre, apellido, direccion, telefono, correo, password, password2, rol, experiencia, precioXHora, servicio);
+            proveedorServicio.registrarProveedor(archivo, nombre, apellido, direccion, telefono, correo, password, password2, rol, experiencia, precioXHora, idServicio);
             modelo.put("exito", "El Proveedor fue registrado correctamente");
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
@@ -60,13 +67,12 @@ public class ProveedorControlador {
     }
 
     @PostMapping("/actualizar/{id}")
-    public String actualizar(String id, String nombre, String apellido, String direccion,
+    public String actualizar(MultipartFile archivo, String id, String nombre, String apellido, String direccion,
                              String telefono, String correo, String password, String password2, String rol,
                              String experiencia, Double precioXHora, Servicio servicio, String alta, ModelMap modelo) {
         Proveedor proveedor = proveedorServicio.getOne(id);
         try {
-            proveedorServicio.actualizar(id, nombre, apellido, direccion, telefono, correo, password, password2, rol,
-                    experiencia, precioXHora, servicio, alta);
+            proveedorServicio.actualizar(archivo, id, nombre, apellido, direccion, telefono, correo, password, password2, rol, experiencia, precioXHora, servicio, alta);
             return "redirect:/proveedor/lista";
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());

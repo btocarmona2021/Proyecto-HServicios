@@ -639,4 +639,29 @@ body{
     display: none;
 }
 
+.link-container {
+    margin-bottom: 10px;
+}
 
+.link-container a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #373DBA;
+    border: 1px solid #373DBA;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.link-container a:hover {
+    background-color: #373DBA;
+    color: white;
+}
+
+h1 {
+                color: #373DBA; /* Color del texto */
+                font-family: 'Arial', sans-serif; /* Tipo de fuente */
+                text-align: center; /* Alineación del texto */
+                margin-top: 20px; /* Margen superior */
+                margin-bottom: 20px; /* Margen inferior */
+            }

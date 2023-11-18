@@ -7,14 +7,27 @@
             <nav th:replace="/frangments/navbar :: nav"</nav>
         </header>
         <article class="main"> 
-      <div><a href="/usuario/lista">ver todos los usuarios</a></div>
-        <div><a  href="/proveedor/lista"> ver todos los proveedores</a></div>
-        <div><a  href="/servicio/registrar"> Crear servicio</a></div>
-         <div><a  href="/servicio/lista"> ver todos los servicios</a></div>
-        
-       
-     </article>
+            
+            <h1>Panel de Administrador</h1>
+                        
+            <div class="link-container">
+                <a href="/usuario/lista">Ver todos los usuarios</a>
+            </div>
+            <div class="link-container">
+                <a href="/proveedor/lista">Ver todos los proveedores</a>
+            </div>
+            <div class="link-container">
+                <a href="/servicio/registrar">Crear servicio</a>
+            </div>
+            <div class="link-container">
+                <a href="/servicio/lista">Ver todos los servicios</a>
+            </div>
+
+
+
+
+        </article>
         <footer th:replace="frangments/footer:: footer"></footer>
-<script src="/script.js"></script>
-</body>
+        <script src="/script.js"></script>
+    </body>
 </html>

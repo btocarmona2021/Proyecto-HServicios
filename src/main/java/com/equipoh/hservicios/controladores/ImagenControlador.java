@@ -29,7 +29,7 @@ public class ImagenControlador {
     @GetMapping("/perfil/{id}")
     public ResponseEntity<byte[]>imagenUsuario(@PathVariable String id){
 
-        Usuario usuario = usuarioServicio.obetenerUsuario(id); //FALTA USUARIO SERVICIO
+        Usuario usuario = usuarioServicio.obtenerUsuario(id); //FALTA USUARIO SERVICIO
 
        byte[] imagen = usuario.getImagen().getContenido();
 

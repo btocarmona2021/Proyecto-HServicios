@@ -60,8 +60,8 @@ public class ServicioServicio {
                 
                 
             }
-            Imagen imagen = imagenServicio.actualizarImagen(archivo, idImagen);
-            servicio.setImagen(imagen);
+            
+            servicio.setImagen(imagenServicio.actualizarImagen(archivo, idImagen));
 
             servicioRepositorio.save(servicio);
 
