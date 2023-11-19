@@ -1,7 +1,6 @@
 package com.equipoh.hservicios.servicios;
 
 import com.equipoh.hservicios.entidades.Comentario;
-import com.equipoh.hservicios.entidades.Pcensurada;
 import com.equipoh.hservicios.excepciones.MiException;
 import com.equipoh.hservicios.repositorios.ComentarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
