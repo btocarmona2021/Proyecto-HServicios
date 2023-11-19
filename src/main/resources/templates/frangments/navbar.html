@@ -1,41 +1,26 @@
- <nav class="navbar"> NAVBAR
-     <link href="/css/styleNavBar.css" rel="stylesheet" type="text/css"/>
-     <!--th:if ="${session.usuarioSession!=null}"-->
-     <!-- verificar "usuarioSession"-->
-
-            <a href="/proveedor/registrar" th:if ="${session.usuarioSesion ==null}"  >registro proveedor </a>
-            <a href="/usuario/registrar" th:if ="${session.usuarioSesion ==null}" >registro usuario </a>
-            <a href="/login" th:if ="${session.usuarioSesion ==null}" >Ingresar </a>
-            <a href="/buscador">buscar </a>
-            <a href="/buscador"  th:if ="${session.usuarioSesion !=null}" >logout </a>
-        </nav>
-
-
-<!--<nav class="navBar" >
-    <link href="/css/styleNavBar.css" rel="stylesheet" type="text/css"/>
-
-    <div class="navBar img" style="background-image: url(/img/navbar2.jpg);"  >
-        
-        <a class="titulos" href="#">Home Services</a>
-
-        <div class="horizontal">
-            <ul class="horizontal">
-
-
-                <li class="">
-                    <a class="atajo" href="/registrar">Registrar</a>
-                </li>
-                <li class="">
-                    <a class="atajo" href="/login">Login</a>
-                </li>
-
-                <li class="">
-                    <a class="atajo" href="/logout">Logout</a>
-                </li>
-                <li class="">
-                    <a class="atajo" href="/buscador">Buscar</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>-->
+<nav class="nav">
+    <a href="/" class="logo nav-link"><img class="img" src="/img/logo.jpg" alt="Hservice"/></a>
+    <button class="nav-toggle" aria-label="Abrir menú">
+        <i class="fas fa-bars"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M120-240v-80h240v80H120Zm0-200v-80h480v80H120Zm0-200v-80h720v80H120Z"/></svg></i>
+    </button>
+    <ul class="nav-menu">
+        <li class="nav-menu-item">
+            
+            <a href="/usuario/registrar" class="nav-menu-link nav-link" th:if ="${session.usuarioSesion ==null }">Registrarse</a>
+        </li>
+        <li class="nav-menu-item">
+            <a href="/login" class="nav-menu-link nav-link" th:if ="${session.usuarioSesion ==null}">Ingresar</a>
+        </li>
+        <li class="nav-menu-item">
+            <a href="/logout" class="nav-menu-link nav-link" th:if ="${session.usuarioSesion !=null}">Salir</a>
+        </li>
+        <li class="nav-menu-item">
+            <a href="buscador" class="nav-menu-link nav-link">Buscar</a>
+        </li>
+        <!-- <li class="nav-menu-item">
+           <a href="#" class="nav-menu-link nav-link nav-menu-link_active"
+             >Contacto</a
+           >
+         </li>-->
+    </ul>
+</nav> 

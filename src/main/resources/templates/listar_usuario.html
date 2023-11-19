@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <head th:replace="/frangments/header :: head"></head>
+    <head th:replace= "/frangments/head :: head"</head>
+
     <body class="grid-container">
-<header class="header">
-    <div><a href="/">
-        <img class="img" src="/img/logo.jpg" alt="Hservice"/></a></div>
-</header>
-<nav th:replace="/frangments/navbar :: nav"></nav>
-<article class="main">
+        <header class="header">
+            <nav th:replace="/frangments/navbar :: nav"</nav>
+        </header>
+        <article class="main">
     <div>Listamos los usuarios</div>
     <div class="container m-5">
 
-        <table id="customers">
+        <table >
 
             <thead>
             <h1> Datos de los usuarios </h1>
@@ -39,7 +38,7 @@
                 <td th:text="${usuarios.rol}"></td>
 
                 <td>
-                    <div><a th:href="@{/usuario/modificar/__${usuarios.id}__}">Editar</a></div>
+                    <div><a th:href="@{/usuario/actualizar/__${usuarios.id}__}">Editar</a></div>
                 </td>
 
 
@@ -47,19 +46,20 @@
 
             </tbody>
         </table>
-
-        <div class="btn-holder">
-
-            <button class="button2" onclick='goBack()'>Atrás</button>
+        
+        
+    </div>
+    <span>
+         <button class="button2" onclick='goBack()'>Atrás</button>
             <script>
                 function goBack() {
                     history.back();
                 }
             </script>
-        </div>
-    </div>
-</article>
- <footer th:replace="frangments/footer:: footer"> </footer>
-
+    </span>
+    
+ </article>
+        <footer th:replace="frangments/footer:: footer"></footer>
+<script src="/script.js"></script>
 </body>
 </html>

@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <head th:replace="/frangments/header :: head"></head>
+    <head th:replace= "/frangments/head :: head"</head>
 
     <body class="grid-container">
         <header class="header">
-            <div><a href="/">
-                    <img class="img" src="/img/logo.jpg" alt="Hservice"/></a></div>
+            <nav th:replace="/frangments/navbar :: nav"</nav>
         </header>
-        <nav th:replace="/frangments/navbar :: nav"></nav>
-
-        <article class="main">MAIN</article>
-        <footer th:replace="frangments/footer:: footer"> </footer>
-
-    </body>
+        <article class="main"> 
+  
+   </article>
+        <footer th:replace="frangments/footer:: footer"></footer>
+<script src="/script.js"></script>
+</body>
 </html>

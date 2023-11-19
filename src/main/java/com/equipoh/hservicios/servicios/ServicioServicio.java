@@ -6,6 +6,7 @@
 package com.equipoh.hservicios.servicios;
 
 
+import com.equipoh.hservicios.entidades.Imagen;
 import com.equipoh.hservicios.entidades.Servicio;
 import com.equipoh.hservicios.excepciones.MiException;
 import com.equipoh.hservicios.repositorios.ServicioRepositorio;
@@ -16,30 +17,35 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class ServicioServicio {
 
-    @Autowired
+   @Autowired
     private ServicioRepositorio servicioRepositorio;
+    @Autowired
+    private ImagenServicio imagenServicio;
 
     @Transactional
-    public void registrarServicio(String id, String rubro, Boolean estado) throws MiException {
+    public void registrarServicio(String rubro, MultipartFile archivo ) throws MiException {
 
         validar(rubro);
 
         Servicio servicio = new Servicio();
-
+        servicio.setImagen(imagenServicio.guardarImagen(archivo));
         servicio.setRubro(rubro);
         servicio.setEstado(true);
+        
 
         servicioRepositorio.save(servicio);
+        
 
 
     }
 
     @Transactional
-    public void actualizarServicio(String id, String rubro, Boolean estado) throws MiException {
+    public void actualizarServicio(String id, String rubro, Boolean estado, MultipartFile archivo) throws MiException {
 
         validar(rubro);
         Optional<Servicio> respuesta = servicioRepositorio.findById(id);
@@ -47,6 +53,15 @@ public class ServicioServicio {
             Servicio servicio = respuesta.get();
             servicio.setRubro(rubro);
             servicio.setEstado(estado);
+            
+          String idImagen = null;
+            if (servicio.getImagen() != null) {
+                idImagen = servicio.getImagen().getId();
+                
+                
+            }
+            
+            servicio.setImagen(imagenServicio.actualizarImagen(archivo, idImagen));
 
             servicioRepositorio.save(servicio);
 
@@ -82,6 +97,5 @@ public class ServicioServicio {
             throw new MiException("El rubro no puede ser nulo o estar vacio");
         }
     }
-
 
 }

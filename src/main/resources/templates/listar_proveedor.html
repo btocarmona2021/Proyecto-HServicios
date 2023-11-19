@@ -1,74 +1,117 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <head th:replace="/frangments/header :: head"></head>
-   <body class="grid-container">
-<header class="header">
-    <div><a href="/">
-        <img class="img" src="/img/logo.jpg" alt="Hservice"/></a></div>
-</header>
- <nav th:replace="/frangments/navbar :: nav"></nav>
+    <head th:replace= "/frangments/head :: head"</head>
 
-<article class="main">
-    <!-- LISTA -->
+    <body class="grid-container">
+        <header class="header">
+            <nav th:replace="/frangments/navbar :: nav"</nav>
+        </header>
+        <article class="main"> 
+            <!-- LISTA -->
 
-    <h1>Seleccione un Proveedor editar</h1>
+            <h1>Seleccione un Proveedor editar</h1>
+            <!-- comment 
+            <table class="tabla">
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Direccion</th>
+                    <th scope="col">Telefono</th>
+                    <th scope="col">Correo</th>
+                   
+                    <th scope="col">Rol</th>
+                    <th scope="col">Experiencia</th>
+                    <th scope="col">Precio por Hora</th>
+                    <th scope="col">Servicio</th>
+                    <th scope="col">Alta / Baja</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+                <tbody th:each="proveedor : ${proveedores}">
+                    <tr>
+                        <td th:text="${proveedor.nombre}"></td>
+                        <td th:text="${proveedor.apellido}"></td>
+                        <td th:text="${proveedor.direccion}"></td>
+                        <td th:text="${proveedor.telefono}"></td>
+                        <td th:text="${proveedor.correo}"></td>
+                       
+                        <td th:text="${proveedor.rol}"></td>
+                        <td th:text="${proveedor.experiencia}"></td>
+                        <td th:text="${proveedor.precioXHora}"></td>
+                        <td th:text="${proveedor.servicio}"></td>
+                        <td th:text="${proveedor.alta == true ? 'ALTA':'BAJA'}"></td>
+                        <td>
+                            <a th:href="@{/proveedor/actualizar/__${proveedor.id}__}"><i class="fas fa-feather-alt"></i>
+                                Modificar</a>
 
-    <div class="container m-5">
+                        </td>
+                    </tr>
+                </tbody>
+            </table> -->
+            
+            <div class="container_p">
 
-        <table id="customers">
 
-            <tr>
+                <tbody th:each="proveedor : ${proveedores}"> 
+                <div class="card_p" >
+                    <div>
+                        <img src="/img/logo.jpg" alt="img">
+                    </div>
+                    <div>
+                        <table>
+                            <tr>
+                                <th scope="col">Nombre: </th><td th:text="${proveedor.nombre}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">Apellido: </th><td th:text="${proveedor.Apellido}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">Direccion: </th><td th:text="${proveedor.direccion}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">Telefono: </th><td th:text="${proveedor.telefono}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">Email: </th><td th:text="${proveedor.correo}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">Experiencia: </th><td th:text="${proveedor.experiencia}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">Precio: </th><td th:text="${proveedor.precioXHora}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">Servicio: </th><td th:text="${proveedor.servicio}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="col" th:text="${proveedor.rol}"> </th> <td >cambiar</td>
+                            </tr>
+                            
+                            <tr>
+                                <th scope="col"> </th><td> <a th:href="@{/proveedor/actualizar/__${proveedor.id}__}"><i class="fas fa-feather-alt"></i>
+                                Actualizar Perfil</a></td>
+                            </tr>
+                            
+                            </table>
+                    </div>
 
-                <th scope="col">Nombre</th>
-                <th scope="col">Apellido</th>
-                <th scope="col">Direccion</th>
-                <th scope="col">Telefono</th>
-                <th scope="col">Correo</th>
-                <!--                        <th scope="col">Password</th>-->
-                <th scope="col">Rol</th>
-                <th scope="col">Experiencia</th>
-                <th scope="col">Precio por Hora</th>
-                <th scope="col">Servicio</th>
-                <th scope="col">Alta / Baja</th>
-                <th scope="col">Acciones</th>
+                    
+                </div>
+                </tbody>
+            </div>
 
-            </tr>
 
-            <tbody th:each="proveedor : ${proveedores}">
-            <tr>
+            <div class="btn-holder">
 
-                <td th:text="${proveedor.nombre}"></td>
-                <td th:text="${proveedor.apellido}"></td>
-                <td th:text="${proveedor.direccion}"></td>
-                <td th:text="${proveedor.telefono}"></td>
-                <td th:text="${proveedor.correo}"></td>
-                <!--                        <td th:text="${proveedor.password}"></td>-->
-                <td th:text="${proveedor.rol}"></td>
-                <td th:text="${proveedor.experiencia}"></td>
-                <td th:text="${proveedor.precioXHora}"></td>
-                <td th:text="${proveedor.servicio}"></td>
-                <td th:text="${proveedor.alta == true ? 'ALTA':'BAJA'}"></td>
-                <td>
-                    <a th:href="@{/proveedor/actualizar/__${proveedor.id}__}"><i class="fas fa-feather-alt"></i>
-                        Modificar</a>
+                <button class="button2" onclick='goBack()'>Atrás</button>
+                <script>
+                    function goBack() {
+                        history.back();
+                    }
+                </script>
+            </div>
 
-                </td>
-            </tr>
-
-            </tbody>
-        </table>
-        <div class="btn-holder">
-
-            <button class="button2" onclick='goBack()'>Atrás</button>
-            <script>
-                function goBack() {
-                    history.back();
-                }
-            </script>
-        </div>
-    </div>
-</article>
- <footer th:replace="frangments/footer:: footer"> </footer>
-
+        </article>
+        <footer th:replace="frangments/footer:: footer"></footer>
+<script src="/script.js"></script>
 </body>
 </html>

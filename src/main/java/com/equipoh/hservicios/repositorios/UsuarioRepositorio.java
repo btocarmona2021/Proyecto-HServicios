@@ -1,6 +1,7 @@
 package com.equipoh.hservicios.repositorios;
 
 import com.equipoh.hservicios.entidades.Usuario;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,19 +18,25 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, String> {
     @Query("SELECT u FROM Usuario u WHERE u.nombre = :nombre")
     public Usuario buscarPorNombre(@Param("nombre") String nombre);
     */
-
+    
     // Busca por correo 
     @Query("SELECT u FROM Usuario u WHERE u.correo = :correo")
     public Usuario buscarPorCorreo(@Param("correo") String correo);
-
+    
     /**************************
      * Cuando quiera buscar por mail para LOGUEARME LUEGO DE EFECTUAR EL CAMBIO DE 
      * TIPO DE USUARIO), tengo que, además de buscar el mail, buscar si esta dado 
      * de ALTA (Alta = TRUE). Esto se haría para poder evitar que la @QUERY arroje 
      * más de un resultado.
      **************************/
-
-    @Query("SELECT u FROM Usuario u WHERE u.rol = 'USUARIO'")
-    public List<Usuario> buscarUsuarios();
-
+    @Query("SELECT u FROM Usuario u WHERE u.id = :id")
+    public Usuario buscarUsuario(@Param("id") String id);
+    
+    @Query("SELECT u FROM Usuario u WHERE u.correo = :correo AND u.alta = TRUE")
+    public List<Usuario> buscarCorreoUsuarioActivo(@Param("correo") String correo);
+    
+    // QUERY para buscar un dato especifico en la tabla
+    @Query("SELECT u FROM Usuario u WHERE u.nombre LIKE %:dato% OR u.apellido LIKE %:dato% OR u.direccion LIKE %:dato% OR u.correo LIKE %:dato% ")
+    public List<Usuario> buscarDato(@Param("dato") String dato);
+    
 }
