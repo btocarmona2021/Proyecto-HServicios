@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -33,10 +34,13 @@ public class ProveedorServicio {
     private ServicioRepositorio servicioRepositorio;
     @Autowired
     private ImagenServicio imagenServicio;
+    @Autowired
+    private ServicioServicio servicioServicio;
+
     @Transactional
     public void registrarProveedor(MultipartFile archivo, String nombre, String apellido, String direccion,
             String telefono, String correo, String password, String password2, String rol,
-            String experiencia, Double precioXHora, Servicio servicio) throws MiException {
+            String experiencia, Double precioXHora, String idServicio) throws MiException {
 
         validar(nombre, correo, password, password2);
 
@@ -47,11 +51,11 @@ public class ProveedorServicio {
         proveedor.setDireccion(direccion);
         proveedor.setTelefono(telefono);
         proveedor.setCorreo(correo);
-        proveedor.setPassword(password);
+        proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
         proveedor.setRol(Rol.PROVEEDOR);
         proveedor.setExperiencia(experiencia);
         proveedor.setPrecioXHora(precioXHora);
-        proveedor.setServicio(servicio);
+        proveedor.setServicio(servicioServicio.getOne(idServicio));
         proveedor.setImagen(imagenServicio.guardarImagen(archivo));
         proveedor.setFechaAlta(new Date());
         proveedor.setAlta(true);
@@ -77,7 +81,7 @@ public class ProveedorServicio {
             proveedor.setDireccion(direccion);
             proveedor.setTelefono(telefono);
             proveedor.setCorreo(correo);
-            proveedor.setPassword(password);
+            proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
             proveedor.setRol(Rol.PROVEEDOR);
             proveedor.setExperiencia(experiencia);
             proveedor.setPrecioXHora(precioXHora);

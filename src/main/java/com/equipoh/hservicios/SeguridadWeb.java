@@ -18,37 +18,35 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SeguridadWeb extends WebSecurityConfigurerAdapter{
-    
+public class SeguridadWeb extends WebSecurityConfigurerAdapter {
+
     @Autowired
     public UsuarioServicio usuarioServicio;
-    
+
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(usuarioServicio)
                 .passwordEncoder(new BCryptPasswordEncoder());
     }
-    
-    protected void configure(HttpSecurity http) throws Exception{
+
+    protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                /*
-                    .antMatchers("/admin/*").hasRole("ADMIN")
-                */
-                    .antMatchers("/css/*", "/js/*", "/img/*", "/**")
-                    .permitAll()
+                .antMatchers("/admin/*").hasRole("ADMIN")
+                .antMatchers("/css/*", "/js/*", "/img/*", "/**")
+                .permitAll()
                 .and().formLogin()
-                    .loginPage("/login")
-                    .loginProcessingUrl("/logincheck")
-                    .usernameParameter("correo")
-                    .passwordParameter("password")
-                    .defaultSuccessUrl("/index") // no debería ir a un "index" distinto de los usuarios no registrados??
+                .loginPage("/login")
+                .loginProcessingUrl("/logincheck")
+                .usernameParameter("correo")
+                .passwordParameter("password")
+                .defaultSuccessUrl("/index") // no debería ir a un "index" distinto de los usuarios no registrados??
                 .and().logout()
-                    .logoutUrl("/logout")
-                    .logoutSuccessUrl("/login")
-                    .permitAll()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login")
+                .permitAll()
                 .and().csrf()
-                    .disable();
+                .disable();
     }
-    
+
 }

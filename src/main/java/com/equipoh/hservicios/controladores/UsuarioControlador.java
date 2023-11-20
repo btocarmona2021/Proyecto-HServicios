@@ -37,15 +37,21 @@ public class UsuarioControlador {
     }
 
     @PostMapping("/registro")
-    public String registro(@RequestParam String nombre, @RequestParam String apellido,
-            @RequestParam String direccion, @RequestParam String telefono,
-            @RequestParam String correo, @RequestParam String password,
-            @RequestParam String password2, MultipartFile archivo, ModelMap modelo) {
-        /*
-        **********************
-        * ¿Es necesario la 'password2' durante el registro?
-        **********************
-        */
+    public String registro(String nombre, String apellido,
+            String direccion, String telefono,
+            String correo, String password,
+            String password2, MultipartFile archivo, ModelMap modelo) {
+        
+        System.out.println("nombre: "+nombre);
+        System.out.println("apellido: "+apellido);
+        System.out.println("direccion: "+direccion);
+        System.out.println("telefono: "+telefono);
+        System.out.println("correo: "+correo);
+        System.out.println("password: "+password);
+        System.out.println("password2: "+password2);
+        System.out.println("imagen: "+archivo);
+        
+        
         try {
             usuarioServicio.registrarUsuario(archivo, nombre, apellido, direccion, telefono, correo, password, password2);
             modelo.put("exito", "El usuario ha sido cargado con éxito");
@@ -55,7 +61,7 @@ public class UsuarioControlador {
         }
         return "index.html";
     }
-    
+
     @GetMapping("/lista")       // localhost:8080/usuario/listar 
     public String listar(ModelMap modelo) {
 
@@ -65,17 +71,17 @@ public class UsuarioControlador {
 
         return "listar_usuario.html";
     }
-    
+
     @GetMapping("/actualizar/{id}")      // localhost:8080/usuario/actualizar/{id}
     public String actualizar(@PathVariable String id, ModelMap modelo) {
         modelo.put("usuario", usuarioServicio.buscarUsuario(id));
         return "modificar_usuario.html";
     }
-    
+
     @PostMapping("/actualizar/{id}")
     public String actualizar(@PathVariable String id, String nombre, String apellido, String direccion, String telefono, String correo, String password, String password2, MultipartFile archivo, ModelMap modelo) {
         try {
-            usuarioServicio.actualizarUsuario(archivo, id,  nombre, apellido, direccion, telefono, correo, password, password2);
+            usuarioServicio.actualizarUsuario(archivo, id, nombre, apellido, direccion, telefono, correo, password, password2);
             return "redirect:../lista";
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
@@ -93,5 +99,5 @@ public class UsuarioControlador {
 
         return "listar_usuario.html";
     }
-    */  
+     */
 }

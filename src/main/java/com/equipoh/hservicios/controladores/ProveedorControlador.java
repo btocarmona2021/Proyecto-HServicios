@@ -8,6 +8,7 @@ import com.equipoh.hservicios.entidades.Proveedor;
 import com.equipoh.hservicios.entidades.Servicio;
 import com.equipoh.hservicios.excepciones.MiException;
 import com.equipoh.hservicios.servicios.ProveedorServicio;
+import com.equipoh.hservicios.servicios.ServicioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -25,18 +26,23 @@ public class ProveedorControlador {
 
     @Autowired
     private ProveedorServicio proveedorServicio;
-
+    @Autowired
+    private ServicioServicio servicioServicio;
+    
     @GetMapping("/registrar")
-    public String registrarProveedor() {
+    public String registrarProveedor(ModelMap modelo) {
+        List<Servicio> servicios = servicioServicio.listarServicios();
+        modelo.addAttribute("servicios", servicios);
         return "registrar.html";
     }
 
     @PostMapping("/registro")
     public String registroProveedor(MultipartFile archivo, String nombre, String apellido, String direccion,
                                     String telefono, String correo, String password, String password2, String rol,
-                                    String experiencia, Double precioXHora, Servicio servicio, ModelMap modelo) {
+                                    String experiencia, Double precioXHora, String idServicio, ModelMap modelo) {
+        
         try {
-            proveedorServicio.registrarProveedor(archivo, nombre, apellido, direccion, telefono, correo, password, password2, rol, experiencia, precioXHora, servicio);
+            proveedorServicio.registrarProveedor(archivo, nombre, apellido, direccion, telefono, correo, password, password2, rol, experiencia, precioXHora, idServicio);
             modelo.put("exito", "El Proveedor fue registrado correctamente");
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());

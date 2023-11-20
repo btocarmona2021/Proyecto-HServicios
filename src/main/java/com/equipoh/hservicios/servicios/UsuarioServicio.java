@@ -20,6 +20,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
-public class UsuarioServicio {
+public class UsuarioServicio implements UserDetailsService{
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
@@ -102,11 +103,6 @@ public class UsuarioServicio {
             usuario.setTelefono(telefono);
             usuario.setCorreo(correo);
 
-            /**
-             * **************************
-             * Modificar para encriptar *
-             ***************************
-             */
             usuario.setPassword(new BCryptPasswordEncoder().encode(password));
             
             // ********** INICIO ACTUALIZACIÓN DE LA IMAGEN **********
@@ -171,12 +167,6 @@ public class UsuarioServicio {
             throw new MiException("El nombre no puede estar vacío o ser nulo.");
         }
         if ((apellido.isEmpty()) || (apellido == null)) {     // Si el apellido ESTÁ VACÍO o es NULO
-            throw new MiException("El nombre no puede estar vacío o ser nulo.");
-        }
-        if ((direccion.isEmpty()) || (direccion == null)) {     // Si direccion ESTÁ VACÍA o es NULA
-            throw new MiException("El nombre no puede estar vacío o ser nulo.");
-        }
-        if ((apellido.isEmpty()) || (apellido == null)) {     // Si el apellido ESTÁ VACÍO o es NULO
             throw new MiException("El apellido no puede estar vacío o ser nulo.");
         }
         if ((direccion.isEmpty()) || (direccion == null)) {     // Si direccion ESTÁ VACÍA o es NULA
@@ -216,26 +206,27 @@ public class UsuarioServicio {
     public Usuario obtenerUsuario(String id) {
         return buscarUsuario(id);
     }
-    
-    // Metodo para encriptar la contraseña
+
     @Override
     public UserDetails loadUserByUsername(String correo) throws UsernameNotFoundException {
-        Usuario usuario = UsuarioRepositorio.buscarPorCorreo(correo);
-        if (usuario != null) {
+        Usuario usuario = usuarioRepositorio.buscarPorCorreo(correo);
+         if (usuario != null) {
+
             List<GrantedAuthority> permisos = new ArrayList();
+
             GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
+
             permisos.add(p);
 
-            // 'Atrapo' al usuario autenticado para guargarlo en la sesión web
             ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
 
             HttpSession session = attr.getRequest().getSession(true);
 
-            session.setAttribute("sesionUsuario", usuario);
+            session.setAttribute("usuariosession", usuario);
+
             return new User(usuario.getCorreo(), usuario.getPassword(), permisos);
         } else {
             return null;
         }
     }
-
 }
