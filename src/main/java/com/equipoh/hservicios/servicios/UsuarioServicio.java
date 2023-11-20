@@ -188,6 +188,7 @@ public class UsuarioServicio {
         return usuarioRepositorio.buscarUsuario(id);
     }
     
+    
     // Este metodo busca un 'DATO' en la base de datos una información solicitada por el BUSCADOR
     public List<Usuario> buscarDato(String dato) {
         return usuarioRepositorio.buscarDato(dato);

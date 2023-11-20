@@ -42,7 +42,18 @@ public class ProveedorServicio {
             String experiencia, Double precioXHora, String idServicio) throws MiException {
 
         validar(nombre, correo, password, password2);
-
+        
+        
+        
+        Optional<Servicio> respuestaServicio = servicioRepositorio.findById(idServicio);
+        
+        Servicio servicio = new Servicio();
+                
+        if(respuestaServicio.isPresent()){
+            servicio = respuestaServicio.get();
+        }
+        
+        
         Proveedor proveedor = new Proveedor();
 
         proveedor.setNombre(nombre);
@@ -54,7 +65,7 @@ public class ProveedorServicio {
         proveedor.setRol(Rol.PROVEEDOR);
         proveedor.setExperiencia(experiencia);
         proveedor.setPrecioXHora(precioXHora);
-        proveedor.setServicio(servicioServicio.getOne(idServicio));
+        proveedor.setServicio(servicio);
         proveedor.setImagen(imagenServicio.guardarImagen(archivo));
         proveedor.setFechaAlta(new Date());
         proveedor.setAlta(true);
@@ -70,11 +81,13 @@ public class ProveedorServicio {
 
         validar(nombre, correo, password, password2);
 
-        Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
+        Optional<Servicio> respuesta = servicioRepositorio.findById(id);
         if (respuesta.isPresent()) {
 
-            Proveedor proveedor = respuesta.get();
+            servicio = respuesta.get();
 
+            Proveedor proveedor = new Proveedor();  
+            
             proveedor.setNombre(nombre);
             proveedor.setApellido(apellido);
             proveedor.setDireccion(direccion);

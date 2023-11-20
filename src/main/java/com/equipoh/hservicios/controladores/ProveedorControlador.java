@@ -31,8 +31,8 @@ public class ProveedorControlador {
     
     @GetMapping("/registrar")
     public String registrarProveedor(ModelMap modelo) {
-        List<Servicio> servicios = servicioServicio.listarServicios();
-        modelo.addAttribute("servicios", servicios);
+        List<Servicio> servicio = servicioServicio.listarServicios();
+        modelo.addAttribute("servicio", servicio);
         return "registrar.html";
     }
 
@@ -40,7 +40,7 @@ public class ProveedorControlador {
     public String registroProveedor(MultipartFile archivo, String nombre, String apellido, String direccion,
                                     String telefono, String correo, String password, String password2, String rol,
                                     String experiencia, Double precioXHora, String idServicio, ModelMap modelo) {
-        
+        System.out.println("idServico: " +idServicio);
         try {
             proveedorServicio.registrarProveedor(archivo, nombre, apellido, direccion, telefono, correo, password, password2, rol, experiencia, precioXHora, idServicio);
             modelo.put("exito", "El Proveedor fue registrado correctamente");
@@ -62,6 +62,8 @@ public class ProveedorControlador {
 
     @GetMapping("/actualizar/{id}")
     public String actualizar(@PathVariable String id, ModelMap modelo) {
+        List<Servicio> servicio = servicioServicio.listarServicios();
+        modelo.addAttribute("servicio", servicio);
         modelo.put("proveedor", proveedorServicio.getOne(id));
         return "modificar_proveedor.html";
     }
