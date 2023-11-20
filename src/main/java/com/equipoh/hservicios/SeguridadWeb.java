@@ -40,7 +40,7 @@ public class SeguridadWeb extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/logincheck")
                 .usernameParameter("correo")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/index") // no debería ir a un "index" distinto de los usuarios no registrados??
+                .defaultSuccessUrl("/inicio") // no debería ir a un "index" distinto de los usuarios no registrados??
                 .and().logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login")
