@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 public class ImagenControlador {
 
-    @Autowired
-    private UsuarioServicio usuarioServicio;
+   @Autowired
+   private UsuarioServicio usuarioServicio;
 
     @GetMapping("/perfil/{id}")
     public ResponseEntity<byte[]> imagenUsuario(@PathVariable String id) {

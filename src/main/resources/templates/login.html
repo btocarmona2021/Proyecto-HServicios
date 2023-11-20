@@ -1,32 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home Services</title>
-   <link rel="stylesheet" href="/style.css">
-  <link rel="icon" type="image/jpg" href="/img/logo.jpg"/> 
-</head>
-<body class="grid-container">
-   <header class="header">
-            <div><a href="/">
-                    <img class="img" src="/img/logo.jpg" alt="Hservice"/></a></div>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace= "/frangments/head :: head"</head>
+
+    <body class="grid-container">
+        <header class="header">
+            <nav th:replace="/frangments/navbar :: nav"</nav>
         </header>
-  <nav class="navbar">NAVBAR</nav>
 
    <article class="main">
-       <div>login</div>
-        <form class="" action="#" method="POST">
- <div>
-            <input type="text" class="" name="email" placeholder="email">
-            <input type="text" class="" name="password" placeholder="contraseña">
-     <a href="/panel"> <!-- <button type="submit" class="">ingresar</button>-->
-         ingresar</a>
-            
-        </div>
-        </form>
+        <main>
 
-       <a href="/registrar">registro</a>
+            <div class="contenedor__todolog">
+                <div class="caja__traseralog">
+                    <div class="caja__trasera-loginlog">
+                        <h3>Bienvenido!</h3>
+                        <p>Se parte de esta gran comunidad de <br><h3>H-service</h3></p>
+                     <a href="/usuario/registrar">
+       
+                    <button type="submit">Quiero formar parte!!</button></a>
+                    </div>
+                   
+                </div>
+
+                
+                <div class="contenedor__login-registerlog">
+                    <!--Login-->
+                    method="POST"
+                    <form th:action="@{/panel}" class="formulario__loginlog" method="POST">
+                        <h2>Iniciar Sesion</h2>
+                       <input type="text" class="" name="email" placeholder="email">
+            <input type="password" class="" name="password" placeholder="contraseña">
+            <!-- desabhilitado hasta hacer websegurity 
+                 <button type="submit" >Ingresar</button>-->       
+                 <a href="/panel"><div>ingresar</div></a>
+                    </form>
+                    
+                   
+                </div>
+            </div>
+
+      </main> 
+       
         <div class="btn-holder">
                 
             <button class="button2" onclick='goBack()'>Atrás</button>
@@ -38,7 +52,7 @@
         
         </div>  
     </article>
-    <footer class="footer">FOOTER</footer>
-    
+    <footer th:replace="frangments/footer:: footer"</footer>
+            <script src="/script.js"></script>
   </body>
   </html>

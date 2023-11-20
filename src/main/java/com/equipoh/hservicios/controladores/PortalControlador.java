@@ -57,15 +57,20 @@ public class PortalControlador {
         return "buscador.html";
     }
 
-    @PostMapping("/encontrados")
+    @PostMapping("/buscador")
     public String buscador(String buscar, ModelMap model) {
         List<Proveedor> listado = proveedorRepositorio.buscaProveedor(buscar);
         model.addAttribute("proveedores", listado);
-        return "listar_proveedor";
+        return "buscador";
+       /* return "listar_proveedor";*/
     }
 
     @GetMapping("/contrato")
     public String contrato() {
         return "contratarService.html";
+    }
+     @GetMapping("/nosotros")
+    public String nosotros() {
+        return "equipoh.html";
     }
 }

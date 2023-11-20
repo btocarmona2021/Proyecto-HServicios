@@ -10,12 +10,22 @@ import com.equipoh.hservicios.entidades.Usuario;
 import com.equipoh.hservicios.enumeracion.Rol;
 import com.equipoh.hservicios.excepciones.MiException;
 import com.equipoh.hservicios.repositorios.UsuarioRepositorio;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
@@ -56,7 +66,7 @@ public class UsuarioServicio {
             /****************************
              * Modificar para encriptar *
              ****************************/
-            usuario.setPassword(password);
+            usuario.setPassword(new BCryptPasswordEncoder().encode(password));
             
             usuario.setImagen(imagenServicio.guardarImagen(archivo));
             
@@ -97,7 +107,7 @@ public class UsuarioServicio {
              * Modificar para encriptar *
              ***************************
              */
-            usuario.setPassword(password);
+            usuario.setPassword(new BCryptPasswordEncoder().encode(password));
             
             // ********** INICIO ACTUALIZACIÓN DE LA IMAGEN **********
             // Creo una variable que va a guardar la ID de la imagen (para qwue no me de error cuando vaya a 'guardar')
@@ -105,7 +115,6 @@ public class UsuarioServicio {
             if (usuario.getImagen() != null) {
                 idImagen = usuario.getImagen().getId();
             }
-            
             usuario.setImagen(imagenServicio.actualizarImagen(archivo, idImagen));
             // ********** FIN ACTUALIZACIÓN DE LA IMAGEN **********
             
@@ -167,6 +176,15 @@ public class UsuarioServicio {
         if ((direccion.isEmpty()) || (direccion == null)) {     // Si direccion ESTÁ VACÍA o es NULA
             throw new MiException("El nombre no puede estar vacío o ser nulo.");
         }
+        if ((apellido.isEmpty()) || (apellido == null)) {     // Si el apellido ESTÁ VACÍO o es NULO
+            throw new MiException("El apellido no puede estar vacío o ser nulo.");
+        }
+        if ((direccion.isEmpty()) || (direccion == null)) {     // Si direccion ESTÁ VACÍA o es NULA
+            throw new MiException("La direccion no puede estar vacío o ser nulo.");
+        }
+        if ((direccion.isEmpty()) || (telefono == null)) {     // Si direccion ESTÁ VACÍA o es NULA
+            throw new MiException("El teléfono no puede estar vacío o ser nulo.");
+        }
         if ((correo.isEmpty()) || (correo == null)) {     // Si el correo ESTÁ VACÍO o es NULO
             throw new MiException("El correo electrónico no puede estar vacío o ser nulo.");
         }
@@ -198,4 +216,26 @@ public class UsuarioServicio {
     public Usuario obtenerUsuario(String id) {
         return buscarUsuario(id);
     }
+    
+    // Metodo para encriptar la contraseña
+    @Override
+    public UserDetails loadUserByUsername(String correo) throws UsernameNotFoundException {
+        Usuario usuario = UsuarioRepositorio.buscarPorCorreo(correo);
+        if (usuario != null) {
+            List<GrantedAuthority> permisos = new ArrayList();
+            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
+            permisos.add(p);
+
+            // 'Atrapo' al usuario autenticado para guargarlo en la sesión web
+            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+
+            HttpSession session = attr.getRequest().getSession(true);
+
+            session.setAttribute("sesionUsuario", usuario);
+            return new User(usuario.getCorreo(), usuario.getPassword(), permisos);
+        } else {
+            return null;
+        }
+    }
+
 }

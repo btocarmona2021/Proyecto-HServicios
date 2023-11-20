@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Home Services</title>
-       <link rel="stylesheet" href="/style.css">
-  <link rel="icon" type="image/jpg" href="/img/logo.jpg"/> 
-</head>
-<body class="grid-container">
-  <header class="header">HEADER</header>
-  <nav class="navbar">NAVBAR</nav>
+    <head th:replace= "/frangments/head :: head"</head>
+
+    <body class="grid-container">
+        <header class="header">
+            <nav th:replace="/frangments/navbar :: nav"</nav>
+        </header>
+        <article class="main"> 
   
-  <article class="main">MAIN</article>
-  <footer class="footer">FOOTER</footer>
-  
+   </article>
+        <footer th:replace="frangments/footer:: footer"></footer>
+<script src="/script.js"></script>
 </body>
 </html>

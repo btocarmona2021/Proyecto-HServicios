@@ -1,7 +1,7 @@
 #carrusel-caja {
     -moz-animation: automatizacion 15s infinite linear;
-    -o-animation: automatizacion 15s infinite linear;
-    -webkit-animation: automatizacion 15s infinite linear;
+    -o-animation: automatizacion 5s infinite linear;
+    -webkit-animation: automatizacion 5s infinite linear;
     animation: automatizacion 15s infinite linear;
 
     -webkit-transition: all 0.75s ease;
