@@ -43,7 +43,18 @@ public class ProveedorServicio {
             String experiencia, Double precioXHora, String idServicio) throws MiException {
 
         validar(nombre, correo, password, password2);
-
+        
+        
+        
+        Optional<Servicio> respuestaServicio = servicioRepositorio.findById(idServicio);
+        
+        Servicio servicio = new Servicio();
+                
+        if(respuestaServicio.isPresent()){
+            servicio = respuestaServicio.get();
+        }
+        
+        
         Proveedor proveedor = new Proveedor();
 
         proveedor.setNombre(nombre);
@@ -55,7 +66,7 @@ public class ProveedorServicio {
         proveedor.setRol(Rol.PROVEEDOR);
         proveedor.setExperiencia(experiencia);
         proveedor.setPrecioXHora(precioXHora);
-        proveedor.setServicio(servicioServicio.getOne(idServicio));
+        proveedor.setServicio(servicio);
         proveedor.setImagen(imagenServicio.guardarImagen(archivo));
         proveedor.setFechaAlta(new Date());
         proveedor.setAlta(true);
@@ -67,15 +78,18 @@ public class ProveedorServicio {
     @Transactional
     public void actualizar(MultipartFile archivo, String id, String nombre, String apellido, String direccion,
             String telefono, String correo, String password, String password2, String rol,
-            String experiencia, Double precioXHora, Servicio servicio, String alta) throws MiException {
+            String experiencia, Double precioXHora, String idServicio, String alta) throws MiException {
 
         validar(nombre, correo, password, password2);
-
+        
+        Proveedor proveedor = new Proveedor();
+        
         Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
         if (respuesta.isPresent()) {
-
-            Proveedor proveedor = respuesta.get();
-
+              proveedor = respuesta.get();
+        }
+        Servicio servicio = servicioRepositorio.getById(idServicio);
+            
             proveedor.setNombre(nombre);
             proveedor.setApellido(apellido);
             proveedor.setDireccion(direccion);
@@ -96,7 +110,7 @@ public class ProveedorServicio {
 
             proveedorRepositorio.save(proveedor);
         }
-    }
+    
 
     public Proveedor getOne(String id) {
         return proveedorRepositorio.getOne(id);
