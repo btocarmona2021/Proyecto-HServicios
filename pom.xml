@@ -59,16 +59,14 @@
             <artifactId>font-awesome</artifactId>
             <version>6.4.2</version> <!-- Reemplaza esta versiÃ³n con la Ãºltima disponible -->
         </dependency>
-
-        <!--        DEPENDENCIAS A USAR EN EL PROYECTO-->
-        <!--<dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>-->
-        <!-- <dependency>
-             <groupId>org.thymeleaf.extras</groupId>
-             <artifactId>thymeleaf-extras-springsecurity5</artifactId>
-         </dependency>-->
+        </dependency>
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
