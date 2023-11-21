@@ -5,8 +5,10 @@
  */
 package com.equipoh.hservicios.controladores;
 
+import com.equipoh.hservicios.entidades.Servicio;
 import com.equipoh.hservicios.entidades.Usuario;
 import com.equipoh.hservicios.excepciones.MiException;
+import com.equipoh.hservicios.servicios.ServicioServicio;
 import com.equipoh.hservicios.servicios.UsuarioServicio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +31,13 @@ public class UsuarioControlador {
 
     @Autowired
     private UsuarioServicio usuarioServicio;
-
+     @Autowired
+    private ServicioServicio servicioServicio;
+     
     @GetMapping("/registrar")    // localhost:8080/usuario/registrar
-    public String registrar() {
+    public String registrar(ModelMap modelo) {
+        List<Servicio> servicio = servicioServicio.listarServicios();
+        modelo.addAttribute("servicio", servicio);
         System.out.println("IMPRIME 31");
         return "registrar.html";
     }

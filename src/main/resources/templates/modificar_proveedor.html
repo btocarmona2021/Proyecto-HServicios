@@ -27,11 +27,12 @@
                 <br>
                 <div class="form-group">
                    
-                     <label for="lang">Servicio</label>
-      <select name="servicio" id="lang">
-        <option value="#">cargar metodo auto</option>
-        
-      </select>
+                            <select name="idServicio">
+                            <option>Seleccionar Servicio</option>
+                            <option th:each="servicio : ${servicio}" 
+                                    th:value="${servicio.id}" 
+                                    th:text="${servicio.rubro}"/>
+                             </select>
                     
                     <input type="number" size="30" class="form-group" name="precioXHora"
                            th:value="${proveedor.precioXHora}">
@@ -57,20 +58,6 @@
                 </div>
                 <br>
 
-                <div>
-                    <input type="date" id="fecha" class="form-group" name="fechalta" value="fecha()"
-                           th:value="${fechalta}">
-                    <script>
-                        function fecha() {
-                            var fecha = new Date();
-                            var year = date.getFullYear();
-                            var month = date.getMonth() + 1;
-                            var day = date.getDate();
-                            document.getElementById('fecha').innerHTML = month + "/" + day + "/" + year;
-
-                        }
-                    </script>
-                </div>
                 <br>
 
                 <button type="submit" class="btn btn-primary"> Guardar</button>

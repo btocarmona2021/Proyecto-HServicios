@@ -85,11 +85,11 @@ public class ServicioServicio {
     }
 
     public List<Servicio> listarServicios() {
-        List<Servicio> rubros = new ArrayList<>();
+        List<Servicio> rubro = new ArrayList<>();
 
-        rubros = servicioRepositorio.findAll();
+        rubro = servicioRepositorio.findAll();
 
-        return rubros;
+        return rubro;
     }
 
     private void validar(String rubro) throws MiException {

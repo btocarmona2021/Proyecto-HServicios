@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace= "/frangments/head :: head"</head>
+    <body>
+
+        <header class="header">
+            <nav th:replace="/frangments/navbar :: nav"</nav>
+        </header>
+
+        <!-- ERROR/EXITO -->
+        <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError" >
+            <div class="card-body">
+                <h5 class="card-title">Error 👎</h5>
+                <p class="card-text" th:text="${error}"></p>
+            </div>
+        </div>
+        <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
+            <div class="card-body">
+                <h5 class="card-title">Exito!</h5>
+                <p class="card-text" th:text="${exito}"></p>
+            </div>
+        </div>
+
+        <!-- FORMULARIO -->
+
+        <article class="main">
+            <main>
+                <div>
+                    <h1>PERFIL</h1>
+                    <h3 th:if="${session.usuariosession != null}" th:text=" 'Bienvenido '+ ${session.usuariosession.nombre}"></h3>
+                </div>
+                <div class="container">
+                    <a class="d-flex align-items-center">
+                        <img class="logo" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" alt="img_usuario">
+                    </a>
+                </div>
+                <div class="container-fluid m-5 contenedor">
+
+                    <form th:action="@{/perfil/__${usuario.id}__}" method="POST" enctype="multipart/form-data">
+                        <div class="form-group my-3">
+                            <label class="mb-2">Ingrese los datos</label>
+                            <input type="hidden" class="form-control" name="id" th:value="${usuario.id}" >
+                            <input type="text" class="form-control" name="nombre" placeholder="Nombre" th:value="${usuario.nombre}">
+                            <input type="email" class="form-control" name="correo" placeholder="Email" th:value="${usuario.correo}">
+                            <input type="file" class="form-control" name="archivo">
+                            <input type="password" class="form-control" name="password" placeholder="Contraseña" th:value="${password}">
+                            <input type="password" class="form-control" name="password2" placeholder="Repita Contraseña" th:value="${password2}">
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3 botones">Actualizar</button>
+                        <br>
+                    </form>  
+                    <a href="/inicio"><button class="btn btn-primary mt-3 botones">Volver</button></a>
+                </div>
+            </main> 
+            <div class="btn-holder">
+
+                <button class="button2" onclick='goBack()'>Atrás</button>
+                <script>
+                    function goBack() {
+                        history.back();
+                    }
+                </script>
+
+            </div>  
+
+        </article>
+        <footer th:replace="frangments/footer:: footer"</footer>
+            <script src="/script.js"></script>
+    </body>
+</html>
