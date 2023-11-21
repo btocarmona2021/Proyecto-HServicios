@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import javax.servlet.http.HttpSession;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 @Controller
 @RequestMapping("/")
@@ -72,4 +74,24 @@ public class PortalControlador {
     public String nosotros() {
         return "equipoh.html";
     }
+    
+    @GetMapping("/inicio")
+    public String inicio(HttpSession session) {
+        
+        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+        
+        if (logueado.getRol().toString().equals("ADMIN")) {
+            return "redirect:/admin/dashboard";
+        }
+           return "index.html";
+    }
+    
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN')")
+    @GetMapping("/perfil")
+    public String perfil(HttpSession session, ModelMap modelo) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        modelo.put("usuario", usuario);
+        return "perfil";
+    }
+    
 }
