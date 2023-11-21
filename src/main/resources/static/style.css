@@ -44,7 +44,8 @@ body {
 
 .footer {
     grid-area: footer;
-    background-color: #002626;
+    background-color: #373DBA;
+    color: white;
 }
 
 .grid-container {
@@ -717,8 +718,6 @@ li{
     visibility: visible;
     opacity: 2;
 }
-
-
 .tooltip:hover .tooltiptext2 {
     visibility: visible;
     opacity: 2;
