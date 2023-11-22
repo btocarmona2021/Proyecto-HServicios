@@ -18,10 +18,16 @@ import java.util.List;
 public interface ContratoRepositorio extends JpaRepository<Contrato, String> {
     //    BUSCA CONTRATO SIN ACEPTAR
     @Query("SELECT c FROM Contrato c WHERE c.proveedor.id = :id or c.usuario.id = :id")
-    public List<Contrato> buscaContratoSinAceptar(@Param("id") String id);
+    public List<Contrato> buscaContratoSinAceptar(@Param("id") String id);  
 
-    @Query("SELECT AVG(c.puntuacion) FROM Contrato c WHERE c.proveedor.id = :id")
-    public Double buscapromedio(@Param("id") String id);
+   /* @Query("SELECT c FROM Contrato c WHERE c.inicioT=true and c.proveedor.id = :id")
+    public List<Contrato> buscaContratoAceptado(@Param("id") String id);*/
+
+    //BUSCA CONTRATO SIN ACEPTAR
+/*
+    @Query("SELECT c FROM Contrato c WHERE c.inicioT=true")
+    public List<Contrato> buscaContratoAceptados();
+*/
 
 
 }

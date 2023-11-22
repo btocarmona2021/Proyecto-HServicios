@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ImagenRepositorio extends JpaRepository<Imagen, String> {
-    @Query("SELECT i FROM Imagen i WHERE i.nombre  LIKE  '%efecto_image_service%' ")
+    @Query("SELECT i FROM Imagen i WHERE i.nombre = 'defecto_image_service.png'")
     public Imagen imagenXDefecto();
 }

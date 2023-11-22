@@ -64,35 +64,21 @@ public class ContratoServicio {
         contratoRepositorio.save(contrato);
     }
 
-    @Transactional
-    public void enviapresuspuesto(String idContrato, String presupuesto, Integer horasestimadas) throws MiException {
-        Optional<Contrato> respuesta = contratoRepositorio.findById(idContrato);
-        Contrato contrato = new Contrato();
-        if (respuesta.isPresent()) {
-            contrato = respuesta.get();
-        }
-        contrato.setPresupuesto(presupuesto);
-        contrato.setHorasestimadas(horasestimadas);
-        contratoRepositorio.save(contrato);
-    }
-
 
     @Transactional
     public void cancelaContrato(String idContrato) throws MiException {
-        /*Optional<Contrato> respuesta = contratoRepositorio.findById(idContrato);
+        Optional<Contrato> respuesta = contratoRepositorio.findById(idContrato);
         Contrato contrato = new Contrato();
         if (respuesta.isPresent()) {
             contrato = respuesta.get();
         }
         contrato.setFechaInicio(null);
         contrato.setInicioT(false);
-        contratoRepositorio.save(contrato);*/
-        contratoRepositorio.deleteById(idContrato);
+        contratoRepositorio.save(contrato);
     }
 
     @Transactional
     public void finalizaTrabajo(String idContrato) throws MiException {
-
         Optional<Contrato> respuesta = contratoRepositorio.findById(idContrato);
         Contrato contrato = new Contrato();
         if (respuesta.isPresent()) {
@@ -102,26 +88,67 @@ public class ContratoServicio {
         Long milisegundos = contrato.getFechaFinal().getTime() - contrato.getFechaInicio().getTime();
         long horas = TimeUnit.MILLISECONDS.toHours(milisegundos);
         contrato.setFinT(true);
+
         contratoRepositorio.save(contrato);
     }
 
-    public void valoracionProveedor(String id, Integer puntuacion) {
-        Contrato contrato = new Contrato();
+
+
+
+
+
+ /*   @Transactional
+    public void actualizarContrato(String id, Date fechaInicio, Date fechaFinal, Boolean solicitudT, Boolean inicioT, Boolean finT, Integer puntuacion, Proveedor proveedor, Usuario usuario) throws MiException {
+
+        validar(id, fechaInicio, fechaFinal, proveedor, usuario);
         Optional<Contrato> respuesta = contratoRepositorio.findById(id);
         if (respuesta.isPresent()) {
-            contrato = respuesta.get();
+            Contrato contrato = respuesta.get();
+
+            contrato.setFechaInicio(fechaInicio);
+            contrato.setFechaFinal(fechaFinal);
+            contrato.setSolicitudT(Boolean.TRUE);
+            contrato.setInicioT(Boolean.TRUE);
+            contrato.setFinT(Boolean.TRUE);
+            contrato.setPuntuacion(Integer.MIN_VALUE);
+            contrato.setProveedor(proveedor);
+            contrato.setUsuario(usuario);
+            contratoRepositorio.save(contrato);
+
+
         }
-        contrato.setPuntuacion(puntuacion);
-        contratoRepositorio.save(contrato);
+
+    }*/
+
+
+/*    @Transactional
+    public void bajaContrato(String id, Date fechaInicio, Date fechaFinal, Boolean solicitudT, Boolean inicioT, Boolean finT, Integer puntuacion, Proveedor proveedor, Usuario usuario) throws MiException {
+        Optional<Contrato> respuesta = contratoRepositorio.findById(id);
+
+        if (respuesta.isPresent()) {
+            contratoRepositorio.getById(id).setId(id);
+        } else {
+            throw new MiException("No se pudo dar de baja el contrato");
+        }
+    }*/
+/*
+    public Contrato getOne(String id) {
+        return contratoRepositorio.getOne(id);
     }
 
+    public List<Contrato> listarContratos() {
+        List<Contrato> contratos = new ArrayList<>();
 
-    public Contrato obtenerContrato(String id) {
-        Contrato contrato = contratoRepositorio.getOne(id);
-        return contrato;
+        contratos = contratoRepositorio.findAll();
+
+        return contratos;
+    }*/
+
+    private void validar(String id, Date fechaInicio, Date fechaFinal, Proveedor proveedor, Usuario usuario) throws MiException {
+        if (id.isEmpty() || id == null) {
+            throw new MiException("");
+        }
     }
-
-
 }
 
     

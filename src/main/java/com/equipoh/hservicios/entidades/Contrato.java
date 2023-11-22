@@ -27,8 +27,6 @@ public class Contrato {
     private String id;
     @Column(length = 1000)
     private String descripcionTrabajo;
-    private String presupuesto;
-    private Integer horasestimadas;
     private Boolean solicitudT;
     private Boolean inicioT;
     private Boolean finT;

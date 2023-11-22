@@ -1,67 +1,61 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/frangments/head :: head"
-</head>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace= "/frangments/head :: head"</head>
 
-<body class="grid-container">
-<header class="header">
-    <nav th:replace="/frangments/navbar :: nav"
-    </nav>
-</header>
-<article class="main">
-    <!-- LISTA -->
+    <body class="grid-container">
+        <header class="header">
+            <nav th:replace="/frangments/navbar :: nav"</nav>
+        </header>
+        <article class="main"> 
+            <!-- LISTA -->
 
-    <h1>Seleccione una Solicitud</h1>
+            <h1>Seleccione una Solicitud</h1>
 
-    <div class="container m-5">
+            <div class="container m-5">
 
-        <table id="customers">
+                <table id="customers">
 
-            <tr>
+                    <tr>
 
-                <th scope="col">Estado</th>
-                <th scope="col">Fecha</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Apellido</th>
-                <th scope="col">Correo</th>
-                <th scope="col">Acción</th>
+                        <th scope="col">Estado</th>  
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">Acción</th>
 
-            </tr>
+                    </tr>
 
-            <tbody th:each="solicitud : ${solicitudes}">
-            <tr>
-                <td hidden th:value="${solicitud.id}" name="idSolicitud"></td>
-                <td th:text="${solicitud.estado == false ? 'PENDIENTE' : 'APROBADO'}"></td>
-                <td th:text="${solicitud.fechaSolicitud}"></td>
-                <td th:text="${solicitud.usuario != null ? solicitud.usuario.nombre : solicitud.proveedor.nombre}"></td>
-                <td th:text="${solicitud.usuario != null ? solicitud.usuario.apellido : solicitud.proveedor.apellido}"></td>
-                <td th:text="${solicitud.usuario != null ? solicitud.usuario.correo : solicitud.proveedor.correo}"></td>
-                <td>
-                    <form class="formulario" th:action="@{/solicitudRol/actualizar/}" method="POST"
-                          enctype="multipart/form-data">
-                        <div class="form-group">
-                            <input type="hidden" name="idSolicitud" th:value="${solicitud.id}">
-                        </div>
-                        <button type="submit" class="btn btn-primary"> Aprobar</button>
-                    </form>
-                </td>
+                    <tbody th:each="solicitud : ${solicitudes}">
+                        <tr>
+                            <td hidden th:value="${id}" name="id"></td> 
+                            <td th:text="${solicitud.estado}"></td>  
+                            <td th:text="${solicitud.fechaSolicitud}"></td>
+                            <td th:text="${solicitud.proveedor.nombre}"></td>
+                            <td th:text="${solicitud.proveedor.apellido}"></td>
+                            <td th:text="${solicitud.proveedor.correo}"></td>
+                            <td th:text="${solicitud.proveedor.correo}"></td>
+                            <td>
+                                <a th:href="@{/solicitudRol/actualizar/__${solicitud.id}__}"><i class="fas fa-feather-alt"></i>
+                                     Aprobar</a>
+                            </td>
 
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="btn-holder">
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+                <div class="btn-holder">
 
-        <button class="button2" onclick='goBack()'>Atrás</button>
-        <script>
-            function goBack() {
-                history.back();
-            }
-        </script>
-    </div>
-</article>
-<footer th:replace="frangments/footer:: footer"></footer>
-<script src="/script.js"></script>
-</body>
+                    <button class="button2" onclick='goBack()'>Atrás</button>
+                    <script>
+                        function goBack() {
+                            history.back();
+                        }
+                    </script>
+                </div>
+        </article>
+        <footer th:replace="frangments/footer:: footer"></footer>
+        <script src="/script.js"></script>
+    </body>
 </html>
 

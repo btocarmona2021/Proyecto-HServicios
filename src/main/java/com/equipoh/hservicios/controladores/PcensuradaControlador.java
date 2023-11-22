@@ -20,7 +20,6 @@ public class PcensuradaControlador {
         return "palabrascensuradas";
     }
 
-
     @PostMapping("/ingresado")
     public String palabrasingresadas(String palabras, ModelMap modelo) {
         String[] palabrasRecibidas = palabras.split("[\n,\\s]+");

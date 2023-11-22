@@ -42,29 +42,29 @@ public class UsuarioControlador {
     }
 
     @PostMapping("/registro")
-    public String registro(String nombreu, String apellidou,
-            String direccionu, String telefonou,
-            String correou, String password,
+    public String registro(String nombre, String apellido,
+            String direccion, String telefono,
+            String correo, String password,
             String password2, MultipartFile archivo, ModelMap modelo) {
         
-        System.out.println("nombre: "+nombreu);
-        System.out.println("apellido: "+apellidou);
-        System.out.println("direccion: "+direccionu);
-        System.out.println("telefono: "+telefonou);
-        System.out.println("correo: "+correou);
+        System.out.println("nombre: "+nombre);
+        System.out.println("apellido: "+apellido);
+        System.out.println("direccion: "+direccion);
+        System.out.println("telefono: "+telefono);
+        System.out.println("correo: "+correo);
         System.out.println("password: "+password);
         System.out.println("password2: "+password2);
         System.out.println("imagen: "+archivo);
         
         
         try {
-            usuarioServicio.registrarUsuario(archivo, nombreu, apellidou, direccionu, telefonou, correou, password, password2);
+            usuarioServicio.registrarUsuario(archivo, nombre, apellido, direccion, telefono, correo, password, password2);
             modelo.put("exito", "El usuario ha sido cargado con éxito");
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
             return "registrar.html";
         }
-        return "login.html";
+        return "index.html";
     }
 
     @GetMapping("/lista")       // localhost:8080/usuario/listar 

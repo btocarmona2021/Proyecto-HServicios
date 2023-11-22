@@ -1,44 +1,17 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <head th:replace= "/frangments/head :: head"></head>
-
-    <body class="grid-container">
-        <header class="header">
-            <nav th:replace="/frangments/navbar :: nav"></nav>
-        </header>
-
-        <article class="main">
-
-            <main>
-                <div th:if="${exito}!=null" class="cardexito" >
-                    <div class="card-exito">
-                        <h5 class="card-title">Exito</h5>
-                        <p class="card-text" th:text="${exito}"></p>
-                    </div>
-                </div>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
 <form th:action="@{/comentario/comentarioactualizado/__${comentario.getIdcomentario()}__}" method="post">
     <textarea name="contenido" id="contenido" cols="30" rows="10" th:text="${comentario.contenido}">
 
     </textarea>
-    
-    <button class="button2" type="submit" value="Comentar">Guardar los cambios</button>
+    <input type="submit" value="Comentar">
 
 </form>
- </main> 
 
-            <div class="btn-holder">
-
-                <button class="button2" onclick='goBack()'>Atrás</button>
-                <script>
-                    function goBack() {
-                        history.back();
-                    }
-                </script>
-
-            </div> 
-
-        </article>
-        <footer th:replace="frangments/footer:: footer"</footer>
-            <script src="/script.js"></script>
-    </body>
+</body>
 </html>

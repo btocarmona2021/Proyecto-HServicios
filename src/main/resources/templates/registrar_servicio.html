@@ -11,9 +11,9 @@
             <div>
                 <h1>  </h1>
             </div>
-validar servicio para que no se repita si ya existe
+
             
-                <form class="formulariou" th:action="@{/servicio/registro/}" method="POST" enctype="multipart/form-data">
+                <form class="formulario" th:action="@{/servicio/registro/}" method="POST" enctype="multipart/form-data">
                     <table class="formServi"><tr>
                             <th>Registar Servicio</th>
                             
@@ -34,7 +34,12 @@ validar servicio para que no se repita si ya existe
                           
                         </tr>
                     </table>
+                            
                      
+                    
+                     
+                           
+                   
                     <script >
                          const $seleccionArchivos = document.querySelector("#seleccionArchivos"),
                     $imagenPrevisualizacion = document.querySelector("#imagenPrevisualizacion");
@@ -50,7 +55,7 @@ validar servicio para que no se repita si ya existe
                         $imagenPrevisualizacion.src = objectURL;
                     });
                     </script>
-         
+            
         </form>
 
         <div th:if="${exito}!=null" class="buttonexito" >

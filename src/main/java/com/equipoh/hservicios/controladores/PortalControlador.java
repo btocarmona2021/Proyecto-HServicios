@@ -1,34 +1,32 @@
-
-
 package com.equipoh.hservicios.controladores;
-
 
 import com.equipoh.hservicios.entidades.Contrato;
 import com.equipoh.hservicios.entidades.Proveedor;
 import com.equipoh.hservicios.entidades.Servicio;
 import com.equipoh.hservicios.entidades.Usuario;
+import com.equipoh.hservicios.excepciones.MiException;
 import com.equipoh.hservicios.repositorios.ContratoRepositorio;
 import com.equipoh.hservicios.repositorios.ProveedorRepositorio;
-import com.equipoh.hservicios.servicios.ProveedorServicio;
 import com.equipoh.hservicios.servicios.ServicioServicio;
+import com.equipoh.hservicios.servicios.SolicitudRolServicio;
 import com.equipoh.hservicios.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/")
 public class PortalControlador {
-
 
     @Autowired
     private UsuarioServicio usuarioServicio;
@@ -36,10 +34,7 @@ public class PortalControlador {
     private ProveedorRepositorio proveedorRepositorio;
     @Autowired
     private ContratoRepositorio contratoRepositorio;
-    @Autowired
-    private ServicioServicio servicioServicio;
-    @Autowired
-    private ProveedorServicio proveedorServicio;
+
 
     @GetMapping("/")
     public String index(ModelMap modelo) {
@@ -58,13 +53,6 @@ public class PortalControlador {
     public String panel() {
         return "panel.html";
     }
-
-
-    @GetMapping("/active")
-    public String active() {
-        return "active.html";
-    }
-
 
     @GetMapping("/buscador")
     public String buscador() {
@@ -107,48 +95,17 @@ public class PortalControlador {
         List<Contrato> contratos = contratoRepositorio.buscaContratoSinAceptar(usuario.getId());
         modelo.put("usuario", usuario);
         modelo.addAttribute("contratos", contratos);
-        List<Servicio> servicio = servicioServicio.listarServicios();
-        modelo.addAttribute("servicio", servicio);
         return "perfil";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN','ROLE_PROVEEDOR')")
-    @GetMapping("/perfiles")
-    public String perfiles(HttpSession session, ModelMap modelo) {
-        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-
-        List<Contrato> contratos = contratoRepositorio.buscaContratoSinAceptar(usuario.getId());
-        modelo.put("usuario", usuario);
-        modelo.addAttribute("contratos", contratos);
-        if (usuario.getRol().toString().equals("PROVEEDOR")) {
-            Double promedioValoracion = (double) Math.round(contratoRepositorio.buscapromedio(usuario.getId()));
-            modelo.put("promedio", promedioValoracion);
-            return "trabajosproveedor";
-        } else {
-            return "redirect:/perfilusuario";
-        }
-    }
-
-    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN','ROLE_PROVEEDOR')")
-    @GetMapping("/perfilusuario")
-    public String perfilusuario(HttpSession session, ModelMap modelo) {
+    @GetMapping("/perfilu")
+    public String perfilu(HttpSession session, ModelMap modelo) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         List<Contrato> contratos = contratoRepositorio.buscaContratoSinAceptar(usuario.getId());
         modelo.put("usuario", usuario);
         modelo.addAttribute("contratos", contratos);
-        return "solicitudestrabajo";
-    }
-
-    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN','ROLE_PROVEEDOR')")
-    @GetMapping("/perfil/complete/{id}")
-    public String perfil_proveedor(HttpSession session, @PathVariable(required = false) String id, ModelMap modelo) {
-        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        List<Contrato> contratos = contratoRepositorio.buscaContratoSinAceptar(usuario.getId());
-        modelo.put("usuario", usuario);
-        modelo.addAttribute("contratos", contratos);
-        modelo.put("proveedores", proveedorServicio.getOne(id));
-
-        return "perfil_proveedor.html";
+        return "perfilu";
     }
 
 }

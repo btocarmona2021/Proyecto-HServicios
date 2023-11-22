@@ -121,23 +121,3 @@
     outline: none;
   }
 }
-.buscar{
-     padding: 10px 40px;
-    margin-top: 5px;
-    border: none;
-    font-size: 12px;
-    background: white;
-    font-weight: 600;
-    cursor: pointer;
-    color: #373DBA;
-    outline: none;
-}
-.perfil{
-    border-radius:50px 50px 50px 50px;
-    
-}
-img {
-    
-    width: 60px;
-
-}

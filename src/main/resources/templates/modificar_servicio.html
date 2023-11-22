@@ -14,7 +14,7 @@
 
 
             <div class="container" align="center">
-                <form class="formulariou" th:action="@{/servicio/actualizar/__${servicio.id}__}" method="POST" enctype="multipart/form-data">
+                <form class="formulario" th:action="@{/servicio/actualizar/__${servicio.id}__}" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <input hidden th:value="${servicio.id}" name="id">
                         agregar imagen

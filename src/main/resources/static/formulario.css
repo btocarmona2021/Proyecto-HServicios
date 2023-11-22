@@ -1,3 +1,19 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Roboto', sans-serif;
+	background: #E5E5E5;
+}
+
+main {
+	max-width: 800px;
+	width: 90%;
+	margin: auto;
+	padding: 40px;
+}
+
 .formulario {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
@@ -5,10 +21,11 @@
 }
 
 .formulario__label {
+    font-size: 12px;
 	display: block;
-        font-size: 10px;
-	font-weight: 300;
-	padding: 2px;
+        
+	font-weight: 100;
+	padding: 5px;
 	cursor: pointer;
 }
 
@@ -21,8 +38,8 @@
 	background: #fff;
 	border: 3px solid transparent;
 	border-radius: 3px;
-	height: 40px;
-	line-height: 40px;
+	height: 45px;
+	line-height: 45px;
 	padding: 0 40px 0 10px;
 	transition: .3s ease all;
 }
@@ -53,8 +70,7 @@
 }
 
 .formulario__checkbox {
-	margin-right: 1px;
-        
+	margin-right: 10px;
 }
 
 .formulario__grupo-terminos, 
@@ -104,7 +120,7 @@
 }
 
 .formulario__mensaje-exito {
-	font-size: 10px;
+	font-size: 14px;
 	color: #119200;
 	display: none;
 }
@@ -135,7 +151,7 @@
 
 /* ----- -----  Mediaqueries ----- ----- */
 @media screen and (max-width: 800px) {
-	.formulariou {
+	.formulario {
 		grid-template-columns: 1fr;
 	}
 
@@ -149,3 +165,4 @@
 		width: 100%;
 	}
 }
+
