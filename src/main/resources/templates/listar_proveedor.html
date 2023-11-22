@@ -54,7 +54,8 @@
                 <tbody th:each="proveedor : ${proveedores}"> 
                 <div class="card_p" >
                     <div>
-                        <img src="/img/logo.jpg" alt="img">
+                        <a><img th:if="${proveedor.imagen != null}" class="logo" th:src="@{/imagen/perfil/__${proveedor.id}__}" width="150px"></a>
+                                 
                     </div>
                     <div>
                         <table>

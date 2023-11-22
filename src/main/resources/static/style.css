@@ -37,22 +37,26 @@ body {
 .main {
     grid-area: main;
     background-color: #fff;
+    
+    background-repeat: no-repeat;
+    background-size: 120%;
 }
 
 .footer {
     grid-area: footer;
-    background-color: #002626;
+    background-color: #373DBA;
+    color: white;
 }
 
 .grid-container {
     display: grid;
     gap: 10px;
     grid-template:
-    "header"  80px
-   /* "navbar"  50px*/
-    "main"    auto
-   
-    "footer"  100px;
+        "header"  auto
+        /* "navbar"  50px*/
+        "main"    100px
+
+        "footer"  100px;
 }
 
 @media (min-width: 600px) {
@@ -66,22 +70,22 @@ body {
         "footer  footer"; */
 
         grid-template:
-      "header  header" 80px
-   /*   "navbar  navbar" 50px*/
-      "main main"   auto
-      "footer  footer" 100px /
-      200px    auto;
+            "header  header" 80px
+            /*   "navbar  navbar" 50px*/
+            "main main"   auto
+            "footer  footer" 100px /
+            200px    auto;
     }
 }
 
 @media (min-width: 900px) {
     .grid-container {
         grid-template:
-            
-      "header  header header"  80px
-      "main  main   main" auto
-      "footer  footer footer"  100px /
-      200px    auto   200px;
+
+            "header  header header"  80px
+            "main  main   main" auto
+            "footer  footer footer"  100px /
+            200px    auto   200px;
     }
 }
 
@@ -203,10 +207,10 @@ button {
 }*/
 
 .tabla tr{
-   
-   width: 100%;
-   border-collapse: collapse;
-    
+
+    width: 100%;
+    border-collapse: collapse;
+
 }
 .tabla tr th{
     background-color: #373DBA;
@@ -282,7 +286,7 @@ button {
     flex-wrap: wrap;
     justify-content: center;
     margin: auto;
-   
+
 }
 
 .container_p .card_p{
@@ -294,7 +298,7 @@ button {
     margin: 20px;
     text-align: center;
     transition: all 0.5s;
-     background-color: #95afba;
+    background-color: #95afba;
 }
 .container_p .card_p:hover{
     transform: translateY(-15px);
@@ -318,19 +322,19 @@ button {
     padding: 0 ;
     font-size: 16px;
     font-weight: 200;
-   
+
 }
 
 .container_p .card_p .btn-holder{
-     justify-content: center;
-  display: flex;
-  
+    justify-content: center;
+    display: flex;
+
 }
 .container_p .card_p a{
     font-weight: 500;
     text-decoration: none;
     color: #3498db;
-   
+
 
 }
 .links {
@@ -347,8 +351,8 @@ button {
 }
 
 body{
-   /* background-image: url(../images/bg4.jpg);*/
-  /* background-color: #373DBA;*/
+    /* background-image: url(../images/bg4.jpg);*/
+    /* background-color: #373DBA;*/
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -369,7 +373,7 @@ body{
     height: 600px;
     margin: auto;
     position: relative;
-    
+
 }
 
 .caja__trasera{
@@ -380,8 +384,8 @@ body{
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     background-color: #373DBA;
-     border-radius: 20px;
-    
+    border-radius: 20px;
+
 
 }
 
@@ -537,7 +541,7 @@ body{
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     background-color: #373DBA;
-     border-radius: 20px;
+    border-radius: 20px;
 
 }
 
@@ -563,7 +567,7 @@ body{
     font-weight: 300;
 }
 .caja__traseralog div button{
-   padding: 10px 40px;
+    padding: 10px 40px;
     margin-top: 40px;
     border: none;
     font-size: 12px;
@@ -629,8 +633,6 @@ body{
 }
 
 
-
-
 .formulario__loginlog{
     opacity: 1;
     display: block;
@@ -638,5 +640,172 @@ body{
 .formulario__registerlog{
     display: none;
 }
+.imgindex{
+    background-image: url("../img/caru01.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 480px;
+    
+}
+.card{
+    
+    width: 50%;
+    height:30%;
+    background-repeat: no-repeat;
+}
+.card-body{
+    text-align: left;
+    font-family: verdana;
+    font-style: oblique;
+    font-size: large;
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+    background-color: #373DBA;
+    width:65%;
+    height: 30%;
+    margin-top: 4%;
+    border-radius: 3px;
+}
+.tooltip {
+    text-align-last: left;
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+    
+}
 
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 700px;
+    background-color: #373DBA ;
+    color: #fff;
+    text-align-last: auto;
+    text-align: left;
+    border-radius: 4px;
+    padding: 4% ;
 
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    left: 250%;
+
+    opacity: 0;
+    transition: opacity 2s;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 2;
+}
+li{
+    text-align: left;
+}
+.tooltip .tooltiptext1 {
+    visibility: hidden;
+    width: 600px;
+    background-color: #373DBA;
+    color: #fff;
+    text-align-last: auto;
+    text-align: left;
+    border-radius: 4px;
+     padding: 4% ;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: -25px;
+    left: 180%;
+
+    opacity: 0;
+    transition: opacity 2s;
+}
+
+.tooltip:hover .tooltiptext1 {
+    visibility: visible;
+    opacity: 2;
+}
+.tooltip:hover .tooltiptext2 {
+    visibility: visible;
+    opacity: 2;
+}
+.tooltip .tooltiptext2 {
+    visibility: hidden;
+    width: 600px;
+    background-color: #373DBA;
+    color: #fff;
+    text-align-last: auto;
+    text-align: left;
+    border-radius: 4px;
+    padding: 4% ;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: -80px;
+    left: 150%;
+
+    opacity: 0;
+    transition: opacity 2s;
+}
+.tooltip:hover .tooltiptext3 {
+    visibility: visible;
+    opacity: 2;
+}
+.tooltip .tooltiptext3 {
+    visibility: hidden;
+    width: 600px;
+    background-color: #373DBA;
+    color: #fff;
+    text-align-last: auto;
+    text-align: left;
+    border-radius: 4px;
+    padding: 4% ;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: -150px;
+    left: 150%;
+
+    opacity: 0;
+    transition: opacity 2s;
+}
+.formServi{
+  margin: auto;
+ 
+      
+}
+.formServi td  {
+    padding: 5px;
+    
+     border: 10px solid #fff;
+}
+
+.link-container {
+    margin-bottom: 10px;
+}
+
+.link-container a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #373DBA;
+    border: 1px solid #373DBA;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.link-container a:hover {
+    background-color: #373DBA;
+    color: white;
+}
+
+h1 {
+                color: #373DBA; /* Color del texto */
+                font-family: 'Arial', sans-serif; /* Tipo de fuente */
+                text-align: center; /* Alineación del texto */
+                margin-top: 20px; /* Margen superior */
+                margin-bottom: 20px; /* Margen inferior */
+            }

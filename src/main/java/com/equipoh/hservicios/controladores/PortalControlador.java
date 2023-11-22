@@ -87,7 +87,7 @@ public class PortalControlador {
            return "index.html";
     }
     
-    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN','ROLE_PROVEEDOR')")
     @GetMapping("/perfil")
     public String perfil(HttpSession session, ModelMap modelo) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");

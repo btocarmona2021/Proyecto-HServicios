@@ -1,43 +1,81 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <head th:replace= "/frangments/head :: head"</head>
+    <head th:replace= "/frangments/head :: head"></head>
 
     <body class="grid-container">
         <header class="header">
-            <nav th:replace="/frangments/navbar :: nav"</nav>
+            <nav th:replace="/frangments/navbar :: nav"></nav>
         </header>
-        <article class="main"> 
-            <div>
-                <div id="carrusel-contenido">
-                    <div id="carrusel-caja">
-                        <div class="carrusel-elemento">
-                            <img class="imagenes" src="/img/carusel.png" >
-                        </div>
-                        <div class="carrusel-elemento">   
-                            <img class="imagenes" src="/img/caru02.jpg" >
-                        </div>
+        <div class="main">
+            <div class="imgindex">
+            <div class="card">
+                <button class="card-body" style="display: inline-block;">
+                    <h3 class="tooltip">
+                        ¿Qué es ServiHogar?              
+                        <span class="tooltiptext">
+                            ServiHogar es una app que te permite acceder a un catálogo de servicios profesionales para el mantenimiento
+                            de tu vivienda en un barrio privado. Con ServiHogar, puedes solicitar y contratar fácilmente servicios como:
 
-                    </div>
-                </div> 
+                            <li> Limpieza.</li>
+                            <li> Jardinería.</li>
+                            <li> Pintura. </li>
+                            <li> Electricidad.</li>
+                            <li> Plomería.</li>
+                            <li> Reparaciones. </li>
+                            <li> Jardinería.</li>
+                            <li> Pintura. </li>
+                            <li> y mucho mas . . .</li>
+
+                        </span>   
+                    </h3>
+                </button>
+                <button class="card-body"style="display: inline-block;" >
+                    <h3 class="tooltip">
+                        ¿Cómo funciona ServiHogar?       
+                        <span class="tooltiptext1">
+                            <li>Descarga la app en tu dispositivo móvil y crea tu cuenta.</li>
+                            <li>Selecciona el servicio que necesitas y el horario que te conviene.</li>
+                            <li>Recibe una cotización y confirma el pago con tu tarjeta de crédito o débito.</li>
+                            <li>Recibe al profesional en tu domicilio y disfruta del servicio.</li>
+                            <li>Califica al profesional y deja un comentario sobre tu experiencia.</li>
+                        </span>
+                    </h3>
+
+                </button>
+                <button class="card-body"style="display: inline-block;" >
+                    <h3 class="tooltip">
+                        ¿Qué beneficios tiene ServiHogar?
+                        <span class="tooltiptext2">
+                            ServiHogar te ofrece muchos beneficios, como:
+                            <li>Ahorro de tiempo y dinero: No tienes que buscar ni comparar entre diferentes proveedores de servicios.</li>
+                            <li> ServiHogar te ofrece los mejores precios y la mayor calidad.</li>
+                            <li>Comodidad y seguridad: No tienes que salir de tu casa ni exponerte a riesgos. </li>
+                            <li> ServiHogar verifica la identidad y los antecedentes de todos los profesionales que trabajan con nosotros.</li>
+                        </span>
+                    </h3>
+                </button>
+                <button class="card-body"style="display: inline-block;" >
+                    <h3 class="tooltip">
+                        ¿Cómo puedo obtener ServiHogar?  
+                        <span class="tooltiptext3">
+                            ServiHogar está disponible para descargar gratis en las principales tiendas de aplicaciones, 
+                            como Google Play y App Store. También puedes visitar nuestro sitio web www.servihogar.com
+                            para obtener más información y contactarnos.
+                            ¡No esperes más y descarga ServiHogar hoy mismo! 
+                            ServiHogar es la app que te facilita la vida y te ayuda a mantener tu hogar en perfectas condiciones. 🏠
+                        </span>
+                    </h3>
+                </button>
             </div>
-            <!-- mostrar categorias 
-            <div class="container">
-                <tbody th:each="usuarios : ${usuarios}">   
-                <div class="card" >
-                    <div> <a  href="/buscador">
-                            <img src="../img/logo.jpg" alt="noti"  ></a>
-                    </div>
-                    <!-- <div>
-                        <h4 th:text="${usuarios.nombre}"></h4>
-                    </div> 
-                    <div>
-                        <p th:text="${usuarios.apellido}"></p>
-                    </div>
-                </div>
-                </tbody>
-            </div>-->
-        </article>
-        <footer th:replace="frangments/footer:: footer"></footer>
+
+
+        </div>
+            </div>
+   
+
+
+</article>
+<footer th:replace="frangments/footer:: footer"></footer>
 <script src="/script.js"></script>
 </body>
 </html>
