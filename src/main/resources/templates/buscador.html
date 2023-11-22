@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <head th:replace= "/frangments/head :: head"</head>
+    <head th:replace= "/frangments/head :: head"></head>
 
     <body class="grid-container">
         <header class="header">
-            <nav th:replace="/frangments/navbar :: nav"</nav>
+            <nav th:replace="/frangments/navbar :: nav"></nav>
         </header>
 
         <article class="main"> 
@@ -25,8 +25,9 @@
 
                 <tbody th:each="proveedor : ${proveedores}"> 
                 <div class="card_p" >
-                    <div>
-                        <img src="/img/logo.jpg" alt="img">
+                     <div>
+                        <a><img th:if="${proveedor.imagen != null}" class="logo" th:src="@{/imagen/perfil/__${proveedor.id}__}" width="150px"></a>
+                                 
                     </div>
                     <div>
                         <table>
@@ -37,13 +38,14 @@
                                 <th scope="col">Apellido: </th><td th:text="${proveedor.Apellido}"></td>
                             </tr>
                             <tr>
-                                <th scope="col">Direccion: </th><td th:text="${proveedor.direccion}"></td>
+                                <th scope="col">Direccion: </th><td  th:if ="${session.usuariosession !=null}"  th:text="${proveedor.direccion}"></td>
+                            </tr>
+                            th:if ="${session.usuariosession !=null}"
+                            <tr>
+                                <th scope="col">Telefono: </th><td  th:if ="${session.usuariosession !=null}" th:text="${proveedor.telefono}"></td>
                             </tr>
                             <tr>
-                                <th scope="col">Telefono: </th><td th:text="${proveedor.telefono}"></td>
-                            </tr>
-                            <tr>
-                                <th scope="col">Email: </th><td th:text="${proveedor.correo}"></td>
+                                <th scope="col">Email: </th><td th:if ="${session.usuariosession !=null}" th:text="${proveedor.correo}"></td>
                             </tr>
                             <tr>
                                 <th scope="col">Rubro: </th><td th:text="${proveedor.servicio.rubro}"></td>
@@ -52,7 +54,7 @@
                                 <th scope="col">Experiencia: </th><td th:text="${proveedor.experiencia}"></td>
                             </tr>
                             <tr>
-                                <th scope="col">Precio: </th><td th:text="${proveedor.precioXHora}"></td>
+                                <th scope="col">Precio: </th><td th:if ="${session.usuariosession !=null}" th:text="${proveedor.precioXHora}"></td>
                             </tr>
                             
                             
