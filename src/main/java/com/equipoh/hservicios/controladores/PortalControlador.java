@@ -47,11 +47,6 @@ public class PortalControlador {
     }
 
 
-    @GetMapping("/active")
-    public String active() {
-        return "active.html";
-    }
-
 
     @GetMapping("/buscador")
     public String buscador() {
@@ -93,5 +88,11 @@ public class PortalControlador {
         modelo.put("usuario", usuario);
         return "perfil";
     }
-    
+  
+    @GetMapping("/perfil/complete")
+    public String perfil_proveedor() {
+       
+       
+        return "perfil_proveedor.html";
+    }
 }

@@ -37,16 +37,19 @@
                             <tr>
                                 <th scope="col">Apellido: </th><td th:text="${proveedor.Apellido}"></td>
                             </tr>
-                            <tr>
-                                <th scope="col">Direccion: </th><td  th:if ="${session.usuariosession !=null}"  th:text="${proveedor.direccion}"></td>
-                            </tr>
-                            th:if ="${session.usuariosession !=null}"
-                            <tr>
-                                <th scope="col">Telefono: </th><td  th:if ="${session.usuariosession !=null}" th:text="${proveedor.telefono}"></td>
+                            <!-- comment  <tr>
+                                <th scope="col">Direccion: </th><td th:text="${proveedor.direccion}"></td>
                             </tr>
                             <tr>
-                                <th scope="col">Email: </th><td th:if ="${session.usuariosession !=null}" th:text="${proveedor.correo}"></td>
+                                <th scope="col">Telefono: </th><td th:text="${proveedor.telefono}"></td>
                             </tr>
+                            <tr>
+                                <th scope="col">Email: </th><td th:text="${proveedor.correo}"></td>
+                            </tr> 
+                            <tr>
+                                <th scope="col">Precio: </th><td th:text="${proveedor.precioXHora}"></td>
+                            </tr>
+                            -->
                             <tr>
                                 <th scope="col">Rubro: </th><td th:text="${proveedor.servicio.rubro}"></td>
                             </tr>
@@ -54,8 +57,11 @@
                                 <th scope="col">Experiencia: </th><td th:text="${proveedor.experiencia}"></td>
                             </tr>
                             <tr>
-                                <th scope="col">Precio: </th><td th:if ="${session.usuariosession !=null}" th:text="${proveedor.precioXHora}"></td>
+                                <th scope="col"></th><td ><div>
+                                            <a href="/perfil/complete"><button class="button2" type="button"> Leer Más</button></a>
+                                        </div></td>
                             </tr>
+                            
                             
                             
                             </table>

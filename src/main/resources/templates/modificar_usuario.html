@@ -8,7 +8,7 @@
         </header>
         <article class="main"> 
             <div class="container"  align="center">
-                <form class="formulario" th:action="@{/usuario/actualizar/__${usuario.id}__}" method="POST">
+                <form class="formulario" th:action="@{/usuario/actualizar/__${usuario.id}__}" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <input type="hidden" name="id" th:value="${usuario.id}">
                         <input type="text" class="form-group" name="nombre" placeholder="Nombre"
