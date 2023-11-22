@@ -5,20 +5,14 @@
  */
 package com.equipoh.hservicios.entidades;
 
-import java.util.Date;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
-
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -30,7 +24,6 @@ public class Contrato {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-     
     private String id;
     private Boolean solicitudT;
     private Boolean inicioT;
@@ -38,11 +31,15 @@ public class Contrato {
     private Integer puntuacion;
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaInicio;
+
+    @Temporal(TemporalType.TIMESTAMP) //AGREGUE EL TIMESTAMP QUE FALTABA
     private Date fechaFinal;
-    
-    @OneToMany
+
+    @ManyToOne //CAMBIEN A MANY TO ONE
     private Proveedor proveedor;
+    @ManyToOne  //AGREGUE LA RELACION
     private Usuario usuario;
-    //private Comentario comentario;
-    
+    //AGREGUE RELACION Y PROPIEDAD CON COMENTARIO
+    @OneToOne
+    private Comentario comentario;
 }

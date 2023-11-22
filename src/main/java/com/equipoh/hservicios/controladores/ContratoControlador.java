@@ -5,13 +5,11 @@
  */
 package com.equipoh.hservicios.controladores;
 
-import com.equipoh.hservicios.entidades.Contrato;
 import com.equipoh.hservicios.entidades.Proveedor;
 import com.equipoh.hservicios.entidades.Usuario;
 import com.equipoh.hservicios.excepciones.MiException;
 import com.equipoh.hservicios.servicios.ContratoServicio;
-import java.util.Date;
-import java.util.List;
+import com.equipoh.hservicios.servicios.ProveedorServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -20,35 +18,44 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 
 
 @Controller
 @RequestMapping("/contrato")
 public class ContratoControlador {
-    
+
     @Autowired
     private ContratoServicio contratoServicio;
+    @Autowired
+    private ProveedorServicio proveedorServicio;
 
-    @GetMapping("/registrar")
-    public String registrarContrato() {
-        return "registrar_contrato.html";
+    @GetMapping("/enviocontrato/{id}")
+    public String nuevoConotrato(@PathVariable String id, HttpSession session, ModelMap modelo) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        Proveedor proveedor = proveedorServicio.getOne(id);
+        modelo.put("usuario", usuario);
+        modelo.put("proveedor", proveedor);
+        return "registrar_contrato";
     }
-    
-     @PostMapping("/registro")
-    public String registroContrato(Date fechaInicio, Date fechaFinal, Boolean solicitudT, Boolean inicioT, Boolean finT,Integer puntuacion, Proveedor proveedor, Usuario usuario,  ModelMap modelo) {
-        
+
+    @PostMapping("/solicitudTrabajo")
+    public String registroContrato(String idProveedor, HttpSession session, String contenido, ModelMap modelo) {
+
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+
         try {
-            contratoServicio.registrarContrato(fechaInicio, fechaFinal, solicitudT, inicioT, finT, puntuacion, proveedor, usuario);
-            modelo.put("exito", "El contrato fue registrado correctamente");
+            contratoServicio.registrarContrato(idProveedor, usuario.getId(), contenido);
+            modelo.put("exito", "La solicitud fue enviada correctamente");
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
-            return "registrar_contrato.html";
+            return "registrar_contrato";
         }
 
-        return "index.html";
+        return "panel";
     }
     
-    @GetMapping("/lista")
+   /* @GetMapping("/lista")
     public String listarContratos (ModelMap modelo) {
         List<Contrato> contratos = contratoServicio.listarContratos();
         modelo.addAttribute("contratos", contratos);
@@ -73,5 +80,5 @@ public class ContratoControlador {
             return "modificar_contrato.html";
         }
 
-    }
+    }*/
 }
