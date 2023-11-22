@@ -17,6 +17,7 @@
                 <form class="formulario" th:action="@{/servicio/actualizar/__${servicio.id}__}" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <input hidden th:value="${servicio.id}" name="id">
+                        agregar imagen
                         <input type="text" class="form-group" name="rubro" placeholder="Actualice el rubro" th:value="${servicio.rubro}">
                     </div> 
                      <label for="lang">Estado</label>
