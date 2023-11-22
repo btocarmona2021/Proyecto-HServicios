@@ -35,8 +35,11 @@ public class ImagenControlador {
 
         headers.setContentType(MediaType.IMAGE_JPEG);
 
-
         return new ResponseEntity<>(imagen, headers,HttpStatus.OK);
+    }
 
+    @GetMapping("/cargaimagen")
+    public String cargaImagen() {
+        return "cargaimagen";
     }
 }
