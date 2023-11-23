@@ -87,7 +87,6 @@ public class ContratoServicio {
         contrato.setFechaFinal(new Date());
         Long milisegundos = contrato.getFechaFinal().getTime() - contrato.getFechaInicio().getTime();
         long horas = TimeUnit.MILLISECONDS.toHours(milisegundos);
-        System.out.println(horas);
         contrato.setFinT(true);
 
         contratoRepositorio.save(contrato);

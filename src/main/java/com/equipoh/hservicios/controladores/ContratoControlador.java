@@ -54,7 +54,6 @@ public class ContratoControlador {
 
         return "panel";
     }
-
     @GetMapping("/aceptacontrato")
     public String aceptacontrato() {
         return "aceptacontrato";
