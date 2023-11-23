@@ -40,12 +40,12 @@ public class ContratoControlador {
     }
 
     @PostMapping("/solicitudTrabajo")
-    public String registroContrato(String idProveedor, HttpSession session, String contenido, ModelMap modelo) {
+    public String registroContrato(String idProveedor, HttpSession session, String descTrabajo, String contenido, ModelMap modelo) {
 
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
 
         try {
-            contratoServicio.registrarContrato(idProveedor, usuario.getId(), contenido);
+            contratoServicio.registrarContrato(idProveedor, usuario.getId(), descTrabajo, contenido);
             modelo.put("exito", "La solicitud fue enviada correctamente");
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
@@ -54,6 +54,24 @@ public class ContratoControlador {
 
         return "panel";
     }
+
+    @GetMapping("/aceptacontrato")
+    public String aceptacontrato() {
+        return "aceptacontrato";
+    }
+
+    @PostMapping("/contratoaceptado/{id}")
+    public String contratoAceptado(@PathVariable String idContrato, ModelMap modelo) {
+        try {
+            contratoServicio.aceptacionContrato(idContrato);
+            modelo.put("exito", "El trabajo ha sido aceptado");
+            return "aceptacontrato";
+        } catch (MiException e) {
+            modelo.put("error", e.getMessage());
+            return "aceptacontrato";
+        }
+    }
+
     
    /* @GetMapping("/lista")
     public String listarContratos (ModelMap modelo) {

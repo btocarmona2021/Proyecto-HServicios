@@ -37,11 +37,10 @@
                             <input type="text" size="30" class="form-group" name="correo" placeholder="Direccion de Correo Electronico" th:value="${correo}">
                             <input type="text" class="form-group" name="direccion" placeholder="Domicilio" th:value="${direccion}">
                             <input type="text" size="30" class="form-group" name="telefono" placeholder="Telefono formato Ej. 0xx-1xx-xxxxxx" th:value="${telefono}">
-                            
-                           
-                            
-                            <select name="idServicio">
-                            <option>Seleccionar Servicio</option>
+
+
+                            <select name="idServicio" class="form-control">
+
                             <option th:each="servicio : ${servicio}" 
                                     th:value="${servicio.id}" 
                                     th:text="${servicio.rubro}"/>

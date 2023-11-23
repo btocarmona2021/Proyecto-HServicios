@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org">
     <head th:replace= "/frangments/head :: head"</head>
 
     <body class="grid-container">
@@ -91,8 +91,15 @@
                                 <th scope="col"> </th><td> <a th:href="@{/proveedor/actualizar/__${proveedor.id}__}"><i class="fas fa-feather-alt"></i>
                                 Actualizar Perfil</a></td>
                             </tr>
-                            
-                            </table>
+                            <tr>
+                                <th scope="col"></th>
+                                <td><a th:href="@{/contrato/enviocontrato/__${proveedor.id}__}"><i
+                                        class="fas fa-feather-alt"></i>
+                                    Contratar</a></td>
+                            </tr>
+
+
+                        </table>
                     </div>
 
                     
