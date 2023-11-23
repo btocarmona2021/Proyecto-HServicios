@@ -664,7 +664,7 @@ body{
     position: relative;
     display: inline-block;
     border-bottom: 1px dotted black;
-    
+
 }
 
 .tooltip .tooltiptext {
@@ -702,7 +702,7 @@ li{
     text-align-last: auto;
     text-align: left;
     border-radius: 4px;
-     padding: 4% ;
+    padding: 4% ;
 
     /* Position the tooltip */
     position: absolute;
@@ -763,4 +763,30 @@ li{
 
     opacity: 0;
     transition: opacity 2s;
+}
+
+.titulo{
+    color: white;
+    text-transform: uppercase;
+    text-height: max-size;
+    text-shadow: 2px 2px 4px #000000;
+}
+.SubTitulo{
+     color: white;
+    text-transform: uppercase;
+    text-height: text-size;
+    text-shadow: 2px 2px 4px #000000;
+    padding-left: 50px;
+}
+.cont{
+    text-align: left;
+     color:whitesmoke ;
+    text-transform: uppercase;
+    text-height: text-size;
+    text-shadow: 2px 2px 4px #000000;
+    padding-left: 50px;
+}
+.tabla{
+    padding: 5%;
+    background-color:#373DBA; 
 }
