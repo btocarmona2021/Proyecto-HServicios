@@ -19,6 +19,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.security.access.prepost.PreAuthorize;
 
+
 @Controller
 @RequestMapping("/")
 public class PortalControlador {
