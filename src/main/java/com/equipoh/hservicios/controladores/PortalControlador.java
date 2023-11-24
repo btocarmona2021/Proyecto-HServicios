@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 
+
 @Controller
 @RequestMapping("/")
 public class PortalControlador {

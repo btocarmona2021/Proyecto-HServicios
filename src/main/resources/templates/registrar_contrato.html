@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Solicitud de Trabajo</title>
+</head>
+<body>
+<form th:action="@{/contrato/solicitudTrabajo}" method="post">
+
+    <h1>Datos del proveedor</h1>
+    <input type="hidden" th:value="${proveedor.getId()}" name="idProveedor">
+    <img th:src="@{/imagen/perfil/__${proveedor.getId()}__}" alt="">
+    <h1 th:text="${proveedor.getNombre() +' '+ proveedor.getApellido()}"></h1>
+    <h4 th:text="${proveedor.getDireccion()}"></h4>
+    <h4 th:text="${proveedor.getTelefono()}"></h4>
+    <h4 th:text="${proveedor.getCorreo()}"></h4>
+
+    <h1>Datos del cliente</h1>
+    <img th:src="@{/imagen/perfil/__${usuario.getId()}__}" alt="">
+    <h1 th:text="${usuario.getNombre() +' '+ usuario.getApellido()}"></h1>
+    <h4 th:text="${usuario.getDireccion()}"></h4>
+    <h4 th:text="${usuario.getTelefono()}"></h4>
+    <h4 th:text="${usuario.getCorreo()}"></h4>
+    <textarea name="descTrabajo" id="" cols="30" rows="10">
+        Describí el trabajo a realizar
+    </textarea>
+    <input type="submit" value="Contratar">
+
+</form>
+
+</body>
+</html>
