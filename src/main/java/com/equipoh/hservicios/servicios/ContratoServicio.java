@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Date;
+import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 
 @Service
@@ -31,12 +33,14 @@ public class ContratoServicio {
     private ComentarioServicio comentarioServicio;
 
     @Transactional
-    public void registrarContrato(String idProveedor, String idUsuario, String contenido) throws MiException {
+    public void registrarContrato(String idProveedor, String idUsuario, String descTrabajo, String contenido) throws MiException {
         Proveedor proveedor = proveedorServicio.getOne(idProveedor);
         Usuario usuario = usuarioServicio.obtenerUsuario(idUsuario);
         Contrato contrato = new Contrato();
         contrato.setProveedor(proveedor);
         contrato.setUsuario(usuario);
+        contrato.setDescripcionTrabajo(descTrabajo);
+        contrato.setFechaSolicitud(new Date());
         contrato.setFechaInicio(null);
         contrato.setFechaFinal(null);
         contrato.setSolicitudT(false);
@@ -46,6 +50,49 @@ public class ContratoServicio {
         contrato.setComentario(comentarioServicio.ingresaComentario(contenido));
         contratoRepositorio.save(contrato);
     }
+
+    @Transactional
+    public void aceptacionContrato(String idContrato) throws MiException {
+        Optional<Contrato> respuesta = contratoRepositorio.findById(idContrato);
+        Contrato contrato = new Contrato();
+        if (respuesta.isPresent()) {
+            contrato = respuesta.get();
+        }
+        contrato.setFechaInicio(new Date());
+        contrato.setSolicitudT(true);
+        contrato.setInicioT(true);
+        contratoRepositorio.save(contrato);
+    }
+
+
+    @Transactional
+    public void cancelaContrato(String idContrato) throws MiException {
+        Optional<Contrato> respuesta = contratoRepositorio.findById(idContrato);
+        Contrato contrato = new Contrato();
+        if (respuesta.isPresent()) {
+            contrato = respuesta.get();
+        }
+        contrato.setFechaInicio(null);
+        contrato.setInicioT(false);
+        contratoRepositorio.save(contrato);
+    }
+
+    @Transactional
+    public void finalizaTrabajo(String idContrato) throws MiException {
+        Optional<Contrato> respuesta = contratoRepositorio.findById(idContrato);
+        Contrato contrato = new Contrato();
+        if (respuesta.isPresent()) {
+            contrato = respuesta.get();
+        }
+        contrato.setFechaFinal(new Date());
+        Long milisegundos = contrato.getFechaFinal().getTime() - contrato.getFechaInicio().getTime();
+        long horas = TimeUnit.MILLISECONDS.toHours(milisegundos);
+        contrato.setFinT(true);
+
+        contratoRepositorio.save(contrato);
+    }
+
+
 
 
 

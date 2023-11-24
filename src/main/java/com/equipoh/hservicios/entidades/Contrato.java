@@ -25,13 +25,16 @@ public class Contrato {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
+    @Column(length = 1000)
+    private String descripcionTrabajo;
     private Boolean solicitudT;
     private Boolean inicioT;
     private Boolean finT;
     private Integer puntuacion;
+    @Temporal(TemporalType.DATE)
+    private Date fechaSolicitud;
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaInicio;
-
     @Temporal(TemporalType.TIMESTAMP) //AGREGUE EL TIMESTAMP QUE FALTABA
     private Date fechaFinal;
 

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 /**
@@ -21,6 +22,7 @@ public class ImagenServicio {
     @Autowired
     private ImagenRepositorio imagenRepositorio;
 
+    @Transactional
     public Imagen guardarImagen(MultipartFile archivo) {
         
         if (archivo != null) {
@@ -48,9 +50,9 @@ public class ImagenServicio {
         return null;
     
     }
-    
-    public Imagen actualizarImagen(MultipartFile archivo, String idImagen) throws MiException{ 
-        
+
+    @Transactional
+    public Imagen actualizarImagen(MultipartFile archivo, String idImagen) throws MiException {
         if (archivo != null) {
             
             try {
@@ -58,7 +60,7 @@ public class ImagenServicio {
                 Imagen imagen = new Imagen();
                 
                 if (idImagen != null) {
-                    
+                    System.out.println("LA ID IMAGEN NO ESTA NULA");
                     Optional<Imagen> respuesta = imagenRepositorio.findById(idImagen);
                     
                     if (respuesta.isPresent()) {
@@ -70,13 +72,14 @@ public class ImagenServicio {
                 }
                 
                 imagen.setMime(archivo.getContentType());
-                
-                imagen.setNombre(archivo.getName());
+
+                imagen.setNombre(archivo.getOriginalFilename());
                 
                 imagen.setContenido(archivo.getBytes());
-                
-                return imagenRepositorio.save(imagen);
-                
+
+                imagenRepositorio.save(imagen);
+                return imagen;
+
             } catch (Exception e) {
                 
                 System.err.println(e.getMessage());
