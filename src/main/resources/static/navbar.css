@@ -11,8 +11,10 @@
   display: flex;
   justify-content: space-between;
 
-  max-width: 992px;
+  max-width: 100%;
   margin: 0 auto;
+  
+  
 }
 
 .nav-link {
@@ -29,13 +31,13 @@
 
 .nav-menu {
   display: flex;
-  margin-right: 40px;
+  margin: 0;
   list-style: none;
 }
 
 .nav-menu-item {
   font-size: 18px;
-  margin: 0 10px;
+  margin: 0  10px;
   line-height: 80px;
   text-transform: uppercase;
   text-shadow: 2px 2px 4px #000000;
@@ -85,7 +87,7 @@
   .nav-menu {
     flex-direction: column;
     align-items: center;
-    margin: 0;
+    margin: 10%;
     background-color: #373DBA;
     opacity: 0.5;
     position: fixed;
@@ -98,6 +100,8 @@
 
     left: 100%;
     transition: left 0.3s;
+    
+     text-shadow: 4px 4px 8px #000000;
   }
 
   .nav-menu-item {

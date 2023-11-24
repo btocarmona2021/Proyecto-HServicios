@@ -10,23 +10,26 @@
         <article class="main"> 
             <div>
                 <form class="" th:action="@{/buscador}" method="POST">
+                   
+                    <h3 class="titulo3">Ingrese el dato que quiere buscar.</h3>
+                    
                     <div>
-                        <input type="text" class="" name="buscar" placeholder="Que desea buscar">
+                        <input type="text" class="input" name="buscar" placeholder="Que desea buscar">
 
-                        <button type="submit" class="">buscar</button>
+                        <button type="submit" class="buscar4">buscar</button>
 
                     </div>
                 </form>
             </div>
 
-            <div>Resultados</div>
+            <div class="cabe">Resultados</div>
             <div class="container_p">
 
 
                 <tbody th:each="proveedor : ${proveedores}"> 
                 <div class="card_p" >
                     <div>
-                        <a><img th:if="${proveedor.imagen != null}" class="logo" th:src="@{/imagen/perfil/__${proveedor.id}__}" width="150px"></a>
+                        <a><img th:if="${proveedor.imagen != null}" class="logo" th:src="@{/imagen/perfil/__${proveedor.id}__}" width="250px"></a>
 
                     </div>
                     <div>
@@ -67,4 +70,7 @@
                 </tbody>
             </div>
         </article>
+        
+        <footer th:replace="/frangments/footer :: footer"></footer>
+    </body>
 </html>

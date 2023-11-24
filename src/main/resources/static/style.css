@@ -175,7 +175,7 @@ img {
 button {
     background-color: #4CAF50; /* Green */
     border: none;
-    border-radius: 8px;
+    border-radius: 6px;
     color: white;
     padding: 4px 20px;
     text-align: center;
@@ -281,7 +281,6 @@ button {
 .container_p{
     width: 100%;
     max-width: 1200px;
-    /*height: 430px;*/
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -290,23 +289,22 @@ button {
 }
 
 .container_p .card_p{
-    width: 430px;
-    /*height: 400px;*/
+    width:250px;
     border-radius: 8px;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     margin: 20px;
-    text-align: center;
+    text-align: left;
     transition: all 0.5s;
-    background-color: #95afba;
+    background-color: #373DBA;
 }
 .container_p .card_p:hover{
     transform: translateY(-15px);
     box-shadow: 0 12px 16px rgba(0, 0, 0, 0.2);
 }
 .container_p .card_p img{
-    width: 330px;
-    height: 220px;
+    width:250px;
+    height: 150px;
 }
 .container_p .card_p h4{
     font-weight: 600;
@@ -772,7 +770,7 @@ li{
     text-shadow: 2px 2px 4px #000000;
 }
 .SubTitulo{
-     color: white;
+    color: white;
     text-transform: uppercase;
     text-height: text-size;
     text-shadow: 2px 2px 4px #000000;
@@ -780,7 +778,7 @@ li{
 }
 .cont{
     text-align: left;
-     color:whitesmoke ;
+    color:whitesmoke ;
     text-transform: uppercase;
     text-height: text-size;
     text-shadow: 2px 2px 4px #000000;
@@ -788,5 +786,29 @@ li{
 }
 .tabla{
     padding: 5%;
-    background-color:#373DBA; 
+    background-color:#373DBA;
+}
+.buscar4{
+    margin-top: 2%;
+    height: 30px;
+    font-size: 85%;
+    box-shadow: #000000;
+}
+.input{
+    width: 40%;
+    height: 30px;
+    margin-top: 2%;
+    border-radius: 6px;
+}
+.titulo3{
+    color: white;
+    font-size: 40px;
+    text-shadow: 4px 4px 8px #000000;
+
+}
+.cabe{
+    color: white;
+    font-size: 30px;
+    text-shadow: 3px 3px 6px #000000;
+
 }
