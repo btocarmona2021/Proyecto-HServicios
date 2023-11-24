@@ -100,5 +100,15 @@ public class PortalControlador {
         modelo.addAttribute("contratos", contratos);
         return "perfil";
     }
+
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN','ROLE_PROVEEDOR')")
+    @GetMapping("/perfilu")
+    public String perfilu(HttpSession session, ModelMap modelo) {
+        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        List<Contrato> contratos = contratoRepositorio.buscaContratoSinAceptar(usuario.getId());
+        modelo.put("usuario", usuario);
+        modelo.addAttribute("contratos", contratos);
+        return "perfilu";
+    }
     
 }

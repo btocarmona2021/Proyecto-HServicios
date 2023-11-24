@@ -5,12 +5,12 @@
     <title>Title</title>
 </head>
 <body>
-<form th:action="@{/comentario/ingresado}" method="post">
-    <textarea name="contenido" id="contenido" cols="30" rows="10">
-        DEJÁ TU APRECIACIÓN HACIA EL PROVEEDOR
+<form th:action="@{/comentario/comentarioactualizado/__${comentario.getIdcomentario()}__}" method="post">
+    <textarea name="contenido" id="contenido" cols="30" rows="10" th:text="${comentario.contenido}">
+
     </textarea>
     <input type="submit" value="Comentar">
-    <h1 th:text="${ingresado}"></h1>
+
 </form>
 
 </body>
