@@ -158,8 +158,11 @@ public class UsuarioServicio implements UserDetailsService{
 
     public List<Usuario> listarUsuario() {
         // La lista va a recuperar a todos los usuarios para mostrar en la pagina a todos ellos
-        List<Usuario> usuarios = usuarioRepositorio.findAll();
-        return usuarios;
+       // List<Usuario> usuarios = usuarioRepositorio.findAll();
+       List<Usuario> usuarios = new ArrayList();
+       usuarios = usuarioRepositorio.buscarPorrol();
+       
+       return usuarios;
     }
 
     private void validar(String nombre, String apellido, String direccion, String telefono, String correo, String password, String password2) throws MiException {

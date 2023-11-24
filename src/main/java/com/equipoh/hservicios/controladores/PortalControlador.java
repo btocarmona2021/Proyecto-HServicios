@@ -6,6 +6,7 @@ package com.equipoh.hservicios.controladores;
 import com.equipoh.hservicios.entidades.Proveedor;
 import com.equipoh.hservicios.entidades.Usuario;
 import com.equipoh.hservicios.repositorios.ProveedorRepositorio;
+import com.equipoh.hservicios.servicios.ProveedorServicio;
 import com.equipoh.hservicios.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 @RequestMapping("/")
@@ -27,6 +29,8 @@ public class PortalControlador {
     private UsuarioServicio usuarioServicio;
     @Autowired
     private ProveedorRepositorio proveedorRepositorio;
+    @Autowired
+    private ProveedorServicio proveedorServicio;
 
     @GetMapping("/")
     public String index(ModelMap modelo) {
@@ -89,10 +93,11 @@ public class PortalControlador {
         return "perfil";
     }
   
-    @GetMapping("/perfil/complete")
-    public String perfil_proveedor() {
-       
+    @GetMapping("/perfil/complete/{id}")
+    public String perfil_proveedor(@PathVariable(required = false) String id, ModelMap modelo) {
+       modelo.put("proveedores", proveedorServicio.getOne(id));
        
         return "perfil_proveedor.html";
     }
 }
+ 

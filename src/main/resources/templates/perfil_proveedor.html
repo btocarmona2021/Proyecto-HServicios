@@ -7,13 +7,63 @@
             <nav th:replace="/frangments/navbar :: nav"</nav>
         </header>
         <article class="main"> 
-   <div>mostrar toda la info del proveedor</div>
-                <div>listar algunos comentarios</div>
-        <div>mostrar puntaje en promedio</div> 
+
+            <a href="/contrato">  agregar boton contratar</a></div>
+
+        <div class="container_p">
+
+
+            <tbody th:each="proveedor : ${proveedores}" th:if="${proveedor.id = id}"> 
+            <div class="card_p" >
                 <div>
-                    <a href="/contrato">  agregar boton contratar</a></div>
-   </article>
-        <footer th:replace="frangments/footer:: footer"></footer>
-<script src="/script.js"></script>
+                    <a><img th:if="${proveedor.imagen != null}" class="logo" th:src="@{/imagen/perfil/__${proveedor.id}__}" width="150px"></a>
+
+                </div>
+                <div>
+                    <table>
+                        <tr>
+                            <th scope="col">Nombre: </th><td th:text="${proveedor.nombre}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Apellido: </th><td th:text="${proveedor.Apellido}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Direccion: </th><td th:text="${proveedor.direccion}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Telefono: </th><td th:text="${proveedor.telefono}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Email: </th><td th:text="${proveedor.correo}"></td>
+                        </tr> 
+                        <tr>
+                            <th scope="col">Precio: </th><td th:text="${proveedor.precioXHora}"></td>
+                        </tr>
+
+                        <tr>
+                            <th scope="col">Rubro: </th><td th:text="${proveedor.servicio.rubro}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Experiencia: </th><td th:text="${proveedor.experiencia}"></td>
+                        </tr>
+                        
+
+
+
+                    </table>
+                </div>
+
+
+            </div>
+            </tbody>
+        </div>
+        
+        <div>listar un maximo de comentarios comentarios</div>
+        <div>mostrar puntaje en promedio</div> 
+        <div>
+
+    </article>
+    <footer th:replace="frangments/footer:: footer"></footer>
+    <script src="/script.js"></script>
 </body>
 </html>

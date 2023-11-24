@@ -42,4 +42,7 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, String> {
     @Query("SELECT u FROM Usuario u WHERE u.nombre LIKE %:dato% OR u.apellido LIKE %:dato% OR u.direccion LIKE %:dato% OR u.correo LIKE %:dato% ")
     public List<Usuario> buscarDato(@Param("dato") String dato);
     
+    @Query("SELECT u FROM Usuario u WHERE u.rol = 'USUARIO'")
+    public List<Usuario> buscarPorrol();
+    
 }
