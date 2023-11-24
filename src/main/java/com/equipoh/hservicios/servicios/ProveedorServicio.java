@@ -82,12 +82,12 @@ public class ProveedorServicio {
         validar(nombre, correo, password, password2);
 
         Proveedor proveedor = new Proveedor();
-
+        Servicio servicio = servicioRepositorio.getById(idServicio);
         Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
         if (respuesta.isPresent()) {
             proveedor = respuesta.get();
         }
-        Servicio servicio = servicioRepositorio.getById(idServicio);
+
 
         proveedor.setNombre(nombre);
         proveedor.setApellido(apellido);

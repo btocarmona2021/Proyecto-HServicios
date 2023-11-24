@@ -59,15 +59,31 @@ public class ContratoControlador {
         return "aceptacontrato";
     }
 
-    @PostMapping("/contratoaceptado/{id}")
-    public String contratoAceptado(@PathVariable String idContrato, ModelMap modelo) {
+    @GetMapping("/contratoaceptado/{id}")
+    public String contratoAceptado(HttpSession session, @PathVariable String id, ModelMap modelo) {
+        Proveedor proveedor = (Proveedor) session.getAttribute("session.usuario");
         try {
-            contratoServicio.aceptacionContrato(idContrato);
+            contratoServicio.aceptacionContrato(id);
             modelo.put("exito", "El trabajo ha sido aceptado");
-            return "aceptacontrato";
+            modelo.put("usuario", proveedor);
+            return "redirect:/perfil";
         } catch (MiException e) {
             modelo.put("error", e.getMessage());
-            return "aceptacontrato";
+            return "redirect:/perfil";
+        }
+    }
+
+    @GetMapping("/finalizatrabajo/{id}")
+    public String finalizaTrabajo(HttpSession session, @PathVariable String id, ModelMap modelo) {
+        Proveedor proveedor = (Proveedor) session.getAttribute("session.usuario");
+        try {
+            contratoServicio.finalizaTrabajo(id);
+            modelo.put("exito", "El trabajo ha sido finalizado");
+            modelo.put("usuario", proveedor);
+            return "redirect:/perfil";
+        } catch (MiException e) {
+            modelo.put("error", e.getMessage());
+            return "redirect:/perfil";
         }
     }
 
