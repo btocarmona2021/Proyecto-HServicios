@@ -469,8 +469,8 @@ body{
 }
 
 .contenedor__login-register form button{
-    padding: 10px 40px;
-    margin-top: 40px;
+    
+    margin-top: 4px;
     border: none;
     font-size: 12px;
     background: #373DBA;

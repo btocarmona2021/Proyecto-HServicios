@@ -42,10 +42,10 @@ public class UsuarioServicio implements UserDetailsService{
     private ImagenRepositorio imagenRepositorio;
 
     @Transactional
-    public void registrarUsuario(MultipartFile archivo, String nombre, String apellido, String direccion,
-            String telefono, String correo, String password, String password2) throws MiException {
+    public void registrarUsuario(MultipartFile archivo, String nombreu, String apellidou, String direccionu,
+            String telefonou, String correou, String password, String password2u) throws MiException {
         
-        List<Usuario> existe = usuarioRepositorio.buscarCorreoUsuarioActivo(correo);
+        List<Usuario> existe = usuarioRepositorio.buscarCorreoUsuarioActivo(correou);
         /*
         quiero que la siguiente linea llame al usuarioRepositorio.buscarCorreoUsuarioActivo(correo) que se fija si el correo no aparece en
         la lista de proveedores, y reemplazar el if actual por 
@@ -55,13 +55,14 @@ public class UsuarioServicio implements UserDetailsService{
             throw new MiException("El usuario no ha podido ser registrado porque el correo ya ha sido registrado.");
         } else {
             // Manejo de Excepciones
-            validar(nombre, apellido, direccion, telefono, correo, password, password2);
+           // validar(nombre, apellido, direccion, telefono, correo, password, password2);
+           
             Usuario usuario = new Usuario();
-            usuario.setNombre(nombre);
-            usuario.setApellido(apellido);
-            usuario.setDireccion(direccion);
-            usuario.setTelefono(telefono);
-            usuario.setCorreo(correo);
+            usuario.setNombre(nombreu);
+            usuario.setApellido(apellidou);
+            usuario.setDireccion(direccionu);
+            usuario.setTelefono(telefonou);
+            usuario.setCorreo(correou);
             usuario.setFechaAlta(new Date());
             usuario.setPassword(new BCryptPasswordEncoder().encode(password));
             if (archivo.isEmpty()) {
@@ -162,8 +163,8 @@ public class UsuarioServicio implements UserDetailsService{
        return usuarios;
     }
 
-    private void validar(String nombre, String apellido, String direccion, String telefono, String correo, String password, String password2) throws MiException {
-        if ((nombre.isEmpty()) || (nombre == null)) {     // Si el nombre ESTÁ VACÍO o es NULO
+    private void validar(String nombreu, String apellido, String direccion, String telefono, String correo, String password, String password2) throws MiException {
+        if ((nombreu.isEmpty()) || (nombreu == null)) {     // Si el nombre ESTÁ VACÍO o es NULO
             throw new MiException("El nombre no puede estar vacío o ser nulo.");
         }
         if ((apellido.isEmpty()) || (apellido == null)) {     // Si el apellido ESTÁ VACÍO o es NULO
