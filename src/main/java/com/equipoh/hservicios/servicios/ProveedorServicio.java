@@ -51,7 +51,6 @@ public class ProveedorServicio {
             servicio = respuestaServicio.get();
         }
         Proveedor proveedor = new Proveedor();
-
         proveedor.setNombre(nombre);
         proveedor.setApellido(apellido);
         proveedor.setDireccion(direccion);
@@ -73,7 +72,6 @@ public class ProveedorServicio {
         proveedorRepositorio.save(proveedor);
 
     }
-
     @Transactional
     public void actualizar(MultipartFile archivo, String id, String nombre, String apellido, String direccion,
                            String telefono, String correo, String password, String password2, String rol,

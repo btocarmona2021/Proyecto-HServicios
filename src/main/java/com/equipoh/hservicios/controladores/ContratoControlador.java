@@ -5,6 +5,7 @@
  */
 package com.equipoh.hservicios.controladores;
 
+import com.equipoh.hservicios.entidades.Contrato;
 import com.equipoh.hservicios.entidades.Proveedor;
 import com.equipoh.hservicios.entidades.Usuario;
 import com.equipoh.hservicios.excepciones.MiException;
@@ -86,6 +87,15 @@ public class ContratoControlador {
             return "redirect:/perfil";
         }
     }
+
+    @PostMapping("/valorar/{id}")
+    public String valorar(@PathVariable String id, Integer puntuacion) {
+        Contrato contrato = contratoServicio.obtenerContrato(id);
+        contratoServicio.valoracionProveedor(id, puntuacion);
+        return "redirect:/perfilu";
+    }
+
+
 
     
    /* @GetMapping("/lista")

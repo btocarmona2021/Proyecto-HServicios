@@ -51,11 +51,11 @@
                     <th>Fecha de Solicitud</th>
                     <th>Aceptación de trabajo</th>
                 </tr>
-                <tr th:each="contrato: ${contratos}" th:if="${contrato.getInicioT() ==false}">
-                    <td th:text="${contrato.getUsuario().getNombre() +' '+ contrato.getUsuario().getApellido() }"></td>
-                    <td th:text="${contrato.getDescripcionTrabajo()}"></td>
-                    <td th:text="${contrato.getFechaSolicitud()}"></td>
-                    <td><a th:href="@{/contrato/contratoaceptado/__${contrato.getId()}__}">Aceptar</a></td>
+                <tr th:each="contrato: ${contratos}" th:if="${contrato.inicioT ==false}">
+                    <td th:text="${contrato.usuario.nombre+' '+ contrato.usuario.apellido}"></td>
+                    <td th:text="${contrato.descripcionTrabajo}"></td>
+                    <td th:text="${contrato.fechaSolicitud}"></td>
+                    <td><a th:href="@{/contrato/contratoaceptado/__${contrato.id}__}">Aceptar</a></td>
                 </tr>
 
             </table>
@@ -70,9 +70,9 @@
                 </tr>
                 <tr th:each="contrato: ${contratos}"
                     th:if="${contrato.inicioT ==true and contrato.finT ==false}">
-                    <td th:text="${contrato.getUsuario().getNombre() +' '+ contrato.getUsuario().getApellido() }"></td>
-                    <td th:text="${contrato.getDescripcionTrabajo()}"></td>
-                    <td><a th:href="@{/contrato/finalizatrabajo/__${contrato.getId()}__}">Finalizar</a></td>
+                    <td th:text="${contrato.usuario.nombre +' '+ contrato.usuario.apellido}"></td>
+                    <td th:text="${contrato.descripcionTrabajo}"></td>
+                    <td><a th:href="@{/contrato/finalizatrabajo/__${contrato.id}__}">Finalizar</a></td>
                 </tr>
 
             </table>
@@ -83,12 +83,14 @@
                     <th>Nombre cliente</th>
                     <th>Trabajo Finalizado</th>
                     <th>Comentario del cliente</th>
+                    <th>Valoracion del cliente</th>
                 </tr>
                 <tr th:each="contrato: ${contratos}"
                     th:if="${contrato.finT ==true}">
-                    <td th:text="${contrato.getUsuario().getNombre() +' '+ contrato.getUsuario().getApellido() }"></td>
-                    <td th:text="${contrato.getDescripcionTrabajo()}"></td>
-                    <td th:text="${contrato.getComentario().getContenido()}"></td>
+                    <td th:text="${contrato.usuario.nombre +' '+ contrato.usuario.apellido}"></td>
+                    <td th:text="${contrato.descripcionTrabajo}"></td>
+                    <td th:text="${contrato.comentario.estado == true ? contrato.comentario.contenido : 'El comentario del cliente ha sido censurado'}"></td>
+                    <td th:text="${contrato.puntuacion}"></td>
                 </tr>
 
             </table>
