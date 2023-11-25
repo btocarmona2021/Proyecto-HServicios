@@ -3,10 +3,16 @@
     <head th:replace="frangments/header :: head"></head>
     
 <body class="grid-container">
-  <header class="header">HEADER</header>
-  <nav th:replace="frangments/navbar:: nav"></nav>
+  <header class="header">
+            <nav th:replace="/frangments/navbar :: nav"></nav>
+        </header>
+    
+  <article class="errorHTML">
+      <div>Error HTML !!!!!
+      </div>
   
-  <article class="errorHTML">Error HTML</article>
+  
+  </article>
   
   <footer th:replace="frangments/footer:: footer"> </footer>
   

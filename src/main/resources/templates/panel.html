@@ -14,9 +14,16 @@
             <h1 sec:authorize="hasRole('PROVEEDOR')">Panel de Proveedor</h1>
             <div class="link-container">
                 <a sec:authorize="hasRole('ADMIN')" href="/usuario/registrar">Crear Usuario / Proveedor</a>
+                listado de solicitud cambio de rol pendiente
+                cargar palabras censuradas
+                listar palabras
             </div>
             <div class="link-container">
                 <a sec:authorize="hasRole('USUARIO')" href="/perfil">Actualizar Mi perfil</a>
+                lista de soicitud enviada
+                lista de solicitud en proceso de trabajo. con boton para cancelar antes de finalizado
+                lista de comentarios y puntuacion reaizados
+                boton cambio de rol
             </div>
 
             <div class="link-container">
@@ -27,6 +34,10 @@
             </div>
             <div class="link-container">
                 <a sec:authorize="hasRole('PROVEEDOR')" href="/perfil">Actualizar Mi perfil</a>
+                lista de solicitudes para el proveedor 
+                boton cambiar rol
+                lista de trabajos aceptados con boton para finalizar
+                lista de trabajos terminados
             </div>
             <div class="link-container">
                 <a sec:authorize="hasRole('ADMIN')" href="/servicio/registrar">Crear servicio</a>

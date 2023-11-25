@@ -18,7 +18,16 @@
             <a href="/logout" class="nav-menu-link nav-link" th:if ="${session.usuariosession !=null}">Salir</a>
         </li>
         <li class="nav-menu-item">
-            <a href="/buscador" class="nav-menu-link nav-link">Buscar</a>
+            <div>
+                <form class="" th:action="@{/buscador}" method="POST">
+                    <div>
+                        <input type="text" class="" name="buscar" placeholder="Que desea buscar">
+
+                        <button type="submit" class="">buscar</button>
+
+                    </div>
+                </form>
+            </div>
         </li>
         <li class="nav-menu-item">
             <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}"  role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text=" 'Hola  '+ ${session.usuariosession.nombre} ">

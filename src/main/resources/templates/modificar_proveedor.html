@@ -29,8 +29,7 @@
                 <div class="form-group">
 
                     <select name="idServicio">
-                        <option>Seleccionar Servicio</option>
-                        <option th:text="${proveedor.servicio.rubro}" th:value="${proveedor.servicio.id}" selected/>
+                        <option th:text="${proveedor.servicio.rubro}" th:value="${proveedor.servicio.id}"/>
                         <option th:each="servicio : ${servicio}" th:if="${servicio.rubro != proveedor.servicio.rubro}"
                                 th:text="${servicio.rubro}" th:value="${servicio.id}"/>
                     </select>
@@ -57,9 +56,11 @@
                 </div>
                 <br>
                 <div class="form-group">
-                    <input type="file" class="form-control" name="archivo">
+                   
+                    <input type="file" class="form-control" name="archivo" th:src="@{/imagen/perfil/__${proveedor.id}__}">
                 </div>
                 <br>mostrar la imagen
+                <img  th:src="@{/imagen/perfil/__${proveedor.id}__}" width="150px">
 
                 <br>
 

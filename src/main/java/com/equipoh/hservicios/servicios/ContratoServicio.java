@@ -9,7 +9,7 @@ import com.equipoh.hservicios.entidades.Contrato;
 import com.equipoh.hservicios.entidades.Proveedor;
 import com.equipoh.hservicios.entidades.Usuario;
 import com.equipoh.hservicios.excepciones.MiException;
-import com.equipoh.hservicios.repositorios.ContratoRepositorio;
+import com.equipoh.hservicios.repositorios.contratoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 public class ContratoServicio {
 
     @Autowired
-    private ContratoRepositorio contratoRepositorio;
+    private contratoRepositorio contratoRepositorio;
 
     @Autowired
     private ProveedorServicio proveedorServicio;
