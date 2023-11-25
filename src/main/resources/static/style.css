@@ -56,7 +56,7 @@ body {
         /* "navbar"  50px*/
         "main"    100px
 
-        "footer"  100px;
+        "footer"  90px;
 }
 
 @media (min-width: 600px) {
@@ -73,7 +73,7 @@ body {
             "header  header" 80px
             /*   "navbar  navbar" 50px*/
             "main main"   auto
-            "footer  footer" 100px /
+            "footer  footer" 10px /
             200px    auto;
     }
 }
@@ -84,8 +84,8 @@ body {
 
             "header  header header"  80px
             "main  main   main" auto
-            "footer  footer footer"  100px /
-            200px    auto   200px;
+            "footer  footer footer"  90px /
+            100px    auto   100px;
     }
 }
 
@@ -811,4 +811,9 @@ li{
     font-size: 30px;
     text-shadow: 3px 3px 6px #000000;
 
+}
+.foo{
+    color: white;
+    text-shadow: 3px 3px 6px #000000;
+  
 }

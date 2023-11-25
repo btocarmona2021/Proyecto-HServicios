@@ -8,21 +8,21 @@ import com.equipoh.hservicios.entidades.Proveedor;
 import com.equipoh.hservicios.entidades.Servicio;
 import com.equipoh.hservicios.enumeracion.Rol;
 import com.equipoh.hservicios.excepciones.MiException;
+import com.equipoh.hservicios.repositorios.ImagenRepositorio;
 import com.equipoh.hservicios.repositorios.ProveedorRepositorio;
 import com.equipoh.hservicios.repositorios.ServicioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
- *
  * @author jorge
  */
 @Service
@@ -36,25 +36,20 @@ public class ProveedorServicio {
     private ImagenServicio imagenServicio;
     @Autowired
     private ServicioServicio servicioServicio;
+    @Autowired
+    private ImagenRepositorio imagenRepositorio;
 
     @Transactional
     public void registrarProveedor(MultipartFile archivo, String nombre, String apellido, String direccion,
-            String telefono, String correo, String password, String password2, String rol,
-            String experiencia, Double precioXHora, String idServicio) throws MiException {
+                                   String telefono, String correo, String password, String password2, String rol,
+                                   String experiencia, Double precioXHora, String idServicio) throws MiException {
 
         validar(nombre, correo, password, password2);
-        
-        
-        
         Optional<Servicio> respuestaServicio = servicioRepositorio.findById(idServicio);
-        
         Servicio servicio = new Servicio();
-                
-        if(respuestaServicio.isPresent()){
+        if (respuestaServicio.isPresent()) {
             servicio = respuestaServicio.get();
         }
-        
-        
         Proveedor proveedor = new Proveedor();
 
         proveedor.setNombre(nombre);
@@ -67,7 +62,11 @@ public class ProveedorServicio {
         proveedor.setExperiencia(experiencia);
         proveedor.setPrecioXHora(precioXHora);
         proveedor.setServicio(servicio);
-        proveedor.setImagen(imagenServicio.guardarImagen(archivo));
+        if (archivo.isEmpty()) {
+            proveedor.setImagen(imagenRepositorio.imagenXDefecto());
+        } else {
+            proveedor.setImagen(imagenServicio.guardarImagen(archivo));
+        }
         proveedor.setFechaAlta(new Date());
         proveedor.setAlta(true);
 
@@ -77,40 +76,43 @@ public class ProveedorServicio {
 
     @Transactional
     public void actualizar(MultipartFile archivo, String id, String nombre, String apellido, String direccion,
-            String telefono, String correo, String password, String password2, String rol,
-            String experiencia, Double precioXHora, String idServicio, String alta) throws MiException {
+                           String telefono, String correo, String password, String password2, String rol,
+                           String experiencia, Double precioXHora, String idServicio, String alta) throws MiException {
 
         validar(nombre, correo, password, password2);
-        
+
         Proveedor proveedor = new Proveedor();
-        
+        Servicio servicio = servicioRepositorio.getById(idServicio);
         Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
         if (respuesta.isPresent()) {
-              proveedor = respuesta.get();
+            proveedor = respuesta.get();
         }
-        Servicio servicio = servicioRepositorio.getById(idServicio);
-            
-            proveedor.setNombre(nombre);
-            proveedor.setApellido(apellido);
-            proveedor.setDireccion(direccion);
-            proveedor.setTelefono(telefono);
-            proveedor.setCorreo(correo);
-            proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
-            proveedor.setRol(Rol.PROVEEDOR);
-            proveedor.setExperiencia(experiencia);
-            proveedor.setPrecioXHora(precioXHora);
-            proveedor.setServicio(servicio);
-            proveedor.setImagen(imagenServicio.guardarImagen(archivo));
-            proveedor.setFechaAlta(new Date());
-            if (alta.equalsIgnoreCase("ALTA")) {
-                proveedor.setAlta(true);
-            } else {
-                proveedor.setAlta(false);
-            }
 
-            proveedorRepositorio.save(proveedor);
+
+        proveedor.setNombre(nombre);
+        proveedor.setApellido(apellido);
+        proveedor.setDireccion(direccion);
+        proveedor.setTelefono(telefono);
+        proveedor.setCorreo(correo);
+        proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
+        proveedor.setRol(Rol.PROVEEDOR);
+        proveedor.setExperiencia(experiencia);
+        proveedor.setPrecioXHora(precioXHora);
+        proveedor.setServicio(servicio);
+        if (proveedor.getImagen().getNombre().equalsIgnoreCase("defecto_image_service.png")) {
+            proveedor.setImagen(imagenServicio.guardarImagen(archivo));
+        } else {
+            proveedor.setImagen(imagenServicio.actualizarImagen(archivo, proveedor.getImagen().getId()));
         }
-    
+        proveedor.setFechaAlta(new Date());
+        if (alta.equalsIgnoreCase("ALTA")) {
+            proveedor.setAlta(true);
+        } else {
+            proveedor.setAlta(false);
+        }
+        proveedorRepositorio.save(proveedor);
+    }
+
 
     public Proveedor getOne(String id) {
         return proveedorRepositorio.getOne(id);
