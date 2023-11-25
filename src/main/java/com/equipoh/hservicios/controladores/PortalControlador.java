@@ -106,7 +106,11 @@ public class PortalControlador {
         List<Contrato> contratos = contratoRepositorio.buscaContratoSinAceptar(usuario.getId());
         modelo.put("usuario", usuario);
         modelo.addAttribute("contratos", contratos);
-        return "perfil";
+        if (usuario.getRol().toString().equals("PROVEEDOR")) {
+            return "perfil";
+        } else {
+            return "redirect:/perfilu";
+        }
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN','ROLE_PROVEEDOR')")

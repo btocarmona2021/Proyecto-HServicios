@@ -85,12 +85,19 @@
                     <th>Trabajo Finalizado</th>
                     <th>Comentario del cliente</th>
                     <th>Dejá tu reseña</th>
+                    <th>Valorar Proveedor</th>
                 </tr>
                 <tr th:each="contrato: ${contratos}" th:if="${contrato.finT ==true}">
                     <td th:text="${contrato.proveedor.nombre +' '+ contrato.proveedor.apellido}"></td>
                     <td th:text="${contrato.descripcionTrabajo}"></td>
                     <td th:text="${contrato.comentario.estado == true ? contrato.comentario.contenido : 'Su comentario ha sido censurado, cuide el vocabulario'}"></td>
                     <td><a th:href="@{/comentario/actualizarcomentario/__${contrato.comentario.idcomentario}__}">Comentar</a>
+                    </td>
+                    <td>
+                        <form th:action="@{/contrato/valorar/__${contrato.id}__}" method="post">
+                            <input type="number" min="0" max="5" name="puntuacion" th:value="${contrato.puntuacion}">
+                            <input type="submit" value="Valorar">
+                        </form>
                     </td>
                 </tr>
 
