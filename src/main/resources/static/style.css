@@ -342,22 +342,7 @@ button {
 }
 /******registro*******/
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    text-decoration: none;
-    font-family: 'Roboto', sans-serif;
-}
 
-body{
-    /* background-image: url(../images/bg4.jpg);*/
-    /* background-color: #373DBA;*/
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
-}
 
 .menu{
     width: 100%;
@@ -659,9 +644,11 @@ body{
     font-family: verdana;
     font-style: oblique;
     font-size: large;
+    font-size: 16px;
     color: white;
     text-shadow: 2px 2px 4px #000000;
     background-color: #373DBA;
+    opacity: 0.75;
     width:65%;
     height: 30%;
     margin-top: 4%;
@@ -801,7 +788,12 @@ li{
     background-color: #373DBA;
     color: white;
 }
-
+.cardexito, card-exito{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-color: #9ee493;
+}
 h1 {
                 color: #373DBA; /* Color del texto */
                 font-family: 'Arial', sans-serif; /* Tipo de fuente */
@@ -809,3 +801,5 @@ h1 {
                 margin-top: 20px; /* Margen superior */
                 margin-bottom: 20px; /* Margen inferior */
             }
+            
+            

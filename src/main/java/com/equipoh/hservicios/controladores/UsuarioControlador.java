@@ -65,7 +65,7 @@ public class UsuarioControlador {
             modelo.put("error", ex.getMessage());
             return "registrar.html";
         }
-        return "index.html";
+        return "login.html";
     }
 
     @GetMapping("/lista")       // localhost:8080/usuario/listar 
