@@ -103,10 +103,13 @@ public class PortalControlador {
     @GetMapping("/perfil")
     public String perfil(HttpSession session, ModelMap modelo) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+
         List<Contrato> contratos = contratoRepositorio.buscaContratoSinAceptar(usuario.getId());
         modelo.put("usuario", usuario);
         modelo.addAttribute("contratos", contratos);
         if (usuario.getRol().toString().equals("PROVEEDOR")) {
+            Double promedioValoracion = (double) Math.round(contratoRepositorio.buscapromedio(usuario.getId()));
+            modelo.put("promedio", promedioValoracion);
             return "perfil";
         } else {
             return "redirect:/perfilu";

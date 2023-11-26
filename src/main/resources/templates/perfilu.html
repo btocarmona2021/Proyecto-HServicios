@@ -95,9 +95,22 @@
                     </td>
                     <td>
                         <form th:action="@{/contrato/valorar/__${contrato.id}__}" method="post">
-                            <input type="number" min="0" max="5" name="puntuacion" th:value="${contrato.puntuacion}">
-                            <input type="submit" value="Valorar">
+                            <div class="valoracion" th:style="${'font-size:30px'}">
+                                <label onclick="valorar(1)"
+                                       th:style="${contrato.puntuacion >= 1 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                                <label onclick="valorar(2)"
+                                       th:style="${contrato.puntuacion >= 2 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                                <label onclick="valorar(3)"
+                                       th:style="${contrato.puntuacion >= 3 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                                <label onclick="valorar(4)"
+                                       th:style="${contrato.puntuacion >= 4 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                                <label onclick="valorar(5)"
+                                       th:style="${contrato.puntuacion >= 5 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                            </div>
+                            <input type="hidden" id="puntuacion" name="puntuacion" value="">
+                            <input type="submit" value="Valorar" id="valorar" th:style="${'display:none;'}">
                         </form>
+
                     </td>
                 </tr>
 
@@ -128,6 +141,12 @@
 
 </article>
 <footer th:replace="frangments/footer:: footer"></footer>
+<script>
+    function valorar(estrellas) {
+        document.getElementById('puntuacion').value = estrellas;
+        document.getElementById('valorar').click();
+    }
+</script>
 <script src="/script.js"></script>
 </body>
 </html>
