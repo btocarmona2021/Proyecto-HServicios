@@ -26,7 +26,7 @@
 
     <main>
         <div>
-            <h1>PERFIL</h1>
+            <h1>PERFIL USUARIO</h1>
             <h3 th:if="${session.usuariosession != null}"
                 th:text=" 'Bienvenido '+ ${session.usuariosession.nombre}"></h3>
         </div>
@@ -46,16 +46,16 @@
 
             <table border="2">
                 <tr>
-                    <th>Nombre cliente</th>
+                    <th>Nombre Proveedor</th>
                     <th>Trabajo a Realizar</th>
                     <th>Fecha de Solicitud</th>
                     <th>Aceptación de trabajo</th>
                 </tr>
-                <tr th:each="contrato: ${contratos}" th:if="${contrato.getInicioT() ==false}">
-                    <td th:text="${contrato.getUsuario().getNombre() +' '+ contrato.getUsuario().getApellido() }"></td>
-                    <td th:text="${contrato.getDescripcionTrabajo()}"></td>
-                    <td th:text="${contrato.getFechaSolicitud()}"></td>
-                    <td><a th:href="@{/contrato/contratoaceptado/__${contrato.getId()}__}">Aceptar</a></td>
+                <tr th:each="contrato: ${contratos}" th:if="${contrato.inicioT ==false}">
+                    <td th:text="${contrato.usuario.nombre +' '+ contrato.usuario.apellido}"></td>
+                    <td th:text="${contrato.descripcionTrabajo()}"></td>
+                    <td th:text="${contrato.fechaSolicitud}"></td>
+                    <td><a th:href="@{/contrato/contratoaceptado/__${contrato.id}__}">Aceptar</a></td>
                 </tr>
 
             </table>
@@ -64,15 +64,15 @@
 
             <table border="2">
                 <tr>
-                    <th>Nombre cliente</th>
+                    <th>Nombre Proveedor</th>
                     <th>Trabajo en proceso</th>
                     <th>Finalizar trabajo</th>
                 </tr>
                 <tr th:each="contrato: ${contratos}"
                     th:if="${contrato.inicioT ==true and contrato.finT ==false}">
-                    <td th:text="${contrato.getUsuario().getNombre() +' '+ contrato.getUsuario().getApellido() }"></td>
-                    <td th:text="${contrato.getDescripcionTrabajo()}"></td>
-                    <td><a th:href="@{/contrato/finalizatrabajo/__${contrato.getId()}__}">Finalizar</a></td>
+                    <td th:text="${contrato.usuario.nombre +' '+ contrato.usuario.apellido }"></td>
+                    <td th:text="${contrato.descripcionTrabajo}"></td>
+                    <td><a th:href="@{/contrato/finalizatrabajo/__${contrato.id}__}">Finalizar</a></td>
                 </tr>
 
             </table>
@@ -80,15 +80,17 @@
             <br>
             <table border="2">
                 <tr>
-                    <th>Nombre cliente</th>
+                    <th>Nombre Proveedor</th>
                     <th>Trabajo Finalizado</th>
                     <th>Comentario del cliente</th>
+                    <th>Dejá tu reseña</th>
                 </tr>
-                <tr th:each="contrato: ${contratos}"
-                    th:if="${contrato.finT ==true}">
-                    <td th:text="${contrato.getUsuario().getNombre() +' '+ contrato.getUsuario().getApellido() }"></td>
-                    <td th:text="${contrato.getDescripcionTrabajo()}"></td>
-                    <td th:text="${contrato.getComentario().getContenido()}"></td>
+                <tr th:each="contrato: ${contratos}" th:if="${contrato.finT ==true}">
+                    <td th:text="${contrato.proveedor.nombre +' '+ contrato.proveedor.apellido}"></td>
+                    <td th:text="${contrato.descripcionTrabajo}"></td>
+                    <td th:text="${contrato.comentario.estado == true ? contrato.comentario.contenido : 'Su comentario ha sido censurado, cuide el vocabulario'}"></td>
+                    <td><a th:href="@{/comentario/actualizarcomentario/__${contrato.comentario.idcomentario}__}">Comentar</a>
+                    </td>
                 </tr>
 
             </table>
