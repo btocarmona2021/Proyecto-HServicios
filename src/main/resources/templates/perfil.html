@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/frangments/head :: head"></head>
+<head th:replace="/frangments/head :: head">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/rateyo@2.3.2/lib/min/jquery.rateyo.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/rateyo@2.3.2/lib/min/jquery.rateyo.min.js"></script>
+</head>
 
 <body class="grid-container">
 <header class="header">
@@ -42,6 +46,19 @@
             <label th:text="${usuario.nombre}" class="form-control"></label>
             <label th:text="${usuario.apellido}" class="form-control"></label>
             <label th:text="${usuario.correo}" class="form-control"></label>
+            <div class="valoracion" th:style="${'font-size:30px'}">
+                <label onclick="valorar(1)"
+                       th:style="${promedio >= 1 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                <label onclick="valorar(2)"
+                       th:style="${promedio >= 2 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                <label onclick="valorar(3)"
+                       th:style="${promedio >= 3 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                <label onclick="valorar(4)"
+                       th:style="${promedio >= 4 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                <label onclick="valorar(5)"
+                       th:style="${promedio >= 5 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+            </div>
+
 
 
             <table border="2">
@@ -90,7 +107,20 @@
                     <td th:text="${contrato.usuario.nombre +' '+ contrato.usuario.apellido}"></td>
                     <td th:text="${contrato.descripcionTrabajo}"></td>
                     <td th:text="${contrato.comentario.estado == true ? contrato.comentario.contenido : 'El comentario del cliente ha sido censurado'}"></td>
-                    <td th:text="${contrato.puntuacion}"></td>
+                    <td>
+                        <div class="valoracion" th:style="${'font-size:30px'}">
+                            <label onclick="valorar(1)"
+                                   th:style="${contrato.puntuacion >= 1 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                            <label onclick="valorar(2)"
+                                   th:style="${contrato.puntuacion >= 2 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                            <label onclick="valorar(3)"
+                                   th:style="${contrato.puntuacion >= 3 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                            <label onclick="valorar(4)"
+                                   th:style="${contrato.puntuacion >= 4 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                            <label onclick="valorar(5)"
+                                   th:style="${contrato.puntuacion >= 5 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                        </div>
+                    </td>
                 </tr>
 
             </table>
@@ -120,6 +150,7 @@
 
 </article>
 <footer th:replace="frangments/footer:: footer"></footer>
+
 <script src="/script.js"></script>
 </body>
 </html>
