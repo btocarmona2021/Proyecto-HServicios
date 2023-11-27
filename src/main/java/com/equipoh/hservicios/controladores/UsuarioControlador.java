@@ -10,7 +10,6 @@ import com.equipoh.hservicios.entidades.Usuario;
 import com.equipoh.hservicios.excepciones.MiException;
 import com.equipoh.hservicios.servicios.ServicioServicio;
 import com.equipoh.hservicios.servicios.UsuarioServicio;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,8 +17,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  *
@@ -38,7 +38,6 @@ public class UsuarioControlador {
     public String registrar(ModelMap modelo) {
         List<Servicio> servicio = servicioServicio.listarServicios();
         modelo.addAttribute("servicio", servicio);
-        System.out.println("IMPRIME 31");
         return "registrar.html";
     }
 

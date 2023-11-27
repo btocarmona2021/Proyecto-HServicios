@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <head th:replace= "/frangments/head :: head"></head>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="/frangments/head :: head"></head>
 
     <body class="grid-container">
         <header class="header">
@@ -8,13 +8,13 @@
         </header>
         <article class="main">
             <!-- ERROR/EXITO -->
-            <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError" >
+            <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError">
                 <div class="card-body">
                     <h5 class="card-title">Error 👎</h5>
                     <p class="card-text" th:text="${error}"></p>
                 </div>
             </div>
-            <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
+            <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito">
                 <div class="card-body">
                     <h5 class="card-title">Exito!</h5>
                     <p class="card-text" th:text="${exito}"></p>
@@ -27,58 +27,46 @@
             <main>
                 <div>
                     <h1>PERFIL</h1>
-                    <h3 th:if="${session.usuariosession != null}" th:text=" 'Bienvenido '+ ${session.usuariosession.nombre}"></h3>
+                    <h3 th:if="${session.usuariosession != null}"
+                        th:text=" 'Bienvenido '+ ${session.usuariosession.nombre}"></h3>
                 </div>
                 <div class="container">
                     <a class="d-flex align-items-center">
                         <img th:src="@{/imagen/perfil/__${usuario.id}__}" alt="img_usuario">
                     </a>
                 </div>
+                <h1>DATOS DEL USUARIO</h1>
                 <div class="container-fluid m-5 contenedor">
-
-                    <form th:action="@{/perfil/__${usuario.id}__}" method="POST" enctype="multipart/form-data">
-                        <label class="mb-2">Ingrese los datos</label>
-                        <table class="formServi">
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Email</th>
-                            </tr>
-                            <tr>
-                                <td><input type="text" class="form-control" name="nombre" placeholder="Nombre" th:value="${usuario.nombre}"></td>
-                                <td><input type="email" class="form-control" name="correo" placeholder="Email" th:value="${usuario.correo}"></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2"><input type="file" class="form-control" name="archivo"></td>
-                            </tr>
-                            <tr>
-                                <td><input type="password" class="form-control" name="password" placeholder="Contraseña" th:value="${password}"></td>
-                                <td> <input type="password" class="form-control" name="password2" placeholder="Repita Contraseña" th:value="${password2}"></td>
-                            </tr>
-                        </table>
-
-                        <div class="form-group my-3">
-
-                            <input type="hidden" class="form-control" name="id" th:value="${usuario.id}" >
-                        </div>
-                        <button type="submit" class="btn btn-primary mt-3 botones">Actualizar</button>
-                        <br>
-                    </form>  
-                    <a href="/inicio"><button class="btn btn-primary mt-3 botones">Volver</button></a>
+                    <img th:src="@{imagen/perfil/__${usuario.id}__}" alt="" class="form-control">
+                    <br>
+                    <label th:text="${usuario.nombre}" class="form-control"></label>
+                    <br>
+                    <label th:text="${usuario.apellido}" class="form-control"></label>
+                    <br>
+                    <label th:text="${usuario.telefono}" class="form-control"></label>
+                    <br>
+                    <label th:text="${usuario.correo}" class="form-control"></label>
+                    <br>
+                    <label th:text="${usuario.rol}" class="form-control"></label>
+                    <br>
+                    <label th:text="${usuario.experiencia}" class="form-control"></label>
+                    <br>
+                    <label th:text="${usuario.precioXHora}" class="form-control"></label>
+                    <br>
+                    <label th:text="${usuario.servicio.rubro}" class="form-control"></label>
+                    <br>
+                    <a href="/inicio">
+                        <button class="btn btn-primary mt-3 botones">Volver</button>
+                    </a>
+                    
+                    <a href="/solicitudRol/cambioRol">
+                        <button class="btn btn-primary mt-3 botones">Cambiar ROL</button>
+                    </a>
                 </div>
-            </main> 
-            <div class="btn-holder">
-
-                <button class="button2" onclick='goBack()'>Atrás</button>
-                <script>
-                    function goBack() {
-                        history.back();
-                    }
-                </script>
-
-            </div>  
+            </main>
 
         </article>
-        <footer th:replace="frangments/footer:: footer"</footer>
-            <script src="/script.js"></script>
+        <footer th:replace="frangments/footer:: footer"></footer>
+        <script src="/script.js"></script>
     </body>
 </html>

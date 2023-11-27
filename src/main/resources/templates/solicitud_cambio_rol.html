@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="/frangments/head :: head"></head>
+
+    <body class="grid-container">
+        <header class="header">
+            <nav th:replace="/frangments/navbar :: nav"></nav>
+        </header>
+        <article class="main">
+            <!-- ERROR/EXITO -->
+            <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError">
+                <div class="card-body">
+                    <h5 class="card-title">Error 👎</h5>
+                    <p class="card-text" th:text="${error}"></p>
+                </div>
+            </div>
+            <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito">
+                <div class="card-body">
+                    <h5 class="card-title">Exito!</h5>
+                    <p class="card-text" th:text="${exito}"></p>
+                </div>
+            </div>
+
+            <!-- FORMULARIO -->
+
+
+            <main>
+                <div>
+                    <h1>SOLICITUD CAMBIO DE ROL</h1>
+                    <h3 th:if="${session.usuariosession != null}"
+                        th:text=" 'Bienvenido '+ ${session.usuariosession.nombre}"></h3>
+                </div>
+                <div class="container">
+                    <a class="d-flex align-items-center">
+                        <img th:src="@{/imagen/perfil/__${usuario.id}__}" alt="img_usuario">
+                    </a>
+                </div>
+                <h1>CONFIRMACION DE DATOS</h1>
+               <div class="container"  align="center">
+                <form class="formulario" th:action="@{/solicitudRol/cambioRol}" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="hidden" name="id" th:value="${usuario.id}">
+                        <input type="text" class="form-group" name="nombre" placeholder="Nombre"
+                               th:value="${usuario.nombre}">
+                        <input type="text" class="form-group" name="apellido" placeholder="Apellido"
+                               th:value="${usuario.apellido}">
+                        <input type="text" size="30" class="form-group" name="correo"
+                               placeholder="Direccion de Correo Electronico" th:value="${usuario.correo}">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="text" class="form-group" name="direccion" placeholder="Domicilio"
+                               th:value="${usuario.direccion}">
+                        <input type="text" size="30" class="form-group" name="telefono"
+                               placeholder="Telefono formato Ej. 0xx-1xx-xxxxxx" th:value="${usuario.telefono}">
+                        <input type="password" class="form-group" name="password" th:value="${usuario.password}">
+                        <input type="password" class="form-group" name="password2" th:value="${usuario.password}">
+                    </div>
+                    <br>
+                    <br>
+                    <div class="form-group">
+                        <input type="file" class="form-control" name="archivo">
+                    </div>
+                    <br>
+                    <br>
+                    <button type="submit" class="btn btn-primary"> Enviar Solicitud </button>
+                </form>
+            </main>
+
+        </article>
+        <footer th:replace="frangments/footer:: footer"></footer>
+        <script src="/script.js"></script>
+    </body>
+</html>
