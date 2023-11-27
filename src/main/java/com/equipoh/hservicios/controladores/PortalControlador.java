@@ -68,29 +68,30 @@ public class PortalControlador {
         List<Proveedor> listado = proveedorRepositorio.buscaProveedor(buscar);
         model.addAttribute("proveedores", listado);
         return "buscador";
-       /* return "listar_proveedor";*/
+        /* return "listar_proveedor";*/
     }
 
     @GetMapping("/contrato")
     public String contrato() {
         return "contratarService.html";
     }
-     @GetMapping("/nosotros")
+
+    @GetMapping("/nosotros")
     public String nosotros() {
         return "equipoh.html";
     }
-    
+
     @GetMapping("/inicio")
     public String inicio(HttpSession session) {
-        
+
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-        
+
         if (logueado.getRol().toString().equals("ADMIN")) {
             return "redirect:/admin/dashboard";
         }
-           return "index.html";
+        return "index.html";
     }
-    
+
     @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN','ROLE_PROVEEDOR')")
     @GetMapping("/perfil")
     public String perfil(HttpSession session, ModelMap modelo) {
@@ -117,5 +118,5 @@ public class PortalControlador {
         modelo.addAttribute("contratos", contratos);
         return "perfilu";
     }
-    
+
 }
