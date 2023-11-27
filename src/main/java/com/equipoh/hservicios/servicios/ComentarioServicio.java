@@ -34,19 +34,18 @@ public class ComentarioServicio {
     }
 
     @Transactional
-    public Comentario actualizaComentario(String idComentario, String contenido, Boolean estado) throws MiException {
+    public Comentario actualizaComentario(String idComentario, String contenido) throws MiException {
+        Comentario comentario = new Comentario();
+        List<Pcensurada> pcensuradas = pcensuradaServicio.listaPalabrasCensuradas();
         if (contenido == null || contenido.isEmpty()) {
             throw new MiException("El comentario no puede estar vacio,deja tu apreciación");
         }
         Optional<Comentario> respuesta = comentarioRepositorio.findById(idComentario);
-        Comentario comentario = new Comentario();
         if (respuesta.isPresent()) {
             comentario = respuesta.get();
         }
         comentario.setContenido(contenido);
-        if (comentario.getEstado() != estado) {
-            comentario.setEstado(estado);
-        }
+        comentario.setEstado(validarComentario(contenido, pcensuradas));
         comentarioRepositorio.save(comentario);
         return comentario;
     }
@@ -66,5 +65,10 @@ public class ComentarioServicio {
         Comentario comentario = comentarioRepositorio.getOne(idComentario);
         comentario.setEstado(!comentario.getEstado());
         comentarioRepositorio.save(comentario);
+    }
+
+    public Comentario obtieneComentario(String idComentario) {
+        Comentario comentario = comentarioRepositorio.getOne(idComentario);
+        return comentario;
     }
 }
