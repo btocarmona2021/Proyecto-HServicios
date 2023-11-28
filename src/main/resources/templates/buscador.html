@@ -25,9 +25,9 @@
 
                 <tbody th:each="proveedor : ${proveedores}"> 
                 <div class="card_p" >
-                     <div>
+                    <div>
                         <a><img th:if="${proveedor.imagen != null}" class="logo" th:src="@{/imagen/perfil/__${proveedor.id}__}" width="150px"></a>
-                                 
+
                     </div>
                     <div>
                         <table>
@@ -58,17 +58,21 @@
                             </tr>
                             <tr>
                                 <th scope="col"></th><td ><div>
-                                         
-                                            <a th:href="@{/perfil/complete/__${proveedor.id}__}"><button class="button2" type="button"> Leer Más</button></a>
-                                        </div></td>
+                                        <a th:if ="${session.usuariosession ==null}" href="/usuario/registrar"><button class="button2" type="button">Es necesario estar registrado para acceder</button></a>
+                                    </div></td>
                             </tr>
-                            
-                            
-                            
-                            </table>
+                            <tr>
+                                <th scope="col"></th><td ><div>
+                                        <a th:if ="${session.usuariosession !=null}" th:href="@{/perfil/complete/__${proveedor.id}__}"><button class="button2" type="button"> Leer Más</button></a>
+                                    </div></td>
+                            </tr>
+
+
+
+                        </table>
                     </div>
 
-                    
+
                 </div>
                 </tbody>
             </div>
@@ -78,6 +82,6 @@
 
         </article>
         <footer th:replace="frangments/footer:: footer"></footer>
-<script src="/script.js"></script>
-</body>
+        <script src="/script.js"></script>
+    </body>
 </html>

@@ -5,10 +5,12 @@ package com.equipoh.hservicios.controladores;
 
 import com.equipoh.hservicios.entidades.Contrato;
 import com.equipoh.hservicios.entidades.Proveedor;
+import com.equipoh.hservicios.entidades.Servicio;
 import com.equipoh.hservicios.entidades.Usuario;
 import com.equipoh.hservicios.repositorios.ContratoRepositorio;
 import com.equipoh.hservicios.repositorios.ProveedorRepositorio;
 import com.equipoh.hservicios.servicios.ProveedorServicio;
+import com.equipoh.hservicios.servicios.ServicioServicio;
 import com.equipoh.hservicios.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import org.springframework.web.bind.annotation.PathVariable;
 
 
 @Controller
@@ -28,11 +31,17 @@ public class PortalControlador {
 
 
     @Autowired
+    private ProveedorServicio proveedorServicio;
+     @Autowired
+    private ServicioServicio servicioServicio;
+    
+    @Autowired
     private UsuarioServicio usuarioServicio;
     @Autowired
     private ProveedorRepositorio proveedorRepositorio;
     @Autowired
     private ContratoRepositorio contratoRepositorio;
+    
 
     @GetMapping("/")
     public String index(ModelMap modelo) {
@@ -77,14 +86,17 @@ public class PortalControlador {
     }
     
     @GetMapping("/inicio")
-    public String inicio(HttpSession session) {
+    public String inicio(HttpSession session, ModelMap modelo) {
+        
         
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
         
         if (logueado.getRol().toString().equals("ADMIN")) {
             return "redirect:/admin/dashboard";
         }
-           return "index.html";
+         List<Servicio> servicios = servicioServicio.listarServicios();
+        modelo.addAttribute("servicios", servicios);
+           return "panel.html";
     }
     
     @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN','ROLE_PROVEEDOR')")
@@ -105,6 +117,17 @@ public class PortalControlador {
         modelo.put("usuario", usuario);
         modelo.addAttribute("contratos", contratos);
         return "perfilu";
+    }
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN','ROLE_PROVEEDOR')")
+    @GetMapping("/perfil/complete/{id}")
+    public String perfil_proveedor(HttpSession session,@PathVariable(required = false) String id, ModelMap modelo) {
+       Usuario usuario = (Usuario) session.getAttribute("usuariosession");
+        List<Contrato> contratos = contratoRepositorio.buscaContratoSinAceptar(usuario.getId());
+        modelo.put("usuario", usuario);
+        modelo.addAttribute("contratos", contratos);
+        modelo.put("proveedores", proveedorServicio.getOne(id));
+       
+        return "perfil_proveedor.html";
     }
     
 }

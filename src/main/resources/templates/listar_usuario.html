@@ -15,6 +15,7 @@
             <thead>
             
             <tr>
+                 <th scope="col">      </th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Apellido</th>
                 <th scope="col">Dirección</th>
@@ -28,6 +29,10 @@
             </thead>
             <tbody th:each="usuario : ${usuarios} ">
             <tr>
+                <td ><div>
+                        <a><img th:if="${usuario.imagen != null}" class="perfil" th:src="@{/imagen/perfil/__${usuario.id}__}" width="150px"></a>
+                                 
+                    </div></td>
                 <th scope="row" th:text="${usuario.id}" hidden="hidden"></th>
                 <td th:text="${usuario.nombre}"></td>
                 <td th:text="${usuario.apellido}"></td>

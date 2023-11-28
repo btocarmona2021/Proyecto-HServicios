@@ -12,18 +12,26 @@
             <h1 sec:authorize="hasRole('ADMIN')">Panel de Administrador</h1>
             <h1 sec:authorize="hasRole('USUARIO')">Panel de Usuario</h1>
             <h1 sec:authorize="hasRole('PROVEEDOR')">Panel de Proveedor</h1>
+           
             <div class="link-container">
                 <a sec:authorize="hasRole('ADMIN')" href="/usuario/registrar">Crear Usuario / Proveedor</a>
-                listado de solicitud cambio de rol pendiente
-                cargar palabras censuradas
-                listar palabras
+                
             </div>
             <div class="link-container">
-                <a sec:authorize="hasRole('USUARIO')" href="/perfil">Actualizar Mi perfil</a>
-                lista de soicitud enviada
-                lista de solicitud en proceso de trabajo. con boton para cancelar antes de finalizado
-                lista de comentarios y puntuacion reaizados
-                boton cambio de rol
+                <a sec:authorize="hasRole('ADMIN')" href="#">Añadir Palabras Censuradas</a>
+                
+            </div>
+            <div class="link-container">
+                <a sec:authorize="hasRole('USUARIO')" href="/perfilu"> Mi perfil usuario</a>
+                
+            </div>
+            <div class="link-container">
+                <a sec:authorize="hasRole('USUARIO')" href="/perfil">Solicitudes de trabajos</a>
+                
+            </div>
+            <div class="link-container">
+                <a sec:authorize="hasRole('USUARIO')" href="#">Quiero ser Proveedor</a>
+                
             </div>
 
             <div class="link-container">
@@ -33,19 +41,51 @@
                 <a sec:authorize="hasRole('ADMIN')" href="/proveedor/lista">Ver todos los proveedores</a>
             </div>
             <div class="link-container">
-                <a sec:authorize="hasRole('PROVEEDOR')" href="/perfil">Actualizar Mi perfil</a>
-                lista de solicitudes para el proveedor 
-                boton cambiar rol
-                lista de trabajos aceptados con boton para finalizar
-                lista de trabajos terminados
+                <a sec:authorize="hasRole('PROVEEDOR')" href="/perfilu"> Mi perfil proveedor</a>
+                
             </div>
+            <div class="link-container">
+                <a sec:authorize="hasRole('PROVEEDOR')" href="#">Dejar de ser Proveedor</a>
+                
+            </div>
+            <div class="link-container">
+                <a sec:authorize="hasRole('PROVEEDOR')" href="/perfil">Trabajos</a>
+                
+            </div>
+            
+            
+            
             <div class="link-container">
                 <a sec:authorize="hasRole('ADMIN')" href="/servicio/registrar">Crear servicio</a>
             </div>
             <div class="link-container">
                 <a sec:authorize="hasRole('ADMIN')" href="/servicio/lista">Ver todos los servicios</a>
             </div>
-
+<div class="link-container">
+                <i sec:authorize="hasRole('USUARIO')">CATEGORIAS</i>
+                <div>
+                    <table >
+                    <tr>
+                        <th scope="col">Rubro</th>  
+                        
+                        <th scope="col">imagen</th>
+                    </tr>
+                    <tbody th:each="servicio : ${servicios}"  >
+                        <tr>
+                            <td hidden th:value="${id}" name="id"></td>  
+                            <td th:text="${servicio.rubro}"></td>
+                           
+                             
+                            <td ><img  class="" th:src="@{/imagen/perfil/__${servicio.id}__}" width="150px">
+                                 </td> 
+                           
+                            
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+                
+            </div>
 
 
 

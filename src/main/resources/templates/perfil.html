@@ -26,25 +26,18 @@
 
     <main>
         <div>
-            <h1>PERFIL</h1>
-            <h3 th:if="${session.usuariosession != null}"
-                th:text=" 'Bienvenido '+ ${session.usuariosession.nombre}"></h3>
+             <h1 sec:authorize="hasRole('ADMIN')">Perfil de Administrador</h1>
+            <h1 sec:authorize="hasRole('USUARIO')">Perfil de Usuario</h1>
+            <h1 sec:authorize="hasRole('PROVEEDOR')">Perfil de Proveedor</h1>
         </div>
-        <div class="container">
-            <a class="d-flex align-items-center">
-                <img class="logo" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" alt="img_usuario">
-            </a>
-        </div>
+        
         <div class="container-fluid m-5 contenedor">
 
 
-            <img th:src="@{imagen/perfil/__${usuario.id}__}" alt="" class="form-control">
-            <label th:text="${usuario.nombre}" class="form-control"></label>
-            <label th:text="${usuario.apellido}" class="form-control"></label>
-            <label th:text="${usuario.correo}" class="form-control"></label>
+            
 
 
-            <table border="2">
+            <table sec:authorize="hasRole('PROVEEDOR')" border="2">
                 <tr>
                     <th>Nombre cliente</th>
                     <th>Trabajo a Realizar</th>
@@ -61,8 +54,10 @@
             </table>
             <br>
             <br>
+            
+            
 
-            <table border="2">
+            <table sec:authorize="hasRole('PROVEEDOR')" border="2">
                 <tr>
                     <th>Nombre cliente</th>
                     <th>Trabajo en proceso</th>
@@ -80,15 +75,22 @@
             <br>
             <table border="2">
                 <tr>
-                    <th>Nombre cliente</th>
+                    <th sec:authorize="hasRole('PROVEEDOR')" >Nombre cliente</th>
+                    <th sec:authorize="hasRole('USUARIO')" >Nombre Proveedor</th>
                     <th>Trabajo Finalizado</th>
-                    <th>Comentario del cliente</th>
+                    <th colspan="2">Comentario del cliente</th>
+                    
                 </tr>
                 <tr th:each="contrato: ${contratos}"
                     th:if="${contrato.finT ==true}">
-                    <td th:text="${contrato.getUsuario().getNombre() +' '+ contrato.getUsuario().getApellido() }"></td>
+                    <td sec:authorize="hasRole('PROVEEDOR')" th:text="${contrato.getUsuario().getNombre() +' '+ contrato.getUsuario().getApellido() }"></td>
+                    <td sec:authorize="hasRole('USUARIO')" th:text="${contrato.getProveedor().getNombre() +' '+ contrato.getProveedor().getApellido() }"></td>
+                   
                     <td th:text="${contrato.getDescripcionTrabajo()}"></td>
                     <td th:text="${contrato.getComentario().getContenido()}"></td>
+                    <!-- comment   <td th:text="${contrato.comentario.estado == true ? contrato.comentario.contenido : 'Su comentario ha sido censurado, cuide el vocabulario'}"></td> --> 
+                    <td><button class="button2"> <a th:href="@{/comentario/actualizarcomentario/__${contrato.comentario.idcomentario}__}">Comentar</a></button>
+                    </td>
                 </tr>
 
             </table>
@@ -100,9 +102,7 @@
             </div>
 
 
-            <a href="/inicio">
-                <button class="btn btn-primary mt-3 botones">Volver</button>
-            </a>
+            
         </div>
     </main>
     <div class="btn-holder">

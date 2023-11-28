@@ -90,11 +90,7 @@ body {
     }
 }
 
-img {
-    max-width: 100%;
-    width: 60px;
 
-}
 
 /**cartas de categorias***************/
 
@@ -190,12 +186,12 @@ button {
 
 .button2 {
     background-color: white;
-    color: black;
-    border: 2px solid #008CBA;
+    color: #373DBA;
+    border: 2px solid #373DBA;
 }
 
 .button2:hover {
-    background-color: #008CBA;
+    background-color: #373DBA;
     color: white;
 }
 
@@ -627,7 +623,7 @@ button {
     display: none;
 }
 .imgindex{
-    background-image: url("../img/caru01.jpg");
+    background-image: url("../img/caru05.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -796,11 +792,11 @@ li{
     background-color: #9ee493;
 }
 h1 {
-    color: #373DBA; /* Color del texto */
-    font-family: 'Arial', sans-serif; /* Tipo de fuente */
-    text-align: center; /* Alineación del texto */
-    margin-top: 20px; /* Margen superior */
-    margin-bottom: 20px; /* Margen inferior */
-}
-
-
+                color: #373DBA; /* Color del texto */
+                font-family: 'Arial', sans-serif; /* Tipo de fuente */
+                text-align: center; /* Alineación del texto */
+                margin-top: 20px; /* Margen superior */
+                margin-bottom: 20px; /* Margen inferior */
+            }
+            
+         
