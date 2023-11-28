@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <head th:replace= "/frangments/head :: head"></head>
+<head th:replace="/frangments/head :: head"
+</head>
 
-    <body class="grid-container">
-        <header class="header">
-            <nav th:replace="/frangments/navbar :: nav"></nav>
-        </header>
+<body class="grid-container">
+<header class="header">
+    <nav th:replace="/frangments/navbar :: nav"></nav>
+</header>
         <div class="main">
             <div class="imgindex">
             <div class="card">
@@ -77,5 +78,6 @@
 </article>
 <footer th:replace="frangments/footer:: footer"></footer>
 <script src="/script.js"></script>
+<script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
 </body>
 </html>
