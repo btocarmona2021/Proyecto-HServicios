@@ -45,17 +45,17 @@ public class UsuarioServicio implements UserDetailsService {
 
     @Transactional
     public void registrarUsuario(MultipartFile archivo, String nombre, String apellido, String direccion,
-                                 String telefono, String correo, String password, String password2) throws MiException {
+            String telefono, String correo, String password, String password2) throws MiException {
         System.out.println("SERVICIO USUARIO");
         System.out.println("CORREO:" + correo);
         List<Usuario> existe = usuarioRepositorio.buscarCorreoUsuarioActivo(correo);
         /*
         quiero que la siguiente linea llame al usuarioRepositorio.buscarCorreoUsuarioActivo(correo) que se fija si el correo no aparece en
-        la lista de proveedores, y reemplazar el if actual por
+        la lista de proveedores, y reemplazar el if actual por 
         if ((existe.size()==2) || (!existe.isEmpty())) {
          */
         if ((!existe.isEmpty())) {
-            throw new MiException("El correo electronico con el que intenta registrarse ya se encuentra en nuestra base de datos");
+            throw new MiException("El usuario no ha podido ser registrado porque el correo ya ha sido registrado.");
         } else {
             // Manejo de Excepciones
             validar(nombre, apellido, direccion, telefono, correo, password, password2);
@@ -86,7 +86,7 @@ public class UsuarioServicio implements UserDetailsService {
 
     @Transactional
     public void actualizarUsuario(MultipartFile archivo, String id, String nombre, String apellido,
-                                  String direccion, String telefono, String correo, String password, String password2) throws MiException {
+            String direccion, String telefono, String correo, String password, String password2) throws MiException {
 
         // Manejo de Excepciones
         validar(nombre, apellido, direccion, telefono, correo, password, password2);
@@ -138,44 +138,24 @@ public class UsuarioServicio implements UserDetailsService {
      * RESERVADO PARA CAMBIO DE TIPO DE USUARIO * NOTA: el método para cambio de
      * tipo de usuario, * crearía un usuario de tipo proveedor, y llamaría * al
      * método bajaUsuario para setear alta a FALSE. *
-     * **************************************************
+     ***************************************************
      */
     @Transactional
-    public void cambioDeRol(String idProveedor) throws MiException {
+    public void cambioDeRol(String idProveedor) {
         Proveedor proveedor = proveedorServicio.getOne(idProveedor);
-        List<Usuario> existe = usuarioRepositorio.buscarCorreoUsuarioInactivo(proveedor.getCorreo());
+        Usuario usuario = new Usuario();
 
-        if (existe.isEmpty()) {
-            System.out.println("El Usuario NO EXISTE - CREA UNO NUEVO");
-            Usuario usuario = new Usuario();
-            usuario.setNombre(proveedor.getNombre());
-            usuario.setApellido(proveedor.getApellido());
-            usuario.setTelefono(proveedor.getTelefono());
-            usuario.setDireccion(proveedor.getDireccion());
-            usuario.setCorreo(proveedor.getCorreo());
-            usuario.setPassword(proveedor.getPassword());
-            usuario.setImagen(proveedor.getImagen());
-            usuario.setAlta(true);
-            usuario.setFechaAlta(proveedor.getFechaAlta());
-            usuario.setRol(Rol.USUARIO);
+        usuario.setNombre(proveedor.getNombre());
+        usuario.setApellido(proveedor.getApellido());
+        usuario.setTelefono(proveedor.getTelefono());
+        usuario.setDireccion(proveedor.getDireccion());
+        usuario.setCorreo(proveedor.getCorreo());
+        usuario.setPassword(proveedor.getPassword());
+        usuario.setImagen(proveedor.getImagen());
+        usuario.setAlta(true);
+        usuario.setRol(Rol.USUARIO);
 
-            usuarioRepositorio.save(usuario);
-        } else {
-            System.out.println("El Usuario EXISTE - DOY DE ALTA");
-            System.out.println(usuarioRepositorio.buscarCorreoInactivo(proveedor.getCorreo()));
-            Usuario usuario = usuarioRepositorio.buscarCorreoInactivo(proveedor.getCorreo());
-            System.out.println("USUARIO INACTIVO: " + usuario);
-            String id = usuario.getId();
-            altaUsuario(id);
-        }
-    }
-
-    public Usuario getOne(String id) {
-        return usuarioRepositorio.getOne(id);
-    }
-
-    public Usuario getOne(String id) {
-        return usuarioRepositorio.getOne(id);
+        usuarioRepositorio.save(usuario);
     }
 
     @Transactional
@@ -184,19 +164,6 @@ public class UsuarioServicio implements UserDetailsService {
         if (respuesta.isPresent()) {
             Usuario usuario = respuesta.get();
             usuario.setAlta(Boolean.FALSE);
-            usuarioRepositorio.save(usuario);
-        } else {
-            // En el supuesto que no existiera el usuario...
-            throw new MiException("No se pudo dar de baja el Usuario " + usuarioRepositorio.getById(id).getNombre() + ". El usuario no fue encontrado.");
-        }
-    }
-
-    @Transactional
-    public void altaUsuario(String id) throws MiException {
-        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
-        if (respuesta.isPresent()) {
-            Usuario usuario = respuesta.get();
-            usuario.setAlta(Boolean.TRUE);
             usuarioRepositorio.save(usuario);
         } else {
             // En el supuesto que no existiera el usuario...
@@ -250,7 +217,8 @@ public class UsuarioServicio implements UserDetailsService {
      * **************************
      * Método invocado por el metodo CONTROLADOR de IMAGEN que recibe las
      * solicitudes del perfil de usuario para cargar la imagen y devuelve la
-     * imagen al http ***************************
+     * imagen al http
+     * ***************************
      */
     public Usuario obtenerUsuario(String id) {
         return buscarUsuario(id);
