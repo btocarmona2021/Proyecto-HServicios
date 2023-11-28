@@ -58,10 +58,12 @@
                     <a href="/inicio">
                         <button class="btn btn-primary mt-3 botones">Volver</button>
                     </a>
-                    
-                    <a href="/solicitudRol/cambioRol">
-                        <button class="btn btn-primary mt-3 botones">Cambiar ROL</button>
-                    </a>
+                    <form class="formulario" th:action="@{/solicitudRol/cambioRol}" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <input type="hidden" name="idProveedor" th:value="${usuario.id}">
+                        </div>
+                        <button type="submit" class="btn btn-primary"> Enviar Solicitud de Cambio de ROL </button>
+                    </form>
                 </div>
             </main>
 

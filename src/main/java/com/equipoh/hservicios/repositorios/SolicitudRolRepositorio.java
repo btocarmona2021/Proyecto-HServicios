@@ -17,6 +17,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface SolicitudRolRepositorio extends JpaRepository<SolicitudRol, String>{
-     @Query("SELECT s FROM SolicitudRol s WHERE s.idProveedor = :id")
-    public List<SolicitudRol> buscarSolicitudXProveedor(@Param("id") String id);
+    /* @Query("SELECT s FROM SolicitudRol s WHERE s.idProveedor = :id")
+    public List<SolicitudRol> buscarSolicitudXProveedor(@Param("id") String id);*/
 }

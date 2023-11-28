@@ -48,12 +48,11 @@ public class SolicitudRolControlador {
     }
 
     @PostMapping("/cambioRol")
-    public String crearCambioRol(String id, MultipartFile archivo, ModelMap modelo) {
+    public String crearCambioRol(String idProveedor, ModelMap modelo) {
         System.out.println("CONTROLADOR CAMBIO ROL");
-        System.out.println("id:" + id);
-        System.out.println("archivo:" + archivo);
+        System.out.println("id Proveedor:" + idProveedor);
         try {
-            solicitudRolServicio.crearSolicitudRolUsuario(id, archivo);
+            solicitudRolServicio.crearSolicitudRolUsuario(idProveedor);
             modelo.put("exito", "La solicitud ha sido cargada con éxito");
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
@@ -73,10 +72,11 @@ public class SolicitudRolControlador {
         return "listar_solicitudes";
     }
     
-    @PostMapping("/actualizar/{id}")
-    public String actualizarEstado(String id, ModelMap modelo){
+    @PostMapping("/actualizar")
+    public String actualizarEstado(String idSolicitud, ModelMap modelo){
+        System.out.println("idSolicitud: "+idSolicitud);
         try {
-            solicitudRolServicio.actualizarSolicitudRol(id);
+            solicitudRolServicio.actualizarSolicitudRol(idSolicitud);
             return "redirect:../lista";
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
