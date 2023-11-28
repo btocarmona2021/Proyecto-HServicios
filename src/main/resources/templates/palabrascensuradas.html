@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<form th:action="@{/palabras/ingresado}" method="post">
-    <textarea name="palabras" id="" cols="30" rows="10">
-
-</textarea>
-    <input type="submit" value="Enviar Palabras">
-</form>
-
-</body>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace= "/frangments/head :: head"></head>
+    <body>
+        <header class="header">
+            <nav th:replace="/frangments/navbar :: nav"></nav>
+        </header>
+        <form th:action="@{/palabras/ingresado}" method="post">
+            <textarea name="palabras" id="palabras" cols="30" rows="10"></textarea>
+            <input type="submit" value="Agregar Palabras">
+        </form>
+        <footer th:replace="frangments/footer:: footer"></footer>
+        <script src="/script.js"></script>
+    </body>
 </html>

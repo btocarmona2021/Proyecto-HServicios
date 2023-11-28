@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-    <head th:replace= "/frangments/head :: head"</head>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace= "/frangments/head :: head"></head>
 
     <body class="grid-container">
         <header class="header">
-            <nav th:replace="/frangments/navbar :: nav"</nav>
+            <nav th:replace="/frangments/navbar :: nav"></nav>
         </header>
         <article class="main">
 
@@ -21,11 +21,10 @@
                         <input type="text" class="form-group" name="rubro" placeholder="Actualice el rubro" th:value="${servicio.rubro}">
                     </div> 
                      <label for="lang">Estado</label>
-                    <select name="estado" id="lang">
-                        <option th:value="${servicio.estado}" th:text="${servicio.estado ? 'ALTA':'BAJA'}"></option>
-                        <option th:value="${servicio.estado ? 'BAJA':'ALTA'}"
-                                th:text="${servicio.estado ? 'BAJA':'ALTA'}"></option>
-
+      <select name="Estado" id="lang">
+        <option th:value="${servicio.estado}">alta</option>
+        <option value="BAJA">BAJA</option>
+       
       </select>
                     <br>
                     <div class="form-group">
@@ -33,8 +32,8 @@
                     </div>
                     <br>
                     <button type="submit" class="btn btn-primary"> Guardar</button>
-
-                </form>
+            </div>
+        </form>
 
         <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3 mensajeExito">
             <div class="card-body">

@@ -37,7 +37,7 @@ body {
 .main {
     grid-area: main;
     background-color: #fff;
-    
+
     background-repeat: no-repeat;
     background-size: 120%;
 }
@@ -46,6 +46,7 @@ body {
     grid-area: footer;
     background-color: #373DBA;
     color: white;
+    text-align-last: center;
 }
 
 .grid-container {
@@ -89,7 +90,11 @@ body {
     }
 }
 
+img {
+    max-width: 100%;
+    width: 60px;
 
+}
 
 /**cartas de categorias***************/
 
@@ -185,12 +190,12 @@ button {
 
 .button2 {
     background-color: white;
-    color: #373DBA;
-    border: 2px solid #373DBA;
+    color: black;
+    border: 2px solid #008CBA;
 }
 
 .button2:hover {
-    background-color: #373DBA;
+    background-color: #008CBA;
     color: white;
 }
 
@@ -450,7 +455,7 @@ button {
 }
 
 .contenedor__login-register form button{
-    
+
     margin-top: 4px;
     border: none;
     font-size: 12px;
@@ -622,15 +627,15 @@ button {
     display: none;
 }
 .imgindex{
-    background-image: url("../img/caru05.png");
+    background-image: url("../img/caru01.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     height: 480px;
-    
+
 }
 .card{
-    
+
     width: 50%;
     height:30%;
     background-repeat: no-repeat;
@@ -655,7 +660,7 @@ button {
     position: relative;
     display: inline-block;
     border-bottom: 1px dotted black;
-    
+
 }
 
 .tooltip .tooltiptext {
@@ -693,7 +698,7 @@ li{
     text-align-last: auto;
     text-align: left;
     border-radius: 4px;
-     padding: 4% ;
+    padding: 4% ;
 
     /* Position the tooltip */
     position: absolute;
@@ -756,14 +761,14 @@ li{
     transition: opacity 2s;
 }
 .formServi{
-  margin: auto;
- 
-      
+    margin: auto;
+
+
 }
 .formServi td  {
     padding: 5px;
-    
-     border: 10px solid #fff;
+
+    border: 10px solid #fff;
 }
 
 .link-container {
@@ -791,11 +796,11 @@ li{
     background-color: #9ee493;
 }
 h1 {
-                color: #373DBA; /* Color del texto */
-                font-family: 'Arial', sans-serif; /* Tipo de fuente */
-                text-align: center; /* Alineación del texto */
-                margin-top: 20px; /* Margen superior */
-                margin-bottom: 20px; /* Margen inferior */
-            }
-            
-         
+    color: #373DBA; /* Color del texto */
+    font-family: 'Arial', sans-serif; /* Tipo de fuente */
+    text-align: center; /* Alineación del texto */
+    margin-top: 20px; /* Margen superior */
+    margin-bottom: 20px; /* Margen inferior */
+}
+
+
