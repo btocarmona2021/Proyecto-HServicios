@@ -66,13 +66,26 @@
                     <th>Nombre cliente</th>
                     <th>Trabajo a Realizar</th>
                     <th>Fecha de Solicitud</th>
-                    <th>Aceptación de trabajo</th>
+                    <th>Presupuesto</th>
                 </tr>
                 <tr th:each="contrato: ${contratos}" th:if="${contrato.inicioT ==false}">
                     <td th:text="${contrato.usuario.nombre+' '+ contrato.usuario.apellido}"></td>
                     <td th:text="${contrato.descripcionTrabajo}"></td>
                     <td th:text="${contrato.fechaSolicitud}"></td>
-                    <td><a th:href="@{/contrato/contratoaceptado/__${contrato.id}__}">Aceptar</a></td>
+                    <td th:if="${contrato.presupuesto == null}">
+                        <form th:action="@{/contrato/enviapresupuesto/__${contrato.id}__}" method="post">
+                            <textarea name="presupuesto" id="" cols="60" rows="5"></textarea>
+                            <br>
+                            <label for="horas">Ingres las horas estimadas</label>
+                            <br>
+                            <input type="number" name="horasestimadas" id="horas" min="0" max="620">
+                            <input type="submit" value="Enviar presupuesto">
+                        </form>
+                    </td>
+                    <td th:unless="${contrato.presupuesto} == null">
+                        <p th:text="${contrato.presupuesto}"></p>
+                    </td>
+                    <!--<td><a th:href="@{/contrato/contratoaceptado/__${contrato.id}__}">Aceptar</a></td>-->
                 </tr>
 
             </table>
