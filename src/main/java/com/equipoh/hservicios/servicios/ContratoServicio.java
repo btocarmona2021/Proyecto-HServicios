@@ -64,17 +64,30 @@ public class ContratoServicio {
         contratoRepositorio.save(contrato);
     }
 
+    @Transactional
+    public void enviapresuspuesto(String idContrato, String presupuesto, Integer horasestimadas) throws MiException {
+        Optional<Contrato> respuesta = contratoRepositorio.findById(idContrato);
+        Contrato contrato = new Contrato();
+        if (respuesta.isPresent()) {
+            contrato = respuesta.get();
+        }
+        contrato.setPresupuesto(presupuesto);
+        contrato.setHorasestimadas(horasestimadas);
+        contratoRepositorio.save(contrato);
+    }
+
 
     @Transactional
     public void cancelaContrato(String idContrato) throws MiException {
-        Optional<Contrato> respuesta = contratoRepositorio.findById(idContrato);
+        /*Optional<Contrato> respuesta = contratoRepositorio.findById(idContrato);
         Contrato contrato = new Contrato();
         if (respuesta.isPresent()) {
             contrato = respuesta.get();
         }
         contrato.setFechaInicio(null);
         contrato.setInicioT(false);
-        contratoRepositorio.save(contrato);
+        contratoRepositorio.save(contrato);*/
+        contratoRepositorio.deleteById(idContrato);
     }
 
     @Transactional

@@ -50,13 +50,24 @@
                     <th>Nombre Proveedor</th>
                     <th>Trabajo a Realizar</th>
                     <th>Fecha de Solicitud</th>
-                    <th>Aceptación de trabajo</th>
+                    <th>Presupuesto</th>
+                    <th>Acción</th>
                 </tr>
                 <tr th:each="contrato: ${contratos}" th:if="${contrato.inicioT ==false}">
-                    <td th:text="${contrato.usuario.nombre +' '+ contrato.usuario.apellido}"></td>
-                    <td th:text="${contrato.descripcionTrabajo()}"></td>
+                    <td th:text="${contrato.proveedor.nombre +' '+ contrato.proveedor.apellido}"></td>
+                    <td th:text="${contrato.descripcionTrabajo}"></td>
                     <td th:text="${contrato.fechaSolicitud}"></td>
-                    <td><a th:href="@{/contrato/contratoaceptado/__${contrato.id}__}">Aceptar</a></td>
+                    <td th:if="${contrato.presupuesto ==null}">
+                        <p>Esperando presupuesto</p>
+                    </td>
+                    <td th:unless="${contrato.presupuesto} == null">
+                        <p th:text="${contrato.presupuesto}"></p>
+                        <p th:text="${'Cantidad de horas estimadas: '+ contrato.horasestimadas}"></p>
+                        <p th:text="${'Costo mano de obra: ' + (contrato.horasestimadas * contrato.proveedor.precioXHora) + ' Pesos'}"></p>
+
+                    </td>
+                    <td><a th:href="@{/contrato/contratoaceptado/__${contrato.id}__}">Aceptar |</a>
+                        <a th:href="@{/contrato/cancelacontrato/__${contrato.id}__}"> Cancelar</a></td>
                 </tr>
 
             </table>
