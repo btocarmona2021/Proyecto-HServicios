@@ -59,7 +59,7 @@
                             <tr>
                                 <th scope="col"></th><td ><div>
                                          
-                                            <a th:href="@{/perfil/complete/__${proveedor.id}__}"><button class="button2" type="button"> Leer Más</button></a>
+                                            <a th:if ="${session.usuariosession !=null}" th:href="@{/perfil/complete/__${proveedor.id}__}"><button class="button2" type="button"> Leer Más</button></a>
                                         </div></td>
                             </tr>
                             

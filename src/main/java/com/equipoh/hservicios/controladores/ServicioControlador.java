@@ -46,7 +46,7 @@ public class ServicioControlador {
             return "registrar_servicio.html";
         }
 
-        return "index.html";
+        return "registrar_servicio.html";
     }
 
     @GetMapping("/lista")

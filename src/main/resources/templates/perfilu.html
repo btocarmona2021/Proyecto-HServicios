@@ -26,9 +26,10 @@
 
     <main>
         <div>
-            <h1>PERFIL USUARIO</h1>
-            <h3 th:if="${session.usuariosession != null}"
-                th:text=" 'Bienvenido '+ ${session.usuariosession.nombre}"></h3>
+            <h1 sec:authorize="hasRole('ADMIN')">Perfil de Administrador</h1>
+            <h1 sec:authorize="hasRole('USUARIO')">Perfil de Usuario</h1>
+            <h1 sec:authorize="hasRole('PROVEEDOR')">Perfil de Proveedor</h1>
+            mostrar datos y y botones para actualizar 
         </div>
         <div class="container">
             <a class="d-flex align-items-center">
@@ -44,7 +45,7 @@
             <label th:text="${usuario.correo}" class="form-control"></label>
 
 
-            <table border="2">
+            <!-- comment   <table border="2">
                 <tr>
                     <th>Nombre Proveedor</th>
                     <th>Trabajo a Realizar</th>
@@ -106,7 +107,7 @@
                 <button class="btn btn-primary mt-3 botones">Volver</button>
             </a>
         </div>
-    </main>
+    </main> -->
     <div class="btn-holder">
 
         <button class="button2" onclick='goBack()'>Atrás</button>

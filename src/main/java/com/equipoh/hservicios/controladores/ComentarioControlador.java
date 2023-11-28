@@ -45,7 +45,7 @@ public class ComentarioControlador {
     public String comentarioActualizado(@PathVariable String idcomentario, String contenido) {
         try {
             Comentario comentario = comentarioServicio.actualizaComentario(idcomentario, contenido);
-            return "redirect:/perfilu";
+            return "redirect:/perfil";
         } catch (MiException e) {
             return "comentario";
         }

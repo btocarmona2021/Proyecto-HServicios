@@ -8,11 +8,9 @@
         </header>
         <article class="main"> 
 
-            <a href="/contrato">  agregar boton contratar</a></div>
-
-        <div class="container_p">
-
-
+            <div id="contenedor">
+                <div id="columna-izquierda" style="float: left; width: 50%">
+                    <div class="container_p">
             <tbody th:each="proveedor : ${proveedores}" th:if="${proveedor.id = id}"> 
             <div class="card_p" >
                 <div>
@@ -46,11 +44,12 @@
                         <tr>
                             <th scope="col">Experiencia: </th><td th:text="${proveedor.experiencia}"></td>
                         </tr>
-                        
-
-
-
+                       
                     </table>
+                    <a th:href="@{/contrato/enviocontrato/__${proveedor.id}__}"><i
+                                        class="fas fa-feather-alt"></i>
+                                   
+                     <button class="button2" >Contratar</button> </a>
                 </div>
 
 
@@ -58,8 +57,29 @@
             </tbody>
         </div>
         
-        <div>listar un maximo de comentarios comentarios</div>
-        <div>mostrar puntaje en promedio</div> 
+        
+            </div>
+                
+                <div id="columna-derecha" style="float: right; width: 50%">
+                    <div>mostrar puntaje en promedio</div>
+                    <div><table>
+                <tr>
+                    <th>  </th>
+                    
+                    <th>Comentario de otros Cliente</th>
+                </tr>
+                <tr th:each="contrato: ${contratos}"
+                     th:if="${contrato.getComentario().getContenido() != 'Dejá tu apreciación hacia el proveedor, ayudará a otros usuarios a elegir, Gracias por usar nuestro servicio'}">
+                    <td  th:text="${contrato.getUsuario().getNombre()}"></td>
+                   
+                    <td th:text="${contrato.getComentario().getContenido()}"></td>
+                </tr>
+
+            </table></div>
+            </div> 
+            </div>
+        
+         
         <div>
 
     </article>
