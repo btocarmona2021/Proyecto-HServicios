@@ -10,7 +10,6 @@ import com.equipoh.hservicios.entidades.Usuario;
 import com.equipoh.hservicios.excepciones.MiException;
 import com.equipoh.hservicios.servicios.ServicioServicio;
 import com.equipoh.hservicios.servicios.UsuarioServicio;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,8 +17,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  *
@@ -38,34 +38,33 @@ public class UsuarioControlador {
     public String registrar(ModelMap modelo) {
         List<Servicio> servicio = servicioServicio.listarServicios();
         modelo.addAttribute("servicio", servicio);
-        System.out.println("IMPRIME 31");
         return "registrar.html";
     }
 
     @PostMapping("/registro")
-    public String registro(String nombre, String apellido,
-            String direccion, String telefono,
-            String correo, String password,
+    public String registro(String nombreu, String apellidou,
+            String direccionu, String telefonou,
+            String correou, String password,
             String password2, MultipartFile archivo, ModelMap modelo) {
         
-        System.out.println("nombre: "+nombre);
-        System.out.println("apellido: "+apellido);
-        System.out.println("direccion: "+direccion);
-        System.out.println("telefono: "+telefono);
-        System.out.println("correo: "+correo);
+        System.out.println("nombre: "+nombreu);
+        System.out.println("apellido: "+apellidou);
+        System.out.println("direccion: "+direccionu);
+        System.out.println("telefono: "+telefonou);
+        System.out.println("correo: "+correou);
         System.out.println("password: "+password);
         System.out.println("password2: "+password2);
         System.out.println("imagen: "+archivo);
         
         
         try {
-            usuarioServicio.registrarUsuario(archivo, nombre, apellido, direccion, telefono, correo, password, password2);
+            usuarioServicio.registrarUsuario(archivo, nombreu, apellidou, direccionu, telefonou, correou, password, password2);
             modelo.put("exito", "El usuario ha sido cargado con éxito");
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
             return "registrar.html";
         }
-        return "index.html";
+        return "login.html";
     }
 
     @GetMapping("/lista")       // localhost:8080/usuario/listar 

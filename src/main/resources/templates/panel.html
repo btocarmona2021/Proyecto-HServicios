@@ -1,20 +1,56 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <head th:replace= "/frangments/head :: head"</head>
+    <head th:replace= "/frangments/head :: head"></head>
 
     <body class="grid-container">
         <header class="header">
-            <nav th:replace="/frangments/navbar :: nav"</nav>
+            <nav th:replace="/frangments/navbar :: nav"></nav>
         </header>
         <article class="main"> 
-      <div><a href="/usuario/lista">ver todos los usuarios</a></div>
-        <div><a  href="/proveedor/lista"> ver todos los proveedores</a></div>
-        <div><a  href="/servicio/registrar"> Crear servicio</a></div>
-         <div><a  href="/servicio/lista"> ver todos los servicios</a></div>
-        
-       
-     </article>
+            
+           
+            <h1 sec:authorize="hasRole('ADMIN')">Panel de Administrador</h1>
+            <h1 sec:authorize="hasRole('USUARIO')">Panel de Usuario</h1>
+            <h1 sec:authorize="hasRole('PROVEEDOR')">Panel de Proveedor</h1>
+            <div class="link-container">
+                <a sec:authorize="hasRole('ADMIN')" href="/usuario/registrar">Crear Usuario / Proveedor</a>
+                listado de solicitud cambio de rol pendiente
+                cargar palabras censuradas
+                listar palabras
+            </div>
+            <div class="link-container">
+                <a sec:authorize="hasRole('USUARIO')" href="/perfil">Actualizar Mi perfil</a>
+                lista de soicitud enviada
+                lista de solicitud en proceso de trabajo. con boton para cancelar antes de finalizado
+                lista de comentarios y puntuacion reaizados
+                boton cambio de rol
+            </div>
+
+            <div class="link-container">
+                <a sec:authorize="hasRole('ADMIN')" href="/usuario/lista">Ver todos los usuarios</a>
+            </div>
+            <div class="link-container">
+                <a sec:authorize="hasRole('ADMIN')" href="/proveedor/lista">Ver todos los proveedores</a>
+            </div>
+            <div class="link-container">
+                <a sec:authorize="hasRole('PROVEEDOR')" href="/perfil">Actualizar Mi perfil</a>
+                lista de solicitudes para el proveedor 
+                boton cambiar rol
+                lista de trabajos aceptados con boton para finalizar
+                lista de trabajos terminados
+            </div>
+            <div class="link-container">
+                <a sec:authorize="hasRole('ADMIN')" href="/servicio/registrar">Crear servicio</a>
+            </div>
+            <div class="link-container">
+                <a sec:authorize="hasRole('ADMIN')" href="/servicio/lista">Ver todos los servicios</a>
+            </div>
+
+
+
+
+        </article>
         <footer th:replace="frangments/footer:: footer"></footer>
-<script src="/script.js"></script>
-</body>
+        <script src="/script.js"></script>
+    </body>
 </html>

@@ -5,17 +5,33 @@
     </button>
     <ul class="nav-menu">
         <li class="nav-menu-item">
-            
-            <a href="/usuario/registrar" class="nav-menu-link nav-link" th:if ="${session.usuarioSesion ==null }">Registrarse</a>
+
+            <a href="/usuario/registrar" class="nav-menu-link nav-link" th:if ="${session.usuariosession ==null }">Registrarse</a>
         </li>
         <li class="nav-menu-item">
-            <a href="/login" class="nav-menu-link nav-link" th:if ="${session.usuarioSesion ==null}">Ingresar</a>
+            <a href="/login" class="nav-menu-link nav-link" th:if ="${session.usuariosession ==null}">Ingresar</a>
         </li>
         <li class="nav-menu-item">
-            <a href="/logout" class="nav-menu-link nav-link" th:if ="${session.usuarioSesion !=null}">Salir</a>
+            <a href="/panel" class="nav-menu-link nav-link" th:if ="${session.usuariosession !=null}">Panel de control</a>
         </li>
         <li class="nav-menu-item">
-            <a href="/buscador" class="nav-menu-link nav-link">Buscar</a>
+            <a href="/logout" class="nav-menu-link nav-link" th:if ="${session.usuariosession !=null}">Salir</a>
+        </li>
+        <li class="nav-menu-item">
+            <div>
+                <form class="" th:action="@{/buscador}" method="POST">
+                    <div>
+                        <input type="text" class="" name="buscar" placeholder="Que desea buscar">
+
+                        <button type="submit" class="">buscar</button>
+
+                    </div>
+                </form>
+            </div>
+        </li>
+        <li class="nav-menu-item">
+            <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}"  role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text=" 'Hola  '+ ${session.usuariosession.nombre} ">
+            </a>
         </li>
         <!-- <li class="nav-menu-item">
            <a href="#" class="nav-menu-link nav-link nav-menu-link_active"

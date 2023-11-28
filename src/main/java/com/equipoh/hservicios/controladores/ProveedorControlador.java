@@ -71,10 +71,10 @@ public class ProveedorControlador {
     @PostMapping("/actualizar/{id}")
     public String actualizar(MultipartFile archivo, String id, String nombre, String apellido, String direccion,
                              String telefono, String correo, String password, String password2, String rol,
-                             String experiencia, Double precioXHora, Servicio servicio, String alta, ModelMap modelo) {
+                             String experiencia, Double precioXHora, String idServicio, String alta, ModelMap modelo) {
         Proveedor proveedor = proveedorServicio.getOne(id);
         try {
-            proveedorServicio.actualizar(archivo, id, nombre, apellido, direccion, telefono, correo, password, password2, rol, experiencia, precioXHora, servicio, alta);
+            proveedorServicio.actualizar(archivo, id, nombre, apellido, direccion, telefono, correo, password, password2, rol, experiencia, precioXHora, idServicio, alta);
             return "redirect:/proveedor/lista";
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
@@ -83,5 +83,7 @@ public class ProveedorControlador {
         }
 
     }
+    
+     
 
 }

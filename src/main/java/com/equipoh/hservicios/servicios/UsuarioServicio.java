@@ -5,72 +5,79 @@
  */
 package com.equipoh.hservicios.servicios;
 
-import com.equipoh.hservicios.entidades.Imagen;
 import com.equipoh.hservicios.entidades.Usuario;
 import com.equipoh.hservicios.enumeracion.Rol;
 import com.equipoh.hservicios.excepciones.MiException;
+import com.equipoh.hservicios.repositorios.ImagenRepositorio;
 import com.equipoh.hservicios.repositorios.UsuarioRepositorio;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
-public class UsuarioServicio {
+public class UsuarioServicio implements UserDetailsService{
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
     
     @Autowired
     private ImagenServicio imagenServicio;
+    @Autowired
+    private ImagenRepositorio imagenRepositorio;
 
     @Transactional
-    public void registrarUsuario(MultipartFile archivo, String nombre, String apellido, String direccion,
-            String telefono, String correo, String password, String password2) throws MiException {
+    public void registrarUsuario(MultipartFile archivo, String nombreu, String apellidou, String direccionu,
+            String telefonou, String correou, String password, String password2u) throws MiException {
         
-        List<Usuario> existe = usuarioRepositorio.buscarCorreoUsuarioActivo(correo);
+        List<Usuario> existe = usuarioRepositorio.buscarCorreoUsuarioActivo(correou);
         /*
         quiero que la siguiente linea llame al usuarioRepositorio.buscarCorreoUsuarioActivo(correo) que se fija si el correo no aparece en
         la lista de proveedores, y reemplazar el if actual por 
         if ((existe.size()==2) || (!existe.isEmpty())) {
         */
         if ((!existe.isEmpty())) {
-            System.out.println("Ya existe el usuario.");
             throw new MiException("El usuario no ha podido ser registrado porque el correo ya ha sido registrado.");
         } else {
             // Manejo de Excepciones
-            validar(nombre, apellido, direccion, telefono, correo, password, password2);
-
+           // validar(nombre, apellido, direccion, telefono, correo, password, password2);
+           
             Usuario usuario = new Usuario();
-            
-            usuario.setNombre(nombre);
-            usuario.setApellido(apellido);
-            usuario.setDireccion(direccion);
-            usuario.setTelefono(telefono);
-            usuario.setCorreo(correo);
+            usuario.setNombre(nombreu);
+            usuario.setApellido(apellidou);
+            usuario.setDireccion(direccionu);
+            usuario.setTelefono(telefonou);
+            usuario.setCorreo(correou);
             usuario.setFechaAlta(new Date());
-
-            /****************************
-             * Modificar para encriptar *
-             ****************************/
-            usuario.setPassword(password);
-            
-            usuario.setImagen(imagenServicio.guardarImagen(archivo));
-            
-            // Las siguientes lineas buscan si hay algun usuario registrado y al primer usuario registrado le da el rol de ADMIN
-            List<Usuario> respuesta = usuarioRepositorio.findAll();
+            usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+            if (archivo.isEmpty()) {
+                usuario.setImagen(imagenRepositorio.imagenXDefecto());
+            } else {
+                usuario.setImagen(imagenServicio.guardarImagen(archivo));
+            }
+            // Las siguientes lineas buscan si existe un Admin en el Sistema.
+            List<Usuario> respuesta = usuarioRepositorio.buscaAdmin();
             if (respuesta.isEmpty()) {
                 usuario.setRol(Rol.ADMIN);
             } else {
                 usuario.setRol(Rol.USUARIO);
             }
-            
-            usuario.setAlta(Boolean.TRUE);
-
-            // Guardar la variable
+            usuario.setAlta(true);
             usuarioRepositorio.save(usuario);
         }
     }
@@ -92,20 +99,17 @@ public class UsuarioServicio {
             usuario.setTelefono(telefono);
             usuario.setCorreo(correo);
 
-            /**
-             * **************************
-             * Modificar para encriptar *
-             ***************************
-             */
-            usuario.setPassword(password);
+            usuario.setPassword(new BCryptPasswordEncoder().encode(password));
             
             // ********** INICIO ACTUALIZACIÓN DE LA IMAGEN **********
-            // Creo una variable que va a guardar la ID de la imagen (para qwue no me de error cuando vaya a 'guardar')
-            String idImagen = null;
-            if (usuario.getImagen() != null) {
-                idImagen = usuario.getImagen().getId();
+            //SI LA IMAGEN DEL USUARIO ES LA DEFAULT CREARA UNA NUEVA IMAGEN, CASO CONTRARIO ACTUALIZARA LA IMAGEN
+            if (usuario.getImagen().getNombre().equalsIgnoreCase("defecto_image_service.png")) {
+                usuario.setImagen(imagenServicio.guardarImagen(archivo));
+            } else {
+                usuario.setImagen(imagenServicio.actualizarImagen(archivo, usuario.getImagen().getId()));
             }
-            usuario.setImagen(imagenServicio.actualizarImagen(archivo, idImagen));
+
+
             // ********** FIN ACTUALIZACIÓN DE LA IMAGEN **********
             
             /**
@@ -152,12 +156,15 @@ public class UsuarioServicio {
 
     public List<Usuario> listarUsuario() {
         // La lista va a recuperar a todos los usuarios para mostrar en la pagina a todos ellos
-        List<Usuario> usuarios = usuarioRepositorio.findAll();
-        return usuarios;
+       // List<Usuario> usuarios = usuarioRepositorio.findAll();
+       List<Usuario> usuarios = new ArrayList();
+       usuarios = usuarioRepositorio.buscarPorrol();
+       
+       return usuarios;
     }
 
-    private void validar(String nombre, String apellido, String direccion, String telefono, String correo, String password, String password2) throws MiException {
-        if ((nombre.isEmpty()) || (nombre == null)) {     // Si el nombre ESTÁ VACÍO o es NULO
+    private void validar(String nombreu, String apellido, String direccion, String telefono, String correo, String password, String password2) throws MiException {
+        if ((nombreu.isEmpty()) || (nombreu == null)) {     // Si el nombre ESTÁ VACÍO o es NULO
             throw new MiException("El nombre no puede estar vacío o ser nulo.");
         }
         if ((apellido.isEmpty()) || (apellido == null)) {     // Si el apellido ESTÁ VACÍO o es NULO
@@ -200,5 +207,28 @@ public class UsuarioServicio {
      * ****************************/
     public Usuario obtenerUsuario(String id) {
         return buscarUsuario(id);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String correo) throws UsernameNotFoundException {
+        Usuario usuario = usuarioRepositorio.buscarCorreoActivo(correo);
+         if (usuario != null) {
+
+            List<GrantedAuthority> permisos = new ArrayList();
+
+            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
+
+            permisos.add(p);
+
+            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+
+            HttpSession session = attr.getRequest().getSession(true);
+
+            session.setAttribute("usuariosession", usuario);
+
+            return new User(usuario.getCorreo(), usuario.getPassword(), permisos);
+        } else {
+            return null;
+        }
     }
 }

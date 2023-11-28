@@ -9,20 +9,53 @@
         <article class="main">
 
             <div>
-                <h1> Registar Servicio </h1>
+                <h1>  </h1>
             </div>
 
-            <div class="container"  align="center">
-                <form class="formulario" th:action="@{/servicio/registro/}" method="POST" enctype="multipart/form-data">
-                    <div class="form-group">
-                       <input type="text" class="form-group" name="rubro" placeholder="Ingrese el rubro" th:value="${rubro}">     
-                    </div> 
-                    <br>
-                    <div class="form-group">
-                        <input type="file" class="form-control" name="archivo" >
-                    </div>
-                    <button type="submit" class="btn btn-primary"> Guardar </button>
-            </div>
+            
+                <form class="formulariou" th:action="@{/servicio/registro/}" method="POST" enctype="multipart/form-data">
+                    <table class="formServi"><tr>
+                            <th>Registar Servicio</th>
+                            
+                        </tr>
+                        <tr>
+                            <td><input type="text" class="form-group" name="rubro" placeholder="Ingrese el rubro" th:value="${rubro}"></td>
+                          
+                        </tr>
+                        <tr>
+                            <td><input type="file" class="form-control" name="archivo" id="seleccionArchivos" accept="image/*"> </td>
+                          
+                        </tr><tr>
+                            <td> <img id="imagenPrevisualizacion"></td>
+                          
+                        </tr>
+                        <tr>
+                            <td>  <button type="submit" class="btn btn-primary"> Guardar </button></td>
+                          
+                        </tr>
+                    </table>
+                            
+                     
+                    
+                     
+                           
+                   
+                    <script >
+                         const $seleccionArchivos = document.querySelector("#seleccionArchivos"),
+                    $imagenPrevisualizacion = document.querySelector("#imagenPrevisualizacion");
+                    $seleccionArchivos.addEventListener("change", () => {
+                        const archivos = $seleccionArchivos.files;
+                            if (!archivos || !archivos.length) {
+                                $imagenPrevisualizacion.src = "";
+                                return;
+                            }
+  
+                        const primerArchivo = archivos[0];
+                        const objectURL = URL.createObjectURL(primerArchivo);
+                        $imagenPrevisualizacion.src = objectURL;
+                    });
+                    </script>
+            
         </form>
 
         <div th:if="${exito}!=null" class="buttonexito" >
