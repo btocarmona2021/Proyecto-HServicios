@@ -95,19 +95,19 @@
                     <td>
                         <form th:action="@{/contrato/valorar/__${contrato.id}__}" method="post">
                             <div class="valoracion" th:style="${'font-size:30px'}">
-                                <label onclick="valorar(1)"
+                                <label onclick="valorar(1, this.getAttribute('data'))" th:data="${contrato.id}"
                                        th:style="${contrato.puntuacion >= 1 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
-                                <label onclick="valorar(2)"
+                                <label onclick="valorar(2, this.getAttribute('data'))" th:data="${contrato.id}"
                                        th:style="${contrato.puntuacion >= 2 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
-                                <label onclick="valorar(3)"
+                                <label onclick="valorar(3, this.getAttribute('data'))" th:data="${contrato.id}"
                                        th:style="${contrato.puntuacion >= 3 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
-                                <label onclick="valorar(4)"
+                                <label onclick="valorar(4, this.getAttribute('data'))" th:data="${contrato.id}"
                                        th:style="${contrato.puntuacion >= 4 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
-                                <label onclick="valorar(5)"
+                                <label onclick="valorar(5, this.getAttribute('data'))" th:data="${contrato.id}"
                                        th:style="${contrato.puntuacion >= 5 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
                             </div>
-                            <input type="hidden" id="puntuacion" name="puntuacion" value="">
-                            <input type="submit" value="Valorar" id="valorar" th:style="${'display:none;'}">
+                            <input type="hidden" th:id="${contrato.id+1}" name="puntuacion" value="">
+                            <input type="submit" value="Valorar" th:id="${contrato.id}" th:style="${'display:none;'}">
                         </form>
 
                     </td>
@@ -141,9 +141,10 @@
 </article>
 <footer th:replace="frangments/footer:: footer"></footer>
 <script>
-    function valorar(estrellas) {
-        document.getElementById('puntuacion').value = estrellas;
-        document.getElementById('valorar').click();
+    function valorar(estrellas, data) {
+        document.getElementById(data + 1).value = estrellas;
+        console.log(estrellas, data)
+        document.getElementById(data).click();
     }
 </script>
 <script src="/script.js"></script>

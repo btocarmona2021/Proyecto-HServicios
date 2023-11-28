@@ -107,7 +107,7 @@
                     <td th:text="${contrato.usuario.nombre +' '+ contrato.usuario.apellido}"></td>
                     <td th:text="${contrato.descripcionTrabajo}"></td>
                     <td th:text="${contrato.comentario.estado == true ? contrato.comentario.contenido : 'El comentario del cliente ha sido censurado'}"></td>
-                    <td>
+                    <td th:if="${contrato.puntuacion != 0}">
                         <div class="valoracion" th:style="${'font-size:30px'}">
                             <label onclick="valorar(1)"
                                    th:style="${contrato.puntuacion >= 1 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
@@ -120,6 +120,9 @@
                             <label onclick="valorar(5)"
                                    th:style="${contrato.puntuacion >= 5 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
                         </div>
+                    </td>
+                    <td th:unless="${contrato.puntuacion != 0}">
+                        <p>El cliente aún no ha calificado</p>
                     </td>
                 </tr>
 
