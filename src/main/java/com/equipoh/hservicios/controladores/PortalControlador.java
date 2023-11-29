@@ -5,9 +5,11 @@ package com.equipoh.hservicios.controladores;
 
 import com.equipoh.hservicios.entidades.Contrato;
 import com.equipoh.hservicios.entidades.Proveedor;
+import com.equipoh.hservicios.entidades.Servicio;
 import com.equipoh.hservicios.entidades.Usuario;
 import com.equipoh.hservicios.repositorios.ContratoRepositorio;
 import com.equipoh.hservicios.repositorios.ProveedorRepositorio;
+import com.equipoh.hservicios.servicios.ServicioServicio;
 import com.equipoh.hservicios.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -32,6 +34,8 @@ public class PortalControlador {
     private ProveedorRepositorio proveedorRepositorio;
     @Autowired
     private ContratoRepositorio contratoRepositorio;
+    @Autowired
+    private ServicioServicio servicioServicio;
 
     @GetMapping("/")
     public String index(ModelMap modelo) {
@@ -96,34 +100,12 @@ public class PortalControlador {
     @GetMapping("/perfil")
     public String perfil(HttpSession session, ModelMap modelo) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-
         List<Contrato> contratos = contratoRepositorio.buscaContratoSinAceptar(usuario.getId());
         modelo.put("usuario", usuario);
         modelo.addAttribute("contratos", contratos);
-        if (usuario.getRol().toString().equals("PROVEEDOR")) {
-            Double promedioValoracion = (double) Math.round(contratoRepositorio.buscapromedio(usuario.getId()));
-            modelo.put("promedio", promedioValoracion);
-            return "perfil";
-        } else {
-            return "redirect:/perfilu";
-        }
-    }
-
-    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN','ROLE_PROVEEDOR')")
-    @GetMapping("/perfiles")
-    public String perfiles(HttpSession session, ModelMap modelo) {
-        Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-
-        List<Contrato> contratos = contratoRepositorio.buscaContratoSinAceptar(usuario.getId());
-        modelo.put("usuario", usuario);
-        modelo.addAttribute("contratos", contratos);
-        if (usuario.getRol().toString().equals("PROVEEDOR")) {
-            Double promedioValoracion = (double) Math.round(contratoRepositorio.buscapromedio(usuario.getId()));
-            modelo.put("promedio", promedioValoracion);
-            return "perfilproveedor";
-        } else {
-            return "redirect:/perfilusuario";
-        }
+        List<Servicio> servicio = servicioServicio.listarServicios();
+        modelo.addAttribute("servicio", servicio);
+        return "perfil";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN','ROLE_PROVEEDOR')")
