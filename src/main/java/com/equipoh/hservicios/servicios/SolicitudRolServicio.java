@@ -80,7 +80,7 @@ public class SolicitudRolServicio {
         List<SolicitudRol> solicitudes = solicitudRolRepositorio.findAll();
         return solicitudes;
     }
-    
+
     public SolicitudRol getOne(String id) {
         return solicitudRolRepositorio.getById(id);
     }
@@ -92,14 +92,16 @@ public class SolicitudRolServicio {
             SolicitudRol solicitudRol = respuesta.get();
             solicitudRol.setEstado(Boolean.TRUE);
             if (solicitudRol.getProveedor() != null) {
+                System.out.println("Intenta cambiar de PROVEEDOR A USUARIO");
                 String idProveedor = solicitudRol.getProveedor().getId();
-                proveedorServicio.bajaProveedor(idProveedor);
                 usuarioServicio.cambioDeRol(idProveedor);
+                proveedorServicio.bajaProveedor(idProveedor);
                 solicitudRolRepositorio.save(solicitudRol);
             } else {
+                System.out.println("Intenta cambiar de USUARIO A PROVEEDOR");
                 String idUsuario = solicitudRol.getUsuario().getId();
-                usuarioServicio.bajaUsuario(idUsuario);
                 proveedorServicio.cambioDeRol(idUsuario, idSolicitud);
+                usuarioServicio.bajaUsuario(idUsuario);
                 solicitudRolRepositorio.save(solicitudRol);
             }
         } else {

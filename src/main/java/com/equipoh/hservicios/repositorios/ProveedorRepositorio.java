@@ -24,4 +24,12 @@ public interface ProveedorRepositorio extends JpaRepository<Proveedor, String> {
             "or p.nombre like %:buscar% " +
             "or p.apellido like %:buscar% order by p.precioXHora asc")
     public List<Proveedor> buscaProveedor(@Param("buscar") String buscar);
+
+    //------QUERYS AGREGADAS------
+    @Query("SELECT p FROM Proveedor p WHERE p.correo = :correo AND p.alta = FALSE")
+    public List<Proveedor> buscarCorreoProveedorInactivo(@Param("correo") String correo);
+    
+    @Query("SELECT p FROM Proveedor p WHERE p.correo = :correo AND p.alta = FALSE")
+    public Proveedor buscarCorreoInactivo(@Param("correo") String correo);
+    //----------------------------
 }
