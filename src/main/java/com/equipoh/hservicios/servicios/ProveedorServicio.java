@@ -55,6 +55,7 @@ public class ProveedorServicio {
             servicio = respuestaServicio.get();
         }
         Proveedor proveedor = new Proveedor();
+
         proveedor.setNombre(nombre);
         proveedor.setApellido(apellido);
         proveedor.setDireccion(direccion);
@@ -76,6 +77,7 @@ public class ProveedorServicio {
         proveedorRepositorio.save(proveedor);
 
     }
+
     @Transactional
     public void actualizar(MultipartFile archivo, String id, String nombre, String apellido, String direccion,
                            String telefono, String correo, String password, String password2, String rol,
@@ -115,27 +117,44 @@ public class ProveedorServicio {
     }
 
     @Transactional
-    public void cambioDeRol(String idProveedor, String idSolicitud) {
+    public void cambioDeRol(String idProveedor, String idSolicitud) throws MiException {
         Usuario usuario = usuarioServicio.getOne(idProveedor);
-        Proveedor proveedor = new Proveedor();
+        List<Proveedor> existe = proveedorRepositorio.buscarCorreoProveedorInactivo(usuario.getCorreo());
 
-        proveedor.setNombre(usuario.getNombre());
-        proveedor.setApellido(usuario.getApellido());
-        proveedor.setTelefono(usuario.getTelefono());
-        proveedor.setDireccion(usuario.getDireccion());
-        proveedor.setCorreo(usuario.getCorreo());
-        proveedor.setPassword(usuario.getPassword());
-        proveedor.setImagen(usuario.getImagen());
-        proveedor.setAlta(true);
-        proveedor.setFechaAlta(usuario.getFechaAlta());
-        proveedor.setRol(Rol.PROVEEDOR);
+        if (existe.isEmpty()) {
+            System.out.println("El Proveedor NO EXISTE - CREA UNO NUEVO");
+            Proveedor proveedor = new Proveedor();
 
-        SolicitudRol solicitudRol = solicitudRolServicio.getOne(idSolicitud);
-        proveedor.setExperiencia(solicitudRol.getExperiencia());
-        proveedor.setPrecioXHora(solicitudRol.getPrecioXHora());
-        proveedor.setServicio(solicitudRol.getServicio());
+            proveedor.setNombre(usuario.getNombre());
+            proveedor.setApellido(usuario.getApellido());
+            proveedor.setTelefono(usuario.getTelefono());
+            proveedor.setDireccion(usuario.getDireccion());
+            proveedor.setCorreo(usuario.getCorreo());
+            proveedor.setPassword(usuario.getPassword());
+            proveedor.setImagen(usuario.getImagen());
+            proveedor.setAlta(true);
+            proveedor.setFechaAlta(usuario.getFechaAlta());
+            proveedor.setRol(Rol.PROVEEDOR);
 
-        proveedorRepositorio.save(proveedor);
+            SolicitudRol solicitudRol = solicitudRolServicio.getOne(idSolicitud);
+            proveedor.setExperiencia(solicitudRol.getExperiencia());
+            proveedor.setPrecioXHora(solicitudRol.getPrecioXHora());
+            proveedor.setServicio(solicitudRol.getServicio());
+
+            proveedorRepositorio.save(proveedor);
+        } else {
+            System.out.println("El Proveedor EXISTE - DOY DE ALTA");
+            System.out.println(proveedorRepositorio.buscarCorreoInactivo(usuario.getCorreo()));
+            Proveedor proveedor = proveedorRepositorio.buscarCorreoInactivo(usuario.getCorreo());
+            System.out.println("USUARIO INACTIVO: " + usuario);
+
+            SolicitudRol solicitudRol = solicitudRolServicio.getOne(idSolicitud);
+            String experiencia = solicitudRol.getExperiencia();
+            Double precioXHora = solicitudRol.getPrecioXHora();
+            Servicio servicio = solicitudRol.getServicio();
+            String id = proveedor.getId();
+            altaProveedor(id, experiencia, precioXHora, servicio);
+        }
     }
 
     public Proveedor getOne(String id) {
@@ -148,6 +167,22 @@ public class ProveedorServicio {
         if (respuesta.isPresent()) {
             Proveedor proveedor = respuesta.get();
             proveedor.setAlta(Boolean.FALSE);
+            proveedorRepositorio.save(proveedor);
+        } else {
+            // En el supuesto que no existiera el usuario...
+            throw new MiException("No se pudo dar de baja el Usuario " + proveedorRepositorio.getById(id).getNombre() + ". El usuario no fue encontrado.");
+        }
+    }
+
+    @Transactional
+    public void altaProveedor(String id, String experiencia, Double precioXHora, Servicio servicio) throws MiException {
+        Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            Proveedor proveedor = respuesta.get();
+            proveedor.setExperiencia(experiencia);
+            proveedor.setPrecioXHora(precioXHora);
+            proveedor.setServicio(servicio);
+            proveedor.setAlta(Boolean.TRUE);
             proveedorRepositorio.save(proveedor);
         } else {
             // En el supuesto que no existiera el usuario...

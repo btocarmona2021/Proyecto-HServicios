@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
+ *
  * @author jorge
  */
 @Service
@@ -40,7 +41,6 @@ public class SolicitudRolServicio {
     private ServicioServicio servicioServicio;
 
     public void crearSolicitudRolUsuario(String idProveedor) throws MiException {
-
         System.out.println("SOLICITUD GENERADA POR UN PROVEEDOR A USUARIO");
         SolicitudRol solicitudRol = new SolicitudRol();
         solicitudRol.setFechaSolicitud(new Date());
@@ -57,7 +57,6 @@ public class SolicitudRolServicio {
     }
 
     public void crearSolicitudRolProveedor(String idProveedor, String idServicio, Double precioXHora, String experiencia) throws MiException {
-
         System.out.println("SOLICITUD GENERADA POR UN USUARIO A PROVEEDOR");
         SolicitudRol solicitudRol = new SolicitudRol();
         solicitudRol.setFechaSolicitud(new Date());
@@ -93,14 +92,16 @@ public class SolicitudRolServicio {
             SolicitudRol solicitudRol = respuesta.get();
             solicitudRol.setEstado(Boolean.TRUE);
             if (solicitudRol.getProveedor() != null) {
+                System.out.println("Intenta cambiar de PROVEEDOR A USUARIO");
                 String idProveedor = solicitudRol.getProveedor().getId();
-                proveedorServicio.bajaProveedor(idProveedor);
                 usuarioServicio.cambioDeRol(idProveedor);
+                proveedorServicio.bajaProveedor(idProveedor);
                 solicitudRolRepositorio.save(solicitudRol);
             } else {
+                System.out.println("Intenta cambiar de USUARIO A PROVEEDOR");
                 String idUsuario = solicitudRol.getUsuario().getId();
-                usuarioServicio.bajaUsuario(idUsuario);
                 proveedorServicio.cambioDeRol(idUsuario, idSolicitud);
+                usuarioServicio.bajaUsuario(idUsuario);
                 solicitudRolRepositorio.save(solicitudRol);
             }
         } else {
