@@ -37,7 +37,7 @@ const campos = {
     precioXHora: false,
     telefono: false,
     telefonou: false
-}
+};
 
 const validarFormulario = (e) => {
 	switch (e.target.name) {
@@ -73,7 +73,7 @@ const validarFormulario = (e) => {
 			validarCampo(expresiones.experiencia, e.target, 'experiencia');
 		break;
 	}
-}
+};
 
 const validarFormulariou = (e) => {
 	switch (e.target.name) {
@@ -101,7 +101,7 @@ const validarFormulariou = (e) => {
 		break;
               
 	}
-}
+};
 
 const validarCampo = (expresion, input, campo) => {
 	if(expresion.test(input.value)){
@@ -119,7 +119,7 @@ const validarCampo = (expresion, input, campo) => {
 		document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.add('formulario__input-error-activo');
 		campos[campo] = false;
 	}
-}
+};
 
 const validarPassword2 = () => {
 	const inputPassword1 = document.getElementById('password');
@@ -140,7 +140,7 @@ const validarPassword2 = () => {
 		document.querySelector(`#grupo__password2 .formulario__input-error`).classList.remove('formulario__input-error-activo');
 		campos['password'] = true;
 	}
-}
+};
 
 const validarPassword2u = () => {
 	const inputPassword1 = document.getElementById('passwordu');
@@ -161,7 +161,7 @@ const validarPassword2u = () => {
 		document.querySelector(`#grupo__password2u .formulario__input-error`).classList.remove('formulario__input-error-activo');
 		campos['passwordu'] = true;
 	}
-}
+};
 
 inputs.forEach((input) => {
 	input.addEventListener('keyup', validarFormulario);

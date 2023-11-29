@@ -29,8 +29,8 @@
                         <div class="caja__trasera-register">
                             <h3>¿Sos Proveedor de algun Servico?</h3>
                             <p>Registrese en nuetra web y llegue a mas Clientes</p>
-                            <button th:if="${session.usuariosession == null}" id="btn__registrarse">Regístrarse como Proveedor</button>
-                            <button sec:authorize="hasRole('ADMIN')" id="btn__registrarse">Regístrar Proveedor Nuevo</button>
+                            <button th:if="${session.usuariosession == null}" id="btn__registrarse">Registrarse como Proveedor</button>
+                            <button sec:authorize="hasRole('ADMIN')" id="btn__registrarse">Registrar Proveedor Nuevo</button>
                         </div>
                     </div>
 
@@ -39,7 +39,7 @@
 
                         <!--usuario-->
                         <form th:action="@{/usuario/registro}" class="formulario__login" id="formulario" method="POST" enctype="multipart/form-data">
-                            <h2>Regístrar Usuario</h2>
+                            <h2>Registrar Usuario</h2>
                             <!-- Grupo: nombre -->
                             <div class="formulario__grupo" id="grupo__nombreu">
                                 <div class="formulario__grupo-input">
@@ -115,7 +115,7 @@
 
 
 
-                            <button type="submit">Regístrarse</button>
+                            <button type="submit">Registrarse</button>
                         </form>
 
 
