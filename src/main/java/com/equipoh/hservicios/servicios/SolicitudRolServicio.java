@@ -10,6 +10,7 @@ import com.equipoh.hservicios.entidades.Usuario;
 import com.equipoh.hservicios.excepciones.MiException;
 import com.equipoh.hservicios.repositorios.ProveedorRepositorio;
 import com.equipoh.hservicios.repositorios.SolicitudRolRepositorio;
+import com.equipoh.hservicios.repositorios.UsuarioRepositorio;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -32,9 +33,12 @@ public class SolicitudRolServicio {
     @Autowired
     private UsuarioServicio usuarioServicio;
     @Autowired
+    private UsuarioRepositorio usuarioRepositorio;
+    @Autowired
     private SolicitudRolRepositorio solicitudRolRepositorio;
 
     public void crearSolicitudRolUsuario(String idProveedor) throws MiException {
+        System.out.println("SOLICITUD GENERADA POR UN PROVEEDOR A USUARIO");
         SolicitudRol solicitudRol = new SolicitudRol();
         solicitudRol.setFechaSolicitud(new Date());
         solicitudRol.setEstado(false);
@@ -49,8 +53,20 @@ public class SolicitudRolServicio {
         }
     }
 
-    public void crearSolicitudRolProveedor(String id, MultipartFile archivo) throws MiException {
-        /*CREAR SOLICITUD*/
+    public void crearSolicitudRolProveedor(String idProveedor, String idServicio, String precioXHora, String experiencia) throws MiException {
+        System.out.println("SOLICITUD GENERADA POR UN USUARIO A PROVEEDOR");
+        SolicitudRol solicitudRol = new SolicitudRol();
+        solicitudRol.setFechaSolicitud(new Date());
+        solicitudRol.setEstado(false);
+        
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(idProveedor);
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+            solicitudRol.setUsuario(usuario);
+            solicitudRolRepositorio.save(solicitudRol);
+        }else{
+           throw new MiException("No se pudo crear la Solicitud"); 
+        }
     }
 
     public List<SolicitudRol> listarSolicitudesRol() {
@@ -64,7 +80,7 @@ public class SolicitudRolServicio {
         if (respuesta.isPresent()) {
             SolicitudRol solicitudRol = respuesta.get();
             solicitudRol.setEstado(Boolean.TRUE);
-            
+           
             String idProveedor = solicitudRol.getProveedor().getId();
             proveedorServicio.bajaProveedor(idProveedor);
             usuarioServicio.cambioDeRol(idProveedor);

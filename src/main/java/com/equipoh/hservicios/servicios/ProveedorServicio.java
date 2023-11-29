@@ -6,6 +6,7 @@ package com.equipoh.hservicios.servicios;
 
 import com.equipoh.hservicios.entidades.Proveedor;
 import com.equipoh.hservicios.entidades.Servicio;
+import com.equipoh.hservicios.entidades.Usuario;
 import com.equipoh.hservicios.enumeracion.Rol;
 import com.equipoh.hservicios.excepciones.MiException;
 import com.equipoh.hservicios.repositorios.ImagenRepositorio;
@@ -35,14 +36,14 @@ public class ProveedorServicio {
     @Autowired
     private ImagenServicio imagenServicio;
     @Autowired
-    private ServicioServicio servicioServicio;
-    @Autowired
     private ImagenRepositorio imagenRepositorio;
+    @Autowired
+    private UsuarioServicio usuarioServicio;
 
     @Transactional
     public void registrarProveedor(MultipartFile archivo, String nombre, String apellido, String direccion,
-                                   String telefono, String correo, String password, String password2, String rol,
-                                   String experiencia, Double precioXHora, String idServicio) throws MiException {
+            String telefono, String correo, String password, String password2, String rol,
+            String experiencia, Double precioXHora, String idServicio) throws MiException {
 
         validar(nombre, correo, password, password2);
         Optional<Servicio> respuestaServicio = servicioRepositorio.findById(idServicio);
@@ -76,8 +77,8 @@ public class ProveedorServicio {
 
     @Transactional
     public void actualizar(MultipartFile archivo, String id, String nombre, String apellido, String direccion,
-                           String telefono, String correo, String password, String password2, String rol,
-                           String experiencia, Double precioXHora, String idServicio, String alta) throws MiException {
+            String telefono, String correo, String password, String password2, String rol,
+            String experiencia, Double precioXHora, String idServicio, String alta) throws MiException {
 
         validar(nombre, correo, password, password2);
 
@@ -87,7 +88,6 @@ public class ProveedorServicio {
         if (respuesta.isPresent()) {
             proveedor = respuesta.get();
         }
-
 
         proveedor.setNombre(nombre);
         proveedor.setApellido(apellido);
@@ -113,13 +113,30 @@ public class ProveedorServicio {
         proveedorRepositorio.save(proveedor);
     }
 
+    @Transactional
+    public void cambioDeRol(String idProveedor) {
+        Usuario usuario = usuarioServicio.getOne(idProveedor);
+        Proveedor proveedor = new Proveedor();
+
+        proveedor.setNombre(usuario.getNombre());
+        proveedor.setApellido(usuario.getApellido());
+        proveedor.setTelefono(usuario.getTelefono());
+        proveedor.setDireccion(usuario.getDireccion());
+        proveedor.setCorreo(usuario.getCorreo());
+        proveedor.setPassword(usuario.getPassword());
+        proveedor.setImagen(usuario.getImagen());
+        proveedor.setAlta(true);
+        proveedor.setRol(Rol.PROVEEDOR);
+
+        proveedorRepositorio.save(proveedor);
+    }
 
     public Proveedor getOne(String id) {
         return proveedorRepositorio.getOne(id);
     }
-    
+
     @Transactional
-    public void bajaProveedor (String id) throws MiException {
+    public void bajaProveedor(String id) throws MiException {
         Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
         if (respuesta.isPresent()) {
             Proveedor proveedor = respuesta.get();

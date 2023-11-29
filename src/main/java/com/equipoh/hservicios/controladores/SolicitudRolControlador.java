@@ -42,39 +42,53 @@ public class SolicitudRolControlador {
     public String cambioRol(HttpSession session, ModelMap modelo) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         modelo.put("usuario", usuario);
-        List<Servicio> servicios = servicioServicio.listarServicios();
-        modelo.put("usuario", usuario);
         return "solicitud_cambio_rol";
     }
 
     @PostMapping("/cambioRol")
-    public String crearCambioRol(String idProveedor, ModelMap modelo) {
+    public String crearCambioRol(String idProveedor, String rol, String idServicio, String precioXHora, String experiencia, ModelMap modelo) {
         System.out.println("CONTROLADOR CAMBIO ROL");
         System.out.println("id Proveedor:" + idProveedor);
-        try {
-            solicitudRolServicio.crearSolicitudRolUsuario(idProveedor);
-            modelo.put("exito", "La solicitud ha sido cargada con éxito");
-        } catch (MiException ex) {
-            modelo.put("error", ex.getMessage());
-            return "solicitud_cambio_rol";
+        System.out.println("TIPO DE USUARIO: " + rol);
+        System.out.println("Experiencia: " + experiencia);
+        System.out.println("precioXHora: " + precioXHora);
+        System.out.println("idServicio: " + idServicio);
+        if (rol.equalsIgnoreCase("PROVEEDOR")) {
+            try {
+                System.out.println("INGRESA COMO PROVEEDOR A CAMBIO USUARIO");
+                solicitudRolServicio.crearSolicitudRolUsuario(idProveedor);
+                modelo.put("exito", "La solicitud ha sido cargada con éxito");
+            } catch (MiException ex) {
+                modelo.put("error", ex.getMessage());
+                return "solicitud_cambio_rol";
+            }
+        } else {
+            try {
+                System.out.println("INGRESA COMO USUARIO A CAMBIO PROVEEDOR");
+                solicitudRolServicio.crearSolicitudRolProveedor(idProveedor, idServicio, precioXHora, experiencia);
+                modelo.put("exito", "La solicitud ha sido cargada con éxito");
+            } catch (MiException ex) {
+                modelo.put("error", ex.getMessage());
+                return "solicitud_cambio_rol";
+            }
         }
+
         return "panel";
     }
 
-    @GetMapping("/lista")      
+    @GetMapping("/lista")
     public String listar(ModelMap modelo) {
 
         List<SolicitudRol> solicitudes = solicitudRolServicio.listarSolicitudesRol();
 
-        System.out.println("SOLICITUDES: "+solicitudes);
         modelo.addAttribute("solicitudes", solicitudes);
 
         return "listar_solicitudes";
     }
-    
+
     @PostMapping("/actualizar")
-    public String actualizarEstado(String idSolicitud, ModelMap modelo){
-        System.out.println("idSolicitud: "+idSolicitud);
+    public String actualizarEstado(String idSolicitud, ModelMap modelo) {
+        System.out.println("idSolicitud: " + idSolicitud);
         try {
             solicitudRolServicio.actualizarSolicitudRol(idSolicitud);
             return "redirect:../lista";
