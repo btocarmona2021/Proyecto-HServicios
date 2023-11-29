@@ -19,10 +19,15 @@
         </li>
         <li class="nav-menu-item">
             <a href="/buscador" class="nav-menu-link nav-link">Buscar</a>
+
+
         </li>
         <li class="nav-menu-item">
-            <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}"  role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text=" 'Hola  '+ ${session.usuariosession.nombre} ">
+            <a th:href="@{/perfiles}" class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}"
+               role="button" data-bs-toggle="dropdown" aria-expanded="false"
+               th:text=" 'Hola  '+ ${session.usuariosession.nombre} ">
             </a>
+
         </li>
         <!-- <li class="nav-menu-item">
            <a href="#" class="nav-menu-link nav-link nav-menu-link_active"

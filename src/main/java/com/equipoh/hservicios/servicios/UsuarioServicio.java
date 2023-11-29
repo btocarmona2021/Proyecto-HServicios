@@ -226,6 +226,10 @@ public class UsuarioServicio implements UserDetailsService{
         return buscarUsuario(id);
     }
 
+    public Usuario getOne(String id) {
+        return usuarioRepositorio.getOne(id);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String correo) throws UsernameNotFoundException {
         Usuario usuario = usuarioRepositorio.buscarCorreoActivo(correo);
