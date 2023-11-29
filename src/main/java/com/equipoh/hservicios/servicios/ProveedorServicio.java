@@ -6,6 +6,8 @@ package com.equipoh.hservicios.servicios;
 
 import com.equipoh.hservicios.entidades.Proveedor;
 import com.equipoh.hservicios.entidades.Servicio;
+import com.equipoh.hservicios.entidades.SolicitudRol;
+import com.equipoh.hservicios.entidades.Usuario;
 import com.equipoh.hservicios.enumeracion.Rol;
 import com.equipoh.hservicios.excepciones.MiException;
 import com.equipoh.hservicios.repositorios.ImagenRepositorio;
@@ -35,9 +37,11 @@ public class ProveedorServicio {
     @Autowired
     private ImagenServicio imagenServicio;
     @Autowired
-    private ServicioServicio servicioServicio;
-    @Autowired
     private ImagenRepositorio imagenRepositorio;
+    @Autowired
+    private UsuarioServicio usuarioServicio;
+    @Autowired
+    private SolicitudRolServicio solicitudRolServicio;
 
     @Transactional
     public void registrarProveedor(MultipartFile archivo, String nombre, String apellido, String direccion,
@@ -86,7 +90,6 @@ public class ProveedorServicio {
             proveedor = respuesta.get();
         }
 
-
         proveedor.setNombre(nombre);
         proveedor.setApellido(apellido);
         proveedor.setDireccion(direccion);
@@ -111,9 +114,45 @@ public class ProveedorServicio {
         proveedorRepositorio.save(proveedor);
     }
 
+    @Transactional
+    public void cambioDeRol(String idProveedor, String idSolicitud) {
+        Usuario usuario = usuarioServicio.getOne(idProveedor);
+        Proveedor proveedor = new Proveedor();
+
+        proveedor.setNombre(usuario.getNombre());
+        proveedor.setApellido(usuario.getApellido());
+        proveedor.setTelefono(usuario.getTelefono());
+        proveedor.setDireccion(usuario.getDireccion());
+        proveedor.setCorreo(usuario.getCorreo());
+        proveedor.setPassword(usuario.getPassword());
+        proveedor.setImagen(usuario.getImagen());
+        proveedor.setAlta(true);
+        proveedor.setFechaAlta(usuario.getFechaAlta());
+        proveedor.setRol(Rol.PROVEEDOR);
+
+        SolicitudRol solicitudRol = solicitudRolServicio.getOne(idSolicitud);
+        proveedor.setExperiencia(solicitudRol.getExperiencia());
+        proveedor.setPrecioXHora(solicitudRol.getPrecioXHora());
+        proveedor.setServicio(solicitudRol.getServicio());
+
+        proveedorRepositorio.save(proveedor);
+    }
 
     public Proveedor getOne(String id) {
         return proveedorRepositorio.getOne(id);
+    }
+
+    @Transactional
+    public void bajaProveedor(String id) throws MiException {
+        Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            Proveedor proveedor = respuesta.get();
+            proveedor.setAlta(Boolean.FALSE);
+            proveedorRepositorio.save(proveedor);
+        } else {
+            // En el supuesto que no existiera el usuario...
+            throw new MiException("No se pudo dar de baja el Usuario " + proveedorRepositorio.getById(id).getNombre() + ". El usuario no fue encontrado.");
+        }
     }
 
     public List<Proveedor> listaProveedores() {
