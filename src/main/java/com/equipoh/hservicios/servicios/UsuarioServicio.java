@@ -137,7 +137,7 @@ public class UsuarioServicio implements UserDetailsService {
      * RESERVADO PARA CAMBIO DE TIPO DE USUARIO * NOTA: el método para cambio de
      * tipo de usuario, * crearía un usuario de tipo proveedor, y llamaría * al
      * método bajaUsuario para setear alta a FALSE. *
-     ***************************************************
+     * **************************************************
      */
     @Transactional
     public void cambioDeRol(String idProveedor) {
@@ -155,6 +155,10 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setRol(Rol.USUARIO);
 
         usuarioRepositorio.save(usuario);
+    }
+
+    public Usuario getOne(String id) {
+        return usuarioRepositorio.getOne(id);
     }
 
     @Transactional
@@ -216,8 +220,7 @@ public class UsuarioServicio implements UserDetailsService {
      * **************************
      * Método invocado por el metodo CONTROLADOR de IMAGEN que recibe las
      * solicitudes del perfil de usuario para cargar la imagen y devuelve la
-     * imagen al http
-     * ***************************
+     * imagen al http ***************************
      */
     public Usuario obtenerUsuario(String id) {
         return buscarUsuario(id);
