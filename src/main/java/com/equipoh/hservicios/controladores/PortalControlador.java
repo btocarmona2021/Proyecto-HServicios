@@ -96,27 +96,20 @@ public class PortalControlador {
     @GetMapping("/perfil")
     public String perfil(HttpSession session, ModelMap modelo) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-
         List<Contrato> contratos = contratoRepositorio.buscaContratoSinAceptar(usuario.getId());
         modelo.put("usuario", usuario);
         modelo.addAttribute("contratos", contratos);
-        if (usuario.getRol().toString().equals("PROVEEDOR")) {
-            Double promedioValoracion = (double) Math.round(contratoRepositorio.buscapromedio(usuario.getId()));
-            modelo.put("promedio", promedioValoracion);
-            return "perfil";
-        } else {
-            return "redirect:/perfilu";
-        }
+        return "perfil";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN','ROLE_PROVEEDOR')")
-    @GetMapping("/perfilu")
+    @GetMapping("/perfilusuario")
     public String perfilu(HttpSession session, ModelMap modelo) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         List<Contrato> contratos = contratoRepositorio.buscaContratoSinAceptar(usuario.getId());
         modelo.put("usuario", usuario);
         modelo.addAttribute("contratos", contratos);
-        return "perfilu";
+        return "perfilusuario";
     }
 
 }
