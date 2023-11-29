@@ -129,11 +129,6 @@ public class ProveedorServicio {
         proveedor.setAlta(true);
         proveedor.setFechaAlta(usuario.getFechaAlta());
         proveedor.setRol(Rol.PROVEEDOR);
-        
-        SolicitudRol solicitudRol = solicitudRolServicio.getOne(idSolicitud);
-        proveedor.setExperiencia(solicitudRol.getExperiencia());
-        proveedor.setPrecioXHora(solicitudRol.getPrecioXHora());
-        proveedor.setServicio(solicitudRol.getServicio());
 
         SolicitudRol solicitudRol = solicitudRolServicio.getOne(idSolicitud);
         proveedor.setExperiencia(solicitudRol.getExperiencia());
