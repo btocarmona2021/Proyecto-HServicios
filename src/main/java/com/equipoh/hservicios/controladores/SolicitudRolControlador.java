@@ -46,7 +46,7 @@ public class SolicitudRolControlador {
     }
 
     @PostMapping("/cambioRol")
-    public String crearCambioRol(String idProveedor, String rol, String idServicio, String precioXHora, String experiencia, ModelMap modelo) {
+    public String crearCambioRol(String idProveedor, String rol, String idServicio, Double precioXHora, String experiencia, ModelMap modelo) {
         System.out.println("CONTROLADOR CAMBIO ROL");
         System.out.println("id Proveedor:" + idProveedor);
         System.out.println("TIPO DE USUARIO: " + rol);
