@@ -32,10 +32,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UsuarioServicio implements UserDetailsService {
+public class UsuarioServicio implements UserDetailsService{
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
+    
     @Autowired
     private ImagenServicio imagenServicio;
     @Autowired
@@ -52,7 +53,7 @@ public class UsuarioServicio implements UserDetailsService {
         quiero que la siguiente linea llame al usuarioRepositorio.buscarCorreoUsuarioActivo(correo) que se fija si el correo no aparece en
         la lista de proveedores, y reemplazar el if actual por 
         if ((existe.size()==2) || (!existe.isEmpty())) {
-         */
+        */
         if ((!existe.isEmpty())) {
             throw new MiException("El usuario no ha podido ser registrado porque el correo ya ha sido registrado.");
         } else {
@@ -101,7 +102,7 @@ public class UsuarioServicio implements UserDetailsService {
             usuario.setCorreo(correo);
 
             usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-
+            
             // ********** INICIO ACTUALIZACIÓN DE LA IMAGEN **********
             //SI LA IMAGEN DEL USUARIO ES LA DEFAULT CREARA UNA NUEVA IMAGEN, CASO CONTRARIO ACTUALIZARA LA IMAGEN
             if (usuario.getImagen().getNombre().equalsIgnoreCase("defecto_image_service.png")) {
@@ -110,18 +111,21 @@ public class UsuarioServicio implements UserDetailsService {
                 usuario.setImagen(imagenServicio.actualizarImagen(archivo, usuario.getImagen().getId()));
             }
 
+
             // ********** FIN ACTUALIZACIÓN DE LA IMAGEN **********
+            
             /**
              * *************************************
              * ESPACIO RESERVADO CAMBIO DE USUARIO *
-             * *************************************
+             **************************************
              */
-            /**
+            
+            /*****************************
+             * La siguiente linea sirve SOLO si se quiere CONSERVAR el rol. 
+             * Caso contrario, ver de que el no se altere el ADMIN al intercambiar
+             * entre USUARIO y PROVEEDOR y viceversa
              * ***************************
-             * La siguiente linea sirve SOLO si se quiere CONSERVAR el rol. Caso
-             * contrario, ver de que el no se altere el ADMIN al intercambiar
-             * entre USUARIO y PROVEEDOR y viceversa ***************************
-             */
+            */
             usuario.setRol(usuario.getRol());
 
             usuario.setAlta(Boolean.TRUE);
@@ -152,18 +156,13 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setPassword(proveedor.getPassword());
         usuario.setImagen(proveedor.getImagen());
         usuario.setAlta(true);
-        usuario.setFechaAlta(proveedor.getFechaAlta());
         usuario.setRol(Rol.USUARIO);
 
         usuarioRepositorio.save(usuario);
     }
 
-    public Usuario getOne(String id) {
-        return usuarioRepositorio.getOne(id);
-    }
-
     @Transactional
-    public void bajaUsuario(String id) throws MiException {
+    public void bajaUsuario (String id) throws MiException {
         Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
         if (respuesta.isPresent()) {
             Usuario usuario = respuesta.get();
@@ -205,24 +204,24 @@ public class UsuarioServicio implements UserDetailsService {
             throw new MiException("Las contraseñas ingresadas NO son iguales.");
         }
     }
-
+    
+    
     @Transactional
     // Método que devuelve el usuario por id
     public Usuario buscarUsuario(String id) {
         return usuarioRepositorio.buscarUsuario(id);
     }
-
+    
+    
     // Este metodo busca un 'DATO' en la base de datos una información solicitada por el BUSCADOR
     public List<Usuario> buscarDato(String dato) {
         return usuarioRepositorio.buscarDato(dato);
     }
 
-    /**
-     * **************************
-     * Método invocado por el metodo CONTROLADOR de IMAGEN que recibe las
-     * solicitudes del perfil de usuario para cargar la imagen y devuelve la
-     * imagen al http ***************************
-     */
+    /**************************** 
+     * Método invocado por el metodo CONTROLADOR de IMAGEN que recibe las solicitudes del
+     * perfil de usuario para cargar la imagen y devuelve la imagen al http
+     * ****************************/
     public Usuario obtenerUsuario(String id) {
         return buscarUsuario(id);
     }
@@ -230,7 +229,7 @@ public class UsuarioServicio implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String correo) throws UsernameNotFoundException {
         Usuario usuario = usuarioRepositorio.buscarCorreoActivo(correo);
-        if (usuario != null) {
+         if (usuario != null) {
 
             List<GrantedAuthority> permisos = new ArrayList();
 
