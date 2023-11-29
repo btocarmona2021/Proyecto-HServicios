@@ -36,12 +36,18 @@ body {
 
 .main {
     grid-area: main;
-    background-color: #fff;
+    background-image:  url("../img/caru02.jpg");
 
     background-repeat: no-repeat;
     background-size: 120%;
 }
+.mainDash {
+    grid-area: main;
+    background-image: url("../img/Navbar.jpg");
 
+    background-repeat: no-repeat;
+    background-size: 120%;
+}
 .footer {
     grid-area: footer;
     background-color: #373DBA;
@@ -90,11 +96,7 @@ body {
     }
 }
 
-img {
-    max-width: 100%;
-    width: 60px;
 
-}
 
 /**cartas de categorias***************/
 
@@ -190,12 +192,12 @@ button {
 
 .button2 {
     background-color: white;
-    color: black;
-    border: 2px solid #008CBA;
+    color: #373DBA;
+    border: 2px solid #373DBA;
 }
 
 .button2:hover {
-    background-color: #008CBA;
+    background-color: #373DBA;
     color: white;
 }
 
@@ -627,7 +629,7 @@ button {
     display: none;
 }
 .imgindex{
-    background-image: url("../img/caru01.jpg");
+    background-image: url("../img/caru05.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -773,6 +775,7 @@ li{
 
 .link-container {
     margin-bottom: 10px;
+    color: white;
 }
 
 .link-container a {
@@ -796,11 +799,17 @@ li{
     background-color: #9ee493;
 }
 h1 {
-    color: #373DBA; /* Color del texto */
+    /*color: #373DBA;  Color del texto */
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+    font-size: xx-large;
     font-family: 'Arial', sans-serif; /* Tipo de fuente */
     text-align: center; /* Alineación del texto */
     margin-top: 20px; /* Margen superior */
     margin-bottom: 20px; /* Margen inferior */
 }
-
-
+            
+input{
+                
+    border-radius: 10px;
+}    
