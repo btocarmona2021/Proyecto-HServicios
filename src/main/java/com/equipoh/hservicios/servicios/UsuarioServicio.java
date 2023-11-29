@@ -141,22 +141,33 @@ public class UsuarioServicio implements UserDetailsService {
      * **************************************************
      */
     @Transactional
-    public void cambioDeRol(String idProveedor) {
+    public void cambioDeRol(String idProveedor) throws MiException {
         Proveedor proveedor = proveedorServicio.getOne(idProveedor);
-        Usuario usuario = new Usuario();
+        List<Usuario> existe = usuarioRepositorio.buscarCorreoUsuarioInactivo(proveedor.getCorreo());
 
-        usuario.setNombre(proveedor.getNombre());
-        usuario.setApellido(proveedor.getApellido());
-        usuario.setTelefono(proveedor.getTelefono());
-        usuario.setDireccion(proveedor.getDireccion());
-        usuario.setCorreo(proveedor.getCorreo());
-        usuario.setPassword(proveedor.getPassword());
-        usuario.setImagen(proveedor.getImagen());
-        usuario.setAlta(true);
-        usuario.setFechaAlta(proveedor.getFechaAlta());
-        usuario.setRol(Rol.USUARIO);
+        if (existe.isEmpty()) {
+            System.out.println("El Usuario NO EXISTE - CREA UNO NUEVO");
+            Usuario usuario = new Usuario();
+            usuario.setNombre(proveedor.getNombre());
+            usuario.setApellido(proveedor.getApellido());
+            usuario.setTelefono(proveedor.getTelefono());
+            usuario.setDireccion(proveedor.getDireccion());
+            usuario.setCorreo(proveedor.getCorreo());
+            usuario.setPassword(proveedor.getPassword());
+            usuario.setImagen(proveedor.getImagen());
+            usuario.setAlta(true);
+            usuario.setFechaAlta(proveedor.getFechaAlta());
+            usuario.setRol(Rol.USUARIO);
 
-        usuarioRepositorio.save(usuario);
+            usuarioRepositorio.save(usuario);
+        } else {
+            System.out.println("El Usuario EXISTE - DOY DE ALTA");
+            System.out.println(usuarioRepositorio.buscarCorreoInactivo(proveedor.getCorreo()));
+            Usuario usuario = usuarioRepositorio.buscarCorreoInactivo(proveedor.getCorreo());
+            System.out.println("USUARIO INACTIVO: " + usuario);
+            String id = usuario.getId();
+            altaUsuario(id);
+        }
     }
 
     public Usuario getOne(String id) {
@@ -169,6 +180,19 @@ public class UsuarioServicio implements UserDetailsService {
         if (respuesta.isPresent()) {
             Usuario usuario = respuesta.get();
             usuario.setAlta(Boolean.FALSE);
+            usuarioRepositorio.save(usuario);
+        } else {
+            // En el supuesto que no existiera el usuario...
+            throw new MiException("No se pudo dar de baja el Usuario " + usuarioRepositorio.getById(id).getNombre() + ". El usuario no fue encontrado.");
+        }
+    }
+
+    @Transactional
+    public void altaUsuario(String id) throws MiException {
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+            usuario.setAlta(Boolean.TRUE);
             usuarioRepositorio.save(usuario);
         } else {
             // En el supuesto que no existiera el usuario...
