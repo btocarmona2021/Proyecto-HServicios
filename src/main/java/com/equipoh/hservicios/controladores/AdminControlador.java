@@ -21,4 +21,14 @@ public class AdminControlador {
         return "panel";
     }
 
+    @GetMapping("/imagendefault")
+    public String imagendefault() {
+        return "cargaimagen";
+    }
+
+    @GetMapping("/pcensuradas")
+    public String pcensuradas() {
+        return "palabrascensuradas";
+    }
+
 }

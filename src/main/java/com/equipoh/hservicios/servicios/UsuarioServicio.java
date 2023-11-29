@@ -208,21 +208,15 @@ public class UsuarioServicio implements UserDetailsService{
             throw new MiException("Las contraseñas ingresadas NO son iguales.");
         }
     }
-    
-    
+
+
     @Transactional
     // Método que devuelve el usuario por id
     public Usuario buscarUsuario(String id) {
         return usuarioRepositorio.buscarUsuario(id);
     }
-    
-    
-    // Este metodo busca un 'DATO' en la base de datos una información solicitada por el BUSCADOR
-    public List<Usuario> buscarDato(String dato) {
-        return usuarioRepositorio.buscarDato(dato);
-    }
 
-    /**************************** 
+    /****************************
      * Método invocado por el metodo CONTROLADOR de IMAGEN que recibe las solicitudes del
      * perfil de usuario para cargar la imagen y devuelve la imagen al http
      * ****************************/
@@ -230,8 +224,14 @@ public class UsuarioServicio implements UserDetailsService{
         return buscarUsuario(id);
     }
 
+    // Este metodo busca un 'DATO' en la base de datos una información solicitada por el BUSCADOR
+
     public Usuario getOne(String id) {
         return usuarioRepositorio.getOne(id);
+    }
+
+    public List<Usuario> buscarDato(String dato) {
+        return usuarioRepositorio.buscarDato(dato);
     }
 
     @Override

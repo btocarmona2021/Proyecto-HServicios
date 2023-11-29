@@ -40,6 +40,7 @@ public class SolicitudRolServicio {
     private ServicioServicio servicioServicio;
 
     public void crearSolicitudRolUsuario(String idProveedor) throws MiException {
+
         System.out.println("SOLICITUD GENERADA POR UN PROVEEDOR A USUARIO");
         SolicitudRol solicitudRol = new SolicitudRol();
         solicitudRol.setFechaSolicitud(new Date());
@@ -56,6 +57,7 @@ public class SolicitudRolServicio {
     }
 
     public void crearSolicitudRolProveedor(String idProveedor, String idServicio, Double precioXHora, String experiencia) throws MiException {
+
         System.out.println("SOLICITUD GENERADA POR UN USUARIO A PROVEEDOR");
         SolicitudRol solicitudRol = new SolicitudRol();
         solicitudRol.setFechaSolicitud(new Date());

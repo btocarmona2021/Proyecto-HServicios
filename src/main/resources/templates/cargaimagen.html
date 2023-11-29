@@ -1,15 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Carga de imagen</title>
+    <title>Carga de imagen por defecto de Registrados</title>
 </head>
 <body>
 <form th:action="@{/imagen/cargado}" method="post" enctype="multipart/form-data">
     <h1>Carga de imagen por defecto</h1>
-    <input type="file">
+    <input type="file" name="archivo">
     <input type="submit">
 </form>
 
+<br>
+
+<form th:action="@{/imagen/editado}" method="post" enctype="multipart/form-data">
+    <h1>Edita la imagen por defecto</h1>
+    <input type="file" name="archivo">
+    <input type="submit">
+    <h4>Si ya cuentas con una imagen por defecto puedes actualizarla aqui</h4>
+</form>
 </body>
 </html>
