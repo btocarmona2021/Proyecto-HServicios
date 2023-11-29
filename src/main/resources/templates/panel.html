@@ -34,9 +34,9 @@
             <div class="link-container">
                 <a sec:authorize="hasRole('ADMIN')" href="/servicio/lista">Ver todos los servicios</a>
             </div>
-
-
-
+            <div class="link-container">
+                <a sec:authorize="hasRole('ADMIN')" href="/solicitudRol/lista">Ver todas las Solicitudes</a>
+            </div>
 
         </article>
         <footer th:replace="frangments/footer:: footer"></footer>

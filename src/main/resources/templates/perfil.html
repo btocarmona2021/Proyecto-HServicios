@@ -1,123 +1,74 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/frangments/head :: head"></head>
+    <head th:replace="/frangments/head :: head"></head>
 
-<body class="grid-container">
-<header class="header">
-    <nav th:replace="/frangments/navbar :: nav"></nav>
-</header>
-<article class="main">
-    <!-- ERROR/EXITO -->
-    <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError">
-        <div class="card-body">
-            <h5 class="card-title">Error 👎</h5>
-            <p class="card-text" th:text="${error}"></p>
-        </div>
-    </div>
-    <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito">
-        <div class="card-body">
-            <h5 class="card-title">Exito!</h5>
-            <p class="card-text" th:text="${exito}"></p>
-        </div>
-    </div>
-
-    <!-- FORMULARIO -->
-
-
-    <main>
-        <div>
-            <h1>PERFIL</h1>
-            <h3 th:if="${session.usuariosession != null}"
-                th:text=" 'Bienvenido '+ ${session.usuariosession.nombre}"></h3>
-        </div>
-        <div class="container">
-            <a class="d-flex align-items-center">
-                <img class="logo" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" alt="img_usuario">
-            </a>
-        </div>
-        <div class="container-fluid m-5 contenedor">
-
-
-            <img th:src="@{imagen/perfil/__${usuario.id}__}" alt="" class="form-control">
-            <label th:text="${usuario.nombre}" class="form-control"></label>
-            <label th:text="${usuario.apellido}" class="form-control"></label>
-            <label th:text="${usuario.correo}" class="form-control"></label>
-
-
-            <table border="2">
-                <tr>
-                    <th>Nombre cliente</th>
-                    <th>Trabajo a Realizar</th>
-                    <th>Fecha de Solicitud</th>
-                    <th>Aceptación de trabajo</th>
-                </tr>
-                <tr th:each="contrato: ${contratos}" th:if="${contrato.getInicioT() ==false}">
-                    <td th:text="${contrato.getUsuario().getNombre() +' '+ contrato.getUsuario().getApellido() }"></td>
-                    <td th:text="${contrato.getDescripcionTrabajo()}"></td>
-                    <td th:text="${contrato.getFechaSolicitud()}"></td>
-                    <td><a th:href="@{/contrato/contratoaceptado/__${contrato.getId()}__}">Aceptar</a></td>
-                </tr>
-
-            </table>
-            <br>
-            <br>
-
-            <table border="2">
-                <tr>
-                    <th>Nombre cliente</th>
-                    <th>Trabajo en proceso</th>
-                    <th>Finalizar trabajo</th>
-                </tr>
-                <tr th:each="contrato: ${contratos}"
-                    th:if="${contrato.inicioT ==true and contrato.finT ==false}">
-                    <td th:text="${contrato.getUsuario().getNombre() +' '+ contrato.getUsuario().getApellido() }"></td>
-                    <td th:text="${contrato.getDescripcionTrabajo()}"></td>
-                    <td><a th:href="@{/contrato/finalizatrabajo/__${contrato.getId()}__}">Finalizar</a></td>
-                </tr>
-
-            </table>
-            <br>
-            <br>
-            <table border="2">
-                <tr>
-                    <th>Nombre cliente</th>
-                    <th>Trabajo Finalizado</th>
-                    <th>Comentario del cliente</th>
-                </tr>
-                <tr th:each="contrato: ${contratos}"
-                    th:if="${contrato.finT ==true}">
-                    <td th:text="${contrato.getUsuario().getNombre() +' '+ contrato.getUsuario().getApellido() }"></td>
-                    <td th:text="${contrato.getDescripcionTrabajo()}"></td>
-                    <td th:text="${contrato.getComentario().getContenido()}"></td>
-                </tr>
-
-            </table>
-
-
-            <div class="form-group my-3">
-
-                <input type="hidden" class="form-control" name="id" th:value="${usuario.id}">
+    <body class="grid-container">
+        <header class="header">
+            <nav th:replace="/frangments/navbar :: nav"></nav>
+        </header>
+        <article class="main">
+            <!-- ERROR/EXITO -->
+            <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError">
+                <div class="card-body">
+                    <h5 class="card-title">Error 👎</h5>
+                    <p class="card-text" th:text="${error}"></p>
+                </div>
+            </div>
+            <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito">
+                <div class="card-body">
+                    <h5 class="card-title">Exito!</h5>
+                    <p class="card-text" th:text="${exito}"></p>
+                </div>
             </div>
 
+            <!-- FORMULARIO -->
 
-            <a href="/inicio">
-                <button class="btn btn-primary mt-3 botones">Volver</button>
-            </a>
-        </div>
-    </main>
-    <div class="btn-holder">
 
-        <button class="button2" onclick='goBack()'>Atrás</button>
-        <script>
-            function goBack() {
-                history.back();
-            }
-        </script>
+            <main>
+                <div>
+                    <h1>PERFIL</h1>
+                    <h3 th:if="${session.usuariosession != null}"
+                        th:text=" 'Bienvenido '+ ${session.usuariosession.nombre}"></h3>
+                </div>
+                <div class="container">
+                    <a class="d-flex align-items-center">
+                        <img th:src="@{/imagen/perfil/__${usuario.id}__}" alt="img_usuario">
+                    </a>
+                </div>
+                <h1>DATOS DEL USUARIO</h1>
+                <div class="container-fluid m-5 contenedor">
+                    <img th:src="@{imagen/perfil/__${usuario.id}__}" alt="" class="form-control">
+                    <br>
+                    <label th:text="${usuario.nombre}" class="form-control"></label>
+                    <br>
+                    <label th:text="${usuario.apellido}" class="form-control"></label>
+                    <br>
+                    <label th:text="${usuario.telefono}" class="form-control"></label>
+                    <br>
+                    <label th:text="${usuario.correo}" class="form-control"></label>
+                    <br>
+                    <label th:text="${usuario.rol}" class="form-control"></label>
+                    <br>
+                    <label th:text="${usuario.experiencia}" class="form-control"></label>
+                    <br>
+                    <label th:text="${usuario.precioXHora}" class="form-control"></label>
+                    <br>
+                    <label th:text="${usuario.servicio.rubro}" class="form-control"></label>
+                    <br>
+                    <a href="/inicio">
+                        <button class="btn btn-primary mt-3 botones">Volver</button>
+                    </a>
+                    <form class="formulario" th:action="@{/solicitudRol/cambioRol}" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <input type="hidden" name="idProveedor" th:value="${usuario.id}">
+                        </div>
+                        <button type="submit" class="btn btn-primary"> Enviar Solicitud de Cambio de ROL </button>
+                    </form>
+                </div>
+            </main>
 
-    </div>
-
-</article>
-<footer th:replace="frangments/footer:: footer"></footer>
-<script src="/script.js"></script>
-</body>
+        </article>
+        <footer th:replace="frangments/footer:: footer"></footer>
+        <script src="/script.js"></script>
+    </body>
 </html>
