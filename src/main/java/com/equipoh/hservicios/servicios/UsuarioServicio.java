@@ -157,6 +157,7 @@ public class UsuarioServicio implements UserDetailsService{
         usuario.setPassword(proveedor.getPassword());
         usuario.setImagen(proveedor.getImagen());
         usuario.setAlta(true);
+        usuario.setFechaAlta(proveedor.getFechaAlta());
         usuario.setRol(Rol.USUARIO);
 
         usuarioRepositorio.save(usuario);

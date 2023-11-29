@@ -79,6 +79,10 @@ public class SolicitudRolServicio {
         List<SolicitudRol> solicitudes = solicitudRolRepositorio.findAll();
         return solicitudes;
     }
+    
+    public SolicitudRol getOne(String id) {
+        return solicitudRolRepositorio.getById(id);
+    }
 
     public SolicitudRol getOne(String id) {
         return solicitudRolRepositorio.getById(id);
