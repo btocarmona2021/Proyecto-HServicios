@@ -6,7 +6,7 @@
 <header class="header">
     <nav th:replace="/frangments/navbar :: nav"></nav>
 </header>
-<article class="main">
+<article class="mainDash">
     <!-- ERROR/EXITO -->
     <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError">
         <div class="card-body">
@@ -26,58 +26,95 @@
 
     <main>
         <div>
-            <h1>PERFIL</h1>
-            <h3 th:if="${session.usuariosession != null}"
-                th:text=" 'Bienvenido '+ ${session.usuariosession.nombre}"></h3>
+             <h1 sec:authorize="hasRole('ADMIN')">Perfil de Administrador</h1>
+            <h1 sec:authorize="hasRole('USUARIO')">Perfil de Usuario</h1>
+            <h1 sec:authorize="hasRole('PROVEEDOR')">Perfil de Proveedor</h1>
         </div>
-        <div class="container">
-            <a class="d-flex align-items-center">
-                <img th:src="@{/imagen/perfil/__${usuario.id}__}" alt="img_usuario">
-            </a>
-        </div>
-        <h1>DATOS DEL USUARIO</h1>
+        
         <div class="container-fluid m-5 contenedor">
-            <img th:src="@{imagen/perfil/__${usuario.id}__}" alt="" class="form-control">
+
+
+            
+
+
+            <table  class="tablaPerfil" sec:authorize="hasRole('PROVEEDOR')" border="2">
+                <tr>
+                    <th>Nombre cliente</th>
+                    <th>Trabajo a Realizar</th>
+                    <th>Fecha de Solicitud</th>
+                    <th>Aceptación de trabajo</th>
+                </tr>
+                <tr th:each="contrato: ${contratos}" th:if="${contrato.getInicioT() ==false}">
+                    <td th:text="${contrato.getUsuario().getNombre() +' '+ contrato.getUsuario().getApellido() }"></td>
+                    <td th:text="${contrato.getDescripcionTrabajo()}"></td>
+                    <td th:text="${contrato.getFechaSolicitud()}"></td>
+                    <td><a th:href="@{/contrato/contratoaceptado/__${contrato.getId()}__}">Aceptar</a></td>
+                </tr>
+
+            </table>
             <br>
-            <label th:text="${usuario.nombre}" class="form-control"></label>
             <br>
-            <label th:text="${usuario.apellido}" class="form-control"></label>
+            
+            
+
+            <table class="tablaPerfil" sec:authorize="hasRole('PROVEEDOR')" border="2">
+                <tr>
+                    <th>Nombre cliente</th>
+                    <th>Trabajo en proceso</th>
+                    <th>Finalizar trabajo</th>
+                </tr>
+                <tr th:each="contrato: ${contratos}"
+                    th:if="${contrato.inicioT ==true and contrato.finT ==false}">
+                    <td th:text="${contrato.getUsuario().getNombre() +' '+ contrato.getUsuario().getApellido() }"></td>
+                    <td th:text="${contrato.getDescripcionTrabajo()}"></td>
+                    <td><a th:href="@{/contrato/finalizatrabajo/__${contrato.getId()}__}">Finalizar</a></td>
+                </tr>
+
+            </table>
             <br>
-            <label th:text="${usuario.telefono}" class="form-control"></label>
             <br>
-            <label th:text="${usuario.correo}" class="form-control"></label>
-            <br>
-            <label th:text="${usuario.rol}" class="form-control"></label>
-            <br>
-            <label sec:authorize="hasRole('PROVEEDOR')" th:text="${usuario.experiencia}" class="form-control"></label>
-            <br>
-            <label sec:authorize="hasRole('PROVEEDOR')" th:text="${usuario.precioXHora}" class="form-control"></label>
-            <br>
-            <label sec:authorize="hasRole('PROVEEDOR')" th:text="${usuario.servicio.rubro}"
-                   class="form-control"></label>
-            <br>
-            <a href="/inicio">
-                <button class="btn btn-primary mt-3 botones">Volver</button>
-            </a>
-            <form class="formulario" th:action="@{/solicitudRol/cambioRol}" method="POST" enctype="multipart/form-data">
-                <div class="form-group">
-                    <input type="hidden" name="idProveedor" th:value="${usuario.id}">
-                    <input type="hidden" name="rol" th:value="${usuario.rol}">
-                    <select name="idServicio" class="form-control">
-                        <option value="">Seleccionar Servicio</option>
-                        <option th:each="servicio : ${servicio}"
-                                th:value="${servicio.id}"
-                                th:text="${servicio.rubro}"/>
-                    </select>
-                    <input type="number" size="30" class="form-group" name="precioXHora" placeholder="Precio por Hora"
-                           th:value="${precioXHora}">
-                    <input type="text" size="30" class="form-group" name="experiencia" placeholder="Experiencia"
-                           th:value="${experiencia}">
-                </div>
-                <button type="submit" class="btn btn-primary"> Enviar Solicitud de Cambio de ROL</button>
-            </form>
+            <table  class="tablaPerfil" border="2">
+                <tr>
+                    <th sec:authorize="hasRole('PROVEEDOR')" >Nombre cliente</th>
+                    <th sec:authorize="hasRole('USUARIO')" >Nombre Proveedor</th>
+                    <th>Trabajo Finalizado</th>
+                    <th colspan="2">Comentario del cliente</th>
+                    
+                </tr>
+                <tr th:each="contrato: ${contratos}"
+                    th:if="${contrato.finT ==true}">
+                    <td sec:authorize="hasRole('PROVEEDOR')" th:text="${contrato.getUsuario().getNombre() +' '+ contrato.getUsuario().getApellido() }"></td>
+                    <td sec:authorize="hasRole('USUARIO')" th:text="${contrato.getProveedor().getNombre() +' '+ contrato.getProveedor().getApellido() }"></td>
+                   
+                    <td th:text="${contrato.getDescripcionTrabajo()}"></td>
+                    <td th:text="${contrato.getComentario().getContenido()}"></td>
+                    <!-- comment   <td th:text="${contrato.comentario.estado == true ? contrato.comentario.contenido : 'Su comentario ha sido censurado, cuide el vocabulario'}"></td> --> 
+                    <td><button class="button2"> <a th:href="@{/comentario/actualizarcomentario/__${contrato.comentario.idcomentario}__}">Comentar</a></button>
+                    </td>
+                </tr>
+
+            </table>
+
+
+            <div class="form-group my-3">
+
+                <input type="hidden" class="form-control" name="id" th:value="${usuario.id}">
+            </div>
+
+
+            
         </div>
     </main>
+    <div class="btn-holder">
+
+        <button class="button2" onclick='goBack()'>Atrás</button>
+        <script>
+            function goBack() {
+                history.back();
+            }
+        </script>
+
+    </div>
 
 </article>
 <footer th:replace="frangments/footer:: footer"></footer>
