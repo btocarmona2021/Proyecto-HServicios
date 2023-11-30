@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <head th:replace="/frangments/head :: head"></head>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="es">
+<head th:replace="/frangments/head :: head"
+</head>
 
-    <body class="grid-container">
-        <header class="header">
-            <nav th:replace="/frangments/navbar :: nav">    </nav>
-        </header>
+<body class="grid-container">
+<header class="header">
+    <nav th:replace="/frangments/navbar :: nav"></nav>
+</header>
 
-        <article class="main">
+<article class="main">
 
-            <main>
+    <main>
 
                 <div class="contenedor__todo">
                     <div class="caja__trasera">
@@ -18,16 +19,16 @@
 
                             <h3>¿Aún no tienes una cuenta?</h3>
 
-                            <p>Registrate para encontrar los mejores servicios</p>
+                            <p>Regístrate para encontrar los mejores servicios</p>
 
                             <button th:if="${session.usuariosession == null}" id="btn__iniciar-sesion">Registrarse como Usuario</button>
                             <button sec:authorize="hasRole('ADMIN')" id="btn__iniciar-sesion">Registrar Usuario Nuevo</button>
                         </div>
                         <div class="caja__trasera-register">
-                            <h3>¿Sos Proveedor de algun Servicio?</h3>
-                            <p>Registrese en nuetra web y llegue a mas Clientes</p>
-                            <button th:if="${session.usuariosession == null}" id="btn__registrarse">Registrarse como Proveedor</button>
-                            <button sec:authorize="hasRole('ADMIN')" id="btn__registrarse">Registrar Proveedor Nuevo</button>
+                            <h3>¿Sos Proveedor de algun Servico?</h3>
+                             <p>Registrese en nuetra web y llegue a mas Clientes</p>
+                            <button th:if="${session.usuariosession == null}" id="btn__registrarse">Regístrarse como Proveedor</button>
+                            <button sec:authorize="hasRole('ADMIN')" id="btn__registrarse">Regístrar Proveedor Nuevo</button>
                         </div>
                     </div>
 
@@ -36,8 +37,9 @@
 
                         <!--usuario-->
                         <form th:action="@{/usuario/registro}" class="formulario__login" id="formulario" method="POST" enctype="multipart/form-data">
-                            <h2>Registrar Usuario</h2>
-                            <!-- Grupo: nombre -->
+                            <h2>Regístrar Usuario</h2>
+                            <h4 th:text="${error}"></h4>
+                             <!-- Grupo: nombre -->
                             <div class="formulario__grupo" id="grupo__nombreu">
                                 <div class="formulario__grupo-input">
                                     <input type="text" size="30" class="formulario__input" name="nombreu" id="nombreu" placeholder="Nombre" th:value="${nombrep}">
@@ -53,7 +55,7 @@
                                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                                 </div>
                                 <p class="formulario__input-error">Ingrese su Apellido.</p>
-                            </div>               
+                            </div>
                             <!-- Grupo: correo -->
                             <div class="formulario__grupo" id="grupo__correou">
 
@@ -62,9 +64,9 @@
                                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                                 </div>
                                 <p class="formulario__input-error">formato del correo ej: correo@correo.com</p>
-                            </div> 
+                            </div>
 
-                            <!-- Grupo: domicilio -->
+                           <!-- Grupo: domicilio -->
                             <div class="formulario__grupo" id="grupo__direccionu">
 
                                 <div class="formulario__grupo-input">
@@ -72,7 +74,7 @@
                                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                                 </div>
                                 <p class="formulario__input-error">Ingrese su Domicilio.</p>
-                            </div>   
+                            </div>
                             <!-- Grupo: telefono -->
 
                             <div class="formulario__grupo" id="grupo__telefonou">
@@ -82,8 +84,8 @@
                                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                                 </div>
                                 <p class="formulario__input-error">Ingrese su N° de Telefono.</p>
-                            </div> 
-                            <div class="formulario__grupo" id="grupo__password">
+                            </div>
+ <div class="formulario__grupo" id="grupo__password">
 
                                 <div class="formulario__grupo-input">
                                     <input type="password" class="formulario__input" name="password" id="password" placeholder="PASSWORD"
@@ -112,13 +114,14 @@
 
 
 
-                            <button type="submit">Registrarse</button>
+                            <button type="submit">Regístrarse</button>
                         </form>
 
 
                         <!--proveedor-->
                         <form th:action="@{/proveedor/registro/}" id="formulario" class="formulario__register" method="POST" enctype="multipart/form-data">
                             <h2>Registrar Proveedor</h2>
+                            <h4 th:text="${error}"></h4>
                             <!-- Grupo: nombre -->
                             <div class="formulario__grupo" id="grupo__nombre">
                                 <div class="formulario__grupo-input">
@@ -135,7 +138,7 @@
                                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                                 </div>
                                 <p class="formulario__input-error">Ingrese su Apellido.</p>
-                            </div>               
+                            </div>
                             <!-- Grupo: correo -->
                             <div class="formulario__grupo" id="grupo__correo">
 
@@ -144,7 +147,7 @@
                                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                                 </div>
                                 <p class="formulario__input-error">formato del correo ej: correo@correo.com</p>
-                            </div> 
+                            </div>
 
 
                             <!-- Grupo: domicilio -->
@@ -155,7 +158,7 @@
                                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                                 </div>
                                 <p class="formulario__input-error">Ingrese su Domicilio.</p>
-                            </div>   
+                            </div>
                             <!-- Grupo: telefono -->
 
                             <div class="formulario__grupo" id="grupo__telefono">
@@ -165,12 +168,12 @@
                                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                                 </div>
                                 <p class="formulario__input-error">Ingrese su N° de Telefono.</p>
-                            </div>   
+                            </div>
                             <!-- Grupo: rubro -->
                             <select name="idServicio" class="form-control">
 
-                                <option th:each="servicio : ${servicio}" 
-                                        th:value="${servicio.id}" 
+                                <option th:each="servicio : ${servicio}"
+                                        th:value="${servicio.id}"
                                         th:text="${servicio.rubro}"/>
                             </select>
 
@@ -183,7 +186,7 @@
                                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                                 </div>
                                 <p class="formulario__input-error">Ingrese el precio por hora.</p>
-                            </div>   
+                            </div>
                             <!-- Grupo: experiencia -->
 
                             <div class="formulario__grupo" id="grupo__experiencia">
@@ -193,7 +196,7 @@
                                     <i class="formulario__validacion-estado fas fa-times-circle"></i>
                                 </div>
                                 <p class="formulario__input-error">Describa sus habilidades y experiencias profesional. minimo 20 y maximo 400 caracteres</p>
-                            </div>   
+                            </div>
 
                             <!-- Grupo: password -->
 
@@ -241,26 +244,21 @@
                     </div>
                 </div>
 
+            <!--
+                <div class="btn-holder">
 
-
-
-
-
-                <!--
-                    <div class="btn-holder">
-                
-                        <button class="button2" onclick='goBack()'>Atrás</button>
-                        <script>
-                            function goBack() {
-                                history.back();
-                            }
-                        </script>
-                    </div> -->
+                    <button class="button2" onclick='goBack()'>Atrás</button>
+                    <script>
+                        function goBack() {
+                            history.back();
+                        }
+                    </script>
+                </div> -->
         </article>
         <footer th:replace="frangments/footer:: footer"></footer>
         <script src="/script.js"></script>
         <script src="/formulario.js"></script>
-
+       
         <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
     </body>
 </html>

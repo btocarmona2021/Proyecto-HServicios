@@ -55,7 +55,7 @@ public class UsuarioServicio implements UserDetailsService {
         if ((existe.size()==2) || (!existe.isEmpty())) {
          */
         if ((!existe.isEmpty())) {
-            throw new MiException("El usuario no ha podido ser registrado porque el correo ya ha sido registrado.");
+            throw new MiException("El correo electronico con el que intenta registrarse ya se encuentra en nuestra base de datos");
         } else {
             // Manejo de Excepciones
             validar(nombre, apellido, direccion, telefono, correo, password, password2);
