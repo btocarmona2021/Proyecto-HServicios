@@ -173,7 +173,7 @@ public class ProveedorServicio {
             throw new MiException("No se pudo dar de baja el Usuario " + proveedorRepositorio.getById(id).getNombre() + ". El usuario no fue encontrado.");
         }
     }
-
+//ALTA
     @Transactional
     public void altaProveedor(String id, String experiencia, Double precioXHora, Servicio servicio) throws MiException {
         Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
