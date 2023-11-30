@@ -6,20 +6,23 @@
 package com.equipoh.hservicios.servicios;
 
 
+import com.equipoh.hservicios.entidades.Imagen;
 import com.equipoh.hservicios.entidades.Servicio;
 import com.equipoh.hservicios.excepciones.MiException;
 import com.equipoh.hservicios.repositorios.ServicioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.transaction.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javax.transaction.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class ServicioServicio {
+
    @Autowired
     private ServicioRepositorio servicioRepositorio;
     @Autowired
@@ -43,18 +46,14 @@ public class ServicioServicio {
     }
 
     @Transactional
-    public void actualizarServicio(String id, String rubro, String estado, MultipartFile archivo) throws MiException {
+    public void actualizarServicio(String id, String rubro, Boolean estado, MultipartFile archivo) throws MiException {
 
         validar(rubro);
         Optional<Servicio> respuesta = servicioRepositorio.findById(id);
         if (respuesta.isPresent()) {
             Servicio servicio = respuesta.get();
             servicio.setRubro(rubro);
-            if (estado.equalsIgnoreCase("ALTA")) {
-                servicio.setEstado(true);
-            } else {
-                servicio.setEstado(false);
-            }
+            servicio.setEstado(estado);
             
           String idImagen = null;
             if (servicio.getImagen() != null) {
@@ -99,7 +98,7 @@ public class ServicioServicio {
             throw new MiException("El rubro no puede ser nulo o estar vacio");
         }
     }
-@Transactional
+    @Transactional
     // Método que devuelve el usuario por id
     public Servicio buscarServicio(String id) {
         return servicioRepositorio.buscarServicio(id);
@@ -108,4 +107,5 @@ public class ServicioServicio {
     public Servicio obtenerServicio(String id) {
         return buscarServicio(id);
     }
+
 }
