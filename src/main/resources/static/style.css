@@ -36,14 +36,14 @@ body {
 
 .main {
     grid-area: main;
-    background-image:  url("../img/caru02.jpg");
+    background-image:  url("../img/caru01.jpg");
 
     background-repeat: no-repeat;
     background-size: 120%;
 }
 .mainDash {
     grid-area: main;
-    background-image: url("../img/Navbar.jpg");
+    background-image: url("../img/prov.jpg");
 
     background-repeat: no-repeat;
     background-size: 120%;
@@ -293,23 +293,26 @@ button {
 }
 
 .container_p .card_p{
-    width: 430px;
+    width: 300px;
     /*height: 400px;*/
     border-radius: 8px;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     margin: 20px;
-    text-align: center;
+    text-align: left;
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
     transition: all 0.5s;
-    background-color: #95afba;
+    background-color: #373DBA;
+    alignment-adjust: central;
 }
 .container_p .card_p:hover{
     transform: translateY(-15px);
     box-shadow: 0 12px 16px rgba(0, 0, 0, 0.2);
 }
 .container_p .card_p img{
-    width: 330px;
-    height: 220px;
+    width: 300px;
+    height: 200px;
 }
 .container_p .card_p h4{
     font-weight: 600;
@@ -336,7 +339,7 @@ button {
 .container_p .card_p a{
     font-weight: 500;
     text-decoration: none;
-    color: #3498db;
+    color: #373DBA;
 
 
 }
@@ -454,6 +457,7 @@ button {
     background: #F2F2F2;
     font-size: 12px;
     outline: none;
+    border-radius: 8px;
 }
 
 .contenedor__login-register form button{
@@ -633,7 +637,7 @@ button {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    height: 480px;
+    height: 650px;
 
 }
 .card{
@@ -775,15 +779,22 @@ li{
 
 .link-container {
     margin-bottom: 10px;
+    width: 200px;
     color: white;
+     font-size: x-large;
+     text-shadow: 3px 3px 6px #000000;
 }
 
 .link-container a {
+
     display: block;
     padding: 10px;
     text-decoration: none;
-    color: #373DBA;
-    border: 1px solid #373DBA;
+    /*    color: #373DBA;*/
+    /*    border: 1px solid #373DBA;*/
+    color: white;
+   
+    border: 4px solid white;
     border-radius: 5px;
     transition: background-color 0.3s, color 0.3s;
 }
@@ -808,8 +819,21 @@ h1 {
     margin-top: 20px; /* Margen superior */
     margin-bottom: 20px; /* Margen inferior */
 }
-            
+
 input{
-                
+
     border-radius: 10px;
-}    
+}
+h1{
+    color: white;
+    font-size: xx-large;
+    text-shadow: 3px 3px 6px #000000;
+}
+.tablaPerfil{
+    border-style: groove;
+    border-color: white;
+    color: white;
+     text-shadow: 2px 2px 4px #000000;
+    
+    
+}

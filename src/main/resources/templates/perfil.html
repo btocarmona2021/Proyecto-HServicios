@@ -6,7 +6,7 @@
 <header class="header">
     <nav th:replace="/frangments/navbar :: nav"></nav>
 </header>
-<article class="main">
+<article class="mainDash">
     <!-- ERROR/EXITO -->
     <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError">
         <div class="card-body">
@@ -37,7 +37,7 @@
             
 
 
-            <table sec:authorize="hasRole('PROVEEDOR')" border="2">
+            <table  class="tablaPerfil" sec:authorize="hasRole('PROVEEDOR')" border="2">
                 <tr>
                     <th>Nombre cliente</th>
                     <th>Trabajo a Realizar</th>
@@ -57,7 +57,7 @@
             
             
 
-            <table sec:authorize="hasRole('PROVEEDOR')" border="2">
+            <table class="tablaPerfil" sec:authorize="hasRole('PROVEEDOR')" border="2">
                 <tr>
                     <th>Nombre cliente</th>
                     <th>Trabajo en proceso</th>
@@ -73,7 +73,7 @@
             </table>
             <br>
             <br>
-            <table border="2">
+            <table  class="tablaPerfil" border="2">
                 <tr>
                     <th sec:authorize="hasRole('PROVEEDOR')" >Nombre cliente</th>
                     <th sec:authorize="hasRole('USUARIO')" >Nombre Proveedor</th>

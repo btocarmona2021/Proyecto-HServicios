@@ -18,6 +18,8 @@
 .nav-link {
     color: white;
     text-decoration: none;
+    text-shadow: 2px 2px 4px #000000;
+    font-size: large;
 }
 
 .logo {
@@ -48,8 +50,10 @@
 
 .nav-menu-link:hover,
 .nav-menu-link_active {
-    background-color: #034574;
-    transition: 0.5s;
+   
+    transition: 0.75s;
+    font-size: x-large;
+    font-style: italic;
 }
 
 /* TOGGLE */
@@ -149,5 +153,6 @@ img {
     .boton{
         height: 40px;
         font-size: large;
+        text-shadow: 2px 2px 4px #000000;
     }
 

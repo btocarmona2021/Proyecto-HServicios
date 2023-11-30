@@ -21,13 +21,13 @@
 
                             <h3>¿Aún no tienes una cuenta?</h3>
 
-                            <p>Regístrate para encontrar los mejores servicios</p>
+                            <p>Registrate para encontrar los mejores servicios</p>
 
                             <button th:if="${session.usuariosession == null}" id="btn__iniciar-sesion">Registrarse como Usuario</button>
                             <button sec:authorize="hasRole('ADMIN')" id="btn__iniciar-sesion">Registrar Usuario Nuevo</button>
                         </div>
                         <div class="caja__trasera-register">
-                            <h3>¿Sos Proveedor de algun Servico?</h3>
+                            <h3>¿Sos Proveedor de algun Servicio?</h3>
                             <p>Registrese en nuetra web y llegue a mas Clientes</p>
                             <button th:if="${session.usuariosession == null}" id="btn__registrarse">Registrarse como Proveedor</button>
                             <button sec:authorize="hasRole('ADMIN')" id="btn__registrarse">Registrar Proveedor Nuevo</button>
