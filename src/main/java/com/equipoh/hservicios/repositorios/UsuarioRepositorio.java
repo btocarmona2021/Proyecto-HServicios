@@ -33,6 +33,15 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, String> {
     
     @Query("SELECT u FROM Usuario u WHERE u.correo = :correo AND u.alta = TRUE")
     public List<Usuario> buscarCorreoUsuarioActivo(@Param("correo") String correo);
+    //------QUERYS AGREGADAS------
+    @Query("SELECT u FROM Usuario u WHERE u.correo = :correo AND u.alta = FALSE")
+    public List<Usuario> buscarCorreoUsuarioInactivo(@Param("correo") String correo);
+    
+    @Query("SELECT u FROM Usuario u WHERE u.correo = :correo AND u.alta = FALSE")
+    public Usuario buscarCorreoInactivo(@Param("correo") String correo);
+    //----------------------------
+    @Query("SELECT u FROM Usuario u WHERE u.correo = :correo AND u.alta = TRUE")
+    public Usuario buscarCorreoActivo(@Param("correo") String correo);
     
     // QUERY para buscar un dato especifico en la tabla
     @Query("SELECT u FROM Usuario u WHERE u.nombre LIKE %:dato% OR u.apellido LIKE %:dato% OR u.direccion LIKE %:dato% OR u.correo LIKE %:dato% ")

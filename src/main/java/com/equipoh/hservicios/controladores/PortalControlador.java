@@ -35,6 +35,8 @@ public class PortalControlador {
     private ProveedorRepositorio proveedorRepositorio;
     @Autowired
     private ContratoRepositorio contratoRepositorio;
+    @Autowired
+    private ServicioServicio servicioServicio;
 
 
     @GetMapping("/")
@@ -95,6 +97,8 @@ public class PortalControlador {
         List<Contrato> contratos = contratoRepositorio.buscaContratoSinAceptar(usuario.getId());
         modelo.put("usuario", usuario);
         modelo.addAttribute("contratos", contratos);
+        List<Servicio> servicio = servicioServicio.listarServicios();
+        modelo.addAttribute("servicio", servicio);
         return "perfil";
     }
 

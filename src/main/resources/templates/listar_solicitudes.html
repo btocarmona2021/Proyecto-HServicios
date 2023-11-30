@@ -29,12 +29,11 @@
                     <tbody th:each="solicitud : ${solicitudes}">
                         <tr>
                             <td hidden th:value="${solicitud.id}" name="idSolicitud"></td> 
-                            <td th:text="${solicitud.estado}"></td>  
+                            <td th:text="${solicitud.estado == false ? 'PENDIENTE' : 'APROBADO'}"></td>  
                             <td th:text="${solicitud.fechaSolicitud}"></td>
-                            <td th:text="${solicitud.proveedor.nombre}"></td>
-                            <td th:text="${solicitud.proveedor.apellido}"></td>
-                            <td th:text="${solicitud.proveedor.correo}"></td>
-                            <td th:text="${solicitud.proveedor.correo}"></td>
+                            <td th:text="${solicitud.usuario != null ? solicitud.usuario.nombre : solicitud.proveedor.nombre}"></td>
+                            <td th:text="${solicitud.usuario != null ? solicitud.usuario.apellido : solicitud.proveedor.apellido}"></td>
+                            <td th:text="${solicitud.usuario != null ? solicitud.usuario.correo : solicitud.proveedor.correo}"></td>
                             <td>
                                 <form class="formulario" th:action="@{/solicitudRol/actualizar/}" method="POST" enctype="multipart/form-data">
                                     <div class="form-group">
@@ -42,8 +41,6 @@
                                     </div>
                                     <button type="submit" class="btn btn-primary"> Aprobar </button>
                                 </form>
-                                <!--<a th:href="@{/solicitudRol/actualizar/__${solicitud.id}__}" type="submit"><i class="fas fa-feather-alt"></i>
-                                    Aprobar</a>-->
                             </td>
 
                         </tr>

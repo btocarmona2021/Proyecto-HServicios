@@ -5,11 +5,13 @@
 package com.equipoh.hservicios.servicios;
 
 import com.equipoh.hservicios.entidades.Proveedor;
+import com.equipoh.hservicios.entidades.Servicio;
 import com.equipoh.hservicios.entidades.SolicitudRol;
 import com.equipoh.hservicios.entidades.Usuario;
 import com.equipoh.hservicios.excepciones.MiException;
 import com.equipoh.hservicios.repositorios.ProveedorRepositorio;
 import com.equipoh.hservicios.repositorios.SolicitudRolRepositorio;
+import com.equipoh.hservicios.repositorios.UsuarioRepositorio;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -32,30 +34,55 @@ public class SolicitudRolServicio {
     @Autowired
     private UsuarioServicio usuarioServicio;
     @Autowired
+    private UsuarioRepositorio usuarioRepositorio;
+    @Autowired
     private SolicitudRolRepositorio solicitudRolRepositorio;
+    @Autowired
+    private ServicioServicio servicioServicio;
 
     public void crearSolicitudRolUsuario(String idProveedor) throws MiException {
+        System.out.println("SOLICITUD GENERADA POR UN PROVEEDOR A USUARIO");
         SolicitudRol solicitudRol = new SolicitudRol();
         solicitudRol.setFechaSolicitud(new Date());
         solicitudRol.setEstado(false);
-        
+
         Optional<Proveedor> respuesta = proveedorRepositorio.findById(idProveedor);
         if (respuesta.isPresent()) {
             Proveedor proveedor = respuesta.get();
             solicitudRol.setProveedor(proveedor);
             solicitudRolRepositorio.save(solicitudRol);
-        }else{
-           throw new MiException("No se pudo crear la Solicitud"); 
+        } else {
+            throw new MiException("No se pudo crear la Solicitud");
         }
     }
 
-    public void crearSolicitudRolProveedor(String id, MultipartFile archivo) throws MiException {
-        /*CREAR SOLICITUD*/
+    public void crearSolicitudRolProveedor(String idProveedor, String idServicio, Double precioXHora, String experiencia) throws MiException {
+        System.out.println("SOLICITUD GENERADA POR UN USUARIO A PROVEEDOR");
+        SolicitudRol solicitudRol = new SolicitudRol();
+        solicitudRol.setFechaSolicitud(new Date());
+        solicitudRol.setEstado(false);
+
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(idProveedor);
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+            solicitudRol.setUsuario(usuario);
+            solicitudRol.setExperiencia(experiencia);
+            solicitudRol.setPrecioXHora(precioXHora);
+            Servicio servicio = servicioServicio.getOne(idServicio);
+            solicitudRol.setServicio(servicio);
+            solicitudRolRepositorio.save(solicitudRol);
+        } else {
+            throw new MiException("No se pudo crear la Solicitud");
+        }
     }
 
     public List<SolicitudRol> listarSolicitudesRol() {
         List<SolicitudRol> solicitudes = solicitudRolRepositorio.findAll();
         return solicitudes;
+    }
+
+    public SolicitudRol getOne(String id) {
+        return solicitudRolRepositorio.getById(id);
     }
 
     @Transactional
@@ -64,13 +91,22 @@ public class SolicitudRolServicio {
         if (respuesta.isPresent()) {
             SolicitudRol solicitudRol = respuesta.get();
             solicitudRol.setEstado(Boolean.TRUE);
-            
-            String idProveedor = solicitudRol.getProveedor().getId();
-            proveedorServicio.bajaProveedor(idProveedor);
-            usuarioServicio.cambioDeRol(idProveedor);
-            solicitudRolRepositorio.save(solicitudRol);
+            if (solicitudRol.getProveedor() != null) {
+                System.out.println("Intenta cambiar de PROVEEDOR A USUARIO");
+                String idProveedor = solicitudRol.getProveedor().getId();
+                usuarioServicio.cambioDeRol(idProveedor);
+                proveedorServicio.bajaProveedor(idProveedor);
+                solicitudRolRepositorio.save(solicitudRol);
+            } else {
+                System.out.println("Intenta cambiar de USUARIO A PROVEEDOR");
+                String idUsuario = solicitudRol.getUsuario().getId();
+                proveedorServicio.cambioDeRol(idUsuario, idSolicitud);
+                usuarioServicio.bajaUsuario(idUsuario);
+                solicitudRolRepositorio.save(solicitudRol);
+            }
         } else {
             throw new MiException("No se pudo dar de alta la solicitud ");
         }
     }
+
 }
