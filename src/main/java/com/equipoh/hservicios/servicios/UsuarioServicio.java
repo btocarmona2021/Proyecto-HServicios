@@ -5,6 +5,7 @@
  */
 package com.equipoh.hservicios.servicios;
 
+import com.equipoh.hservicios.entidades.Proveedor;
 import com.equipoh.hservicios.entidades.Usuario;
 import com.equipoh.hservicios.enumeracion.Rol;
 import com.equipoh.hservicios.excepciones.MiException;
@@ -40,6 +41,8 @@ public class UsuarioServicio implements UserDetailsService{
     private ImagenServicio imagenServicio;
     @Autowired
     private ImagenRepositorio imagenRepositorio;
+    @Autowired
+    private ProveedorServicio proveedorServicio;
 
     @Transactional
     public void registrarUsuario(MultipartFile archivo, String nombre, String apellido, String direccion,
@@ -51,7 +54,7 @@ public class UsuarioServicio implements UserDetailsService{
         la lista de proveedores, y reemplazar el if actual por 
         if ((existe.size()==2) || (!existe.isEmpty())) {
         */
-        if ((!existe.isEmpty())) {
+        if (!existe.isEmpty()) {
             throw new MiException("El usuario no ha podido ser registrado porque el correo ya ha sido registrado.");
         } else {
             // Manejo de Excepciones
