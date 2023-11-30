@@ -6,84 +6,96 @@
         <header class="header">
             <nav th:replace="/frangments/navbar :: nav"></nav>
         </header>
-        <article class="main"> 
+        <article class="main">
 
             <div id="contenedor">
                 <div id="columna-izquierda" style="float: left; width: 50%">
                     <div class="container_p">
-            <tbody th:each="proveedor : ${proveedores}" th:if="${proveedor.id = id}"> 
-            <div class="card_p" >
-                <div>
-                    <a><img th:if="${proveedor.imagen != null}" class="logo" th:src="@{/imagen/perfil/__${proveedor.id}__}" width="150px"></a>
+                        <tbody th:each="proveedor : ${proveedores}" th:if="${proveedor.id = id}">
+                        <div class="card_p">
+                            <div>
+                                <a><img th:if="${proveedor.imagen != null}" class="logo"
+                                        th:src="@{/imagen/perfil/__${proveedor.id}__}" width="150px"></a>
 
-                </div>
-                <div>
-                    <table>
-                        <tr>
-                            <th scope="col">Nombre: </th><td th:text="${proveedor.nombre}"></td>
-                        </tr>
-                        <tr>
-                            <th scope="col">Apellido: </th><td th:text="${proveedor.Apellido}"></td>
-                        </tr>
-                        <tr>
-                            <th scope="col">Direccion: </th><td th:text="${proveedor.direccion}"></td>
-                        </tr>
-                        <tr>
-                            <th scope="col">Telefono: </th><td th:text="${proveedor.telefono}"></td>
-                        </tr>
-                        <tr>
-                            <th scope="col">Email: </th><td th:text="${proveedor.correo}"></td>
-                        </tr> 
-                        <tr>
-                            <th scope="col">Precio: </th><td th:text="${proveedor.precioXHora}"></td>
-                        </tr>
+                            </div>
+                            <div>
+                                <table>
+                                    <tr>
+                                        <th scope="col">Nombre:</th>
+                                        <td th:text="${proveedor.nombre}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Apellido:</th>
+                                        <td th:text="${proveedor.Apellido}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Direccion:</th>
+                                        <td th:text="${proveedor.direccion}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Telefono:</th>
+                                        <td th:text="${proveedor.telefono}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Email:</th>
+                                        <td th:text="${proveedor.correo}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Precio:</th>
+                                        <td th:text="${proveedor.precioXHora}"></td>
+                                    </tr>
 
-                        <tr>
-                            <th scope="col">Rubro: </th><td th:text="${proveedor.servicio.rubro}"></td>
-                        </tr>
-                        <tr>
-                            <th scope="col">Experiencia: </th><td th:text="${proveedor.experiencia}"></td>
-                        </tr>
-                       
-                    </table>
-                    <a th:href="@{/contrato/enviocontrato/__${proveedor.id}__}"><i
+                                    <tr>
+                                        <th scope="col">Rubro:</th>
+                                        <td th:text="${proveedor.servicio.rubro}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Experiencia:</th>
+                                        <td th:text="${proveedor.experiencia}"></td>
+                                    </tr>
+
+                                </table>
+                                <a th:href="@{/contrato/enviocontrato/__${proveedor.id}__}"><i
                                         class="fas fa-feather-alt"></i>
-                                   
-                     <button class="button2" >Contratar</button> </a>
+
+                                    <button class="button2">Contratar</button>
+                                </a>
+                            </div>
+
+
+                        </div>
+                        </tbody>
+                    </div>
+
+
                 </div>
 
-
-            </div>
-            </tbody>
-        </div>
-        
-        
-            </div>
-                
                 <div id="columna-derecha" style="float: right; width: 50%">
                     <div>mostrar puntaje en promedio</div>
-                    <div><table>
-                <tr>
-                    <th>  </th>
-                    
-                    <th>Comentario de otros Cliente</th>
-                </tr>
-                <tr th:each="contrato: ${contratos}"
-                     th:if="${contrato.getComentario().getContenido() != 'Dejá tu apreciación hacia el proveedor, ayudará a otros usuarios a elegir, Gracias por usar nuestro servicio'}">
-                    <td  th:text="${contrato.getUsuario().getNombre()}"></td>
-                   
-                    <td th:text="${contrato.getComentario().getContenido()}"></td>
-                </tr>
+                    <div>
+                        <table>
+                            <tr>
+                                <th></th>
 
-            </table></div>
-            </div> 
+                                <th>Comentario de otros Cliente</th>
+                            </tr>
+                            <tr th:each="contrato: ${contratos}"
+                                th:if="${contrato.getComentario().getContenido() != 'Dejá tu apreciación hacia el proveedor, ayudará a otros usuarios a elegir, Gracias por usar nuestro servicio'}">
+                                <td th:text="${contrato.getUsuario().getNombre()}"></td>
+
+                                <td th:text="${contrato.getComentario().getContenido()}"></td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
             </div>
-        
-         
-        <div>
 
-    </article>
-    <footer th:replace="frangments/footer:: footer"></footer>
-    <script src="/script.js"></script>
+
+            <div>
+
+        </article>
+        <footer th:replace="frangments/footer:: footer"></footer>
+        <script src="/script.js"></script>
 </body>
 </html>

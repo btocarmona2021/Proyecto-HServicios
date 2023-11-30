@@ -5,6 +5,7 @@
  */
 package com.equipoh.hservicios.controladores;
 
+import com.equipoh.hservicios.entidades.Contrato;
 import com.equipoh.hservicios.entidades.Proveedor;
 import com.equipoh.hservicios.entidades.Usuario;
 import com.equipoh.hservicios.excepciones.MiException;
@@ -54,6 +55,20 @@ public class ContratoControlador {
 
         return "panel";
     }
+
+    @PostMapping("/enviapresupuesto/{id}")
+    public String enviapresupuesto(HttpSession session, @PathVariable String id, String presupuesto, Integer horasestimadas, ModelMap modelo) {
+        Proveedor proveedor = (Proveedor) session.getAttribute("session.usuario");
+        try {
+            contratoServicio.enviapresuspuesto(id, presupuesto, horasestimadas);
+            modelo.put("exito", "El presuspuesto se ha enviado correctamente");
+            modelo.put("usuario", proveedor);
+            return "redirect:/perfil";
+        } catch (MiException e) {
+            modelo.put("error", e.getMessage());
+            return "redirect:/perfil";
+        }
+    }
     @GetMapping("/aceptacontrato")
     public String aceptacontrato() {
         return "aceptacontrato";
@@ -65,6 +80,20 @@ public class ContratoControlador {
         try {
             contratoServicio.aceptacionContrato(id);
             modelo.put("exito", "El trabajo ha sido aceptado");
+            modelo.put("usuario", proveedor);
+            return "redirect:/perfil";
+        } catch (MiException e) {
+            modelo.put("error", e.getMessage());
+            return "redirect:/perfil";
+        }
+    }
+
+    @GetMapping("/cancelacontrato/{id}")
+    public String cancelacontrato(HttpSession session, @PathVariable String id, ModelMap modelo) {
+        Proveedor proveedor = (Proveedor) session.getAttribute("session.usuario");
+        try {
+            contratoServicio.cancelaContrato(id);
+            modelo.put("exito", "El trabajo ha sido rechazado");
             modelo.put("usuario", proveedor);
             return "redirect:/perfil";
         } catch (MiException e) {
@@ -86,6 +115,16 @@ public class ContratoControlador {
             return "redirect:/perfil";
         }
     }
+
+    @PostMapping("/valorar/{id}")
+    public String valorar(@PathVariable String id, Integer puntuacion) {
+        System.out.println(puntuacion + "puntuacion quellega");
+        Contrato contrato = contratoServicio.obtenerContrato(id);
+        contratoServicio.valoracionProveedor(id, puntuacion);
+        return "redirect:/perfilu";
+    }
+
+
 
     
    /* @GetMapping("/lista")
