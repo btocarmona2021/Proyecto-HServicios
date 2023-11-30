@@ -8,22 +8,23 @@
         </header>
 
         <article class="main"> 
-            <!-- comment   <div>
-                <form class="" th:action="@{/buscador}" method="POST">
-                    <div>
-                        <input type="text" class="" name="buscar" placeholder="Que desea buscar">
+            <div th:if="${#lists.isEmpty(proveedores)}">
+    Sin resultados, todavia no tenemos ningun proveedor para esta categoria.
+     <div class="btn-holder">
 
-                        <button type="submit" class="">buscar</button>
-
-                    </div>
-                </form>
-            </div>-->
-
-            <div>Resultados</div>
+                    <button class="button2" onclick='goBack()'>Atrás</button>
+                    <script>
+                        function goBack() {
+                            history.back();
+                        }
+                    </script>
+                </div>
+</div>
+<div th:unless="${#lists.isEmpty(proveedores)}"
             <div class="container_p">
-
-
+               
                 <tbody th:each="proveedor : ${proveedores}"> 
+                    
                 <div class="card_p" >
                     <div>
                         <a><img th:if="${proveedor.imagen != null}" class="logo" th:src="@{/imagen/perfil/__${proveedor.id}__}" width="150px"></a>
@@ -76,7 +77,7 @@
                 </div>
                 </tbody>
             </div>
-
+</div>
 
 
 

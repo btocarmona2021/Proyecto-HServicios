@@ -55,9 +55,11 @@ public class PortalControlador {
     public String login() {
         return "login.html";
     }
-
+@PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN','ROLE_PROVEEDOR')")
     @GetMapping("/panel")
-    public String panel() {
+    public String panel(ModelMap modelo) {
+         List<Servicio> servicios = servicioServicio.listarServicios();
+        modelo.addAttribute("servicios", servicios);
         return "panel.html";
     }
 
@@ -87,10 +89,7 @@ public class PortalControlador {
     
     @GetMapping("/inicio")
     public String inicio(HttpSession session, ModelMap modelo) {
-        
-        
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-        
         if (logueado.getRol().toString().equals("ADMIN")) {
             return "redirect:/admin/dashboard";
         }

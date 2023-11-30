@@ -13,10 +13,11 @@ import com.equipoh.hservicios.repositorios.ServicioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javax.transaction.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
@@ -96,6 +97,15 @@ public class ServicioServicio {
         if (rubro.isEmpty() || rubro == null) {
             throw new MiException("El rubro no puede ser nulo o estar vacio");
         }
+    }
+    @Transactional
+    // Método que devuelve el usuario por id
+    public Servicio buscarServicio(String id) {
+        return servicioRepositorio.buscarServicio(id);
+    }
+    
+    public Servicio obtenerServicio(String id) {
+        return buscarServicio(id);
     }
 
 }

@@ -7,31 +7,31 @@
             <nav th:replace="/frangments/navbar :: nav"></nav>
         </header>
         <article class="main"> 
-            
-           
+
+
             <h1 sec:authorize="hasRole('ADMIN')">Panel de Administrador</h1>
             <h1 sec:authorize="hasRole('USUARIO')">Panel de Usuario</h1>
             <h1 sec:authorize="hasRole('PROVEEDOR')">Panel de Proveedor</h1>
-           
+
             <div class="link-container">
                 <a sec:authorize="hasRole('ADMIN')" href="/usuario/registrar">Crear Usuario / Proveedor</a>
-                
+
             </div>
             <div class="link-container">
                 <a sec:authorize="hasRole('ADMIN')" href="#">Añadir Palabras Censuradas</a>
-                
+
             </div>
             <div class="link-container">
                 <a sec:authorize="hasRole('USUARIO')" href="/perfilu"> Mi perfil usuario</a>
-                
+
             </div>
             <div class="link-container">
                 <a sec:authorize="hasRole('USUARIO')" href="/perfil">Solicitudes de trabajos</a>
-                
+
             </div>
             <div class="link-container">
                 <a sec:authorize="hasRole('USUARIO')" href="#">Quiero ser Proveedor</a>
-                
+
             </div>
 
             <div class="link-container">
@@ -42,51 +42,50 @@
             </div>
             <div class="link-container">
                 <a sec:authorize="hasRole('PROVEEDOR')" href="/perfilu"> Mi perfil proveedor</a>
-                
+
             </div>
             <div class="link-container">
                 <a sec:authorize="hasRole('PROVEEDOR')" href="#">Dejar de ser Proveedor</a>
-                
+
             </div>
             <div class="link-container">
                 <a sec:authorize="hasRole('PROVEEDOR')" href="/perfil">Trabajos</a>
-                
+
             </div>
-            
-            
-            
+
+
+
             <div class="link-container">
                 <a sec:authorize="hasRole('ADMIN')" href="/servicio/registrar">Crear servicio</a>
             </div>
             <div class="link-container">
                 <a sec:authorize="hasRole('ADMIN')" href="/servicio/lista">Ver todos los servicios</a>
             </div>
-<div class="link-container">
+            <div class="link-container">
                 <i sec:authorize="hasRole('USUARIO')">CATEGORIAS</i>
-                <div>
-                    <table >
-                    <tr>
-                        <th scope="col">Rubro</th>  
-                        
-                        <th scope="col">imagen</th>
-                    </tr>
-                    <tbody th:each="servicio : ${servicios}"  >
-                        <tr>
-                            <td hidden th:value="${id}" name="id"></td>  
-                            <td th:text="${servicio.rubro}"></td>
-                           
-                             
-                            <td ><img  class="" th:src="@{/imagen/perfil/__${servicio.id}__}" width="150px">
-                                 </td> 
-                           
-                            
-                        </tr>
-                    </tbody>
-                </table>
-                </div>
-                
-            </div>
 
+
+                <div class="container">
+                    <tbody th:each="servicio : ${servicios}" >   
+                    <div class="card" >
+                        <div> <form class="" th:action="@{/buscador}" method="POST">
+                                <div>
+                                    <input hidden="" type="text" class="" name="buscar" th:value="${servicio.rubro}">
+
+                                    <button type="submit" class="button2"><div>
+                            <p th:text="${servicio.rubro}"></p>
+                        </div>
+                                        <img th:src="@{/imagen/service/__${servicio.id}__}"   alt="${servicio.rubro}"></button>
+
+                                </div>
+                            </form>
+
+                        </div>
+                        
+                    </div>
+                    </tbody>
+                </div>
+            </div>
 
 
         </article>
