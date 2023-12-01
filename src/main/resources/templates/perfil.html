@@ -92,12 +92,11 @@
                                 <button class="botonesVolver">Volver</button>
                             </a>
                             <br>
-                            
-                            <button class=" botonesSerProv" onclick="ShowInfo">Quiero ser proveedor</button>
-                           
+
+
                         </div>
                         <br> <br>
-                        <div>
+                        <div  >
                             <label sec:authorize="hasRole('PROVEEDOR')" th:text="${usuario.experiencia}" class="form-control"></label>
                         </div>
                         <div>
@@ -108,25 +107,42 @@
                         </div>
 
                     </div>
+                    <div>
+                      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+                        <div ng-app="">
+                            <button ng-click="ocultar = true">Ocultar</button>
+                            <button ng-click="ocultar = false" class=" botonesSerProv" >Quiero ser proveedor</button> 
+
+                            <form ng-hide="ocultar">
 
 
-                    <form class="formulario" th:action="@{/solicitudRol/cambioRol}" method="POST" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <input type="hidden" name="idProveedor" th:value="${usuario.id}">
-                            <input type="hidden" name="rol" th:value="${usuario.rol}">
-                            <select name="idServicio" class="">
-                                <option value="">Seleccionar Servicio</option>
-                                <option th:each="servicio : ${servicio}"
-                                        th:value="${servicio.id}"
-                                        th:text="${servicio.rubro}"/>
-                            </select>
-                            <input type="number" size="30" class="form-group" name="precioXHora" placeholder="Precio por Hora"
-                                   th:value="${precioXHora}">
-                            <input type="text" size="30" class="form-group" name="experiencia" placeholder="Experiencia"
-                                   th:value="${experiencia}">
+                                <div>
+                                    <form class="formulario" th:action="@{ / solicitudRol / cambioRol}" method="POST" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <input type="hidden" name="idProveedor" th:value="${usuario.id}">
+                                            <input type="hidden" name="rol" th:value="${usuario.rol}">
+                                            <select name="idServicio" class="">
+                                                <option value="">Seleccionar Servicio</option>
+                                                <option th:each="servicio : ${servicio}"
+                                                        th:value="${servicio.id}"
+                                                        th:text="${servicio.rubro}"/>
+                                            </select><br>
+                                            <input  type="number" size="30" class="form-group" name="precioXHora" placeholder="Precio por Hora"
+                                                    th:value="${precioXHora}">
+                                            <input type="text" size="30" class="form-group" name="experiencia" placeholder="Experiencia"
+                                                   th:value="${experiencia}">
+                                        </div><br>
+                                        <button type="submit" class="botonesSolicitud"> Enviar Solicitud de Cambio de ROL</button>
+                                    </form>
+                                </div>
                         </div>
-                        <button type="submit" class="botonesSolicitud"> Enviar Solicitud de Cambio de ROL</button>
-                    </form>
+                        </form>
+                    </div>  
+
+
+
+
+
                 </div>
             </main>
 
