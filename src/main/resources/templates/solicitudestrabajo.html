@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/frangments/head :: head"></head>
+
+<body class="grid-container">
+<header class="header">
+    <nav th:replace="/frangments/navbar :: nav"></nav>
+</header>
+<article class="main">
+    <!-- ERROR/EXITO -->
+    <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError">
+        <div class="card-body">
+            <h5 class="card-title">Error 👎</h5>
+            <p class="card-text" th:text="${error}"></p>
+        </div>
+    </div>
+    <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito">
+        <div class="card-body">
+            <h5 class="card-title">Exito!</h5>
+            <p class="card-text" th:text="${exito}"></p>
+        </div>
+    </div>
+
+    <!-- FORMULARIO -->
+
+
+    <main>
+        <div>
+            <h1 sec:authorize="hasRole('ADMIN')">Perfil de Administrador</h1>
+            <h1 sec:authorize="hasRole('USUARIO')">Perfil de Usuario</h1>
+            <h1 sec:authorize="hasRole('PROVEEDOR')">Perfil de Proveedor</h1>
+            mostrar datos y y botones para actualizar 
+        </div>
+        <div class="container">
+            <a class="d-flex align-items-center">
+                <img class="logo" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" alt="img_usuario">
+            </a>
+        </div>
+        <div class="container-fluid m-5 contenedor">
+
+
+            <img th:src="@{imagen/perfil/__${usuario.id}__}" alt="" class="form-control">
+            <label th:text="${usuario.nombre}" class="form-control"></label>
+            <label th:text="${usuario.apellido}" class="form-control"></label>
+            <label th:text="${usuario.correo}" class="form-control"></label>
+
+
+            comment
+            <table border="2">
+                <tr>
+                    <th>Nombre Proveedor</th>
+                    <th>Trabajo a Realizar</th>
+                    <th>Fecha de Solicitud</th>
+                    <th>Presupuesto</th>
+                    <th>Acción</th>
+                </tr>
+                <tr th:each="contrato: ${contratos}" th:if="${contrato.inicioT ==false}">
+                    <td th:text="${contrato.proveedor.nombre +' '+ contrato.proveedor.apellido}"></td>
+                    <td th:text="${contrato.descripcionTrabajo}"></td>
+                    <td th:text="${contrato.fechaSolicitud}"></td>
+                    <td th:if="${contrato.presupuesto ==null}">
+                        <p>Esperando presupuesto</p>
+                    </td>
+                    <td th:unless="${contrato.presupuesto} == null">
+                        <p th:text="${contrato.presupuesto}"></p>
+                        <p th:text="${'Cantidad de horas estimadas: '+ contrato.horasestimadas}"></p>
+                        <p th:text="${'Costo mano de obra: ' + (contrato.horasestimadas * contrato.proveedor.precioXHora) + ' Pesos'}"></p>
+
+                    </td>
+                    <td><a th:href="@{/contrato/contratoaceptado/__${contrato.id}__}">Aceptar |</a>
+                        <a th:href="@{/contrato/cancelacontrato/__${contrato.id}__}"> Cancelar</a></td>
+                </tr>
+
+            </table>
+            <br>
+            <br>
+
+            <table border="2">
+                <tr>
+                    <th>Nombre Proveedor</th>
+                    <th>Trabajo en proceso</th>
+                    <th>Finalizar trabajo</th>
+                </tr>
+                <tr th:each="contrato: ${contratos}"
+                    th:if="${contrato.inicioT ==true and contrato.finT ==false}">
+                    <td th:text="${contrato.usuario.nombre +' '+ contrato.usuario.apellido }"></td>
+                    <td th:text="${contrato.descripcionTrabajo}"></td>
+                    <td><a th:href="@{/contrato/finalizatrabajo/__${contrato.id}__}">Finalizar</a></td>
+                </tr>
+
+            </table>
+            <br>
+            <br>
+            <table border="2">
+                <tr>
+                    <th>Nombre Proveedor</th>
+                    <th>Trabajo Finalizado</th>
+                    <th>Comentario del cliente</th>
+                    <th>Dejá tu reseña</th>
+                    <th>Valorar Proveedor</th>
+                </tr>
+                <tr th:each="contrato: ${contratos}" th:if="${contrato.finT ==true}">
+                    <td th:text="${contrato.proveedor.nombre +' '+ contrato.proveedor.apellido}"></td>
+                    <td th:text="${contrato.descripcionTrabajo}"></td>
+                    <td th:text="${contrato.comentario.estado == true ? contrato.comentario.contenido : 'Su comentario ha sido censurado, cuide el vocabulario'}"></td>
+                    <td><a th:href="@{/comentario/actualizarcomentario/__${contrato.comentario.idcomentario}__}">Comentar</a>
+                    </td>
+                    <td>
+                        <form th:action="@{/contrato/valorar/__${contrato.id}__}" method="post">
+                            <div class="valoracion" th:style="${'font-size:30px'}">
+                                <label onclick="valorar(1, this.getAttribute('data'))" th:data="${contrato.id}"
+                                       th:style="${contrato.puntuacion >= 1 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                                <label onclick="valorar(2, this.getAttribute('data'))" th:data="${contrato.id}"
+                                       th:style="${contrato.puntuacion >= 2 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                                <label onclick="valorar(3, this.getAttribute('data'))" th:data="${contrato.id}"
+                                       th:style="${contrato.puntuacion >= 3 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                                <label onclick="valorar(4, this.getAttribute('data'))" th:data="${contrato.id}"
+                                       th:style="${contrato.puntuacion >= 4 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                                <label onclick="valorar(5, this.getAttribute('data'))" th:data="${contrato.id}"
+                                       th:style="${contrato.puntuacion >= 5 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                            </div>
+                            <input type="hidden" th:id="${contrato.id+1}" name="puntuacion" value="">
+                            <input type="submit" value="Valorar" th:id="${contrato.id}" th:style="${'display:none;'}">
+                        </form>
+
+                    </td>
+                </tr>
+
+            </table>
+
+
+            <div class="form-group my-3">
+
+                <input type="hidden" class="form-control" name="id" th:value="${usuario.id}">
+            </div>
+
+
+            <a href="/inicio">
+                <button class="btn btn-primary mt-3 botones">Volver</button>
+            </a>
+        </div>
+    </main>
+    <div class="btn-holder">
+
+        <button class="button2" onclick='goBack()'>Atrás</button>
+        <script>
+            function goBack() {
+                history.back();
+            }
+        </script>
+
+    </div>
+
+</article>
+<footer th:replace="frangments/footer:: footer"></footer>
+<script>
+    function valorar(estrellas, data) {
+        document.getElementById(data + 1).value = estrellas;
+        console.log(estrellas, data)
+        document.getElementById(data).click();
+    }
+</script>
+<script src="/script.js"></script>
+</body>
+</html>
