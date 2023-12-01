@@ -47,35 +47,40 @@ public class ProveedorServicio {
     public void registrarProveedor(MultipartFile archivo, String nombre, String apellido, String direccion,
             String telefono, String correo, String password, String password2, String rol,
             String experiencia, Double precioXHora, String idServicio) throws MiException {
-
-        validar(nombre, correo, password, password2);
-        Optional<Servicio> respuestaServicio = servicioRepositorio.findById(idServicio);
-        Servicio servicio = new Servicio();
-        if (respuestaServicio.isPresent()) {
-            servicio = respuestaServicio.get();
-        }
-        Proveedor proveedor = new Proveedor();
-
-        proveedor.setNombre(nombre);
-        proveedor.setApellido(apellido);
-        proveedor.setDireccion(direccion);
-        proveedor.setTelefono(telefono);
-        proveedor.setCorreo(correo);
-        proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
-        proveedor.setRol(Rol.PROVEEDOR);
-        proveedor.setExperiencia(experiencia);
-        proveedor.setPrecioXHora(precioXHora);
-        proveedor.setServicio(servicio);
-        if (archivo.isEmpty()) {
-            proveedor.setImagen(imagenRepositorio.imagenXDefecto());
+        
+        List<Proveedor> existe = proveedorRepositorio.buscarCorreoProveedorActivo(correo);
+        if ((!existe.isEmpty())) {
+            throw new MiException("El correo electronico con el que intenta registrarse ya se encuentra en nuestra base de datos");
         } else {
-            proveedor.setImagen(imagenServicio.guardarImagen(archivo));
+            validar(nombre, correo, password, password2);
+            Optional<Servicio> respuestaServicio = servicioRepositorio.findById(idServicio);
+            Servicio servicio = new Servicio();
+            if (respuestaServicio.isPresent()) {
+                servicio = respuestaServicio.get();
+            }
+            Proveedor proveedor = new Proveedor();
+
+            proveedor.setNombre(nombre);
+            proveedor.setApellido(apellido);
+            proveedor.setDireccion(direccion);
+            proveedor.setTelefono(telefono);
+            proveedor.setCorreo(correo);
+            proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
+            proveedor.setRol(Rol.PROVEEDOR);
+            proveedor.setExperiencia(experiencia);
+            proveedor.setPrecioXHora(precioXHora);
+            proveedor.setServicio(servicio);
+            if (archivo.isEmpty()) {
+                proveedor.setImagen(imagenRepositorio.imagenXDefecto());
+            } else {
+                proveedor.setImagen(imagenServicio.guardarImagen(archivo));
+            }
+            proveedor.setFechaAlta(new Date());
+            proveedor.setAlta(true);
+
+            proveedorRepositorio.save(proveedor);
+
         }
-        proveedor.setFechaAlta(new Date());
-        proveedor.setAlta(true);
-
-        proveedorRepositorio.save(proveedor);
-
     }
 
     @Transactional
@@ -168,6 +173,23 @@ public class ProveedorServicio {
         if (respuesta.isPresent()) {
             Proveedor proveedor = respuesta.get();
             proveedor.setAlta(Boolean.FALSE);
+            proveedorRepositorio.save(proveedor);
+        } else {
+            // En el supuesto que no existiera el usuario...
+            throw new MiException("No se pudo dar de baja el Usuario " + proveedorRepositorio.getById(id).getNombre() + ". El usuario no fue encontrado.");
+        }
+    }
+//ALTA
+
+    @Transactional
+    public void altaProveedor(String id, String experiencia, Double precioXHora, Servicio servicio) throws MiException {
+        Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            Proveedor proveedor = respuesta.get();
+            proveedor.setExperiencia(experiencia);
+            proveedor.setPrecioXHora(precioXHora);
+            proveedor.setServicio(servicio);
+            proveedor.setAlta(Boolean.TRUE);
             proveedorRepositorio.save(proveedor);
         } else {
             // En el supuesto que no existiera el usuario...

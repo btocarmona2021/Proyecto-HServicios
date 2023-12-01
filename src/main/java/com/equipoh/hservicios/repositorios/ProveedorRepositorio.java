@@ -17,13 +17,17 @@ import java.util.List;
  */
 @Repository
 public interface ProveedorRepositorio extends JpaRepository<Proveedor, String> {
+
     @Query("SELECT p FROM Proveedor p WHERE p.rol = 'PROVEEDOR'")
     public List<Proveedor> buscarProveedores();
 
-    @Query("SELECT p FROM Proveedor p WHERE p.servicio.rubro like %:buscar% " +
-            "or p.nombre like %:buscar% " +
-            "or p.apellido like %:buscar% order by p.precioXHora asc")
+    @Query("SELECT p FROM Proveedor p WHERE p.servicio.rubro like %:buscar% "
+            + "or p.nombre like %:buscar% "
+            + "or p.apellido like %:buscar% order by p.precioXHora asc")
     public List<Proveedor> buscaProveedor(@Param("buscar") String buscar);
+
+    @Query("SELECT p FROM Proveedor p WHERE p.correo = :correo AND p.alta = TRUE")
+    public List<Proveedor> buscarCorreoProveedorActivo(@Param("correo") String correo);
 
     //------QUERYS AGREGADAS------
     @Query("SELECT p FROM Proveedor p WHERE p.correo = :correo AND p.alta = FALSE")
