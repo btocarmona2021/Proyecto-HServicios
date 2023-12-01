@@ -174,9 +174,6 @@ public class UsuarioServicio implements UserDetailsService {
         return usuarioRepositorio.getOne(id);
     }
 
-    public Usuario getOne(String id) {
-        return usuarioRepositorio.getOne(id);
-    }
 
     @Transactional
     public void bajaUsuario(String id) throws MiException {
@@ -278,4 +275,5 @@ public class UsuarioServicio implements UserDetailsService {
             return null;
         }
     }
+
 }
