@@ -1,11 +1,12 @@
-
 package com.equipoh.hservicios.controladores;
 
 import com.equipoh.hservicios.entidades.Imagen;
+import com.equipoh.hservicios.entidades.Servicio;
 import com.equipoh.hservicios.entidades.Usuario;
 import com.equipoh.hservicios.excepciones.MiException;
 import com.equipoh.hservicios.repositorios.ImagenRepositorio;
 import com.equipoh.hservicios.servicios.ImagenServicio;
+import com.equipoh.hservicios.servicios.ServicioServicio;
 import com.equipoh.hservicios.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -34,6 +35,8 @@ public class ImagenControlador {
     private ImagenServicio imagenServicio;
     @Autowired
     private ImagenRepositorio imagenRepositorio;
+    @Autowired
+    private ServicioServicio servicioServicio;
 
     @GetMapping("/perfil/{id}")
     public ResponseEntity<byte[]> imagenUsuario(@PathVariable String id) {
@@ -73,5 +76,19 @@ public class ImagenControlador {
         return "redirect:/admin/imagendefault";
     }
 
+    @GetMapping("/service/{id}")
+    public ResponseEntity<byte[]> imagenServicio(@PathVariable String id) {
+
+        Servicio servicio = servicioServicio.obtenerServicio(id);
+
+        byte[] imagen = servicio.getImagen().getContenido();
+
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.setContentType(MediaType.IMAGE_JPEG);
+
+        return new ResponseEntity<>(imagen, headers, HttpStatus.OK);
+
+    }
 
 }

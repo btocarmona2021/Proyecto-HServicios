@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace= "/frangments/head :: head"</head>
+
+    <body class="grid-container">
+        <header class="header">
+            <nav th:replace="/frangments/navbar :: nav"</nav>
+        </header>
+        <article class="main"> 
+  <div class="hservicios">
+                    <a class="navbar-brand" th:text="'Error ' + ${codigo}">H SERVICIOS</a>
+                    <p class="" th:text="${mensaje}"></p>
+                    
+                </div>
+   </article>
+        <footer th:replace="frangments/footer:: footer"></footer>
+<script src="/script.js"></script>
+</body>
+</html>

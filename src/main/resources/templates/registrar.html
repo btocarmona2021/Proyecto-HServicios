@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="es">
-<head th:replace="/frangments/head :: head"
-</head>
+    <head th:replace="/frangments/head :: head"
+          </head>
 
-<body class="grid-container">
-<header class="header">
-    <nav th:replace="/frangments/navbar :: nav"></nav>
-</header>
+    <body class="grid-container">
+        <header class="header">
+            <nav th:replace="/frangments/navbar :: nav"></nav>
+        </header>
 
-<article class="main">
+        <article class="main">
 
-    <main>
+            <main>
 
                 <div class="contenedor__todo">
                     <div class="caja__trasera">
@@ -25,8 +25,8 @@
                             <button sec:authorize="hasRole('ADMIN')" id="btn__iniciar-sesion">Registrar Usuario Nuevo</button>
                         </div>
                         <div class="caja__trasera-register">
-                            <h3>¿Sos Proveedor de algun Servico?</h3>
-                             <p>Registrese en nuetra web y llegue a mas Clientes</p>
+                            <h3>¿Sos Proveedor de algun Servicio?</h3>
+                            <p>Registrese en nuetra web y llegue a mas Clientes</p>
                             <button th:if="${session.usuariosession == null}" id="btn__registrarse">Regístrarse como Proveedor</button>
                             <button sec:authorize="hasRole('ADMIN')" id="btn__registrarse">Regístrar Proveedor Nuevo</button>
                         </div>
@@ -37,9 +37,9 @@
 
                         <!--usuario-->
                         <form th:action="@{/usuario/registro}" class="formulario__login" id="formulario" method="POST" enctype="multipart/form-data">
-                            <h2>Regístrar Usuario</h2>
+                            <h2>Registrar Usuario</h2>
                             <h4 th:text="${error}"></h4>
-                             <!-- Grupo: nombre -->
+                            <!-- Grupo: nombre -->
                             <div class="formulario__grupo" id="grupo__nombreu">
                                 <div class="formulario__grupo-input">
                                     <input type="text" size="30" class="formulario__input" name="nombreu" id="nombreu" placeholder="Nombre" th:value="${nombrep}">
@@ -66,7 +66,7 @@
                                 <p class="formulario__input-error">formato del correo ej: correo@correo.com</p>
                             </div>
 
-                           <!-- Grupo: domicilio -->
+                            <!-- Grupo: domicilio -->
                             <div class="formulario__grupo" id="grupo__direccionu">
 
                                 <div class="formulario__grupo-input">
@@ -85,7 +85,7 @@
                                 </div>
                                 <p class="formulario__input-error">Ingrese su N° de Telefono.</p>
                             </div>
- <div class="formulario__grupo" id="grupo__password">
+                            <div class="formulario__grupo" id="grupo__password">
 
                                 <div class="formulario__grupo-input">
                                     <input type="password" class="formulario__input" name="password" id="password" placeholder="PASSWORD"
@@ -114,7 +114,7 @@
 
 
 
-                            <button type="submit">Regístrarse</button>
+                            <button type="submit">Registrarse</button>
                         </form>
 
 
@@ -244,21 +244,21 @@
                     </div>
                 </div>
 
-            <!--
-                <div class="btn-holder">
-
-                    <button class="button2" onclick='goBack()'>Atrás</button>
-                    <script>
-                        function goBack() {
-                            history.back();
-                        }
-                    </script>
-                </div> -->
+                <!--
+                    <div class="btn-holder">
+    
+                        <button class="button2" onclick='goBack()'>Atrás</button>
+                        <script>
+                            function goBack() {
+                                history.back();
+                            }
+                        </script>
+                    </div> -->
         </article>
         <footer th:replace="frangments/footer:: footer"></footer>
         <script src="/script.js"></script>
         <script src="/formulario.js"></script>
-       
+
         <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
     </body>
 </html>

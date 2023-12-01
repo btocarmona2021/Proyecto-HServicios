@@ -64,7 +64,7 @@ public class ServicioControlador {
     }
 
     @PostMapping("/actualizar/{id}")
-    public String actualizar(String id,String rubro,MultipartFile archivo, Boolean estado, ModelMap modelo) {
+    public String actualizar(String id,String rubro,MultipartFile archivo, String estado, ModelMap modelo) {
         try {
             servicioServicio.actualizarServicio(id, rubro, estado, archivo);
             modelo.put("exito", "Servicio actualizado correctamente");

@@ -45,43 +45,48 @@ public class ProveedorServicio {
 
     @Transactional
     public void registrarProveedor(MultipartFile archivo, String nombre, String apellido, String direccion,
-                                   String telefono, String correo, String password, String password2, String rol,
-                                   String experiencia, Double precioXHora, String idServicio) throws MiException {
-
-        validar(nombre, correo, password, password2);
-        Optional<Servicio> respuestaServicio = servicioRepositorio.findById(idServicio);
-        Servicio servicio = new Servicio();
-        if (respuestaServicio.isPresent()) {
-            servicio = respuestaServicio.get();
-        }
-        Proveedor proveedor = new Proveedor();
-
-        proveedor.setNombre(nombre);
-        proveedor.setApellido(apellido);
-        proveedor.setDireccion(direccion);
-        proveedor.setTelefono(telefono);
-        proveedor.setCorreo(correo);
-        proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
-        proveedor.setRol(Rol.PROVEEDOR);
-        proveedor.setExperiencia(experiencia);
-        proveedor.setPrecioXHora(precioXHora);
-        proveedor.setServicio(servicio);
-        if (archivo.isEmpty()) {
-            proveedor.setImagen(imagenRepositorio.imagenXDefecto());
+            String telefono, String correo, String password, String password2, String rol,
+            String experiencia, Double precioXHora, String idServicio) throws MiException {
+        
+        List<Proveedor> existe = proveedorRepositorio.buscarCorreoProveedorActivo(correo);
+        if ((!existe.isEmpty())) {
+            throw new MiException("El correo electronico con el que intenta registrarse ya se encuentra en nuestra base de datos");
         } else {
-            proveedor.setImagen(imagenServicio.guardarImagen(archivo));
+            validar(nombre, correo, password, password2);
+            Optional<Servicio> respuestaServicio = servicioRepositorio.findById(idServicio);
+            Servicio servicio = new Servicio();
+            if (respuestaServicio.isPresent()) {
+                servicio = respuestaServicio.get();
+            }
+            Proveedor proveedor = new Proveedor();
+
+            proveedor.setNombre(nombre);
+            proveedor.setApellido(apellido);
+            proveedor.setDireccion(direccion);
+            proveedor.setTelefono(telefono);
+            proveedor.setCorreo(correo);
+            proveedor.setPassword(new BCryptPasswordEncoder().encode(password));
+            proveedor.setRol(Rol.PROVEEDOR);
+            proveedor.setExperiencia(experiencia);
+            proveedor.setPrecioXHora(precioXHora);
+            proveedor.setServicio(servicio);
+            if (archivo.isEmpty()) {
+                proveedor.setImagen(imagenRepositorio.imagenXDefecto());
+            } else {
+                proveedor.setImagen(imagenServicio.guardarImagen(archivo));
+            }
+            proveedor.setFechaAlta(new Date());
+            proveedor.setAlta(true);
+
+            proveedorRepositorio.save(proveedor);
+
         }
-        proveedor.setFechaAlta(new Date());
-        proveedor.setAlta(true);
-
-        proveedorRepositorio.save(proveedor);
-
     }
 
     @Transactional
     public void actualizar(MultipartFile archivo, String id, String nombre, String apellido, String direccion,
-                           String telefono, String correo, String password, String password2, String rol,
-                           String experiencia, Double precioXHora, String idServicio, String alta) throws MiException {
+            String telefono, String correo, String password, String password2, String rol,
+            String experiencia, Double precioXHora, String idServicio, String alta) throws MiException {
 
         validar(nombre, correo, password, password2);
 
@@ -174,6 +179,7 @@ public class ProveedorServicio {
         }
     }
 //ALTA
+
     @Transactional
     public void altaProveedor(String id, String experiencia, Double precioXHora, Servicio servicio) throws MiException {
         Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
