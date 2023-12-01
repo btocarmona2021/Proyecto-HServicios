@@ -173,6 +173,35 @@ public class ProveedorServicio {
             throw new MiException("No se pudo dar de baja el Usuario " + proveedorRepositorio.getById(id).getNombre() + ". El usuario no fue encontrado.");
         }
     }
+//ALTA
+    @Transactional
+    public void altaProveedor(String id, String experiencia, Double precioXHora, Servicio servicio) throws MiException {
+        Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            Proveedor proveedor = respuesta.get();
+            proveedor.setExperiencia(experiencia);
+            proveedor.setPrecioXHora(precioXHora);
+            proveedor.setServicio(servicio);
+            proveedor.setAlta(Boolean.TRUE);
+            proveedorRepositorio.save(proveedor);
+        } else {
+            // En el supuesto que no existiera el usuario...
+            throw new MiException("No se pudo dar de baja el Usuario " + proveedorRepositorio.getById(id).getNombre() + ". El usuario no fue encontrado.");
+        }
+    }
+
+    @Transactional
+    public void bajaProveedor(String id) throws MiException {
+        Optional<Proveedor> respuesta = proveedorRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            Proveedor proveedor = respuesta.get();
+            proveedor.setAlta(Boolean.FALSE);
+            proveedorRepositorio.save(proveedor);
+        } else {
+            // En el supuesto que no existiera el usuario...
+            throw new MiException("No se pudo dar de baja el Usuario " + proveedorRepositorio.getById(id).getNombre() + ". El usuario no fue encontrado.");
+        }
+    }
 
     @Transactional
     public void altaProveedor(String id, String experiencia, Double precioXHora, Servicio servicio) throws MiException {

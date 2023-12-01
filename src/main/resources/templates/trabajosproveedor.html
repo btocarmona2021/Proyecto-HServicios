@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/frangments/head :: head">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/rateyo@2.3.2/lib/min/jquery.rateyo.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/rateyo@2.3.2/lib/min/jquery.rateyo.min.js"></script>
+</head>
+
+<body class="grid-container">
+<header class="header">
+    <nav th:replace="/frangments/navbar :: nav"></nav>
+</header>
+<article class="main">
+    <!-- ERROR/EXITO -->
+    <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError">
+        <div class="card-body">
+            <h5 class="card-title">Error 👎</h5>
+            <p class="card-text" th:text="${error}"></p>
+        </div>
+    </div>
+    <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito">
+        <div class="card-body">
+            <h5 class="card-title">Exito!</h5>
+            <p class="card-text" th:text="${exito}"></p>
+        </div>
+    </div>
+
+    <!-- FORMULARIO -->
+
+
+    <main>
+        <div>
+            <h1>PERFIL</h1>
+            <h3 th:if="${session.usuariosession != null}"
+                th:text=" 'Bienvenido '+ ${session.usuariosession.nombre}"></h3>
+        </div>
+        <div class="container">
+            <a class="d-flex align-items-center">
+                <img class="logo" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" alt="img_usuario">
+            </a>
+        </div>
+        <div class="container-fluid m-5 contenedor">
+
+
+            <img th:src="@{imagen/perfil/__${usuario.id}__}" alt="" class="form-control">
+            <label th:text="${usuario.nombre}" class="form-control"></label>
+            <label th:text="${usuario.apellido}" class="form-control"></label>
+            <label th:text="${usuario.correo}" class="form-control"></label>
+            <div class="valoracion" th:style="${'font-size:30px'}">
+                <label onclick="valorar(1)"
+                       th:style="${promedio >= 1 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                <label onclick="valorar(2)"
+                       th:style="${promedio >= 2 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                <label onclick="valorar(3)"
+                       th:style="${promedio >= 3 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                <label onclick="valorar(4)"
+                       th:style="${promedio >= 4 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                <label onclick="valorar(5)"
+                       th:style="${promedio >= 5 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+            </div>
+
+
+            <table border="2">
+                <tr>
+                    <th>Nombre cliente</th>
+                    <th>Trabajo a Realizar</th>
+                    <th>Fecha de Solicitud</th>
+                    <th>Presupuesto</th>
+                </tr>
+                <tr th:each="contrato: ${contratos}" th:if="${contrato.inicioT ==false}">
+                    <td th:text="${contrato.usuario.nombre+' '+ contrato.usuario.apellido}"></td>
+                    <td th:text="${contrato.descripcionTrabajo}"></td>
+                    <td th:text="${contrato.fechaSolicitud}"></td>
+                    <td th:if="${contrato.presupuesto == null}">
+                        <form th:action="@{/contrato/enviapresupuesto/__${contrato.id}__}" method="post">
+                            <textarea name="presupuesto" id="" cols="60" rows="5"></textarea>
+                            <br>
+                            <label for="horas">Ingres las horas estimadas</label>
+                            <br>
+                            <input type="number" name="horasestimadas" id="horas" min="0" max="620">
+                            <input type="submit" value="Enviar presupuesto">
+                        </form>
+                    </td>
+                    <td th:unless="${contrato.presupuesto} == null">
+                        <p th:text="${contrato.presupuesto}"></p>
+                    </td>
+                    <!--<td><a th:href="@{/contrato/contratoaceptado/__${contrato.id}__}">Aceptar</a></td>-->
+                </tr>
+
+            </table>
+            <br>
+            <br>
+
+            <table border="2">
+                <tr>
+                    <th>Nombre cliente</th>
+                    <th>Trabajo en proceso</th>
+                    <th>Finalizar trabajo</th>
+                </tr>
+                <tr th:each="contrato: ${contratos}"
+                    th:if="${contrato.inicioT ==true and contrato.finT ==false}">
+                    <td th:text="${contrato.usuario.nombre +' '+ contrato.usuario.apellido}"></td>
+                    <td th:text="${contrato.descripcionTrabajo}"></td>
+                    <td><a th:href="@{/contrato/finalizatrabajo/__${contrato.id}__}">Finalizar</a></td>
+                </tr>
+
+            </table>
+            <br>
+            <br>
+            <table border="2">
+                <tr>
+                    <th>Nombre cliente</th>
+                    <th>Trabajo Finalizado</th>
+                    <th>Comentario del cliente</th>
+                    <th>Valoracion del cliente</th>
+                </tr>
+                <tr th:each="contrato: ${contratos}"
+                    th:if="${contrato.finT ==true}">
+                    <td th:text="${contrato.usuario.nombre +' '+ contrato.usuario.apellido}"></td>
+                    <td th:text="${contrato.descripcionTrabajo}"></td>
+                    <td th:text="${contrato.comentario.estado == true ? contrato.comentario.contenido : 'El comentario del cliente ha sido censurado'}"></td>
+                    <td th:if="${contrato.puntuacion != 0}">
+                        <div class="valoracion" th:style="${'font-size:30px'}">
+                            <label onclick="valorar(1)"
+                                   th:style="${contrato.puntuacion >= 1 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                            <label onclick="valorar(2)"
+                                   th:style="${contrato.puntuacion >= 2 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                            <label onclick="valorar(3)"
+                                   th:style="${contrato.puntuacion >= 3 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                            <label onclick="valorar(4)"
+                                   th:style="${contrato.puntuacion >= 4 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                            <label onclick="valorar(5)"
+                                   th:style="${contrato.puntuacion >= 5 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                        </div>
+                    </td>
+                    <td th:unless="${contrato.puntuacion != 0}">
+                        <p>El cliente aún no ha calificado</p>
+                    </td>
+                </tr>
+
+            </table>
+
+
+            <div class="form-group my-3">
+
+                <input type="hidden" class="form-control" name="id" th:value="${usuario.id}">
+            </div>
+
+
+            <a href="/inicio">
+                <button class="btn btn-primary mt-3 botones">Volver</button>
+            </a>
+        </div>
+    </main>
+    <div class="btn-holder">
+
+        <button class="button2" onclick='goBack()'>Atrás</button>
+        <script>
+            function goBack() {
+                history.back();
+            }
+        </script>
+
+    </div>
+
+</article>
+<footer th:replace="frangments/footer:: footer"></footer>
+
+<script src="/script.js"></script>
+</body>
+</html>

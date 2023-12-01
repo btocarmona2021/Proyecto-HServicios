@@ -1,7 +1,7 @@
 <nav class="nav">
-    <a href="/" class="logo nav-link"><img class="img" src="/img/logo.jpg" alt="Hservice"/></a>
+    <a href="/" class=""><img class="img" src="/img/logo.jpg" alt="Hservice"/></a>
     <button class="nav-toggle" aria-label="Abrir menú">
-        <i class="fas fa-bars"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M120-240v-80h240v80H120Zm0-200v-80h480v80H120Zm0-200v-80h720v80H120Z"/></svg></i>
+        <i class="fas fa-bars"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"></svg></i>
     </button>
     <ul class="nav-menu">
         <li class="nav-menu-item">
@@ -18,12 +18,27 @@
             <a href="/logout" class="nav-menu-link nav-link" th:if ="${session.usuariosession !=null}">Salir</a>
         </li>
         <li class="nav-menu-item">
-            <a href="/buscador" class="nav-menu-link nav-link">Buscar</a>
+            <div>
+                <form class="" th:action="@{/buscador}" method="POST">
+                    <div>
+                        <input type="text" class="" name="buscar" placeholder="Que desea buscar">
+
+                        <button type="submit" class="buscar">buscar</button>
+
+                    </div>
+                </form>
+            </div>
         </li>
         <li class="nav-menu-item">
             <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}"  role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text=" 'Hola  '+ ${session.usuariosession.nombre} ">
             </a>
+            
         </li>
+        <li class="nav-menu-item">
+            
+            <a><img th:if="${session.usuariosession != null}" class="perfil" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" width="100px"></a>
+        </li>
+        
         <!-- <li class="nav-menu-item">
            <a href="#" class="nav-menu-link nav-link nav-menu-link_active"
              >Contacto</a

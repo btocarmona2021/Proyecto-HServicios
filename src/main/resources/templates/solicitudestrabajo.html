@@ -26,9 +26,10 @@
 
     <main>
         <div>
-            <h1>PERFIL USUARIO</h1>
-            <h3 th:if="${session.usuariosession != null}"
-                th:text=" 'Bienvenido '+ ${session.usuariosession.nombre}"></h3>
+            <h1 sec:authorize="hasRole('ADMIN')">Perfil de Administrador</h1>
+            <h1 sec:authorize="hasRole('USUARIO')">Perfil de Usuario</h1>
+            <h1 sec:authorize="hasRole('PROVEEDOR')">Perfil de Proveedor</h1>
+            mostrar datos y y botones para actualizar 
         </div>
         <div class="container">
             <a class="d-flex align-items-center">
@@ -44,18 +45,30 @@
             <label th:text="${usuario.correo}" class="form-control"></label>
 
 
+            comment
             <table border="2">
                 <tr>
                     <th>Nombre Proveedor</th>
                     <th>Trabajo a Realizar</th>
                     <th>Fecha de Solicitud</th>
-                    <th>Aceptación de trabajo</th>
+                    <th>Presupuesto</th>
+                    <th>Acción</th>
                 </tr>
                 <tr th:each="contrato: ${contratos}" th:if="${contrato.inicioT ==false}">
-                    <td th:text="${contrato.usuario.nombre +' '+ contrato.usuario.apellido}"></td>
-                    <td th:text="${contrato.descripcionTrabajo()}"></td>
+                    <td th:text="${contrato.proveedor.nombre +' '+ contrato.proveedor.apellido}"></td>
+                    <td th:text="${contrato.descripcionTrabajo}"></td>
                     <td th:text="${contrato.fechaSolicitud}"></td>
-                    <td><a th:href="@{/contrato/contratoaceptado/__${contrato.id}__}">Aceptar</a></td>
+                    <td th:if="${contrato.presupuesto ==null}">
+                        <p>Esperando presupuesto</p>
+                    </td>
+                    <td th:unless="${contrato.presupuesto} == null">
+                        <p th:text="${contrato.presupuesto}"></p>
+                        <p th:text="${'Cantidad de horas estimadas: '+ contrato.horasestimadas}"></p>
+                        <p th:text="${'Costo mano de obra: ' + (contrato.horasestimadas * contrato.proveedor.precioXHora) + ' Pesos'}"></p>
+
+                    </td>
+                    <td><a th:href="@{/contrato/contratoaceptado/__${contrato.id}__}">Aceptar |</a>
+                        <a th:href="@{/contrato/cancelacontrato/__${contrato.id}__}"> Cancelar</a></td>
                 </tr>
 
             </table>
@@ -84,12 +97,32 @@
                     <th>Trabajo Finalizado</th>
                     <th>Comentario del cliente</th>
                     <th>Dejá tu reseña</th>
+                    <th>Valorar Proveedor</th>
                 </tr>
                 <tr th:each="contrato: ${contratos}" th:if="${contrato.finT ==true}">
                     <td th:text="${contrato.proveedor.nombre +' '+ contrato.proveedor.apellido}"></td>
                     <td th:text="${contrato.descripcionTrabajo}"></td>
                     <td th:text="${contrato.comentario.estado == true ? contrato.comentario.contenido : 'Su comentario ha sido censurado, cuide el vocabulario'}"></td>
                     <td><a th:href="@{/comentario/actualizarcomentario/__${contrato.comentario.idcomentario}__}">Comentar</a>
+                    </td>
+                    <td>
+                        <form th:action="@{/contrato/valorar/__${contrato.id}__}" method="post">
+                            <div class="valoracion" th:style="${'font-size:30px'}">
+                                <label onclick="valorar(1, this.getAttribute('data'))" th:data="${contrato.id}"
+                                       th:style="${contrato.puntuacion >= 1 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                                <label onclick="valorar(2, this.getAttribute('data'))" th:data="${contrato.id}"
+                                       th:style="${contrato.puntuacion >= 2 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                                <label onclick="valorar(3, this.getAttribute('data'))" th:data="${contrato.id}"
+                                       th:style="${contrato.puntuacion >= 3 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                                <label onclick="valorar(4, this.getAttribute('data'))" th:data="${contrato.id}"
+                                       th:style="${contrato.puntuacion >= 4 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                                <label onclick="valorar(5, this.getAttribute('data'))" th:data="${contrato.id}"
+                                       th:style="${contrato.puntuacion >= 5 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                            </div>
+                            <input type="hidden" th:id="${contrato.id+1}" name="puntuacion" value="">
+                            <input type="submit" value="Valorar" th:id="${contrato.id}" th:style="${'display:none;'}">
+                        </form>
+
                     </td>
                 </tr>
 
@@ -120,6 +153,13 @@
 
 </article>
 <footer th:replace="frangments/footer:: footer"></footer>
+<script>
+    function valorar(estrellas, data) {
+        document.getElementById(data + 1).value = estrellas;
+        console.log(estrellas, data)
+        document.getElementById(data).click();
+    }
+</script>
 <script src="/script.js"></script>
 </body>
 </html>

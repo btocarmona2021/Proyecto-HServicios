@@ -32,11 +32,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UsuarioServicio implements UserDetailsService{
+public class UsuarioServicio implements UserDetailsService {
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
-    
     @Autowired
     private ImagenServicio imagenServicio;
     @Autowired
@@ -46,16 +45,17 @@ public class UsuarioServicio implements UserDetailsService{
 
     @Transactional
     public void registrarUsuario(MultipartFile archivo, String nombre, String apellido, String direccion,
-            String telefono, String correo, String password, String password2) throws MiException {
-        
+                                 String telefono, String correo, String password, String password2) throws MiException {
+        System.out.println("SERVICIO USUARIO");
+        System.out.println("CORREO:" + correo);
         List<Usuario> existe = usuarioRepositorio.buscarCorreoUsuarioActivo(correo);
         /*
         quiero que la siguiente linea llame al usuarioRepositorio.buscarCorreoUsuarioActivo(correo) que se fija si el correo no aparece en
-        la lista de proveedores, y reemplazar el if actual por 
+        la lista de proveedores, y reemplazar el if actual por
         if ((existe.size()==2) || (!existe.isEmpty())) {
-        */
-        if (!existe.isEmpty()) {
-            throw new MiException("El usuario no ha podido ser registrado porque el correo ya ha sido registrado.");
+         */
+        if ((!existe.isEmpty())) {
+            throw new MiException("El correo electronico con el que intenta registrarse ya se encuentra en nuestra base de datos");
         } else {
             // Manejo de Excepciones
             validar(nombre, apellido, direccion, telefono, correo, password, password2);
@@ -86,7 +86,7 @@ public class UsuarioServicio implements UserDetailsService{
 
     @Transactional
     public void actualizarUsuario(MultipartFile archivo, String id, String nombre, String apellido,
-            String direccion, String telefono, String correo, String password, String password2) throws MiException {
+                                  String direccion, String telefono, String correo, String password, String password2) throws MiException {
 
         // Manejo de Excepciones
         validar(nombre, apellido, direccion, telefono, correo, password, password2);
@@ -102,7 +102,7 @@ public class UsuarioServicio implements UserDetailsService{
             usuario.setCorreo(correo);
 
             usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-            
+
             // ********** INICIO ACTUALIZACIÓN DE LA IMAGEN **********
             //SI LA IMAGEN DEL USUARIO ES LA DEFAULT CREARA UNA NUEVA IMAGEN, CASO CONTRARIO ACTUALIZARA LA IMAGEN
             if (usuario.getImagen().getNombre().equalsIgnoreCase("defecto_image_service.png")) {
@@ -111,21 +111,18 @@ public class UsuarioServicio implements UserDetailsService{
                 usuario.setImagen(imagenServicio.actualizarImagen(archivo, usuario.getImagen().getId()));
             }
 
-
             // ********** FIN ACTUALIZACIÓN DE LA IMAGEN **********
-            
             /**
              * *************************************
              * ESPACIO RESERVADO CAMBIO DE USUARIO *
-             **************************************
+             * *************************************
              */
-            
-            /*****************************
-             * La siguiente linea sirve SOLO si se quiere CONSERVAR el rol. 
-             * Caso contrario, ver de que el no se altere el ADMIN al intercambiar
-             * entre USUARIO y PROVEEDOR y viceversa
+            /**
              * ***************************
-            */
+             * La siguiente linea sirve SOLO si se quiere CONSERVAR el rol. Caso
+             * contrario, ver de que el no se altere el ADMIN al intercambiar
+             * entre USUARIO y PROVEEDOR y viceversa ***************************
+             */
             usuario.setRol(usuario.getRol());
 
             usuario.setAlta(Boolean.TRUE);
@@ -233,15 +230,13 @@ public class UsuarioServicio implements UserDetailsService{
             throw new MiException("Las contraseñas ingresadas NO son iguales.");
         }
     }
-    
-    
+
     @Transactional
     // Método que devuelve el usuario por id
     public Usuario buscarUsuario(String id) {
         return usuarioRepositorio.buscarUsuario(id);
     }
-    
-    
+
     // Este metodo busca un 'DATO' en la base de datos una información solicitada por el BUSCADOR
     public List<Usuario> buscarDato(String dato) {
         return usuarioRepositorio.buscarDato(dato);
@@ -259,8 +254,8 @@ public class UsuarioServicio implements UserDetailsService{
 
     @Override
     public UserDetails loadUserByUsername(String correo) throws UsernameNotFoundException {
-        Usuario usuario = usuarioRepositorio.buscarPorCorreo(correo);
-         if (usuario != null) {
+        Usuario usuario = usuarioRepositorio.buscarCorreoActivo(correo);
+        if (usuario != null) {
 
             List<GrantedAuthority> permisos = new ArrayList();
 

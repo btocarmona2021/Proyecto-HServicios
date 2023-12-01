@@ -3,31 +3,38 @@
     <head th:replace="/frangments/head :: head"
           </head>
 
-    <body class="grid-container">
-        <header class="header">
-            <nav th:replace="/frangments/navbar :: nav"
-                 </nav>
-        </header>
-        <article class="main">
-            <div>Registo</div>
-            <div><h1> Editar </h1>
+<body class="grid-container">
+<header class="header">
+    <nav th:replace="/frangments/navbar :: nav"
+    </nav>
+</header>
+<article class="main">
+    <div>Registo</div>
+    <div><h1> Editar </h1>
+    </div>
+
+
+    <div class="container" align="center">
+        <form class="formulariou" th:action="@{/proveedor/actualizar/__${proveedor.id}__}" method="POST"
+              enctype="multipart/form-data">
+            <div class="form-group">
+                <input hidden th:value="${proveedor.id}" name="id">
+                <input type="text" class="form-group" name="nombre" th:value="${proveedor.nombre}">
+                <input type="text" class="form-group" name="apellido" th:value="${proveedor.apellido}">
+                <input type="text" size="30" class="form-group" name="correo" th:value="${proveedor.correo}">
             </div>
 
 
-            <div class="container" align="center">
-                <form class="formulario" th:action="@{/proveedor/actualizar/__${proveedor.id}__}" method="POST" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <input hidden th:value="${proveedor.id}" name="id">
-                        <input type="text" class="form-group" name="nombre" th:value="${proveedor.nombre}">
-                        <input type="text" class="form-group" name="apellido" th:value="${proveedor.apellido}">
-                        <input type="text" size="30" class="form-group" name="correo" th:value="${proveedor.correo}">
-                    </div>
+                    <select name="idServicio">
+                        <option th:text="${proveedor.servicio.rubro}" th:value="${proveedor.servicio.id}"/>
+                        <option th:each="servicio : ${servicio}" th:if="${servicio.rubro != proveedor.servicio.rubro}"
+                                th:text="${servicio.rubro}" th:value="${servicio.id}"/>
+                    </select>
 
-                    <div class="form-group">
-                        <input type="text" class="form-group" name="direccion" th:value="${proveedor.direccion}">
-                        <input type="text" size="30" class="form-group" name="telefono" th:value="${proveedor.telefono}">
-                        <br>
-                        <div class="form-group">
+                    <input type="number" size="30" class="form-group" name="precioXHora"
+                           th:value="${proveedor.precioXHora}">
+                    <input type="text" size="30" class="form-group" name="experiencia"
+                           th:value="${proveedor.experiencia}">
 
                             <select name="idServicio">
 
@@ -81,6 +88,17 @@
                     </div>
                 </div>
 
+                <div class="form-group"> se oculto las contraseña por seguridad
+                    <input hidden class="form-control" name="password" th:value="${proveedor.password}">
+                    <input hidden class="form-control" name="password2" th:value="${proveedor.password}">
+                </div>
+                <br>
+                <div class="form-group">
+                   
+                    <input type="file" class="form-control" name="archivo" th:src="@{/imagen/perfil/__${proveedor.id}__}">
+                </div>
+                <br>mostrar la imagen
+                <img  th:src="@{/imagen/perfil/__${proveedor.id}__}" width="150px">
 
             </div>
 
