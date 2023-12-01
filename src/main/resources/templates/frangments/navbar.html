@@ -21,9 +21,11 @@
             <div>
                 <form class="" th:action="@{/buscador}" method="POST">
                     <div>
-                        <input type="text" class="" name="buscar" placeholder="Que desea buscar">
+                        <input type="text" class="input" name="buscar" placeholder="Que desea buscar">
 
-                        <button type="submit" class="buscar">buscar</button>
+
+                            <button type="submit" class="boton">Buscar</button>
+
 
                     </div>
                 </form>
@@ -32,13 +34,13 @@
         <li class="nav-menu-item">
             <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}"  role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text=" 'Hola  '+ ${session.usuariosession.nombre} ">
             </a>
-            
+
         </li>
         <li class="nav-menu-item">
-            
+
             <a><img th:if="${session.usuariosession != null}" class="perfil" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" width="100px"></a>
         </li>
-        
+
         <!-- <li class="nav-menu-item">
            <a href="#" class="nav-menu-link nav-link nav-menu-link_active"
              >Contacto</a

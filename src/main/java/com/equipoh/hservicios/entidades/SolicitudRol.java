@@ -4,18 +4,19 @@
  */
 package com.equipoh.hservicios.entidades;
 
+import java.util.Date;
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-
 
 /**
  *
@@ -26,7 +27,8 @@ import javax.persistence.OneToOne;
 @Setter
 @ToString
 @NoArgsConstructor
-public class Proveedor extends Usuario {
+public class SolicitudRol {
+
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -34,8 +36,13 @@ public class Proveedor extends Usuario {
     @Column(length = 1000)
     private String experiencia;
     private Double precioXHora;
-
+    private Boolean estado;
     @OneToOne
     private Servicio servicio;
-            
+    @Temporal(TemporalType.DATE)
+    private Date fechaSolicitud;
+    @OneToOne
+    private Usuario usuario;
+    @OneToOne
+    private Proveedor proveedor;
 }

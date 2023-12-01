@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head th:replace= "/frangments/head :: head"></head>
 
+
     <body class="grid-container">
         <header class="header">
             <nav th:replace="/frangments/navbar :: nav"></nav>
@@ -16,6 +17,7 @@
                         <p class="card-text" th:text="${exito}"></p>
                     </div>
                 </div>
+
 <form th:action="@{/comentario/comentarioactualizado/__${comentario.getIdcomentario()}__}" method="post">
     <textarea name="contenido" id="contenido" cols="30" rows="10" th:text="${comentario.contenido}">
 
@@ -24,6 +26,7 @@
     <button class="button2" type="submit" value="Comentar">Guardar los cambios</button>
 
 </form>
+
  </main> 
 
             <div class="btn-holder">
@@ -38,7 +41,8 @@
             </div> 
 
         </article>
-        <footer th:replace="frangments/footer:: footer"</footer>
+        <footer th:replace="frangments/footer:: footer"></footer>
             <script src="/script.js"></script>
     </body>
+
 </html>
