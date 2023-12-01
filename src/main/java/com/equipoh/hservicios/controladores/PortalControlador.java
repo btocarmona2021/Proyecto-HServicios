@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -49,11 +50,17 @@ public class PortalControlador {
         return "index.html";
     }
 
-    @GetMapping("/login")
-    public String login() {
+    
+     @GetMapping("/login")
+    public String login(@RequestParam(required = false) String error, ModelMap modelo) {
+
+        if (error != null) {
+            modelo.put("error", "Usuario o Contraseña invalidos!");
+        }
         return "login.html";
     }
-@PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN','ROLE_PROVEEDOR')")
+    
+
     @GetMapping("/panel")
     public String panel(ModelMap modelo) {
          List<Servicio> servicios = servicioServicio.listarServicios();
@@ -99,7 +106,7 @@ public class PortalControlador {
         if (logueado.getRol().toString().equals("ADMIN")) {
             return "redirect:/admin/dashboard";
         }
-        return "index.html";
+        return "panel.html";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN','ROLE_PROVEEDOR')")

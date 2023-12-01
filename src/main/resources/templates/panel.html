@@ -12,7 +12,7 @@
             <h1 sec:authorize="hasRole('ADMIN')">Panel de Administrador</h1>
             <h1 sec:authorize="hasRole('USUARIO')">Panel de Usuario</h1>
             <h1 sec:authorize="hasRole('PROVEEDOR')">Panel de Proveedor</h1>
-
+            <div class="link-containerpanel">
             <div class="link-container">
                 <a sec:authorize="hasRole('ADMIN')" href="/usuario/registrar">Crear Usuario / Proveedor</a>
 
@@ -66,11 +66,11 @@
             </div>
             <div class="link-container">
                 <a sec:authorize="hasRole('ADMIN')" href="/solicitudRol/lista">Ver Solicitudes cambio de Rol</a>
-            </div>
+            </div> </div>
 
 
-                <div class="container">
-                    <tbody th:each="servicio : ${servicios}" >   
+                <div  class="container">
+                    <tbody th:each="servicio : ${servicios}" sec:authorize="hasRole('USUARIO')">   
                     <div class="card" >
                         <div> <form class="" th:action="@{/buscador}" method="POST">
                                 <div>
