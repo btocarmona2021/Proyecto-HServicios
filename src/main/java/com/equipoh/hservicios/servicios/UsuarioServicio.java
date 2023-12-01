@@ -45,17 +45,17 @@ public class UsuarioServicio implements UserDetailsService {
 
     @Transactional
     public void registrarUsuario(MultipartFile archivo, String nombre, String apellido, String direccion,
-            String telefono, String correo, String password, String password2) throws MiException {
+                                 String telefono, String correo, String password, String password2) throws MiException {
         System.out.println("SERVICIO USUARIO");
         System.out.println("CORREO:" + correo);
         List<Usuario> existe = usuarioRepositorio.buscarCorreoUsuarioActivo(correo);
         /*
         quiero que la siguiente linea llame al usuarioRepositorio.buscarCorreoUsuarioActivo(correo) que se fija si el correo no aparece en
-        la lista de proveedores, y reemplazar el if actual por 
+        la lista de proveedores, y reemplazar el if actual por
         if ((existe.size()==2) || (!existe.isEmpty())) {
          */
         if ((!existe.isEmpty())) {
-            throw new MiException("El usuario no ha podido ser registrado porque el correo ya ha sido registrado.");
+            throw new MiException("El correo electronico con el que intenta registrarse ya se encuentra en nuestra base de datos");
         } else {
             // Manejo de Excepciones
             validar(nombre, apellido, direccion, telefono, correo, password, password2);
@@ -86,7 +86,7 @@ public class UsuarioServicio implements UserDetailsService {
 
     @Transactional
     public void actualizarUsuario(MultipartFile archivo, String id, String nombre, String apellido,
-            String direccion, String telefono, String correo, String password, String password2) throws MiException {
+                                  String direccion, String telefono, String correo, String password, String password2) throws MiException {
 
         // Manejo de Excepciones
         validar(nombre, apellido, direccion, telefono, correo, password, password2);
@@ -173,6 +173,7 @@ public class UsuarioServicio implements UserDetailsService {
     public Usuario getOne(String id) {
         return usuarioRepositorio.getOne(id);
     }
+
 
     @Transactional
     public void bajaUsuario(String id) throws MiException {
@@ -274,4 +275,5 @@ public class UsuarioServicio implements UserDetailsService {
             return null;
         }
     }
+
 }
