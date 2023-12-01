@@ -12,10 +12,13 @@ import com.equipoh.hservicios.servicios.ServicioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author jorge
@@ -39,10 +42,10 @@ public class ProveedorControlador {
     @PostMapping("/registro")
     public String registroProveedor(MultipartFile archivo, String nombre, String apellido, String direccion,
                                     String telefono, String correo, String password, String password2, String rol,
-                                    String experiencia, Double precioXHora, String idServicio, ModelMap modelo) {
-        System.out.println("idServico: " +idServicio);
+                                    String experiencia, Double precioXHora, List<Servicio> servicio, ModelMap modelo) {
+
         try {
-            proveedorServicio.registrarProveedor(archivo, nombre, apellido, direccion, telefono, correo, password, password2, rol, experiencia, precioXHora, idServicio);
+            proveedorServicio.registrarProveedor(archivo, nombre, apellido, direccion, telefono, correo, password, password2, rol, experiencia, precioXHora, servicio);
             modelo.put("exito", "El Proveedor fue registrado correctamente");
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());
@@ -71,10 +74,10 @@ public class ProveedorControlador {
     @PostMapping("/actualizar/{id}")
     public String actualizar(MultipartFile archivo, String id, String nombre, String apellido, String direccion,
                              String telefono, String correo, String password, String password2, String rol,
-                             String experiencia, Double precioXHora, String idServicio, String alta, ModelMap modelo) {
+                             String experiencia, Double precioXHora, List<Servicio> servicio, String alta, ModelMap modelo) {
         Proveedor proveedor = proveedorServicio.getOne(id);
         try {
-            proveedorServicio.actualizar(archivo, id, nombre, apellido, direccion, telefono, correo, password, password2, rol, experiencia, precioXHora, idServicio, alta);
+            proveedorServicio.actualizar(archivo, id, nombre, apellido, direccion, telefono, correo, password, password2, rol, experiencia, precioXHora, servicio, alta);
             return "redirect:/proveedor/lista";
         } catch (MiException ex) {
             modelo.put("error", ex.getMessage());

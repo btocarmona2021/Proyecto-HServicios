@@ -29,9 +29,8 @@ public class Servicio {
     private String id;
     private String rubro;
     private Boolean estado;
-    
     @OneToOne
     private Imagen imagen;
 
-    
+
 }

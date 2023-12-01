@@ -4,17 +4,14 @@
  */
 package com.equipoh.hservicios.entidades;
 
-import javax.persistence.Column;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -35,7 +32,7 @@ public class Proveedor extends Usuario {
     private String experiencia;
     private Double precioXHora;
 
-    @OneToOne
-    private Servicio servicio;
+    @OneToMany(mappedBy = "proveedor")
+    private List<Servicio> servicios;
             
 }
