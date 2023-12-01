@@ -36,16 +36,43 @@ body {
 
 .main {
     grid-area: main;
-    background-color: #fff;
-    
+    background-image:  url("../img/caru01.jpg");
     background-repeat: no-repeat;
     background-size: 120%;
 }
+.mainh {
+    grid-area: main;
+    background-image:  url("../img/grupo.png");
+    background-repeat: no-repeat;
+    background-size: 120%;
+    background-attachment: fixed;
+}
+.mainl {
+    grid-area: main;
+    background-image:  url("../img/login.png");
+    background-repeat: no-repeat;
+    background-size: 120%;
+    background-attachment: fixed;
+}
+.mainb {
+    grid-area: main;
+    background-image:  url("../img/buscar.png");
+    background-repeat: no-repeat;
+    background-size: 120%;
+    background-attachment: fixed;
+}
+.mainDash {
+    grid-area: main;
+    background-image: url("../img/prov.jpg");
 
+    background-repeat: no-repeat;
+    background-size: 120%;
+}
 .footer {
     grid-area: footer;
     background-color: #373DBA;
     color: white;
+    text-align-last: center;
 }
 
 .grid-container {
@@ -111,6 +138,8 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     margin: auto;
+
+
 }
 
 .container .card {
@@ -123,6 +152,7 @@ body {
     text-align: center;
     transition: all 0.5s;
 }
+
 
 .container .card:hover {
     transform: translateY(-10px);
@@ -249,11 +279,21 @@ button {
 }*/
 
 .buttonerror {
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+
+left: 50%;
+transform: translate(-50%, -50%);
     width: 50%;
     background-color: firebrick;
     border-radius: 18px;
     color: white;
     border: 2px solid firebrick;
+    align-content: center;
 }
 
 .buttonerror:hover {
@@ -288,23 +328,26 @@ button {
 }
 
 .container_p .card_p{
-    width: 430px;
+    width: 300px;
     /*height: 400px;*/
     border-radius: 8px;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     margin: 20px;
-    text-align: center;
+    text-align: left;
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
     transition: all 0.5s;
-    background-color: #95afba;
+    background-color: #373DBA;
+    alignment-adjust: central;
 }
 .container_p .card_p:hover{
     transform: translateY(-15px);
     box-shadow: 0 12px 16px rgba(0, 0, 0, 0.2);
 }
 .container_p .card_p img{
-    width: 330px;
-    height: 220px;
+    width: 300px;
+    height: 200px;
 }
 .container_p .card_p h4{
     font-weight: 600;
@@ -331,7 +374,7 @@ button {
 .container_p .card_p a{
     font-weight: 500;
     text-decoration: none;
-    color: #3498db;
+    color: #373DBA;
 
 
 }
@@ -449,10 +492,11 @@ button {
     background: #F2F2F2;
     font-size: 12px;
     outline: none;
+    border-radius: 8px;
 }
 
 .contenedor__login-register form button{
-    
+
     margin-top: 4px;
     border: none;
     font-size: 12px;
@@ -523,7 +567,8 @@ button {
     justify-content: end;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    background-color: #373DBA;
+    
+    background-color: rgba(55, 61, 186, 0.1);
     border-radius: 20px;
 
 }
@@ -628,11 +673,11 @@ button {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    height: 480px;
-    
+    height: 650px;
+
 }
 .card{
-    
+
     width: 50%;
     height:30%;
     background-repeat: no-repeat;
@@ -657,7 +702,7 @@ button {
     position: relative;
     display: inline-block;
     border-bottom: 1px dotted black;
-    
+
 }
 
 .tooltip .tooltiptext {
@@ -695,7 +740,7 @@ li{
     text-align-last: auto;
     text-align: left;
     border-radius: 4px;
-     padding: 4% ;
+    padding: 4% ;
 
     /* Position the tooltip */
     position: absolute;
@@ -758,26 +803,44 @@ li{
     transition: opacity 2s;
 }
 .formServi{
-  margin: auto;
- 
-      
+    margin: auto;
+
+
 }
 .formServi td  {
     padding: 5px;
+
+    border: 10px solid #fff;
+}
+.link-containerpanel{
     
-     border: 10px solid #fff;
+     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px;
+    
 }
 
 .link-container {
     margin-bottom: 10px;
+    width: 200px;
+    color: white;
+    font-size: x-large;
+    text-shadow: 3px 3px 6px #000000;
+   
 }
 
 .link-container a {
+
     display: block;
     padding: 10px;
     text-decoration: none;
-    color: #373DBA;
-    border: 1px solid #373DBA;
+    /*    color: #373DBA;*/
+    /*    border: 1px solid #373DBA;*/
+    color: white;
+    margin: 15px;
+
+    border: 1px solid white;
     border-radius: 5px;
     transition: background-color 0.3s, color 0.3s;
 }
@@ -793,12 +856,44 @@ li{
     background-color: #9ee493;
 }
 h1 {
+    /*color: #373DBA;  Color del texto */
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+    font-size: xx-large;
+    font-family: 'Arial', sans-serif; /* Tipo de fuente */
+    text-align: center; /* Alineación del texto */
+    margin-top: 20px; /* Margen superior */
+    margin-bottom: 20px; /* Margen inferior */
+}
+
+input{
+
+    border-radius: 10px;
+}
+h1{
+    color: white;
+    font-size: xx-large;
+    text-shadow: 3px 3px 6px #000000;
     color: #373DBA; /* Color del texto */
     font-family: 'Arial', sans-serif; /* Tipo de fuente */
     text-align: center; /* Alineación del texto */
     margin-top: 20px; /* Margen superior */
     margin-bottom: 20px; /* Margen inferior */
 }
+.tablaPerfil{
+    border-style: groove;
+    border-color: white;
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+
+}
+h3{
+    color: white;
+    font-size: x-large;
+    text-shadow: 2px 2px 4px #000000;
+}
+    
+
 .cardService{
     
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -809,4 +904,67 @@ h1 {
     flex-wrap: wrap;
     justify-content: center;
     margin: auto;
-}      
+} 
+/*presentacion*/
+.containerh {
+    width: 100%;
+    max-width: 1200px;
+    /*height: 430px;*/
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: auto;
+
+
+}
+
+.containerh .cardh {
+    width: auto;
+    height: 100px;
+    border-radius: 8px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    margin: 15px;
+    text-align: center;
+    transition: all 0.5s;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+
+.containerh .cardh:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 16px rgba(0, 0, 0, 0.2);
+}
+
+.containerh .cardh  img {
+    align-content: center;
+    width: 50px;
+    height: 50px;
+}
+
+.containerh .cardh h4 {
+    font-weight: 600;
+}
+
+.containerh .cardh p {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
+}
+
+.containerh .cardh p {
+    padding: 0;
+    font-size: 16px;
+    font-weight: 20;
+    text-transform: uppercase;
+
+
+}
+.sin{
+    font-size: 18px;
+    align-content: center;
+    color: white;
+}
+

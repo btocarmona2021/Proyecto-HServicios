@@ -6,27 +6,30 @@
         <header class="header">
             <nav th:replace="/frangments/navbar :: nav"></nav>
         </header>
-        <article class="main"> 
+        <article class="mainDash"> 
 
 
             <h1 sec:authorize="hasRole('ADMIN')">Panel de Administrador</h1>
             <h1 sec:authorize="hasRole('USUARIO')">Panel de Usuario</h1>
             <h1 sec:authorize="hasRole('PROVEEDOR')">Panel de Proveedor</h1>
-
+            <div class="link-containerpanel">
             <div class="link-container">
                 <a sec:authorize="hasRole('ADMIN')" href="/usuario/registrar">Crear Usuario / Proveedor</a>
 
             </div>
             <div class="link-container">
-                <a sec:authorize="hasRole('ADMIN')" href="#">Añadir Palabras Censuradas</a>
+                <a sec:authorize="hasRole('ADMIN')" href="/admin/pcensuradas"> Añadir Palabras Censuradas</a>
 
             </div>
             <div class="link-container">
-                <a sec:authorize="hasRole('USUARIO')" href="/perfilu"> Mi perfil usuario</a>
+                <a sec:authorize="hasRole('ADMIN')" href="/admin/imagendefault">Añadir Imagen por defecto</a>
+            </div>
+            <div class="link-container">
+                <a sec:authorize="hasRole('USUARIO')" href="/perfil"> Mi perfil usuario</a>
 
             </div>
             <div class="link-container">
-                <a sec:authorize="hasRole('USUARIO')" href="/perfil">Solicitudes de trabajos</a>
+                <a sec:authorize="hasRole('USUARIO')" href="/perfiles">Solicitudes de trabajos</a>
 
             </div>
             <div class="link-container">
@@ -41,16 +44,16 @@
                 <a sec:authorize="hasRole('ADMIN')" href="/proveedor/lista">Ver todos los proveedores</a>
             </div>
             <div class="link-container">
-                <a sec:authorize="hasRole('PROVEEDOR')" href="/perfilu"> Mi perfil proveedor</a>
-
+                <a sec:authorize="hasRole('PROVEEDOR')" href="/perfil"> Mi perfil proveedor</a>
+                
             </div>
             <div class="link-container">
                 <a sec:authorize="hasRole('PROVEEDOR')" href="#">Dejar de ser Proveedor</a>
 
             </div>
             <div class="link-container">
-                <a sec:authorize="hasRole('PROVEEDOR')" href="/perfil">Trabajos</a>
-
+                <a sec:authorize="hasRole('PROVEEDOR')" href="/perfiles">Trabajos</a>
+                
             </div>
 
 
@@ -62,11 +65,12 @@
                 <a sec:authorize="hasRole('ADMIN')" href="/servicio/lista">Ver todos los servicios</a>
             </div>
             <div class="link-container">
-                <i sec:authorize="hasRole('USUARIO')">CATEGORIAS</i>
+                <a sec:authorize="hasRole('ADMIN')" href="/solicitudRol/lista">Ver Solicitudes cambio de Rol</a>
+            </div> </div>
 
 
-                <div class="container">
-                    <tbody th:each="servicio : ${servicios}" >   
+                <div  class="container">
+                    <tbody th:each="servicio : ${servicios}" sec:authorize="hasRole('USUARIO')">   
                     <div class="card" >
                         <div> <form class="" th:action="@{/buscador}" method="POST">
                                 <div>

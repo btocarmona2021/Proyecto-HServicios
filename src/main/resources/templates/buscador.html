@@ -7,10 +7,10 @@
             <nav th:replace="/frangments/navbar :: nav"</nav>
         </header>
 
-        <article class="main"> 
-            <div th:if="${#lists.isEmpty(proveedores)}">
-    Sin resultados, todavia no tenemos ningun proveedor para esta categoria.
-     <div class="btn-holder">
+        <article class="mainb"> 
+            <div class="sin" th:if="${#lists.isEmpty(proveedores)}" >
+                Sin resultados, todavia no tenemos ningun proveedor para esta categoria.
+                <div class="btn-holder">
 
                     <button class="button2" onclick='goBack()'>Atrás</button>
                     <script>
@@ -19,65 +19,65 @@
                         }
                     </script>
                 </div>
-</div>
-<div th:unless="${#lists.isEmpty(proveedores)}"
-            <div class="container_p">
-               
-                <tbody th:each="proveedor : ${proveedores}"> 
-                    
-                <div class="card_p" >
-                    <div>
-                        <a><img th:if="${proveedor.imagen != null}" class="logo" th:src="@{/imagen/perfil/__${proveedor.id}__}" width="150px"></a>
-
-                    </div>
-                    <div>
-                        <table>
-                            <tr>
-                                <th scope="col">Nombre: </th><td th:text="${proveedor.nombre}"></td>
-                            </tr>
-                            <tr>
-                                <th scope="col">Apellido: </th><td th:text="${proveedor.Apellido}"></td>
-                            </tr>
-                            <!-- comment  <tr>
-                                <th scope="col">Direccion: </th><td th:text="${proveedor.direccion}"></td>
-                            </tr>
-                            <tr>
-                                <th scope="col">Telefono: </th><td th:text="${proveedor.telefono}"></td>
-                            </tr>
-                            <tr>
-                                <th scope="col">Email: </th><td th:text="${proveedor.correo}"></td>
-                            </tr> 
-                            <tr>
-                                <th scope="col">Precio: </th><td th:text="${proveedor.precioXHora}"></td>
-                            </tr>
-                            -->
-                            <tr>
-                                <th scope="col">Rubro: </th><td th:text="${proveedor.servicio.rubro}"></td>
-                            </tr>
-                            <tr>
-                                <th scope="col">Experiencia: </th><td th:text="${proveedor.experiencia}"></td>
-                            </tr>
-                            <tr>
-                                <th scope="col"></th><td ><div>
-                                        <a th:if ="${session.usuariosession ==null}" href="/usuario/registrar"><button class="button2" type="button">Es necesario estar registrado para acceder</button></a>
-                                    </div></td>
-                            </tr>
-                            <tr>
-                                <th scope="col"></th><td ><div>
-                                        <a th:if ="${session.usuariosession !=null}" th:href="@{/perfil/complete/__${proveedor.id}__}"><button class="button2" type="button"> Leer Más</button></a>
-                                    </div></td>
-                            </tr>
-
-
-
-                        </table>
-                    </div>
-
-
-                </div>
-                </tbody>
             </div>
-</div>
+            <div th:unless="${#lists.isEmpty(proveedores)}">
+                <div class="container_p">
+
+                    <tbody th:each="proveedor : ${proveedores}"> 
+
+                    <div class="card_p" >
+                        <div>
+                            <a><img th:if="${proveedor.imagen != null}" class="logo" th:src="@{/imagen/perfil/__${proveedor.id}__}" width="150px"></a>
+
+                        </div>
+                        <div>
+                            <table>
+                                <tr>
+                                    <th scope="col">Nombre: </th><td th:text="${proveedor.nombre}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Apellido: </th><td th:text="${proveedor.Apellido}"></td>
+                                </tr>
+                                <!-- comment  <tr>
+                                    <th scope="col">Direccion: </th><td th:text="${proveedor.direccion}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Telefono: </th><td th:text="${proveedor.telefono}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Email: </th><td th:text="${proveedor.correo}"></td>
+                                </tr> 
+                                <tr>
+                                    <th scope="col">Precio: </th><td th:text="${proveedor.precioXHora}"></td>
+                                </tr>
+                                -->
+                                <tr>
+                                    <th scope="col">Rubro: </th><td th:text="${proveedor.servicio.rubro}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Experiencia: </th><td th:text="${proveedor.experiencia}"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col"></th><td ><div>
+                                            <a th:if ="${session.usuariosession ==null}" href="/usuario/registrar"><button class="button2" type="button">Es necesario estar registrado para acceder</button></a>
+                                        </div></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col"></th><td ><div>
+                                            <a th:if ="${session.usuariosession !=null}" th:href="@{/perfil/complete/__${proveedor.id}__}"><button class="button2" type="button"> Leer Más</button></a>
+                                        </div></td>
+                                </tr>
+
+
+
+                            </table>
+                        </div>
+
+
+                    </div>
+                    </tbody>
+                </div>
+            </div>
 
 
 
