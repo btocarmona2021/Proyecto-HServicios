@@ -24,9 +24,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * @author jorge
- */
 @Service
 public class ProveedorServicio {
 
@@ -39,9 +36,9 @@ public class ProveedorServicio {
     @Autowired
     private ImagenRepositorio imagenRepositorio;
     @Autowired
-    private UsuarioServicio usuarioServicio;
-    @Autowired
     private SolicitudRolServicio solicitudRolServicio;
+    @Autowired
+    private UsuarioServicio usuarioServicio;
 
     @Transactional
     public void registrarProveedor(MultipartFile archivo, String nombre, String apellido, String direccion,
@@ -55,7 +52,6 @@ public class ProveedorServicio {
             servicio = respuestaServicio.get();
         }
         Proveedor proveedor = new Proveedor();
-
         proveedor.setNombre(nombre);
         proveedor.setApellido(apellido);
         proveedor.setDireccion(direccion);
@@ -73,11 +69,8 @@ public class ProveedorServicio {
         }
         proveedor.setFechaAlta(new Date());
         proveedor.setAlta(true);
-
         proveedorRepositorio.save(proveedor);
-
     }
-
     @Transactional
     public void actualizar(MultipartFile archivo, String id, String nombre, String apellido, String direccion,
                            String telefono, String correo, String password, String password2, String rol,
@@ -193,7 +186,6 @@ public class ProveedorServicio {
     public List<Proveedor> listaProveedores() {
         List<Proveedor> proveedores = new ArrayList();
         proveedores = proveedorRepositorio.buscarProveedores();
-//        proveedores = proveedorRepositorio.findAll();
         return proveedores;
     }
 

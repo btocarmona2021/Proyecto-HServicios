@@ -6,22 +6,20 @@
 package com.equipoh.hservicios.servicios;
 
 
-import com.equipoh.hservicios.entidades.Imagen;
 import com.equipoh.hservicios.entidades.Servicio;
 import com.equipoh.hservicios.excepciones.MiException;
 import com.equipoh.hservicios.repositorios.ServicioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class ServicioServicio {
-
    @Autowired
     private ServicioRepositorio servicioRepositorio;
     @Autowired
@@ -45,14 +43,18 @@ public class ServicioServicio {
     }
 
     @Transactional
-    public void actualizarServicio(String id, String rubro, Boolean estado, MultipartFile archivo) throws MiException {
+    public void actualizarServicio(String id, String rubro, String estado, MultipartFile archivo) throws MiException {
 
         validar(rubro);
         Optional<Servicio> respuesta = servicioRepositorio.findById(id);
         if (respuesta.isPresent()) {
             Servicio servicio = respuesta.get();
             servicio.setRubro(rubro);
-            servicio.setEstado(estado);
+            if (estado.equalsIgnoreCase("ALTA")) {
+                servicio.setEstado(true);
+            } else {
+                servicio.setEstado(false);
+            }
             
           String idImagen = null;
             if (servicio.getImagen() != null) {
