@@ -99,5 +99,13 @@ public class ServicioServicio {
             throw new MiException("El rubro no puede ser nulo o estar vacio");
         }
     }
-
+@Transactional
+    // Método que devuelve el usuario por id
+    public Servicio buscarServicio(String id) {
+        return servicioRepositorio.buscarServicio(id);
+    }
+    
+    public Servicio obtenerServicio(String id) {
+        return buscarServicio(id);
+    }
 }
