@@ -23,7 +23,7 @@
                         <tr>
                             <td hidden th:value="${id}" name="id"></td>  
                             <td th:text="${servicio.rubro}"></td> 
-                            <td ><img  class="" th:src="@{/imagen/perfil/__${servicio.id}__}" width="150px"></td>
+                            <td ><img  class="" th:src="@{/imagen/service/__${servicio.id}__}" width="150px"></td>
                             <td th:text="${servicio.estado == true ? 'ALTA':'BAJA'}"></td>
                             <td>
                                 <a th:href="@{/servicio/actualizar/__${servicio.id}__}"><i class="fas fa-feather-alt"></i>
