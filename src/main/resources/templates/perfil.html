@@ -1,106 +1,137 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/frangments/head :: head"></head>
+    <head th:replace="/frangments/head :: head"></head>
 
-<body class="grid-container">
-<header class="header">
-    <nav th:replace="/frangments/navbar :: nav"></nav>
-</header>
-<article class="mainDash">
-    <!-- ERROR/EXITO -->
-    <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError">
-        <div class="card-body">
-            <h5 class="card-title">Error 👎</h5>
-            <p class="card-text" th:text="${error}"></p>
-        </div>
-    </div>
-    <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito">
-        <div class="card-body">
-            <h5 class="card-title">Exito!</h5>
-            <p class="card-text" th:text="${exito}"></p>
-        </div>
-    </div>
-
-    <!-- FORMULARIO -->
-
-
-    <main>
-        <div>
-            <h1>PERFIL</h1>
-            <h3 th:if="${session.usuariosession != null}"
-                th:text=" 'Bienvenido '+ ${session.usuariosession.nombre}"></h3>
-        </div>
-        <div class="container">
-            <a class="d-flex align-items-center">
-                <img th:src="@{/imagen/perfil/__${usuario.id}__}" alt="img_usuario">
-            </a>
-        </div>
-        <h1>DATOS DEL USUARIO</h1>
-        <div class="container-fluid m-5 contenedor">
-
-
-            
-
-
-            <table  class="tablaPerfil" sec:authorize="hasRole('PROVEEDOR')" border="2">
-                <tr>
-                    <th>Nombre cliente</th>
-                    <th>Trabajo a Realizar</th>
-                    <th>Fecha de Solicitud</th>
-                    <th>Aceptación de trabajo</th>
-                </tr>
-                <tr th:each="contrato: ${contratos}" th:if="${contrato.getInicioT() ==false}">
-                    <td th:text="${contrato.getUsuario().getNombre() +' '+ contrato.getUsuario().getApellido() }"></td>
-                    <td th:text="${contrato.getDescripcionTrabajo()}"></td>
-                    <td th:text="${contrato.getFechaSolicitud()}"></td>
-                    <td><a th:href="@{/contrato/contratoaceptado/__${contrato.getId()}__}">Aceptar</a></td>
-                </tr>
-
-            </table>
-            <img th:src="@{imagen/perfil/__${usuario.id}__}" alt="" class="form-control">
-            <br>
-            <label th:text="${usuario.nombre}" class="form-control"></label>
-            <br>
-            <label th:text="${usuario.apellido}" class="form-control"></label>
-            <br>
-            <label th:text="${usuario.telefono}" class="form-control"></label>
-            <br>
-            <label th:text="${usuario.correo}" class="form-control"></label>
-            <br>
-            <label th:text="${usuario.rol}" class="form-control"></label>
-            <br>
-            <label sec:authorize="hasRole('PROVEEDOR')" th:text="${usuario.experiencia}" class="form-control"></label>
-            <br>
-            <label sec:authorize="hasRole('PROVEEDOR')" th:text="${usuario.precioXHora}" class="form-control"></label>
-            <br>
-            <label sec:authorize="hasRole('PROVEEDOR')" th:text="${usuario.servicio.rubro}"
-                   class="form-control"></label>
-            <br>
-            <a href="/inicio">
-                <button class="btn btn-primary mt-3 botones">Volver</button>
-            </a>
-            <form class="formulario" th:action="@{/solicitudRol/cambioRol}" method="POST" enctype="multipart/form-data">
-                <div class="form-group">
-                    <input type="hidden" name="idProveedor" th:value="${usuario.id}">
-                    <input type="hidden" name="rol" th:value="${usuario.rol}">
-                    <select name="idServicio" class="form-control">
-                        <option value="">Seleccionar Servicio</option>
-                        <option th:each="servicio : ${servicio}"
-                                th:value="${servicio.id}"
-                                th:text="${servicio.rubro}"/>
-                    </select>
-                    <input type="number" size="30" class="form-group" name="precioXHora" placeholder="Precio por Hora"
-                           th:value="${precioXHora}">
-                    <input type="text" size="30" class="form-group" name="experiencia" placeholder="Experiencia"
-                           th:value="${experiencia}">
+    <body class="grid-container">
+        <header class="header">
+            <nav th:replace="/frangments/navbar :: nav"></nav>
+        </header>
+        <article class="mainDash">
+            <!-- ERROR/EXITO -->
+            <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError">
+                <div class="card-body">
+                    <h5 class="card-title">Error 👎</h5>
+                    <p class="card-text" th:text="${error}"></p>
                 </div>
-                <button type="submit" class="btn btn-primary"> Enviar Solicitud de Cambio de ROL</button>
-            </form>
-        </div>
-    </main>
+            </div>
+            <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito">
+                <div class="card-body">
+                    <h5 class="card-title">Exito!</h5>
+                    <p class="card-text" th:text="${exito}"></p>
+                </div>
+            </div>
 
-</article>
-<footer th:replace="frangments/footer:: footer"></footer>
-<script src="/script.js"></script>
-</body>
+            <!-- FORMULARIO -->
+
+
+            <main>
+                <!-- <div>
+                     <h1>PERFIL</h1>
+                     <h3  class="containerPU"  th:if="${session.usuariosession != null}"
+                          th:text=" 'Bienvenido '+ ${session.usuariosession.nombre}"></h3>
+                 </div>
+                 <div class="containerPU">
+                     <a class="perfilUsu">
+                         <img th:src="@{/imagen/perfil/__${usuario.id}__}" alt="img_usuario">
+                     </a>
+                 </div>-->
+                <h1>DATOS DEL USUARIO</h1>
+                <div class="container-fluid m-5 contenedor">
+
+
+                    <table  class="tablaPerfil" sec:authorize="hasRole('PROVEEDOR')" border="2">
+                        <tr>
+                            <th>Nombre cliente</th>
+                            <th>Trabajo a Realizar</th>
+                            <th>Fecha de Solicitud</th>
+                            <th>Aceptación de trabajo</th>
+                        </tr>
+                        <tr th:each="contrato: ${contratos}" th:if="${contrato.getInicioT() ==false}">
+                            <td th:text="${contrato.getUsuario().getNombre() +' '+ contrato.getUsuario().getApellido() }"></td>
+                            <td th:text="${contrato.getDescripcionTrabajo()}"></td>
+                            <td th:text="${contrato.getFechaSolicitud()}"></td>
+                            <td><a th:href="@{/contrato/contratoaceptado/__${contrato.getId()}__}">Aceptar</a></td>
+                        </tr>
+
+                    </table>
+                    <div class="form-group">
+                        <div>
+                            <div>
+                                <label class="form-controlTi">Foto de perfil</label>
+                            </div>
+                            <div>
+                                <img class="form-control-img" th:src="@{imagen/perfil/__${usuario.id}__}" alt="Foto Perfil" >
+                            </div>
+                        </div>
+                        <div class="infoUsu">
+                            <div>
+                                <label class="form-controlTi">Datos Cargados</label>
+                            </div><br>
+                            <div>
+                                <label th:text="'Nombre: '+${usuario.nombre}" class="form-control"></label>
+                            </div><br>
+                            <div>
+                                <label th:text="'Apellido: '+${usuario.apellido}" class="form-control"></label>
+                            </div><br>
+                            <div>
+                                <label th:text=" 'Teléfono: '+${usuario.telefono}" class="form-control"></label>
+                            </div><br>
+                            <div>
+                                <label th:text=" ' Mail: '+${usuario.correo}" class="form-control"></label>
+                            </div><br>
+                            <div>
+                                <label th:text="' Rol: '+${usuario.rol}" class="form-control"></label>
+                            </div>
+                        </div>
+                        <div>
+                            <a th:href="@{/usuario/actualizar/__${usuario.id}__}">
+                                <button class=" botonesEdit">Editar</button>
+                            </a>
+                            <br>
+                            <a href="/panel">
+                                <button class="botonesVolver">Volver</button>
+                            </a>
+                            <br>
+                            
+                            <button class=" botonesSerProv" onclick="ShowInfo">Quiero ser proveedor</button>
+                           
+                        </div>
+                        <br> <br>
+                        <div>
+                            <label sec:authorize="hasRole('PROVEEDOR')" th:text="${usuario.experiencia}" class="form-control"></label>
+                        </div>
+                        <div>
+                            <label sec:authorize="hasRole('PROVEEDOR')" th:text="${usuario.precioXHora}" class="form-control"></label>
+                        </div>
+                        <div>
+                            <label sec:authorize="hasRole('PROVEEDOR')" th:text="${usuario.servicio.rubro}" class="form-control"></label>
+                        </div>
+
+                    </div>
+
+
+                    <form class="formulario" th:action="@{/solicitudRol/cambioRol}" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <input type="hidden" name="idProveedor" th:value="${usuario.id}">
+                            <input type="hidden" name="rol" th:value="${usuario.rol}">
+                            <select name="idServicio" class="">
+                                <option value="">Seleccionar Servicio</option>
+                                <option th:each="servicio : ${servicio}"
+                                        th:value="${servicio.id}"
+                                        th:text="${servicio.rubro}"/>
+                            </select>
+                            <input type="number" size="30" class="form-group" name="precioXHora" placeholder="Precio por Hora"
+                                   th:value="${precioXHora}">
+                            <input type="text" size="30" class="form-group" name="experiencia" placeholder="Experiencia"
+                                   th:value="${experiencia}">
+                        </div>
+                        <button type="submit" class="botonesSolicitud"> Enviar Solicitud de Cambio de ROL</button>
+                    </form>
+                </div>
+            </main>
+
+        </article>
+        <footer th:replace="frangments/footer:: footer"></footer>
+        <script src="/script.js"></script>
+    </body>
 </html>
