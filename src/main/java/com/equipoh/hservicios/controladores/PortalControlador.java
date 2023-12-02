@@ -99,15 +99,17 @@ public class PortalControlador {
     }
 
     @GetMapping("/inicio")
-    public String inicio(HttpSession session) {
+    public String inicio(HttpSession session, ModelMap modelo) {
 
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-
+List<Servicio> servicios = servicioServicio.listarServicios();
+        modelo.addAttribute("servicios", servicios);
         if (logueado.getRol().toString().equals("ADMIN")) {
             return "redirect:/admin/dashboard";
         }
         return "panel.html";
     }
+     
 
     @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN','ROLE_PROVEEDOR')")
     @GetMapping("/perfil")
@@ -152,7 +154,7 @@ public class PortalControlador {
     @GetMapping("/perfil/complete/{id}")
     public String perfil_proveedor(HttpSession session, @PathVariable(required = false) String id, ModelMap modelo) {
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
-        List<Contrato> contratos = contratoRepositorio.buscaContratoSinAceptar(usuario.getId());
+        List<Contrato> contratos = contratoRepositorio.buscacomentario(id);
         modelo.put("usuario", usuario);
         modelo.addAttribute("contratos", contratos);
         modelo.put("proveedores", proveedorServicio.getOne(id));

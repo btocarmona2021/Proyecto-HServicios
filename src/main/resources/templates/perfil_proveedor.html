@@ -6,64 +6,119 @@
         <header class="header">
             <nav th:replace="/frangments/navbar :: nav"></nav>
         </header>
-        <article class="main"> 
+        <article class="main">
 
-            <a href="/contrato">  agregar boton contratar</a></div>
+            <div id="contenedor">
+                <div id="columna-izquierda" style="float: left; width: 50%">
+                    <div class="container_p">
+                        <tbody th:each="proveedor : ${proveedores}" th:if="${proveedor.id = id}">
+                        <div class="card_p">
+                            <div>
+                                <a><img th:if="${proveedor.imagen != null}" class="logo"
+                                        th:src="@{/imagen/perfil/__${proveedor.id}__}" width="150px"></a>
 
-        <div class="container_p">
+                            </div>
+                            <div>
+                                <table>
+                                    <tr>
+                                        <th scope="col">Nombre:</th>
+                                        <td th:text="${proveedor.nombre}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Apellido:</th>
+                                        <td th:text="${proveedor.Apellido}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Direccion:</th>
+                                        <td th:text="${proveedor.direccion}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Telefono:</th>
+                                        <td th:text="${proveedor.telefono}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Email:</th>
+                                        <td th:text="${proveedor.correo}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Precio:</th>
+                                        <td th:text="${proveedor.precioXHora}"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="col">Rubro:</th>
+                                        <td th:text="${proveedor.servicio.rubro}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Experiencia:</th>
+                                        <td th:text="${proveedor.experiencia}"></td>
+                                    </tr>
+
+                                </table>
+                                <a th:href="@{/contrato/enviocontrato/__${proveedor.id}__}"><i
+                                        class="fas fa-feather-alt"></i>
+
+                                    <button class="button2">Contratar</button>
+                                </a>
+                            </div>
 
 
-            <tbody th:each="proveedor : ${proveedores}" th:if="${proveedor.id = id}"> 
-            <div class="card_p" >
-                <div>
-                    <a><img th:if="${proveedor.imagen != null}" class="logo" th:src="@{/imagen/perfil/__${proveedor.id}__}" width="150px"></a>
+                        </div>
+                        </tbody>
+                    </div>
+
 
                 </div>
-                <div>
-                    <table>
-                        <tr>
-                            <th scope="col">Nombre: </th><td th:text="${proveedor.nombre}"></td>
-                        </tr>
-                        <tr>
-                            <th scope="col">Apellido: </th><td th:text="${proveedor.Apellido}"></td>
-                        </tr>
-                        <tr>
-                            <th scope="col">Direccion: </th><td th:text="${proveedor.direccion}"></td>
-                        </tr>
-                        <tr>
-                            <th scope="col">Telefono: </th><td th:text="${proveedor.telefono}"></td>
-                        </tr>
-                        <tr>
-                            <th scope="col">Email: </th><td th:text="${proveedor.correo}"></td>
-                        </tr> 
-                        <tr>
-                            <th scope="col">Precio: </th><td th:text="${proveedor.precioXHora}"></td>
-                        </tr>
 
-                        <tr>
-                            <th scope="col">Rubro: </th><td th:text="${proveedor.servicio.rubro}"></td>
-                        </tr>
-                        <tr>
-                            <th scope="col">Experiencia: </th><td th:text="${proveedor.experiencia}"></td>
-                        </tr>
-                        
+                <div id="columna-derecha" style="float: right; width: 50%">
 
 
+                   
+                        <table>
+                
+                            <tr th:each="contrato: ${contratos}">
+                    
+                    <td th:if="${contrato.puntuacion != 0}">
+                        <div class="valoracion" th:style="${'font-size:30px'}">
+                            <label onclick="valorar(1)"
+                                   th:style="${contrato.puntuacion >= 1 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                            <label onclick="valorar(2)"
+                                   th:style="${contrato.puntuacion >= 2 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                            <label onclick="valorar(3)"
+                                   th:style="${contrato.puntuacion >= 3 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                            <label onclick="valorar(4)"
+                                   th:style="${contrato.puntuacion >= 4 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                            <label onclick="valorar(5)"
+                                   th:style="${contrato.puntuacion >= 5 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                        </div>
+                    </td>
+                    <td th:unless="${contrato.puntuacion != 0}">
+                        <p>El cliente aún no ha calificado</p>
+                    </td>
+                </tr>
 
-                    </table>
-                </div>
+            
+                            <tr>
+                                
 
+                                <th class="sin" colspan="2">Comentario de otros Cliente</th>
+                            </tr>
+                            <tr th:each="contrato: ${contratos}" th:if="${contrato.getComentario().getContenido() != 'Dejá tu apreciación hacia el proveedor, ayudará a otros usuarios a elegir, Gracias por usar nuestro servicio'}">
+                                
+                                <td class="sin" th:text="${contrato.getUsuario().getNombre()+'  :'}"></td>
 
+                                <td class="sin" th:text="${contrato.getComentario().getContenido()}"></td>
+                            </tr>
+
+                        </table></div>
+                </div> 
             </div>
-            </tbody>
-        </div>
-        
-        <div>listar un maximo de comentarios comentarios</div>
-        <div>mostrar puntaje en promedio</div> 
-        <div>
 
-    </article>
-    <footer th:replace="frangments/footer:: footer"></footer>
-    <script src="/script.js"></script>
-</body>
+
+            <div>
+
+        </article>
+        <footer th:replace="frangments/footer:: footer"></footer>
+        <script src="/script.js"></script>
+    </body>
 </html>

@@ -105,8 +105,8 @@ public class UsuarioServicio implements UserDetailsService {
 
             // ********** INICIO ACTUALIZACIÓN DE LA IMAGEN **********
             //SI LA IMAGEN DEL USUARIO ES LA DEFAULT CREARA UNA NUEVA IMAGEN, CASO CONTRARIO ACTUALIZARA LA IMAGEN
-            if (usuario.getImagen().getNombre().equalsIgnoreCase("defecto_image_service.png")) {
-                usuario.setImagen(imagenServicio.guardarImagen(archivo));
+            if (archivo.isEmpty()) {
+                usuario.setImagen(usuario.getImagen());
             } else {
                 usuario.setImagen(imagenServicio.actualizarImagen(archivo, usuario.getImagen().getId()));
             }

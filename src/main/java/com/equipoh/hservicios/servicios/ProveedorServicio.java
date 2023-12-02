@@ -95,8 +95,9 @@ public class ProveedorServicio {
         proveedor.setExperiencia(experiencia);
         proveedor.setPrecioXHora(precioXHora);
         proveedor.setServicio(servicio);
-        if (proveedor.getImagen().getNombre().equalsIgnoreCase("defecto_image_service.png")) {
-            proveedor.setImagen(imagenServicio.guardarImagen(archivo));
+        
+             if (archivo.isEmpty()) {
+                proveedor.setImagen(proveedor.getImagen());
         } else {
             proveedor.setImagen(imagenServicio.actualizarImagen(archivo, proveedor.getImagen().getId()));
         }

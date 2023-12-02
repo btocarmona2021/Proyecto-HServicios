@@ -7,9 +7,9 @@
             <nav th:replace="/frangments/navbar :: nav"></nav>
         </header>
 
-        <article class="main"> 
+        <article class="mainre"> 
             <div id="contenedor">
-                <div id="columna-izquierda" style="float: left; width: 50%">
+                <div  id="columna-izquierda" style="float: left; width: 50%">
                     <form th:action="@{/contrato/solicitudTrabajo}" method="post">
 
                         <h1>Datos del proveedor</h1>
@@ -24,16 +24,15 @@
                 <div id="columna-derecha" style="float: right; width: 50%">
 
                     <h1>Datos del cliente</h1>
-                    <img th:src="@{/imagen/perfil/__${usuario.getId()}__}" alt="">
-                    <h1 th:text="${usuario.getNombre() +' '+ usuario.getApellido()}"></h1>
-                    <h4 th:text="${usuario.getDireccion()}"></h4>
+                   <!-- <img th:src="@{/imagen/perfil/__${usuario.getId()}__}" alt="">-->
+                    <h1 th:text="${usuario.getNombre() +' '+ usuario.getApellido()}" style="text-transform: uppercase"></h1>
+                    
+                                       <!--< <h4 th:text="${usuario.getDireccion()}"></h4>
                     <h4 th:text="${usuario.getTelefono()}"></h4>
-                    <h4 th:text="${usuario.getCorreo()}"></h4>
-                    <textarea name="descTrabajo" id="" cols="30" rows="10">
-        Describí el trabajo a realizar
-                    </textarea>
-                    <input type="submit" value="Contratar" onclick="return confirm('¿Está seguro de que desea contratar este proveedor  ?')">
-
+                    <h4 th:text="${usuario.getCorreo()}"></h4>-->
+                                       <div><textarea name="descTrabajo" id="" cols="30" rows="10">Describa su trabajo, lo mas detallado posible.
+                    </textarea></div>
+                                       <div>   <button class="button2" type="submit" value="Contratar" onclick="return confirm('¿Está seguro de que desea CONTRTAR este Proveedor?')">Contratar</button></div>
                     </form>
                 </div> 
             </div>

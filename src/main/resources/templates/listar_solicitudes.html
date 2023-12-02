@@ -8,14 +8,14 @@
     <nav th:replace="/frangments/navbar :: nav"
     </nav>
 </header>
-<article class="main">
+<article class="mainuser">
     <!-- LISTA -->
 
     <h1>Seleccione una Solicitud</h1>
 
     <div class="container m-5">
 
-        <table id="customers">
+        <table class="sin" id="customers">
 
             <tr>
 
@@ -29,7 +29,7 @@
             </tr>
 
             <tbody th:each="solicitud : ${solicitudes}">
-            <tr>
+            <tr >
                 <td hidden th:value="${solicitud.id}" name="idSolicitud"></td>
                 <td th:text="${solicitud.estado == false ? 'PENDIENTE' : 'APROBADO'}"></td>
                 <td th:text="${solicitud.fechaSolicitud}"></td>

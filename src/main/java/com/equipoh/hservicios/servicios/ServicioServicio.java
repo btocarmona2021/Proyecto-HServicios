@@ -59,10 +59,13 @@ public class ServicioServicio {
             if (servicio.getImagen() != null) {
                 idImagen = servicio.getImagen().getId();
                 
-                
             }
+            if (archivo.isEmpty()) {
+                servicio.setImagen(servicio.getImagen());
+        } else {
+            servicio.setImagen(imagenServicio.actualizarImagen(archivo, servicio.getImagen().getId()));
+        }
             
-            servicio.setImagen(imagenServicio.actualizarImagen(archivo, idImagen));
 
             servicioRepositorio.save(servicio);
 

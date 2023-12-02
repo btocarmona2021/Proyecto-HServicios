@@ -13,87 +13,88 @@
             <h1 sec:authorize="hasRole('USUARIO')">Panel de Usuario</h1>
             <h1 sec:authorize="hasRole('PROVEEDOR')">Panel de Proveedor</h1>
             <div class="link-containerpanel">
-            <div class="link-container">
-                <a sec:authorize="hasRole('ADMIN')" href="/usuario/registrar">Crear Usuario / Proveedor</a>
 
-            </div>
-            <div class="link-container">
-                <a sec:authorize="hasRole('ADMIN')" href="/admin/pcensuradas"> Añadir Palabras Censuradas</a>
+                <div class="link-container">
+                    <a sec:authorize="hasRole('USUARIO')" href="/perfil"> Mi perfil usuario</a>
 
-            </div>
-            <div class="link-container">
-                <a sec:authorize="hasRole('ADMIN')" href="/admin/imagendefault">Añadir Imagen por defecto</a>
-            </div>
-            <div class="link-container">
-                <a sec:authorize="hasRole('USUARIO')" href="/perfil"> Mi perfil usuario</a>
-
-            </div>
-            <div class="link-container">
-                <a sec:authorize="hasRole('USUARIO')" href="/perfiles">Solicitudes de trabajos</a>
-
-            </div>
-            <div class="link-container">
-                <a sec:authorize="hasRole('USUARIO')" href="#">Quiero ser Proveedor</a>
-
-            </div>
-
-            <div class="link-container">
-                <a sec:authorize="hasRole('ADMIN')" href="/usuario/lista">Ver todos los usuarios</a>
-            </div>
-            <div class="link-container">
-                <a sec:authorize="hasRole('ADMIN')" href="/proveedor/lista">Ver todos los proveedores</a>
-            </div>
-            <div class="link-container">
-                <a sec:authorize="hasRole('PROVEEDOR')" href="/perfil"> Mi perfil proveedor</a>
-                
-            </div>
-            <div class="link-container">
-                <a sec:authorize="hasRole('PROVEEDOR')" href="#">Dejar de ser Proveedor</a>
-
-            </div>
-            <div class="link-container">
-                <a sec:authorize="hasRole('PROVEEDOR')" href="/perfiles">Trabajos</a>
-                
-            </div>
-
-
-
-            <div class="link-container">
-                <a sec:authorize="hasRole('ADMIN')" href="/servicio/registrar">Crear servicio</a>
-            </div>
-            <div class="link-container">
-                <a sec:authorize="hasRole('ADMIN')" href="/servicio/lista">Ver todos los servicios</a>
-            </div>
-            <div class="link-container">
-                <a sec:authorize="hasRole('ADMIN')" href="/solicitudRol/lista">Ver Solicitudes cambio de Rol</a>
-            </div> </div>
-
-
-                <div  class="container">
-                    <tbody th:each="servicio : ${servicios}" sec:authorize="hasRole('USUARIO')">   
-                    <div class="card" >
-                        <div> <form class="" th:action="@{/buscador}" method="POST">
-                                <div>
-                                    <input hidden="" type="text" class="" name="buscar" th:value="${servicio.rubro}">
-
-                                    <button type="submit" class="button2"><div>
-                            <p th:text="${servicio.rubro}"></p>
-                        </div>
-                                        <img th:src="@{/imagen/service/__${servicio.id}__}"   alt="${servicio.rubro}"></button>
-
-                                </div>
-                            </form>
-
-                        </div>
-                        
-                    </div>
-                    </tbody>
                 </div>
+                <div class="link-container">
+                    <a sec:authorize="hasRole('USUARIO')" href="/perfiles">Solicitudes de trabajos</a>
+
+                </div>
+                <div class="link-container">
+                    <a sec:authorize="hasRole('USUARIO')" href="#">Quiero ser Proveedor</a>
+
+                </div>
+
+
+                <div class="link-container">
+                    <a sec:authorize="hasRole('PROVEEDOR')" href="/perfil"> Mi perfil proveedor</a>
+
+                </div>
+                <div class="link-container">
+                    <a sec:authorize="hasRole('PROVEEDOR')" href="#">Dejar de ser Proveedor</a>
+
+                </div>
+                <div class="link-container">
+                    <a sec:authorize="hasRole('PROVEEDOR')" href="/perfiles">Trabajos</a>
+
+                </div>
+                <div class="link-container">
+                    <a sec:authorize="hasRole('ADMIN')" href="/usuario/registrar">Crear Usuario / Proveedor</a>
+
+                </div>
+                <div class="link-container">
+                    <a sec:authorize="hasRole('ADMIN')" href="/admin/pcensuradas"> Añadir Palabras Censuradas</a>
+
+                </div>
+                <div class="link-container">
+                    <a sec:authorize="hasRole('ADMIN')" href="/admin/imagendefault">Añadir Imagen por defecto</a>
+                </div>
+
+
+                <div class="link-container">
+                    <a sec:authorize="hasRole('ADMIN')" href="/usuario/lista">Ver todos los usuarios</a>
+                </div>
+                <div class="link-container">
+                    <a sec:authorize="hasRole('ADMIN')" href="/proveedor/lista">Ver todos los proveedores</a>
+                </div>
+                <div class="link-container">
+                    <a sec:authorize="hasRole('ADMIN')" href="/servicio/registrar">Crear servicio</a>
+                </div>
+                <div class="link-container">
+                    <a sec:authorize="hasRole('ADMIN')" href="/servicio/lista">Ver todos los servicios</a>
+                </div>
+                <div class="link-container">
+                    <a sec:authorize="hasRole('ADMIN')" href="/solicitudRol/lista">Ver Solicitudes cambio de Rol</a>
+                </div> </div>
+
+
+            <div  class="container">
+                <tbody th:each="servicio : ${servicios}" sec:authorize="hasRole('USUARIO')">   
+                <div class="card" >
+                    <div> <form class="" th:action="@{/buscador}" method="POST">
+                            <div>
+                                <input hidden="" type="text" class="" name="buscar" th:value="${servicio.rubro}">
+
+                                <button type="submit" class="button2"><div>
+                                        <p th:text="${servicio.rubro}"></p>
+                                    </div>
+                                    <img th:src="@{/imagen/service/__${servicio.id}__}"   alt="${servicio.rubro}"></button>
+
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+                </tbody>
             </div>
+        </div>
 
 
-        </article>
-        <footer th:replace="frangments/footer:: footer"></footer>
-        <script src="/script.js"></script>
-    </body>
+    </article>
+    <footer th:replace="frangments/footer:: footer"></footer>
+    <script src="/script.js"></script>
+</body>
 </html>
