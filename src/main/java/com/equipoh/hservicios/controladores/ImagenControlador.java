@@ -96,18 +96,7 @@ public class ImagenControlador {
     } 
 
        
-        Servicio servicio = servicioServicio.obtenerServicio(id);
-
-       byte[] imagen = servicio.getImagen().getContenido();
-
-        HttpHeaders headers = new HttpHeaders();
-
-        headers.setContentType(MediaType.IMAGE_JPEG);
-
-
-        return new ResponseEntity<>(imagen, headers,HttpStatus.OK);
-
-    }
+//       
     @GetMapping("/lista")
     public String listarServicios (ModelMap modelo) {
         List<Servicio> servicios = servicioServicio.listarServicios();
