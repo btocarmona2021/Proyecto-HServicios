@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Carga de imagen por defecto de Registrados</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace= "/frangments/head :: head"></head>
+
+    <body class="grid-container">
+        <header class="header">
+            <nav th:replace="/frangments/navbar :: nav"></nav>
+        </header>
+        <article class="main"> 
 <form th:action="@{/imagen/cargado}" method="post" enctype="multipart/form-data">
     <h1>Carga de imagen por defecto</h1>
     <input type="file" name="archivo">
@@ -19,5 +21,9 @@
     <input type="submit">
     <h4>Si ya cuentas con una imagen por defecto puedes actualizarla aqui</h4>
 </form>
-</body>
+
+        </article>
+        <footer th:replace="frangments/footer:: footer"></footer>
+        <script src="/script.js"></script>
+    </body>
 </html>

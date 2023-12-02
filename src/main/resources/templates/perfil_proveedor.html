@@ -71,24 +71,47 @@
                 </div>
 
                 <div id="columna-derecha" style="float: right; width: 50%">
-                    <div>mostrar puntaje en promedio</div>
-                    <div>
+
+
+                   
                         <table>
+                
+                            <tr th:each="contrato: ${contratos}">
+                    
+                    <td th:if="${contrato.puntuacion != 0}">
+                        <div class="valoracion" th:style="${'font-size:30px'}">
+                            <label onclick="valorar(1)"
+                                   th:style="${contrato.puntuacion >= 1 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                            <label onclick="valorar(2)"
+                                   th:style="${contrato.puntuacion >= 2 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                            <label onclick="valorar(3)"
+                                   th:style="${contrato.puntuacion >= 3 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                            <label onclick="valorar(4)"
+                                   th:style="${contrato.puntuacion >= 4 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                            <label onclick="valorar(5)"
+                                   th:style="${contrato.puntuacion >= 5 ? 'color: orange;' : 'color: grey;'}">&#9733;</label>
+                        </div>
+                    </td>
+                    <td th:unless="${contrato.puntuacion != 0}">
+                        <p>El cliente aún no ha calificado</p>
+                    </td>
+                </tr>
+
+            
                             <tr>
-                                <th></th>
+                                
 
-                                <th>Comentario de otros Cliente</th>
+                                <th class="sin" colspan="2">Comentario de otros Cliente</th>
                             </tr>
-                            <tr th:each="contrato: ${contratos}"
-                                th:if="${contrato.getComentario().getContenido() != 'Dejá tu apreciación hacia el proveedor, ayudará a otros usuarios a elegir, Gracias por usar nuestro servicio'}">
-                                <td th:text="${contrato.getUsuario().getNombre()}"></td>
+                            <tr th:each="contrato: ${contratos}" th:if="${contrato.getComentario().getContenido() != 'Dejá tu apreciación hacia el proveedor, ayudará a otros usuarios a elegir, Gracias por usar nuestro servicio'}">
+                                
+                                <td class="sin" th:text="${contrato.getUsuario().getNombre()+'  :'}"></td>
 
-                                <td th:text="${contrato.getComentario().getContenido()}"></td>
+                                <td class="sin" th:text="${contrato.getComentario().getContenido()}"></td>
                             </tr>
 
-                        </table>
-                    </div>
-                </div>
+                        </table></div>
+                </div> 
             </div>
 
 
@@ -97,5 +120,5 @@
         </article>
         <footer th:replace="frangments/footer:: footer"></footer>
         <script src="/script.js"></script>
-</body>
+    </body>
 </html>

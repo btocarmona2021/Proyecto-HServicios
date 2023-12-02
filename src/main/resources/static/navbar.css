@@ -143,6 +143,8 @@
 img {
 
     width: 60px;
+    height: 60px;
+    border-radius: 6px;
 }
     .input{
         border-radius: 10px;

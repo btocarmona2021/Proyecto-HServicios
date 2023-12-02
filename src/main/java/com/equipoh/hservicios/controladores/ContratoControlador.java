@@ -121,7 +121,7 @@ public class ContratoControlador {
         System.out.println(puntuacion + "puntuacion quellega");
         Contrato contrato = contratoServicio.obtenerContrato(id);
         contratoServicio.valoracionProveedor(id, puntuacion);
-        return "redirect:/perfilu";
+        return "redirect:/perfilusuario";
     }
 
 
