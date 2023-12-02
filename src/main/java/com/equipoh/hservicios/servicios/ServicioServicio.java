@@ -56,7 +56,6 @@ public class ServicioServicio {
             String idImagen = null;
             if (servicio.getImagen() != null) {
                 idImagen = servicio.getImagen().getId();
-
             }
 
             servicio.setImagen(imagenServicio.actualizarImagen(archivo, idImagen));

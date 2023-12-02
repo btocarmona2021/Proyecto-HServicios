@@ -6,16 +6,16 @@
     <ul class="nav-menu">
         <li class="nav-menu-item">
 
-            <a href="/usuario/registrar" class="nav-menu-link nav-link" th:if ="${session.usuariosession ==null }">Registrarse</a>
+            <a href="/usuario/registrar" class="nav-menu-link nav-link" sec:authorize="!isAuthenticated()" >Registrarse</a>
         </li>
         <li class="nav-menu-item">
-            <a href="/login" class="nav-menu-link nav-link" th:if ="${session.usuariosession ==null}">Ingresar</a>
+            <a href="/login" class="nav-menu-link nav-link" sec:authorize="!isAuthenticated()" >Ingresar</a>
         </li>
         <li class="nav-menu-item">
-            <a href="/panel" class="nav-menu-link nav-link" th:if ="${session.usuariosession !=null}">Panel de control</a>
+            <a href="/panel" class="nav-menu-link nav-link" sec:authorize="isAuthenticated()" th:if ="${session.usuariosession !=null}">Panel de control</a>
         </li>
         <li class="nav-menu-item">
-            <a href="/logout" class="nav-menu-link nav-link" th:if ="${session.usuariosession !=null}">Salir</a>
+            <a href="/logout" class="nav-menu-link nav-link" sec:authorize="isAuthenticated()" th:if ="${session.usuariosession !=null}">Salir</a>
         </li>
         <li class="nav-menu-item">
             <div>
@@ -30,13 +30,13 @@
             </div>
         </li>
         <li class="nav-menu-item">
-            <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}"  role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text=" 'Hola  '+ ${session.usuariosession.nombre} ">
+            <a class="nav-link dropdown-toggle" sec:authorize="isAuthenticated()" th:if="${session.usuariosession != null}"  role="button" data-bs-toggle="dropdown" aria-expanded="false" th:text=" 'Hola  '+ ${session.usuariosession.nombre} ">
             </a>
             
         </li>
         <li class="nav-menu-item">
             
-            <a><img th:if="${session.usuariosession != null}" class="perfil" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" width="100px"></a>
+            <a><img sec:authorize="isAuthenticated()" th:if="${session.usuariosession != null}" class="perfil" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" width="100px"></a>
         </li>
         
         <!-- <li class="nav-menu-item">
