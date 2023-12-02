@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 
-    <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org">
 
-    <head th:replace= "/fragments/head :: head"> </head>
+<head th:replace="/fragments/temp :: head"></head>
 
     <body background="trabajos-construccion-servicios-instrumento-mano-ilustracion-herramientas-trabajo_485380-548.jpg">
                 
@@ -73,7 +73,7 @@
             </section>
         
           </div>
-        <div th:replace ="fragments/footer :: div"> </div>
+            <div th:replace="fragments/temp :: footer"></div>
         <div th:replace ="fragments/script :: div"> </div>
     </body>
 </html>
