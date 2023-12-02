@@ -22,6 +22,8 @@ public interface ContratoRepositorio extends JpaRepository<Contrato, String> {
 
     @Query("SELECT AVG(c.puntuacion) FROM Contrato c WHERE c.proveedor.id = :id")
     public Double buscapromedio(@Param("id") String id);
+    @Query("SELECT c FROM Contrato c WHERE c.proveedor.id = :id or c.usuario.id = :id")
+    public List<Contrato> buscacomentario(@Param("id") String id);
 
 
 }

@@ -6,7 +6,7 @@
         <header class="header">
             <nav th:replace="/frangments/navbar :: nav"></nav>
         </header>
-        <article class="main"> 
+        <article class="mainuser"> 
             <!-- LISTA -->
 
             <h1>Seleccione un Proveedor editar</h1>
@@ -58,7 +58,7 @@
                                  
                     </div>
                     <div>
-                        <table>
+                        <table >
                             <tr>
                                 <th scope="col">Nombre: </th><td th:text="${proveedor.nombre}"></td>
                             </tr>
@@ -86,17 +86,20 @@
                             <tr>
                                 <th scope="col"> Rol: </th><td th:text="${proveedor.rol}"> </td>
                             </tr>
+                            <tr>
+                                    <th scope="col"></th><td ><div>
+                                            <a th:href="@{/proveedor/actualizar/__${proveedor.id}__}"><button class="button2" type="button"> Actualizar Perfil</button></a>
+                                        </div></td>
+                                </tr>
+                                 <tr>
+                                    <th scope="col"></th><td ><div>
+                                            <a th:href="@{/contrato/enviocontrato/__${proveedor.id}__}"><button class="button2" type="button">       Contratar       </button></a>
+                                        </div></td>
+                                </tr>
                             
-                            <tr>
-                                <th scope="col"> </th><td> <a th:href="@{/proveedor/actualizar/__${proveedor.id}__}"><i class="fas fa-feather-alt"></i>
-                                Actualizar Perfil</a></td>
-                            </tr>
-                            <tr>
-                                <th scope="col"></th>
-                                <td><a th:href="@{/contrato/enviocontrato/__${proveedor.id}__}"><i
-                                        class="fas fa-feather-alt"></i>
-                                    Contratar</a></td>
-                            </tr>
+                            
+                           
+                            
 
 
                         </table>

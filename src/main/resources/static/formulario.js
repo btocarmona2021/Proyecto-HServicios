@@ -13,7 +13,7 @@ const expresiones = {
     direccion: /^[A-Za-z0-9 ]+$/, // Letras y espacios, pueden llevar acentos.
     direccionu: /^[A-Za-z0-9 ]+$/, // Letras y espacios, pueden llevar acentos.
     servicio: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
-    experiencia: /^[A-Za-z0-9 ]{50,200}$/, // Letras y espacios, pueden llevar acentos.
+    experiencia: /^[A-Za-zÑñÁáÉéÍíÓóÚú0-9 ]{20,200}$/, // Letras y espacios, pueden llevar acentos.
     precioXHora: /^\d{1,14}$/, // 7 a 14 numeros.
     password: /^.{5,12}$/, // 4 a 12 digitos.
     passwordu: /^.{5,12}$/, // 4 a 12 digitos.

@@ -105,8 +105,8 @@ public class UsuarioServicio implements UserDetailsService {
 
             // ********** INICIO ACTUALIZACIÓN DE LA IMAGEN **********
             //SI LA IMAGEN DEL USUARIO ES LA DEFAULT CREARA UNA NUEVA IMAGEN, CASO CONTRARIO ACTUALIZARA LA IMAGEN
-            if (usuario.getImagen().getNombre().equalsIgnoreCase("defecto_image_service.png")) {
-                usuario.setImagen(imagenServicio.guardarImagen(archivo));
+            if (archivo.isEmpty()) {
+                usuario.setImagen(usuario.getImagen());
             } else {
                 usuario.setImagen(imagenServicio.actualizarImagen(archivo, usuario.getImagen().getId()));
             }
@@ -202,7 +202,9 @@ public class UsuarioServicio implements UserDetailsService {
 
     public List<Usuario> listarUsuario() {
         // La lista va a recuperar a todos los usuarios para mostrar en la pagina a todos ellos
-        List<Usuario> usuarios = usuarioRepositorio.findAll();
+        //List<Usuario> usuarios = usuarioRepositorio.findAll();
+       List<Usuario> usuarios = new ArrayList();
+       usuarios = usuarioRepositorio.buscarPorrol();
         return usuarios;
     }
 

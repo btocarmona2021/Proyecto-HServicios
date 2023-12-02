@@ -37,13 +37,14 @@ public class ImagenControlador {
     private ImagenServicio imagenServicio;
     @Autowired
     private ImagenRepositorio imagenRepositorio;
-@Autowired
+    @Autowired
     private ServicioServicio servicioServicio;
 
     @GetMapping("/perfil/{id}")
     public ResponseEntity<byte[]> imagenUsuario(@PathVariable String id) {
 
         Usuario usuario = usuarioServicio.obtenerUsuario(id); //FALTA USUARIO SERVICIO
+        Servicio servicio = servicioServicio.obtenerServicio(id);
 
         byte[] imagen = usuario.getImagen().getContenido();
 
@@ -77,9 +78,22 @@ public class ImagenControlador {
         modelo.put("exito", "Se ha cargado la imagen correctamente");
         return "redirect:/admin/imagendefault";
     }
-
 @GetMapping("/service/{id}")
     public ResponseEntity<byte[]>imagenServicio(@PathVariable String id){
+
+       
+        Servicio servicio = servicioServicio.obtenerServicio(id);
+
+       byte[] imagen = servicio.getImagen().getContenido();
+
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.setContentType(MediaType.IMAGE_JPEG);
+
+
+        return new ResponseEntity<>(imagen, headers,HttpStatus.OK);
+
+    } 
 
        
         Servicio servicio = servicioServicio.obtenerServicio(id);

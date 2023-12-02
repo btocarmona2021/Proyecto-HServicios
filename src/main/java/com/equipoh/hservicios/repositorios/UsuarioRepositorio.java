@@ -52,5 +52,7 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, String> {
     //PARA LA CREACION DE ADMIN
     @Query("SELECT u FROM Usuario u WHERE u.rol= 'ADMIN'")
     public List<Usuario> buscaAdmin();
+    @Query("SELECT u FROM Usuario u WHERE u.rol = 'USUARIO'")
+    public List<Usuario> buscarPorrol();
 
 }
