@@ -174,6 +174,7 @@ public class UsuarioServicio implements UserDetailsService {
         return usuarioRepositorio.getOne(id);
     }
 
+
     @Transactional
     public void bajaUsuario(String id) throws MiException {
         Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
@@ -274,4 +275,5 @@ public class UsuarioServicio implements UserDetailsService {
             return null;
         }
     }
+
 }

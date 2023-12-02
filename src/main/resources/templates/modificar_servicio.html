@@ -20,12 +20,12 @@
                         agregar imagen
                         <input type="text" class="form-group" name="rubro" placeholder="Actualice el rubro" th:value="${servicio.rubro}">
                     </div> 
-                     <label for="lang">Estado</label>
-      <select name="Estado" id="lang">
-        <option th:value="${servicio.estado}">alta</option>
-        <option value="BAJA">BAJA</option>
-       
-      </select>
+                    <label for="lang">Estado</label>
+                    <select name="estado" id="lang">
+                        <option th:value="${servicio.estado}" th:text="${servicio.estado ? 'ALTA':'BAJA'}"></option>
+                        <option th:value="${servicio.estado ? 'BAJA':'ALTA'}"
+                                th:text="${servicio.estado ? 'BAJA':'ALTA'}"></option>
+                    </select>
                     <br>
                     <div class="form-group">
                         <input type="file" class="form-control" name="archivo">
@@ -60,8 +60,8 @@
             }
         </script>
     </div>
-  </article>
-        <footer th:replace="frangments/footer:: footer"></footer>
+</article>
+<footer th:replace="frangments/footer:: footer"></footer>
 <script src="/script.js"></script>
 </body>
 </html>

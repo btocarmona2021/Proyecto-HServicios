@@ -13,9 +13,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
 @Repository
 public interface ServicioRepositorio extends JpaRepository<Servicio, String> {
-    @Query("SELECT r FROM Servicio r Where r.rubro = :rubro")
-    public List<Servicio> buscarPorRubro(@Param("rubro") String rubro);
+    //@Query("SELECT r FROM Servicio r Where r.rubro = :rubro")
+    //  public List<Servicio> buscarPorRubro(@Param("rubro") String rubro);
+
+    @Query("SELECT s FROM Servicio s WHERE s.id = :id")
+    public Servicio buscarServicio(@Param("id") String id);
 }

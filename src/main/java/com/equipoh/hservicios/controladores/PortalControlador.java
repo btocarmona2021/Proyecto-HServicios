@@ -1,10 +1,12 @@
+
+
 package com.equipoh.hservicios.controladores;
+
 
 import com.equipoh.hservicios.entidades.Contrato;
 import com.equipoh.hservicios.entidades.Proveedor;
 import com.equipoh.hservicios.entidades.Servicio;
 import com.equipoh.hservicios.entidades.Usuario;
-import com.equipoh.hservicios.excepciones.MiException;
 import com.equipoh.hservicios.repositorios.ContratoRepositorio;
 import com.equipoh.hservicios.repositorios.ProveedorRepositorio;
 import com.equipoh.hservicios.servicios.ProveedorServicio;
@@ -21,13 +23,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.springframework.web.multipart.MultipartFile;
+
 
 @Controller
 @RequestMapping("/")
 public class PortalControlador {
+
 
     @Autowired
     private UsuarioServicio usuarioServicio;
