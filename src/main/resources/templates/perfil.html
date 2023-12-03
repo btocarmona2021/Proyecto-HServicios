@@ -25,16 +25,7 @@
 
 
             <main>
-                <!-- <div>
-                     <h1>PERFIL</h1>
-                     <h3  class="containerPU"  th:if="${session.usuariosession != null}"
-                          th:text=" 'Bienvenido '+ ${session.usuariosession.nombre}"></h3>
-                 </div>
-                 <div class="containerPU">
-                     <a class="perfilUsu">
-                         <img th:src="@{/imagen/perfil/__${usuario.id}__}" alt="img_usuario">
-                     </a>
-                 </div>-->
+
                 <h1>DATOS DEL USUARIO</h1>
                 <div class="container-fluid m-5 contenedor">
 
@@ -55,18 +46,17 @@
 
                     </table>
                     <div class="form-group">
-                        <div>
-                            <div>
-                                <label class="form-controlTi">Foto de perfil</label>
-                            </div>
-                            <div>
-                                <img class="form-control-img" th:src="@{imagen/perfil/__${usuario.id}__}" alt="Foto Perfil" >
-                            </div>
+
+                        <div class="foto"> 
+                            <h3>Foto Perfil :</h3>
+                            <img class="form-control-img" th:src="@{imagen/perfil/__${usuario.id}__}" alt="Foto Perfil" >
                         </div>
+                        <br>
                         <div class="infoUsu">
                             <div>
-                                <label class="form-controlTi">Datos Cargados</label>
-                            </div><br>
+                                <h3>Datos Cargados :</h3>
+                            </div>
+                            <br>
                             <div>
                                 <label th:text="'Nombre: '+${usuario.nombre}" class="form-control"></label>
                             </div><br>
@@ -83,61 +73,88 @@
                                 <label th:text="' Rol: '+${usuario.rol}" class="form-control"></label>
                             </div>
                         </div>
-                        <div>
-                            <a th:href="@{/usuario/actualizar/__${usuario.id}__}">
-                                <button class=" botonesEdit">Editar</button>
-                            </a>
-                            <br>
-                            <a href="/panel">
-                                <button class="botonesVolver">Volver</button>
-                            </a>
-                            <br>
-
-
+                        <br>
+                        <div id="divReforma" class="infoUsuPro">
+                            <form class="formulario-Pro" id="reforma" th:action="@{ / solicitudRol / cambioRol}" method="POST" enctype="multipart/form-data">
+                                <fieldset>
+                                    <div class="form-group-pro">
+                                        <input type="hidden" name="idProveedor" th:value="${usuario.id}">
+                                        <input type="hidden" name="rol" th:value="${usuario.rol}">
+                                        <select name="idServicio" class="indatos">
+                                            <option class="indatos"  value="">Seleccionar Servicio</option>
+                                            <option th:each="servicio : ${servicio}"
+                                                    th:value="${servicio.id}"
+                                                    th:text="${servicio.rubro}"/>
+                                        </select><br>
+                                        <input  type="number" size="30" class="form-group-pro" name="precioXHora" placeholder="Precio por Hora"
+                                                th:value="${precioXHora}">
+                                        <input type="text" size="30" class="datos-expe" name="experiencia" placeholder="Experiencia"
+                                               th:value="${experiencia}">
+                                    </div><br>
+                                    <button type="submit" class="botonesSolicitud"> Enviar Solicitud de Cambio de ROL</button>
+                                </fieldset>
+                            </form>
                         </div>
-                        <br> <br>
-                        <div  >
-                            <label sec:authorize="hasRole('PROVEEDOR')" th:text="${usuario.experiencia}" class="form-control"></label>
-                        </div>
-                        <div>
-                            <label sec:authorize="hasRole('PROVEEDOR')" th:text="${usuario.precioXHora}" class="form-control"></label>
-                        </div>
-                        <div>
-                            <label sec:authorize="hasRole('PROVEEDOR')" th:text="${usuario.servicio.rubro}" class="form-control"></label>
-                        </div>
-
                     </div>
-                    <div>
-                      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
-                        <div ng-app="">
-                            <button ng-click="ocultar = true">Ocultar</button>
-                            <button ng-click="ocultar = false" class=" botonesSerProv" >Quiero ser proveedor</button> 
-
-                            <form ng-hide="ocultar">
 
 
-                                <div>
-                                    <form class="formulario" th:action="@{ / solicitudRol / cambioRol}" method="POST" enctype="multipart/form-data">
-                                        <div class="form-group">
-                                            <input type="hidden" name="idProveedor" th:value="${usuario.id}">
-                                            <input type="hidden" name="rol" th:value="${usuario.rol}">
-                                            <select name="idServicio" class="">
-                                                <option value="">Seleccionar Servicio</option>
-                                                <option th:each="servicio : ${servicio}"
-                                                        th:value="${servicio.id}"
-                                                        th:text="${servicio.rubro}"/>
-                                            </select><br>
-                                            <input  type="number" size="30" class="form-group" name="precioXHora" placeholder="Precio por Hora"
-                                                    th:value="${precioXHora}">
-                                            <input type="text" size="30" class="form-group" name="experiencia" placeholder="Experiencia"
-                                                   th:value="${experiencia}">
-                                        </div><br>
-                                        <button type="submit" class="botonesSolicitud"> Enviar Solicitud de Cambio de ROL</button>
-                                    </form>
-                                </div>
-                        </div>
-                        </form>
-                    </div>  
+
+
+                </div>
+                <div class="botones-varios">
+                    <a th:href="@{/usuario/actualizar/__${usuario.id}__}">
+                        <button class=" botonesEdit">Editar</button>
+                    </a>
+                    <br>
+                    <a href="/panel">
+                        <button class="botonesVolver">Volver</button>
+                    </a>
+                    <br>
+                    <button onclick="functionShowReforma()" type="button"  id=reforma>Quiero ser Proveedor</button>
+
+                </div>
+                <br> 
+                <div  >
+                    <label sec:authorize="hasRole('PROVEEDOR')" th:text="${usuario.experiencia}" class="form-control"></label>
+                </div>
+                <div>
+                    <label sec:authorize="hasRole('PROVEEDOR')" th:text="${usuario.precioXHora}" class="form-control"></label>
+                </div>
+                <div>
+                    <label sec:authorize="hasRole('PROVEEDOR')" th:text="${usuario.servicio.rubro}" class="form-control"></label>
+                </div>
+
+                </div>
+                <div>
+
+
+                    <script>
+                        document.getElementById("divReforma").style.display = "none";
+                        $(function () {
+                            $("#obra").click(function () {
+                                $("#formReforma").hide();
+                                $("#formObra").show();
+                                $("#formReforma").trigger("reset");
+                            });
+
+                            $("#reforma").click(function () {
+                                $("#formObra").hide();
+                                $("#formReforma").show();
+                                $("#formObra").trigger("reset");
+                            });
+                        });
+                        function functionShowReforma() {
+                            var x = document.getElementById("divReforma");
+                            var xForm = document.getElementById("formReforma");
+                            if (x.style.display === "none") {
+                                x.style.display = "block";
+                            } else {
+                                x.style.display = "none";
+                                xForm.reset();
+                            }
+                        }
+                    </script>
+
 
 
 
