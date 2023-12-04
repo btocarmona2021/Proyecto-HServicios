@@ -1,5 +1,3 @@
-
-
 package com.equipoh.hservicios.controladores;
 
 
@@ -16,14 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -50,8 +44,8 @@ public class PortalControlador {
         return "index.html";
     }
 
-    
-     @GetMapping("/login")
+
+    @GetMapping("/login")
     public String login(@RequestParam(required = false) String error, ModelMap modelo) {
 
         if (error != null) {
@@ -59,11 +53,11 @@ public class PortalControlador {
         }
         return "login.html";
     }
-    
+
 
     @GetMapping("/panel")
     public String panel(ModelMap modelo) {
-         List<Servicio> servicios = servicioServicio.listarServicios();
+        List<Servicio> servicios = servicioServicio.listarServicios();
         modelo.addAttribute("servicios", servicios);
         return "panel.html";
     }
@@ -102,14 +96,14 @@ public class PortalControlador {
     public String inicio(HttpSession session, ModelMap modelo) {
 
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-List<Servicio> servicios = servicioServicio.listarServicios();
+        List<Servicio> servicios = servicioServicio.listarServicios();
         modelo.addAttribute("servicios", servicios);
         if (logueado.getRol().toString().equals("ADMIN")) {
             return "redirect:/admin/dashboard";
         }
         return "panel.html";
     }
-     
+
 
     @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMIN','ROLE_PROVEEDOR')")
     @GetMapping("/perfil")
@@ -161,5 +155,4 @@ List<Servicio> servicios = servicioServicio.listarServicios();
 
         return "perfil_proveedor.html";
     }
-
 }

@@ -37,14 +37,13 @@ public class Contrato {
     private Date fechaSolicitud;
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaInicio;
-    @Temporal(TemporalType.TIMESTAMP) //AGREGUE EL TIMESTAMP QUE FALTABA
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaFinal;
 
-    @ManyToOne //CAMBIEN A MANY TO ONE
+    @ManyToOne
     private Proveedor proveedor;
-    @ManyToOne  //AGREGUE LA RELACION
+    @ManyToOne
     private Usuario usuario;
-    //AGREGUE RELACION Y PROPIEDAD CON COMENTARIO
     @OneToOne
     private Comentario comentario;
 }

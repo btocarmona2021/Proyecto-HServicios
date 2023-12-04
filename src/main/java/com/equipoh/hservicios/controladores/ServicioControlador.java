@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.equipoh.hservicios.controladores;
 
 import com.equipoh.hservicios.entidades.Servicio;
@@ -20,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 /**
- *
  * @author Pc
  */
 @Controller
@@ -37,7 +31,7 @@ public class ServicioControlador {
 
     @PostMapping("/registro")
     public String registroServicio(String rubro, MultipartFile archivo, ModelMap modelo) {
-        System.out.println("imagen: "+archivo);
+        System.out.println("imagen: " + archivo);
         try {
             servicioServicio.registrarServicio(rubro, archivo);
             modelo.put("exito", "El servicio fue registrado correctamente");
@@ -46,11 +40,11 @@ public class ServicioControlador {
             return "registrar_servicio.html";
         }
 
-        return "panel";
+        return "registrar_servicio.html";
     }
 
     @GetMapping("/lista")
-    public String listarServicios (ModelMap modelo) {
+    public String listarServicios(ModelMap modelo) {
         List<Servicio> servicios = servicioServicio.listarServicios();
         modelo.addAttribute("servicios", servicios);
         return "listar_servicio.html";

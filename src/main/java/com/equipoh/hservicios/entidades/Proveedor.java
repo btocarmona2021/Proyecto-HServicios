@@ -1,21 +1,16 @@
 
 package com.equipoh.hservicios.entidades;
 
-import javax.persistence.Column;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 
 /**
- *
  * @author jorge
  */
 @Entity
@@ -34,5 +29,5 @@ public class Proveedor extends Usuario {
 
     @OneToOne
     private Servicio servicio;
-            
+
 }

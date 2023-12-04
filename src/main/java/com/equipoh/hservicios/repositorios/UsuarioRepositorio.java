@@ -10,24 +10,11 @@ import java.util.List;
 
 @Repository
 public interface UsuarioRepositorio extends JpaRepository<Usuario, String> {
-    // query de prueba
-    // COMO NO PEDIMOS NOMBRE DE USUARIO SEGURAMENTE VAMOS A USAR LOGUEO POR MAIL
-    //HABRIA QUE ADAPTAR LA QUERY
-    /*
-    @Query("SELECT u FROM Usuario u WHERE u.nombre = :nombre")
-    public Usuario buscarPorNombre(@Param("nombre") String nombre);
-    */
 
-    // Busca por correo
     @Query("SELECT u FROM Usuario u WHERE u.correo = :correo")
     public Usuario buscarPorCorreo(@Param("correo") String correo);
 
-    /**************************
-     * Cuando quiera buscar por mail para LOGUEARME LUEGO DE EFECTUAR EL CAMBIO DE
-     * TIPO DE USUARIO), tengo que, además de buscar el mail, buscar si esta dado
-     * de ALTA (Alta = TRUE). Esto se haría para poder evitar que la @QUERY arroje
-     * más de un resultado.
-     **************************/
+
     @Query("SELECT u FROM Usuario u WHERE u.id = :id")
     public Usuario buscarUsuario(@Param("id") String id);
 
@@ -41,7 +28,7 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, String> {
     @Query("SELECT u FROM Usuario u WHERE u.correo = :correo AND u.alta = FALSE")
     public Usuario buscarCorreoInactivo(@Param("correo") String correo);
 
-    //----------------------------
+
     @Query("SELECT u FROM Usuario u WHERE u.correo = :correo AND u.alta = TRUE")
     public Usuario buscarCorreoActivo(@Param("correo") String correo);
 

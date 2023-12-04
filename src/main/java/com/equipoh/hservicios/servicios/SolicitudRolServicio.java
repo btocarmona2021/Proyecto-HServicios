@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.equipoh.hservicios.servicios;
 
 import com.equipoh.hservicios.entidades.Proveedor;
@@ -12,16 +8,15 @@ import com.equipoh.hservicios.excepciones.MiException;
 import com.equipoh.hservicios.repositorios.ProveedorRepositorio;
 import com.equipoh.hservicios.repositorios.SolicitudRolRepositorio;
 import com.equipoh.hservicios.repositorios.UsuarioRepositorio;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import javax.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
- *
  * @author jorge
  */
 @Service
@@ -108,5 +103,4 @@ public class SolicitudRolServicio {
             throw new MiException("No se pudo dar de alta la solicitud ");
         }
     }
-
 }

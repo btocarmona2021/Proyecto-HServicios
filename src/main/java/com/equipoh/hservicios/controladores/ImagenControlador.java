@@ -9,7 +9,6 @@ import com.equipoh.hservicios.repositorios.ImagenRepositorio;
 import com.equipoh.hservicios.servicios.ImagenServicio;
 import com.equipoh.hservicios.servicios.ServicioServicio;
 import com.equipoh.hservicios.servicios.UsuarioServicio;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,6 +21,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * @author Martb
@@ -78,27 +79,26 @@ public class ImagenControlador {
         modelo.put("exito", "Se ha cargado la imagen correctamente");
         return "redirect:/admin/imagendefault";
     }
-@GetMapping("/service/{id}")
-    public ResponseEntity<byte[]>imagenServicio(@PathVariable String id){
 
-       
+    @GetMapping("/service/{id}")
+    public ResponseEntity<byte[]> imagenServicio(@PathVariable String id) {
+
+
         Servicio servicio = servicioServicio.obtenerServicio(id);
 
-       byte[] imagen = servicio.getImagen().getContenido();
+        byte[] imagen = servicio.getImagen().getContenido();
 
         HttpHeaders headers = new HttpHeaders();
 
         headers.setContentType(MediaType.IMAGE_JPEG);
 
 
-        return new ResponseEntity<>(imagen, headers,HttpStatus.OK);
+        return new ResponseEntity<>(imagen, headers, HttpStatus.OK);
 
-    } 
+    }
 
-       
-//       
     @GetMapping("/lista")
-    public String listarServicios (ModelMap modelo) {
+    public String listarServicios(ModelMap modelo) {
         List<Servicio> servicios = servicioServicio.listarServicios();
         modelo.addAttribute("servicios", servicios);
         return "listar_servicio.html";

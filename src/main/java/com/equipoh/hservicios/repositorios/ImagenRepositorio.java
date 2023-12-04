@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 /**
  * @author Martb
  */
-
 @Repository
 public interface ImagenRepositorio extends JpaRepository<Imagen, String> {
     @Query("SELECT i FROM Imagen i WHERE i.nombre  LIKE  '%efecto_image_service%' ")

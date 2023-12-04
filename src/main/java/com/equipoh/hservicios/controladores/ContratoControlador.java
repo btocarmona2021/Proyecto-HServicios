@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.equipoh.hservicios.controladores;
 
 import com.equipoh.hservicios.entidades.Contrato;
@@ -69,6 +64,7 @@ public class ContratoControlador {
             return "redirect:/perfil";
         }
     }
+
     @GetMapping("/aceptacontrato")
     public String aceptacontrato() {
         return "aceptacontrato";
@@ -123,34 +119,4 @@ public class ContratoControlador {
         contratoServicio.valoracionProveedor(id, puntuacion);
         return "redirect:/perfilusuario";
     }
-
-
-
-    
-   /* @GetMapping("/lista")
-    public String listarContratos (ModelMap modelo) {
-        List<Contrato> contratos = contratoServicio.listarContratos();
-        modelo.addAttribute("contratos", contratos);
-        return "listar_contrato.html";
-    }
-
-
-    @GetMapping("/actualizar/{id}")
-    public String actualizarContrato(@PathVariable String id, ModelMap modelo) {
-        modelo.put("contrato", contratoServicio.getOne(id));
-        return "modificar_contrato.html";
-    }
-
-    @PostMapping("/actualizar/{id}")
-    public String actualizarContrato(String id,Date fechaInicio, Date fechaFinal, Boolean solicitudT, Boolean inicioT, Boolean finT,Integer puntuacion, Proveedor proveedor, Usuario usuario, ModelMap modelo) {
-        try {
-            contratoServicio.actualizarContrato(id, fechaInicio, fechaFinal, solicitudT, inicioT, finT, puntuacion, proveedor, usuario);
-            modelo.put("exito", "Contrato actualizado correctamente");
-            return "redirect:/contrato/lista";
-        } catch (MiException ex) {
-            modelo.put("error", ex.getMessage());
-            return "modificar_contrato.html";
-        }
-
-    }*/
 }

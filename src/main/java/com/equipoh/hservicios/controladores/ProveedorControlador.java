@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.equipoh.hservicios.controladores;
 
 import com.equipoh.hservicios.entidades.Proveedor;
@@ -12,10 +8,13 @@ import com.equipoh.hservicios.servicios.ServicioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author jorge
@@ -28,7 +27,7 @@ public class ProveedorControlador {
     private ProveedorServicio proveedorServicio;
     @Autowired
     private ServicioServicio servicioServicio;
-    
+
     @GetMapping("/registrar")
     public String registrarProveedor(ModelMap modelo) {
         List<Servicio> servicio = servicioServicio.listarServicios();
@@ -40,7 +39,7 @@ public class ProveedorControlador {
     public String registroProveedor(MultipartFile archivo, String nombre, String apellido, String direccion,
                                     String telefono, String correo, String password, String password2, String rol,
                                     String experiencia, Double precioXHora, String idServicio, ModelMap modelo) {
-        System.out.println("idServico: " +idServicio);
+        System.out.println("idServico: " + idServicio);
         try {
             proveedorServicio.registrarProveedor(archivo, nombre, apellido, direccion, telefono, correo, password, password2, rol, experiencia, precioXHora, idServicio);
             modelo.put("exito", "El Proveedor fue registrado correctamente");
@@ -83,7 +82,4 @@ public class ProveedorControlador {
         }
 
     }
-    
-     
-
 }

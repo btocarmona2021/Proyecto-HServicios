@@ -1,4 +1,3 @@
-
 package com.equipoh.hservicios.servicios;
 
 import com.equipoh.hservicios.entidades.Imagen;
@@ -12,7 +11,6 @@ import javax.transaction.Transactional;
 import java.util.Optional;
 
 /**
- *
  * @author Martb
  */
 
@@ -86,7 +84,7 @@ public class ImagenServicio {
                     System.out.println("LA ID IMAGEN NO ESTA NULA");
                     Optional<Imagen> respuesta = imagenRepositorio.findById(idImagen);
                     if (respuesta.isPresent()) {
-                        imagen= respuesta.get();
+                        imagen = respuesta.get();
                     }
                 }
                 imagen.setMime(archivo.getContentType());

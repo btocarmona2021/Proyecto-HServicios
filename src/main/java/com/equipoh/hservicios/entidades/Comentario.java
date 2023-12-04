@@ -21,7 +21,7 @@ public class Comentario {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String idcomentario;
-    @Column(length = 2000) //GENERA EN BASE DE DATOS UN VARCHAR DE 1000 CARACTERES.
+    @Column(length = 2000) //GENERA EN BASE DE DATOS UN VARCHAR DE 2000 CARACTERES.
     private String contenido;
     private Boolean estado; //ADMIN DECIDIRÁ SI EL COMENTARIO ES OFENSIVO PUDIENDO DESHABILITARLO
 }

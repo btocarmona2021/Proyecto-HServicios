@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.equipoh.hservicios.servicios;
 
 import com.equipoh.hservicios.entidades.Proveedor;
@@ -45,9 +41,9 @@ public class ProveedorServicio {
 
     @Transactional
     public void registrarProveedor(MultipartFile archivo, String nombre, String apellido, String direccion,
-            String telefono, String correo, String password, String password2, String rol,
-            String experiencia, Double precioXHora, String idServicio) throws MiException {
-        
+                                   String telefono, String correo, String password, String password2, String rol,
+                                   String experiencia, Double precioXHora, String idServicio) throws MiException {
+
         List<Proveedor> existe = proveedorRepositorio.buscarCorreoProveedorActivo(correo);
         if ((!existe.isEmpty())) {
             throw new MiException("El correo electronico con el que intenta registrarse ya se encuentra en nuestra base de datos");
@@ -85,8 +81,8 @@ public class ProveedorServicio {
 
     @Transactional
     public void actualizar(MultipartFile archivo, String id, String nombre, String apellido, String direccion,
-            String telefono, String correo, String password, String password2, String rol,
-            String experiencia, Double precioXHora, String idServicio, String alta) throws MiException {
+                           String telefono, String correo, String password, String password2, String rol,
+                           String experiencia, Double precioXHora, String idServicio, String alta) throws MiException {
 
         validar(nombre, correo, password, password2);
 
@@ -107,9 +103,9 @@ public class ProveedorServicio {
         proveedor.setExperiencia(experiencia);
         proveedor.setPrecioXHora(precioXHora);
         proveedor.setServicio(servicio);
-        
-             if (archivo.isEmpty()) {
-                proveedor.setImagen(proveedor.getImagen());
+
+        if (archivo.isEmpty()) {
+            proveedor.setImagen(proveedor.getImagen());
         } else {
             proveedor.setImagen(imagenServicio.actualizarImagen(archivo, proveedor.getImagen().getId()));
         }
@@ -175,11 +171,11 @@ public class ProveedorServicio {
             proveedor.setAlta(Boolean.FALSE);
             proveedorRepositorio.save(proveedor);
         } else {
-            // En el supuesto que no existiera el usuario...
+
             throw new MiException("No se pudo dar de baja el Usuario " + proveedorRepositorio.getById(id).getNombre() + ". El usuario no fue encontrado.");
         }
     }
-//ALTA
+
 
     @Transactional
     public void altaProveedor(String id, String experiencia, Double precioXHora, Servicio servicio) throws MiException {
@@ -192,7 +188,6 @@ public class ProveedorServicio {
             proveedor.setAlta(Boolean.TRUE);
             proveedorRepositorio.save(proveedor);
         } else {
-            // En el supuesto que no existiera el usuario...
             throw new MiException("No se pudo dar de baja el Usuario " + proveedorRepositorio.getById(id).getNombre() + ". El usuario no fue encontrado.");
         }
     }
@@ -200,7 +195,6 @@ public class ProveedorServicio {
     public List<Proveedor> listaProveedores() {
         List<Proveedor> proveedores = new ArrayList();
         proveedores = proveedorRepositorio.buscarProveedores();
-//        proveedores = proveedorRepositorio.findAll();
         return proveedores;
     }
 

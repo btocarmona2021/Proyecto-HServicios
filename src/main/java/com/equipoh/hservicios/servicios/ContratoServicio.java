@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.equipoh.hservicios.servicios;
 
 import com.equipoh.hservicios.entidades.Contrato;
@@ -79,14 +74,6 @@ public class ContratoServicio {
 
     @Transactional
     public void cancelaContrato(String idContrato) throws MiException {
-        /*Optional<Contrato> respuesta = contratoRepositorio.findById(idContrato);
-        Contrato contrato = new Contrato();
-        if (respuesta.isPresent()) {
-            contrato = respuesta.get();
-        }
-        contrato.setFechaInicio(null);
-        contrato.setInicioT(false);
-        contratoRepositorio.save(contrato);*/
         contratoRepositorio.deleteById(idContrato);
     }
 
@@ -120,7 +107,6 @@ public class ContratoServicio {
         Contrato contrato = contratoRepositorio.getOne(id);
         return contrato;
     }
-
 
 }
 

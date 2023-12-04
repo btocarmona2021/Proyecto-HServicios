@@ -1,35 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.equipoh.hservicios.servicios;
 
 
-import com.equipoh.hservicios.entidades.Imagen;
 import com.equipoh.hservicios.entidades.Servicio;
 import com.equipoh.hservicios.excepciones.MiException;
 import com.equipoh.hservicios.repositorios.ServicioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import javax.transaction.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class ServicioServicio {
 
-   @Autowired
+    @Autowired
     private ServicioRepositorio servicioRepositorio;
     @Autowired
     private ImagenServicio imagenServicio;
 
     @Transactional
-    public void registrarServicio(String rubro, MultipartFile archivo ) throws MiException {
+    public void registrarServicio(String rubro, MultipartFile archivo) throws MiException {
 
         validar(rubro);
 
@@ -37,12 +30,9 @@ public class ServicioServicio {
         servicio.setImagen(imagenServicio.guardarImagen(archivo));
         servicio.setRubro(rubro);
         servicio.setEstado(true);
-        
+
 
         servicioRepositorio.save(servicio);
-        
-
-
     }
 
     @Transactional
@@ -54,23 +44,19 @@ public class ServicioServicio {
             Servicio servicio = respuesta.get();
             servicio.setRubro(rubro);
             servicio.setEstado(estado);
-            
-          String idImagen = null;
+
+            String idImagen = null;
             if (servicio.getImagen() != null) {
                 idImagen = servicio.getImagen().getId();
-                
+
             }
             if (archivo.isEmpty()) {
                 servicio.setImagen(servicio.getImagen());
-        } else {
-            servicio.setImagen(imagenServicio.actualizarImagen(archivo, servicio.getImagen().getId()));
-        }
-            
-
+            } else {
+                servicio.setImagen(imagenServicio.actualizarImagen(archivo, servicio.getImagen().getId()));
+            }
             servicioRepositorio.save(servicio);
-
         }
-
     }
 
     @Transactional
@@ -90,9 +76,7 @@ public class ServicioServicio {
 
     public List<Servicio> listarServicios() {
         List<Servicio> rubro = new ArrayList<>();
-
         rubro = servicioRepositorio.findAll();
-
         return rubro;
     }
 
@@ -101,12 +85,13 @@ public class ServicioServicio {
             throw new MiException("El rubro no puede ser nulo o estar vacio");
         }
     }
+
     @Transactional
-    // Método que devuelve el usuario por id
+
     public Servicio buscarServicio(String id) {
         return servicioRepositorio.buscarServicio(id);
     }
-    
+
     public Servicio obtenerServicio(String id) {
         return buscarServicio(id);
     }
