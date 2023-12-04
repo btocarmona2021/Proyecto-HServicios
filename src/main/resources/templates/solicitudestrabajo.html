@@ -6,7 +6,7 @@
 <header class="header">
     <nav th:replace="/frangments/navbar :: nav"></nav>
 </header>
-<article class="main">
+<article class="mainuser">
     <!-- ERROR/EXITO -->
     <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError">
         <div class="card-body">
@@ -22,9 +22,7 @@
     </div>
 
     <!-- FORMULARIO -->
-
-
-    <main>
+    <main class="sin">
         <div>
             <h1 sec:authorize="hasRole('ADMIN')">Perfil de Administrador</h1>
             <h1 sec:authorize="hasRole('USUARIO')">Perfil de Usuario</h1>
