@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.equipoh.hservicios.servicios;
 
 import com.equipoh.hservicios.entidades.Proveedor;
@@ -44,7 +49,11 @@ public class UsuarioServicio implements UserDetailsService {
         System.out.println("SERVICIO USUARIO");
         System.out.println("CORREO:" + correo);
         List<Usuario> existe = usuarioRepositorio.buscarCorreoUsuarioActivo(correo);
-
+        /*
+        quiero que la siguiente linea llame al usuarioRepositorio.buscarCorreoUsuarioActivo(correo) que se fija si el correo no aparece en
+        la lista de proveedores, y reemplazar el if actual por
+        if ((existe.size()==2) || (!existe.isEmpty())) {
+         */
         if ((!existe.isEmpty())) {
             throw new MiException("El correo electronico con el que intenta registrarse ya se encuentra en nuestra base de datos");
         } else {
@@ -103,7 +112,17 @@ public class UsuarioServicio implements UserDetailsService {
             }
 
             // ********** FIN ACTUALIZACIÓN DE LA IMAGEN **********
-
+            /**
+             * *************************************
+             * ESPACIO RESERVADO CAMBIO DE USUARIO *
+             * *************************************
+             */
+            /**
+             * ***************************
+             * La siguiente linea sirve SOLO si se quiere CONSERVAR el rol. Caso
+             * contrario, ver de que el no se altere el ADMIN al intercambiar
+             * entre USUARIO y PROVEEDOR y viceversa ***************************
+             */
             usuario.setRol(usuario.getRol());
 
             usuario.setAlta(Boolean.TRUE);
@@ -154,7 +173,6 @@ public class UsuarioServicio implements UserDetailsService {
     public Usuario getOne(String id) {
         return usuarioRepositorio.getOne(id);
     }
-
 
     @Transactional
     public void bajaUsuario(String id) throws MiException {
