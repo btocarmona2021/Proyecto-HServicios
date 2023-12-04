@@ -8,7 +8,6 @@ package com.equipoh.hservicios.controladores;
 import com.equipoh.hservicios.entidades.Servicio;
 import com.equipoh.hservicios.excepciones.MiException;
 import com.equipoh.hservicios.servicios.ServicioServicio;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,8 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  *
@@ -64,7 +64,7 @@ public class ServicioControlador {
     }
 
     @PostMapping("/actualizar/{id}")
-    public String actualizar(String id,String rubro,MultipartFile archivo, String estado, ModelMap modelo) {
+    public String actualizar(String id, String rubro, MultipartFile archivo, Boolean estado, ModelMap modelo) {
         try {
             servicioServicio.actualizarServicio(id, rubro, estado, archivo);
             modelo.put("exito", "Servicio actualizado correctamente");
